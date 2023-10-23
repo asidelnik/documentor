@@ -1,0 +1,10 @@
+{
+  "videos": [
+    {
+      "id": 1,
+      "title": "Video 1",
+      "author": "Author 1",
+      "url": "https://www.youtube.com/watch?v=oG25KSvFEq0&ab_channel=WhiteNoiseWonderland"
+    }
+  ]
+}

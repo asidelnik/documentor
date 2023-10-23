@@ -1,0 +1,1 @@
+create a db.json with 1 object - some props & video of a cat
