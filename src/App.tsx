@@ -13,7 +13,7 @@ function App() {
       try {
         const response = await axios.get('http://localhost:3000/videos');
         console.log('axios ', response)
-        setAxiosData(response?.data?.videos);
+        setAxiosData(response?.data);
         setAxiosLoading(false);
       } catch (error: any) {
         setAxiosErrorMessage(error.message)
@@ -29,14 +29,16 @@ function App() {
       <div>
         {axiosLoading ? (
           <h2>Loading...</h2>
-        ) : (
-          axiosData && (
+        ) : (<>
+          <h2>not loading...</h2>
+          {axiosData && (
             <ul>
               {axiosData?.map((video: Video) => (
                 <li key={video.id}>{video.url}</li>
               ))}
             </ul>
-          )
+            )}
+          </>
         )}
         {axiosError && <p>{axioserrorMessage}</p>}
       </div>
