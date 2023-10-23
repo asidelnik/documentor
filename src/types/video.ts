@@ -3,4 +3,8 @@ export type Video = {
   title: string;
   url: string;
   author: string;
-}
+  startTime: string;
+  duration: number;
+  endTime: string;
+  orientation: 'Landscape' | 'Portrait';
+};

@@ -4,7 +4,31 @@
       "id": 1,
       "title": "Video 1",
       "author": "Author 1",
-      "url": "https://www.youtube.com/watch?v=oG25KSvFEq0&ab_channel=WhiteNoiseWonderland"
+      "url": "https://www.youtube.com/embed/oG25KSvFEq0?si=HY-pxYbU2eK3fzxb",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "duration": 10,
+      "endTime": "2023-10-23T00:00:10.000Z",
+      "orientation": "Portrait",
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [34.81487645767629, 32.16285692062229],
+        "heading": 177
+      }
+    },
+    {
+      "id": 2,
+      "title": "Video 2",
+      "author": "Author 2",
+      "url": "https://www.youtube.com/embed/LMS1nZbYXkc",
+      "startTime": "2023-10-23T00:00:05.000Z",
+      "duration": 10,
+      "endTime": "2023-10-23T00:00:15.000Z",
+      "orientation": "Landscape",
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [35.666559962555766, 33.16666702274233],
+        "heading": 313
+      }
     }
   ]
 }
