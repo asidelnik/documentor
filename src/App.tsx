@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react"
 import { Video } from "./types/video";
 import './App.css';
+import VideoList from "./components/video-list/VideoList";
 
 function App() {
   const [axiosData, setAxiosData] = useState<Video[] | undefined>(undefined);
@@ -30,37 +31,9 @@ function App() {
       <div>
         {axiosLoading ? (
           <h2>Loading...</h2>
-        ) : (<>
-          {axiosData && (
-            <ul>
-                {axiosData?.map((video: Video) => (<>
-                  {video.orientation == "Landscape" ? (
-                    <iframe
-                      key={video.id}
-                      width="560"
-                      height="315"
-                      src={video?.url}
-                      title="YouTube video player"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    // frameborder="0"
-                    // allowfullscreen
-                    ></iframe>
-
-                  ) : (
-                    <iframe
-                      key={video.id}
-                      width="315"
-                      height="560"
-                      src={video?.url}
-                      title="YouTube video player"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    // frameborder="0"
-                    // allowfullscreen
-                    ></iframe>
-                  )}
-                </>))}
-            </ul>
-            )}
+        ) : (
+            <>
+              {axiosData && <VideoList data={axiosData} />}
           </>
         )}
         {axiosError && <p>{axioserrorMessage}</p>}
