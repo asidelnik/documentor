@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react"
 import { Video } from "./types/video";
 import './App.css';
-import VideoList from "./components/video-list/VideoList";
+import VideoTimeline from "./components/video-timeline/VideoTimeLine";
 
 function App() {
   const [axiosData, setAxiosData] = useState<Video[] | undefined>(undefined);
@@ -33,7 +33,7 @@ function App() {
           <h2>Loading...</h2>
         ) : (
             <>
-              {axiosData && <VideoList data={axiosData} />}
+              {axiosData && <VideoTimeline data={axiosData} />}
           </>
         )}
         {axiosError && <p>{axioserrorMessage}</p>}

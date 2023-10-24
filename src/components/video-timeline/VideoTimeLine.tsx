@@ -5,7 +5,7 @@ type Props = {
   data: Video[] | undefined;
 };
 
-export default function VideoList({ data }: Props) {
+export default function VideoTimeline({ data }: Props) {
   return (
     <>
       <ul>
