@@ -5,7 +5,7 @@ type Props = {
   data: Video[] | undefined;
 };
 
-export default function VideoTimeline({ data }: Props) {
+export default function EventTimeline({ data }: Props) {
   return (
     <>
       <ul>
