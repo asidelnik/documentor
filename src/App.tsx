@@ -1,26 +1,31 @@
 import axios from "axios";
 import { useState, useEffect } from "react"
-import { Video } from "./types/video";
+import { Video, VideoFromServer } from "./types/video";
 import './App.css';
-import EventTimeline from "./components/event-timeline/EventTimeLine";
+// import EventTimeline from "./components/event-timeline/EventTimeLine";
+import VideoList from "./components/video-list--temp/VideoList";
 
 function App() {
-  const [axiosData, setAxiosData] = useState<Video[] | undefined>(undefined);
-  const [axiosLoading, setAxiosLoading] = useState(true);
-  const [axiosError, setAxiosError] = useState(false);
-  const [axioserrorMessage, setAxiosErrorMessage] = useState('');
+  const [data, setData] = useState<Video[] | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const axiosFetchData = async () => {
       try {
         const response = await axios.get('http://localhost:3000/videos');
-        console.log('axios ', response)
-        setAxiosData(response?.data);
-        setAxiosLoading(false);
+        const videos: Video[] = response?.data.map((videoItem: VideoFromServer) => ({
+          ...videoItem,
+          startTime: new Date(videoItem.startTime),
+          endTime: new Date(videoItem.endTime),
+        }));
+        setData(videos);
+        setIsLoading(false);
       } catch (error: any) {
-        setAxiosErrorMessage(error.message)
-        setAxiosError(true);
-        setAxiosLoading(false);
+        setErrorMessage(error.message)
+        setIsError(true);
+        setIsLoading(false);
       }
     };
     axiosFetchData();
@@ -29,14 +34,15 @@ function App() {
   return (
     <>
       <div>
-        {axiosLoading ? (
+        {isLoading ? (
           <h2>Loading...</h2>
         ) : (
             <>
-              {axiosData && <EventTimeline data={axiosData} />}
+              {/* {axiosData && <EventTimeline data={axiosData} />} */}
+              {data && <VideoList videos={data} />}
           </>
         )}
-        {axiosError && <p>{axioserrorMessage}</p>}
+        {isError && <p>{errorMessage}</p>}
       </div>
     </>
   )
