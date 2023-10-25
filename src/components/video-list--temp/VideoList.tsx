@@ -29,7 +29,14 @@ export default function VideoList({ videos }: Props) {
     }
   }
 
+  function handlePause() {
+    setIsSyncPlaying(false);
+    clearInterval(timelineIntervalId.current);
+  }
+
+
   function isSyncPlayHandle(video: Video): boolean | undefined {
+    console.log("isSyncPlayHandle");
     if (isSyncPlay) {
       const isTimelineTimeInVideoPeriod = timelineTime * 1000 >= video.startTime.getTime() - timelineStartTime.getTime();
       // console.log({ timelineTime, video });
@@ -61,45 +68,10 @@ export default function VideoList({ videos }: Props) {
                 }
               }
             }}
-            onPause={setSyncPlayingAndTimeline}
+            onPause={handlePause}
           />
         ))}
       </div>
     </div>
   );
 }
-
-{/* <iframe
-  // ref={(ref) => (iframeRefs.current[index] = ref)}
-  width="560"
-  height="315"
-  src={video.url}
-  title="YouTube video player"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowFullScreen
-></iframe> */}
-
-// const getNextVideoIndex = (currentIndex: number, videos: Video[]) => {
-//   const currentVideo = videos[currentIndex];
-//   const nextVideo = videos[currentIndex + 1];
-
-//   if (nextVideo && nextVideo.startTime.getTime() === currentVideo.startTime.getTime() + counter + 1) {
-//     return currentIndex + 1;
-//   } else {
-//     return currentIndex;
-//   }
-// };
-
-// const [counter, setCounter] = useState(0);
-// const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-
-// const iframeRefs = useRef<(HTMLIFrameElement | null)[]>([]);
-
-
-{/* <VideoItem
-              video={video}
-              // ref={(ref) => (iframeRefs.current[index] = ref)}
-              isSyncPlay={isSyncPlay}
-              timelineTime={timelineTime}
-              timelineStartTime={timelineStartTime}
-            /> */}
