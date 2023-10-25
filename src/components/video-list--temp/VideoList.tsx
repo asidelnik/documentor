@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react"; // , useEffect
 import { Video } from "../../types/video";
-import VideoItem from "../video-item/VideoItem";
+// import VideoItem from "../video-item/VideoItem";
+import ReactPlayer from 'react-player'
+import c from "./VideoList.module.scss"
+
 
 type Props = {
   videos: Video[];
@@ -8,33 +11,50 @@ type Props = {
 
 export default function VideoList({ videos }: Props) {
   const [isSyncPlay, setIsSyncPlaying] = useState(false);
-  const [timelineTime, setTimelineTime] = useState(0);
-  const timelineStartTime = videos[0].startTime;
+  console.log(videos)
+  // const [timelineTime, setTimelineTime] = useState(0);
+  // const timelineStartTime = videos[0].startTime;
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTimelineTime((prevTime) => prevTime + 1);
-    }, 1000);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setTimelineTime((prevTime) => prevTime + 1);
+  //   }, 1000);
 
-    return () => clearInterval(intervalId);
-  }, []);
+  //   return () => clearInterval(intervalId);
+  // }, []);
 
   return (
     <div>
       <button onClick={() => setIsSyncPlaying(!isSyncPlay)}>Play All</button>
-      <ul>
+      <div className={c.videoTimeline}>
         {videos.map((video) => (
-          <li key={video.id}>
-            <VideoItem
+          <div key={video.id}>
+            <ReactPlayer
+              url={video.url}
+              config={{
+                youtube: {
+                  embedOptions: {
+                    width: video.orientation == "Landscape" ? "560" : "315",
+                    height: video.orientation == "Landscape" ? "315" : "560"
+                    // showinfo: 1,
+                    // controls: 1,
+                    // autoplay: 1,
+                    // start: video.startTime.getTime() / 1000
+                  }
+                }
+              }}
+            />
+
+            {/* <VideoItem
               video={video}
               // ref={(ref) => (iframeRefs.current[index] = ref)}
               isSyncPlay={isSyncPlay}
               timelineTime={timelineTime}
               timelineStartTime={timelineStartTime}
-            />
-          </li>
+            /> */}
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
