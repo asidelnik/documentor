@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { Video, VideoFromServer } from "./types/video";
 import './App.css';
 // import EventTimeline from "./components/event-timeline/EventTimeLine";
-import VideoList from "./components/video-list--temp/VideoList";
+import VideoList from "./components/video-list/VideoList";
 
 function App() {
   const [data, setData] = useState<Video[] | undefined>(undefined);
