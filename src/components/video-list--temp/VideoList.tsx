@@ -1,3 +1,4 @@
+// TODO - decide if single video controls are enabled while sync playing.
 import { useState, useRef } from "react"; // , useEffect
 import { Video } from "../../types/video";
 // import VideoItem from "../video-item/VideoItem";
@@ -11,42 +12,56 @@ type Props = {
 
 export default function VideoList({ videos }: Props) {
   const [isSyncPlay, setIsSyncPlaying] = useState(false);
-  const intervalId = useRef(0);
-  // const [timelineTime, setTimelineTime] = useState(0);
-  // const timelineStartTime = videos[0].startTime;
+  const timelineIntervalId = useRef(0);
+  const [timelineTime, setTimelineTime] = useState(0);
+  const timelineStartTime = videos[0].startTime;
+  console.log({ timelineTime })
 
-  function handlePlay() {
+  function setSyncPlayingAndTimeline() {
     if (!isSyncPlay) {
       setIsSyncPlaying(!isSyncPlay);
-      intervalId.current = setInterval(() => {
-        // setTimelineTime((prevTime) => prevTime + 1);
+      timelineIntervalId.current = setInterval(() => {
+        setTimelineTime((prevTime) => prevTime + 1);
       }, 1000);
     } else {
-      clearInterval(intervalId.current);
+      clearInterval(timelineIntervalId.current);
       setIsSyncPlaying(!isSyncPlay);
     }
+  }
 
+  function isSyncPlayHandle(video: Video): boolean | undefined {
+    if (isSyncPlay) {
+      const isTimelineTimeInVideoPeriod = timelineTime * 1000 >= video.startTime.getTime() - timelineStartTime.getTime();
+      // console.log({ timelineTime, video });
+      // console.log(video.startTime.getTime() - timelineStartTime.getTime());
+      if (isTimelineTimeInVideoPeriod) {
+        return true;
+      }
+    }
+    return false;
   }
 
   return (
     <div>
-      <button onClick={handlePlay}>Play All</button>
+      <button onClick={setSyncPlayingAndTimeline}>{isSyncPlay ? "Pause" : "Play All"}</button>
       <div className={c.videoTimeline}>
-        {videos.map((video) => (
-            <ReactPlayer
+        {videos.map((video: Video) => (
+          <ReactPlayer
             key={video.id}
-              url={video.url}
-              config={{
-                youtube: {
-                  embedOptions: {
-                    width: video.orientation == "Landscape" ? "560" : "315",
-                    height: video.orientation == "Landscape" ? "315" : "560"
-                    // start: video.startTime.getTime() / 1000
-                  }
-                }
-              }}
-            playing={isSyncPlay}
+            url={video.url}
+            playing={isSyncPlayHandle(video)}
             className={c.videoItem}
+            controls={true}
+            config={{
+              youtube: {
+                embedOptions: {
+                  width: video.orientation == "Landscape" ? "560" : "315",
+                  height: video.orientation == "Landscape" ? "315" : "560"
+                  // start: video.startTime.getTime() / 1000
+                }
+              }
+            }}
+            onPause={setSyncPlayingAndTimeline}
           />
         ))}
       </div>
