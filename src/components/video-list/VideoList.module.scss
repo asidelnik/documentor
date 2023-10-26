@@ -1,0 +1,12 @@
+.videoTimeline {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  column-gap: 20px;
+}
+
+.videoItem {
+  width: fit-content !important;
+  height: fit-content !important;
+}
