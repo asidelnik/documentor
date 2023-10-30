@@ -25,7 +25,7 @@ export default function RootHeader() {
               <NavLink to="/videos-processing" className={getNavLinkClass}>Processing</NavLink>
             </div>
             <div>
-              <NavLink to="/events-table" className={getNavLinkClass}>Events</NavLink>
+              <NavLink to="/events" className={getNavLinkClass}>Events</NavLink>
             </div>
           </div>
         </nav>
