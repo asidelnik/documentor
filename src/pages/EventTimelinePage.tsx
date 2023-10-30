@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Video, VideoFromServer } from "../types/video";
 import VideoList from "../components/video-list/VideoList";
+import { useParams } from "react-router-dom";
 
 export default function EventTimelinePage() {
+  const { eventName } = useParams<{ eventName: string }>();
+  console.log(eventName);
   const [data, setData] = useState<Video[] | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -27,7 +30,7 @@ export default function EventTimelinePage() {
       }
     };
     axiosFetchData();
-  }, []);
+  }, [eventName]);
   return (
     <>
       <div>

@@ -32,7 +32,7 @@ export const router = createHashRouter(
         element={<EventsTablePage />}
       />
       <Route
-        path="/event-timeline"
+        path="/event-timeline/:eventName"
         element={<EventTimelinePage />}
       />
       {/* <Route
