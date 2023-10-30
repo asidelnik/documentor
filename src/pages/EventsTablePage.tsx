@@ -2,20 +2,19 @@ import { Link } from "react-router-dom";
 
 export default function EventsTablePage() {
   const events: string[] = [
-    "event1",
-    "event2",
-    "event3",
+    "jon-snow",
+    "johnny-bravo",
+    "john-wick",
   ];
 
   return (
     <>
-      <div>EventsTablePage</div>
       <div className="temp-event-links">
         <ul>
           {
             events.map((event: string, index: number) => (
               <li key={index}>
-                <Link to={`/event-timeline/${event}`}>{event}</Link>
+                <Link to={`/events/${event}`}>{event}</Link>
               </li>
             ))
           }

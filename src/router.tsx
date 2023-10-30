@@ -28,11 +28,11 @@ export const router = createHashRouter(
         element={<VideosProcessingPage />}
       />
       <Route
-        path="/events-table"
+        path="/events"
         element={<EventsTablePage />}
       />
       <Route
-        path="/event-timeline/:eventName"
+        path="/events/:eventId"
         element={<EventTimelinePage />}
       />
       {/* <Route
