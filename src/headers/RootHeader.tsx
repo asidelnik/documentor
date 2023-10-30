@@ -1,7 +1,20 @@
 import c from './RootHeader.module.scss';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
+type ClassNameProps = {
+  isActive: boolean;
+  isPending: boolean;
+}
 
 export default function RootHeader() {
+
+  const getNavLinkClass = ({ isActive, isPending }: ClassNameProps) =>
+    isActive
+      ? c.active
+      : isPending
+        ? c.pending
+        : "";
+
   return (
     <>
       <header className={c.header}>
@@ -9,13 +22,10 @@ export default function RootHeader() {
         <nav>
           <div className={c.links}>
             <div>
-              <Link to="/videos-processing">Processing</Link>
+              <NavLink to="/videos-processing" className={getNavLinkClass}>Processing</NavLink>
             </div>
             <div>
-              <Link to="/events-table">Events</Link>
-            </div>
-            <div>
-              <Link to="/event-timeline">Timeline</Link>
+              <NavLink to="/events-table" className={getNavLinkClass}>Events</NavLink>
             </div>
           </div>
         </nav>
