@@ -1,9 +1,41 @@
+.eventInfoBar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 30px;
+  padding: 0 1.5rem;
+  font-size: 0.8rem;
+  background-color: hsl(0, 0%, 90%);
+  border-block-end: 1px solid hsl(0, 0%, 80%);
+  
+  .title {
+    font-weight: 500;
+  }
+
+  .tags {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 8px;
+
+    .tag {
+      padding: 0.2rem 0.5rem;
+      border-radius: 5px;
+      background-color: hsl(0, 0%, 85%);
+    }
+  }
+}
+
 .videoTimeline {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: baseline;
   column-gap: 20px;
+  padding: 1rem;
 }
 
 .videoItem {
