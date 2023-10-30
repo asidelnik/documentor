@@ -1,11 +1,9 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useState, useEffect } from "react"
-import { Video, VideoFromServer } from "./types/video";
-import './App.css';
-// import EventTimeline from "./components/event-timeline/EventTimeLine";
-import VideoList from "./components/video-list/VideoList";
+import { Video, VideoFromServer } from "../types/video";
+import VideoList from "../components/video-list/VideoList";
 
-function App() {
+export default function EventTimelinePage() {
   const [data, setData] = useState<Video[] | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -30,16 +28,15 @@ function App() {
     };
     axiosFetchData();
   }, []);
-
   return (
     <>
       <div>
         {isLoading ? (
           <h2>Loading...</h2>
         ) : (
-            <>
-              {/* {axiosData && <EventTimeline data={axiosData} />} */}
-              {data && <VideoList videos={data} />}
+          <>
+            {/* {axiosData && <EventTimeline data={axiosData} />} */}
+            {data && <VideoList videos={data} />}
           </>
         )}
         {isError && <p>{errorMessage}</p>}
@@ -47,5 +44,3 @@ function App() {
     </>
   )
 }
-
-export default App
