@@ -27,9 +27,6 @@ export default function RootHeader() {
             <div>
               <NavLink to="/events-table" className={getNavLinkClass}>Events</NavLink>
             </div>
-            <div>
-              <NavLink to="/event-timeline" className={getNavLinkClass}>Timeline</NavLink>
-            </div>
           </div>
         </nav>
       </header>
