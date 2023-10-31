@@ -22,10 +22,10 @@ export default function RootHeader() {
         <nav>
           <div className={c.links}>
             <div>
-              <NavLink to="/videos-processing" className={getNavLinkClass}>Processing</NavLink>
+              <NavLink to="/all-videos" className={getNavLinkClass}>All videos</NavLink>
             </div>
             <div>
-              <NavLink to="/events-table" className={getNavLinkClass}>Events</NavLink>
+              <NavLink to="/events" className={getNavLinkClass}>Events</NavLink>
             </div>
           </div>
         </nav>

@@ -7,7 +7,7 @@ import {
 
 import RootLayout from "./layouts/RootLayout";
 // Pages
-import VideosProcessingPage from "./pages/VideosProcessingPage";
+import AllVideosPage from "./pages/AllVideosPage";
 import EventsTablePage from "./pages/EventsTablePage";
 import EventTimelinePage from "./pages/EventTimelinePage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -21,18 +21,18 @@ export const router = createHashRouter(
     >
       <Route
         path="/"
-        element={<VideosProcessingPage />}
+        element={<AllVideosPage />}
       />
       <Route
-        path="/videos-processing"
-        element={<VideosProcessingPage />}
+        path="/all-videos"
+        element={<AllVideosPage />}
       />
       <Route
-        path="/events-table"
+        path="/events"
         element={<EventsTablePage />}
       />
       <Route
-        path="/event-timeline/:eventName"
+        path="/events/:eventId"
         element={<EventTimelinePage />}
       />
       {/* <Route

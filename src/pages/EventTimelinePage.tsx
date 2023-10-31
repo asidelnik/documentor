@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Video, VideoFromServer } from "../types/video";
 import VideoList from "../components/video-list/VideoList";
 import { useParams } from "react-router-dom";
+import { Timeline_Event } from "../types/event";
+import { VideoFromServer } from "../types/video";
+import CommonError from "../components/errors/common/CommonError";
 
 export default function EventTimelinePage() {
-  const { eventName } = useParams<{ eventName: string }>();
-  console.log(eventName);
-  const [data, setData] = useState<Video[] | undefined>(undefined);
+  const { eventId } = useParams<{ eventId: string }>();
+  const [data, setData] = useState<Timeline_Event | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -15,14 +16,23 @@ export default function EventTimelinePage() {
   useEffect(() => {
     const axiosFetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/videos');
-        const videos: Video[] = response?.data.map((videoItem: VideoFromServer) => ({
-          ...videoItem,
-          startTime: new Date(videoItem.startTime),
-          endTime: new Date(videoItem.endTime),
-        }));
-        setData(videos);
-        setIsLoading(false);
+        const url = `http://localhost:3000/timeline-events/${eventId}`;
+        const response = await axios.get(url);
+        const data = response?.data;
+        if (data) {
+          const event: Timeline_Event = {
+            ...response?.data,
+            startTime: new Date(response?.data.startTime),
+            endTime: new Date(response?.data.endTime),
+            relatedVideos: response?.data.relatedVideos.map((video: VideoFromServer) => ({
+              ...video,
+              startTime: new Date(video.startTime),
+              endTime: new Date(video.endTime),
+            })),
+          };
+          setData(event);
+          setIsLoading(false);
+        }
       } catch (error: any) {
         setErrorMessage(error.message)
         setIsError(true);
@@ -30,19 +40,18 @@ export default function EventTimelinePage() {
       }
     };
     axiosFetchData();
-  }, [eventName]);
+  }, [eventId]);
+
   return (
     <>
       <div>
-        {isLoading ? (
+        {isLoading && (
           <h2>Loading...</h2>
-        ) : (
-          <>
-            {/* {axiosData && <EventTimeline data={axiosData} />} */}
-            {data && <VideoList videos={data} />}
-          </>
         )}
-        {isError && <p>{errorMessage}</p>}
+        {isError && <CommonError errorMessage="Event not found" />}
+        {!isLoading && !isError && data && (
+          <VideoList event={data} />
+        )}
       </div>
     </>
   )
