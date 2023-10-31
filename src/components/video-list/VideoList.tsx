@@ -5,6 +5,7 @@ import { Video } from "../../types/video";
 // import VideoItem from "../video-item/VideoItem";
 import ReactPlayer from 'react-player'
 import { Timeline_Event } from "../../types/event";
+import { Link } from "react-router-dom";
 
 
 type Props = {
@@ -92,6 +93,7 @@ export default function VideoList({ event }: Props) {
   return (
     <div>
       <div className={c.eventInfoBar}>
+        <Link to="/events" className={c.backButton}>&larr;</Link>
         <p className={c.title}>{event.title}</p>
         <p>
           {event.startTime.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' })}
@@ -124,7 +126,7 @@ export default function VideoList({ event }: Props) {
         ))}
       </div>
 
-      <div>
+      <div className={c.syncControls}>
         <button onClick={setSyncPlayingAndTimeline}>{isSyncPlay ? "Pause" : "Play All"}</button>
         {!isSyncPlay && timelineTime !== 0 && <button onClick={restartTimeline}>Restart</button>}
         {/* TODO - check this code - is React specific */}

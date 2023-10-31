@@ -4,12 +4,19 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  column-gap: 30px;
+  column-gap: 50px;
   padding: 0 1.5rem;
   font-size: 0.8rem;
   background-color: hsl(0, 0%, 90%);
   border-block-end: 1px solid hsl(0, 0%, 80%);
-  
+
+  a.backButton,
+  a.backButton:hover {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
   .title {
     font-weight: 500;
   }
@@ -36,9 +43,13 @@
   align-items: baseline;
   column-gap: 20px;
   padding: 1rem;
+  
+  .videoItem {
+    width: fit-content !important;
+    height: fit-content !important;
+  }
 }
 
-.videoItem {
-  width: fit-content !important;
-  height: fit-content !important;
+.syncControls {
+  padding: 0 1rem;
 }
