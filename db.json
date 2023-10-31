@@ -7,6 +7,7 @@
       "startTime": "2023-10-23T00:00:00.000Z",
       "endTime": "2023-10-23T00:00:13.000Z",
       "duration": 13,
+      "locationName": "Night Watch street, Westeros",
       "startLocation": {
         "type": "Point",
         "coordinates": [34.81487645767629, 32.16285692062229],
@@ -28,6 +29,7 @@
       "startTime": "2023-10-23T00:00:00.000Z",
       "endTime": "2023-10-23T00:00:13.000Z",
       "duration": 13,
+      "locationName": "Night Watch street, Westeros",
       "startLocation": {
         "type": "Point",
         "coordinates": [34.81487645767629, 32.16285692062229],

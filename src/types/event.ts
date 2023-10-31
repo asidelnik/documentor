@@ -3,8 +3,9 @@ import { Video } from './video';
 type EventBase = {
   id: string;
   title: string;
-  description: string;
+  description?: string;
   duration: number;
+  locationName?: string;
   startLocation: Location;
   endLocation: Location;
   tags: string[];

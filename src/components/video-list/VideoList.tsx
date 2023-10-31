@@ -95,6 +95,7 @@ export default function VideoList({ event }: Props) {
       <div className={c.eventInfoBar}>
         <Link to="/events" className={c.backButton}>&larr;</Link>
         <p className={c.title}>{event.title}</p>
+        {event.locationName && <p className={c.locationName}>{event.locationName}</p>}
         <p>
           {event.startTime.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' })}
         </p>
