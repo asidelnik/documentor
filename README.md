@@ -1,4 +1,4 @@
-![Add : Edit event form](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/99b13271-2a1f-4ca4-850e-0c680f129c88)# Document violence - dashboard - V1
+# Document violence - dashboard - V1
 Violent events video documentation dashboard.
 
 ## Project planning:
@@ -6,7 +6,7 @@ Violent events video documentation dashboard.
 
 ## Wireframes
 **All videos - page**
-![All videos](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/b70b252c-91a2-4078-a5e8-424659d8c367)
+![All videos](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/3a0c5391-c945-48a9-b5ad-4190996ade87)
 
 **Events table - page**
 ![Events table](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/8e19789f-266a-4506-85ab-142a89db5270)
