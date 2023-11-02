@@ -6,7 +6,7 @@ Violent events video documentation dashboard.
 
 ## Wireframes
 **All videos - page**
-![All videos](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/3a0c5391-c945-48a9-b5ad-4190996ade87)
+![All videos](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/26e58a04-cfb0-4576-adc8-faece00ed9ff)
 
 **Events table - page**
 ![Events table](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/8e19789f-266a-4506-85ab-142a89db5270)
