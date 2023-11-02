@@ -1,21 +1,26 @@
-export type VideoFromServer = {
+import { OrientationEnum } from '../enums/orientation-enum';
+import { StatusEnum } from '../enums/status-enum';
+/*
+
+*/
+
+type VideoBase = {
   id: number;
   title: string;
   url: string;
   author: string;
-  startTime: string;
+  description?: string;
   duration: number;
-  endTime: string;
-  orientation: 'Landscape' | 'Portrait';
+  orientation: OrientationEnum;
+  status: StatusEnum;
 };
 
-export type Video = {
-  id: number;
-  title: string;
-  url: string;
-  author: string;
+export type VideoFromServer = VideoBase & {
+  startTime: string;
+  endTime: string;
+};
+
+export type Video = VideoBase & {
   startTime: Date;
-  duration: number;
   endTime: Date;
-  orientation: 'Landscape' | 'Portrait';
 };

@@ -1,8 +1,12 @@
 import { Video } from './video';
 
+/**
+ *
+ */
+
 type EventBase = {
-  id: string;
-  title: string;
+  id: number;
+  title: string; // convert to name by removing dashes and capitalizing
   description?: string;
   duration: number;
   locationName?: string;
