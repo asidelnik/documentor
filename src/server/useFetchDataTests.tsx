@@ -17,10 +17,10 @@ export default function useFetchDataTests() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const filteredVideosRes = await fetch(testUrl + serverRequests.getFilteredVideosWithEvent);
+        const filteredVideosRes = await fetch(testUrl + serverRequests.getFilteredVideosWithEvent(1, 10));
         const filteredVideos = await filteredVideosRes.json();
 
-        const filteredEventsRes = await fetch(testUrl + serverRequests.getFilteredEvents);
+        const filteredEventsRes = await fetch(testUrl + serverRequests.getFilteredEvents(1, 10));
         const filteredEvents = await filteredEventsRes.json();
 
         const eventWithRelateVideosRes = await fetch(testUrl + serverRequests.getEventWithRelatedVideos(1));

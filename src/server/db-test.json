@@ -25,35 +25,35 @@
     {
       "id": 1,
       "title": "Video 1",
-      "author": "Author 1",
       "url": "https://www.youtube.com/embed/SekA57AxJVE",
       "startTime": "2023-10-23T00:00:00.000Z",
       "duration": 10,
       "endTime": "2023-10-23T00:00:07.000Z",
-      "orientation": "Portrait",
-      "eventId": 1
+      "orientation": 2,
+      "eventId": 1,
+      "status": 1
     },
     {
       "id": 2,
       "title": "Video 2",
-      "author": "Author 2",
       "url": "https://www.youtube.com/embed/oG25KSvFEq0?si=HY-pxYbU2eK3fzxb",
       "startTime": "2023-10-23T00:00:05.000Z",
       "duration": 10,
       "endTime": "2023-10-23T00:00:10.000Z",
-      "orientation": "Landscape",
-      "eventId": 1
+      "orientation": 1,
+      "eventId": 1,
+      "status": 1
     },
     {
       "id": 3,
       "title": "Video 3",
-      "author": "Author 3",
       "url": "https://www.youtube.com/embed/SekA57AxJVE",
       "startTime": "2023-10-23T00:00:06.000Z",
       "duration": 10,
       "endTime": "2023-10-23T00:00:13.000Z",
-      "orientation": "Portrait",
-      "eventId": 1
+      "orientation": 2,
+      "eventId": 1,
+      "status": 1
     }
   ]
 }
