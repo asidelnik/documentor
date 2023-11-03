@@ -50,7 +50,7 @@
           "startTime": "2023-10-23T00:00:00.000Z",
           "duration": 10,
           "endTime": "2023-10-23T00:00:07.000Z",
-          "orientation": "Portrait"
+          "orientation": 2
         },
         {
           "id": 2,
@@ -60,7 +60,7 @@
           "startTime": "2023-10-23T00:00:05.000Z",
           "duration": 10,
           "endTime": "2023-10-23T00:00:10.000Z",
-          "orientation": "Landscape"
+          "orientation": 1
         },
         {
           "id": 3,
@@ -70,7 +70,7 @@
           "startTime": "2023-10-23T00:00:06.000Z",
           "duration": 10,
           "endTime": "2023-10-23T00:00:13.000Z",
-          "orientation": "Portrait"
+          "orientation": 2
         }
       ]
     }
