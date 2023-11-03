@@ -1,27 +1,18 @@
-# React + TypeScript + Vite
+# Document violence - dashboard - V1
+Violent events video documentation dashboard.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project planning:
+[Project planning link](https://github.com/users/asidelnik/projects/1)
 
-Currently, two official plugins are available:
+## Wireframes
+**All videos - page**
+![All videos](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/26e58a04-cfb0-4576-adc8-faece00ed9ff)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Events table - page**
+![Events table](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/8e19789f-266a-4506-85ab-142a89db5270)
 
-## Expanding the ESLint configuration
+**Add / Edit event form**
+![Add : Edit event form](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/b28c71db-6f7e-43fb-b378-fbb5cc9ebfce)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+**Event timeline**
+![Event timeline](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/f1b8b820-67a7-4055-9377-e6b4d95c0258)

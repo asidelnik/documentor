@@ -1,34 +1,78 @@
 {
-  "videos": [
+  "events-events": [
     {
-      "id": 1,
-      "title": "Video 1",
-      "author": "Author 1",
-      "url": "https://www.youtube.com/embed/oG25KSvFEq0?si=HY-pxYbU2eK3fzxb",
+      "id": "jon-snow",
+      "title": "Jon Snow",
+      "description": "White walkers incursion.",
       "startTime": "2023-10-23T00:00:00.000Z",
-      "duration": 10,
-      "endTime": "2023-10-23T00:00:10.000Z",
-      "orientation": "Portrait",
+      "endTime": "2023-10-23T00:00:13.000Z",
+      "duration": 13,
+      "locationName": "Night Watch street, Westeros",
       "startLocation": {
         "type": "Point",
         "coordinates": [34.81487645767629, 32.16285692062229],
         "heading": 177
-      }
-    },
-    {
-      "id": 2,
-      "title": "Video 2",
-      "author": "Author 2",
-      "url": "https://www.youtube.com/embed/LMS1nZbYXkc",
-      "startTime": "2023-10-23T00:00:05.000Z",
-      "duration": 10,
-      "endTime": "2023-10-23T00:00:15.000Z",
-      "orientation": "Landscape",
-      "startLocation": {
+      },
+      "endLocation": {
         "type": "Point",
         "coordinates": [35.666559962555766, 33.16666702274233],
-        "heading": 313
-      }
+        "heading": 177
+      },
+      "tags": ["Incursion", "White walkers", "Jon Snow"]
+    }
+  ],
+  "timeline-events": [
+    {
+      "id": "jon-snow",
+      "title": "Jon Snow",
+      "description": "White walkers incursion.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:13.000Z",
+      "duration": 13,
+      "locationName": "Night Watch street, Westeros",
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [34.81487645767629, 32.16285692062229],
+        "heading": 177
+      },
+      "endLocation": {
+        "type": "Point",
+        "coordinates": [35.666559962555766, 33.16666702274233],
+        "heading": 177
+      },
+      "tags": ["Incursion", "White walkers", "Jon Snow"],
+      "relatedVideos": [
+        {
+          "id": 1,
+          "title": "Video 1",
+          "author": "Author 1",
+          "url": "https://www.youtube.com/embed/SekA57AxJVE",
+          "startTime": "2023-10-23T00:00:00.000Z",
+          "duration": 10,
+          "endTime": "2023-10-23T00:00:07.000Z",
+          "orientation": "Portrait"
+        },
+        {
+          "id": 2,
+          "title": "Video 2",
+          "author": "Author 2",
+          "url": "https://www.youtube.com/embed/oG25KSvFEq0?si=HY-pxYbU2eK3fzxb",
+          "startTime": "2023-10-23T00:00:05.000Z",
+          "duration": 10,
+          "endTime": "2023-10-23T00:00:10.000Z",
+          "orientation": "Landscape"
+        },
+        {
+          "id": 3,
+          "title": "Video 3",
+          "author": "Author 3",
+          "url": "https://www.youtube.com/embed/SekA57AxJVE",
+          "startTime": "2023-10-23T00:00:06.000Z",
+          "duration": 10,
+          "endTime": "2023-10-23T00:00:13.000Z",
+          "orientation": "Portrait"
+        }
+      ]
     }
   ]
 }
