@@ -6,6 +6,7 @@ import { Video } from "../../types/video";
 import ReactPlayer from 'react-player'
 import { Timeline_Event } from "../../types/event";
 import { Link } from "react-router-dom";
+import { OrientationEnum } from "../../enums/orientation-enum";
 
 
 type Props = {
@@ -100,7 +101,7 @@ export default function VideoList({ event }: Props) {
           {event.startTime.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' })}
         </p>
         <p>{eventDuration}</p>
-        <div className={c.tags}>{event.tags.map((tag: string) => (<p className={c.tag}>{tag}</p>))}</div>
+        <div className={c.tags}>{event.tags.map((tag: string, index: number) => (<p key={index} className={c.tag}>{tag}</p>))}</div>
       </div>
       <div className={c.videoTimeline}>
         {relatedVideos.map((video: Video, index: number) => (
@@ -114,8 +115,8 @@ export default function VideoList({ event }: Props) {
             config={{
               youtube: {
                 embedOptions: {
-                  width: video.orientation == "Landscape" ? "560" : "315",
-                  height: video.orientation == "Landscape" ? "315" : "560"
+                  width: video.orientation === OrientationEnum.Landscape ? "560" : "315",
+                  height: video.orientation === OrientationEnum.Landscape ? "315" : "560"
                   // start: video.startTime.getTime() / 1000
                 }
               }
