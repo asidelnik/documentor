@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import VideoList from "../components/video-list/VideoList";
 import { useParams } from "react-router-dom";
-import { Timeline_Event } from "../types/event";
+import { EventWithVideos } from "../types/event";
 import { VideoFromServer } from "../types/video";
 import CommonError from "../components/errors/common/CommonError";
 
 export default function EventTimelinePage() {
   const { eventId } = useParams<{ eventId: string }>();
-  const [data, setData] = useState<Timeline_Event | undefined>(undefined);
+  const [data, setData] = useState<EventWithVideos | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -20,7 +20,7 @@ export default function EventTimelinePage() {
         const response = await axios.get(url);
         const data = response?.data;
         if (data) {
-          const event: Timeline_Event = {
+          const event: EventWithVideos = {
             ...response?.data,
             startTime: new Date(response?.data.startTime),
             endTime: new Date(response?.data.endTime),
