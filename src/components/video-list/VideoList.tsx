@@ -4,13 +4,13 @@ import { useState, useRef, useEffect, createRef } from "react"; // , useEffect
 import { Video } from "../../types/video";
 // import VideoItem from "../video-item/VideoItem";
 import ReactPlayer from 'react-player'
-import { Timeline_Event } from "../../types/event";
+import { EventWithVideos } from "../../types/event";
 import { Link } from "react-router-dom";
 import { OrientationEnum } from "../../enums/orientation-enum";
 
 
 type Props = {
-  event: Timeline_Event;
+  event: EventWithVideos;
 };
 
 export default function VideoList({ event }: Props) {
