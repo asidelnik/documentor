@@ -11,20 +11,20 @@ type EventBase = {
   endLocation: Location;
   tags: string[];
   status: EventStatusEnum;
+  videos: Video[];
+  videosUnprocessedCount: number;
 };
 
-export type EventWithVideos = EventBase & {
-  relatedVideos: Video[];
+export type EventFromServer = EventBase & {
+  startTime: string;
+  endTime: string;
+};
+
+export type EventType = EventBase & {
   startTime: Date;
   endTime: Date;
 };
 // export type Events_Event = EventBase & {
-//   startTime: string;
-//   endTime: string;
-//   // videos counts
-// };
-
-// export type EventFromServer = EventWithVideos & {
 //   startTime: string;
 //   endTime: string;
 // };
