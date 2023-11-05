@@ -1,0 +1,95 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "title": "Jon Snow",
+      "description": "White walkers incursion.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:13.000Z",
+      "duration": 13,
+      "locationName": "Night Watch street, Westeros",
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [34.81487645767629, 32.16285692062229],
+        "heading": 177
+      },
+      "endLocation": {
+        "type": "Point",
+        "coordinates": [35.666559962555766, 33.16666702274233],
+        "heading": 177
+      },
+      "tags": ["Incursion", "White walkers", "Jon Snow"]
+    }
+  ],
+  "videos": [
+    {
+      "id": 1,
+      "title": "Video 1",
+      "url": "https://www.youtube.com/embed/SekA57AxJVE",
+      "description": "White walkers incursion.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "duration": 10,
+      "endTime": "2023-10-23T00:00:07.000Z",
+      "orientation": 2,
+      "eventId": 1,
+      "status": 1,
+      "tags": ["Incursion", "White walkers", "Jon Snow"],
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [34.81487645767629, 32.16285692062229],
+        "heading": 177
+      },
+      "endLocation": {
+        "type": "Point",
+        "coordinates": [35.666559962555766, 33.16666702274233],
+        "heading": 177
+      }
+    },
+    {
+      "id": 2,
+      "title": "Video 2",
+      "url": "https://www.youtube.com/embed/oG25KSvFEq0?si=HY-pxYbU2eK3fzxb",
+      "description": "White walkers incursion.",
+      "startTime": "2023-10-23T00:00:05.000Z",
+      "duration": 10,
+      "endTime": "2023-10-23T00:00:10.000Z",
+      "orientation": 1,
+      "eventId": 1,
+      "status": 1,
+      "tags": ["Incursion", "White walkers", "Jon Snow"],
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [34.81487645767629, 32.16285692062229],
+        "heading": 177
+      },
+      "endLocation": {
+        "type": "Point",
+        "coordinates": [35.666559962555766, 33.16666702274233],
+        "heading": 177
+      }
+    },
+    {
+      "id": 3,
+      "title": "Video 3",
+      "url": "https://www.youtube.com/embed/SekA57AxJVE",
+      "description": "White walkers incursion.",
+      "startTime": "2023-10-23T00:00:06.000Z",
+      "duration": 10,
+      "endTime": "2023-10-23T00:00:13.000Z",
+      "orientation": 2,
+      "eventId": 1,
+      "status": 1,
+      "tags": ["Incursion", "White walkers", "Jon Snow"],
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [34.81487645767629, 32.16285692062229],
+        "heading": 177
+      },
+      "endLocation": {
+        "type": "Point",
+        "coordinates": [35.666559962555766, 33.16666702274233],
+        "heading": 177
+      }
+    }
+  ]
+}
