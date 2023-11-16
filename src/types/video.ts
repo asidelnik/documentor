@@ -1,8 +1,5 @@
 import { OrientationEnum } from '../enums/orientation-enum';
 import { VideoStatusEnum } from '../enums/video-status-enum';
-/*
-
-*/
 
 type VideoBase = {
   id: number;

@@ -8,7 +8,6 @@ type EventBase = {
   duration: number;
   locationName?: string;
   startLocation: Location;
-  endLocation: Location;
   tags: string[];
   status: EventStatusEnum;
   videos: Video[];
@@ -24,7 +23,3 @@ export type EventType = EventBase & {
   startTime: Date;
   endTime: Date;
 };
-// export type Events_Event = EventBase & {
-//   startTime: string;
-//   endTime: string;
-// };
