@@ -16,7 +16,7 @@ export default function EventTimelinePage() {
   useEffect(() => {
     const axiosFetchData = async () => {
       try {
-        const url = `http://localhost:3000/timeline-events/${eventId}`;
+        const url = `http://localhost:3000/events/${eventId}`;
         const response = await axios.get(url);
         const data = response?.data;
         if (data) {
