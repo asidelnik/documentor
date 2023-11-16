@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { EventType } from "../types/event";
+import EventsTable from "../components/mui/events-table/EventsTable";
+import { secondsToTimeString } from "../utils/functions";
+import { EventStatusEnum } from "../enums/event-status-enum";
 
 
 export default function EventsTablePage() {
-  const [events, setEvents] = useState<EventType[] | undefined>(undefined);
+  const [events, setEvents] = useState<EventType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -20,6 +22,10 @@ export default function EventsTablePage() {
           data.map((event: EventType) => {
             event.startTime = new Date(event.startTime);
             event.endTime = new Date(event.endTime);
+            event.startTimeFormatted = event.startTime.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            event.endTimeFormatted = event.endTime.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            event.durationFormatted = secondsToTimeString(event.duration);
+            event.statusFormatted = EventStatusEnum[event.status];
           });
           setEvents(data);
         }
@@ -36,13 +42,7 @@ export default function EventsTablePage() {
   return (
     <>
       <div className="temp-event-links">
-        <ul>
-          {events && events.map((event: EventType, index: number) => (
-            <li key={index}>
-              <Link to={`/events/${event.id}`}>{event.title}</Link>
-            </li>
-          ))}
-        </ul>
+        <EventsTable rows={events} />
       </div>
     </>
   );

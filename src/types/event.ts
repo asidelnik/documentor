@@ -4,9 +4,9 @@ import { Video } from './video';
 type EventBase = {
   id: number;
   title: string; // convert to name by removing dashes and capitalizing
-  description?: string;
+  description: string;
   duration: number;
-  locationName?: string;
+  locationName: string;
   startLocation: Location;
   tags: string[];
   status: EventStatusEnum;
@@ -22,4 +22,8 @@ export type EventFromServer = EventBase & {
 export type EventType = EventBase & {
   startTime: Date;
   endTime: Date;
+  startTimeFormatted: string;
+  endTimeFormatted: string;
+  durationFormatted: string;
+  statusFormatted: string;
 };
