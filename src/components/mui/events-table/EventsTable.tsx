@@ -1,4 +1,4 @@
-import c from './EventsTable.module.scss';
+// import c from './EventsTable.module.scss';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
