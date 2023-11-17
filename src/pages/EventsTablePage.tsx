@@ -11,10 +11,10 @@ export default function EventsTablePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const baseUrl = 'http://localhost:3000';
+  const baseUrl = 'http://localhost:3001';
 
   useEffect(() => {
-    const axiosFetchData = async () => {
+    const fetchData = async () => {
       try {
         const getEventsRequestString = serverRoutes.getFilteredEvents({
           fromDate: '2023-10-01',
@@ -24,9 +24,9 @@ export default function EventsTablePage() {
           radius: 10,
           status: 1,
           page: 1,
-          limit: 3,
-          tags: ['tag1', 'tag2'],
-          tagsJoined: ''
+          limit: 3
+          // tags: ['tag1', 'tag2'],
+          // tagsJoined: ''
         });
         const filteredEventsRes = await fetch(baseUrl + getEventsRequestString);
         const filteredEvents = await filteredEventsRes.json();
@@ -49,7 +49,7 @@ export default function EventsTablePage() {
         setIsLoading(false);
       }
     };
-    axiosFetchData();
+    fetchData();
   }, []);
 
   return (

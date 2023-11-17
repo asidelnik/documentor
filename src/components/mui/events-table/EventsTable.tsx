@@ -40,7 +40,8 @@ export default function EventsTable({ rows }: EventsTableProps) {
               <TableCell>Duration</TableCell>
               <TableCell>Location</TableCell>
               <TableCell>Status</TableCell>
-              <TableCell>Videos to review</TableCell>
+              <TableCell>Videos count</TableCell>
+              <TableCell>To review</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -58,12 +59,14 @@ export default function EventsTable({ rows }: EventsTableProps) {
                 <TableCell>{row.durationFormatted}</TableCell>
                 <TableCell>{row.locationName}</TableCell>
                 <TableCell>{row.statusFormatted}</TableCell>
+                <TableCell>{row.videosCount}</TableCell>
                 <TableCell>{row.videosUnprocessedCount}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"

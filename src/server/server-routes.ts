@@ -15,11 +15,11 @@ export const serverRoutes = {
 
   // Events page (table)
   getFilteredEvents: (params: GetEventsQueryParams) => {
-    const paramsWithTags = {
-      ...params,
-      tagsJoined: params.tags ? params.tags.join(',') : '',
-    };
-    const urlParams = getURLSearchParams(paramsWithTags);
+    // const paramsWithTags = {
+    //   ...params,
+    //   // tagsJoined: params.tags ? params.tags.join(',') : '',
+    // };
+    const urlParams = getURLSearchParams(params);
     return `/events?${urlParams}`;
   },
 

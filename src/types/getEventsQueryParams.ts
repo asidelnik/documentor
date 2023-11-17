@@ -7,6 +7,6 @@ export type GetEventsQueryParams = {
   status?: number;
   page?: number;
   limit?: number;
-  tags?: string[];
-  tagsJoined: string;
+  // tags?: string[];
+  // tagsJoined: string;
 };

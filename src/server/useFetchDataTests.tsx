@@ -13,7 +13,7 @@
 //   const [data, setData] = useState<DataState>({ filteredVideos: [], filteredEvents: [], eventWithVideos: undefined });
 //   const [loading, setLoading] = useState(false);
 //   const [error, setError] = useState(null);
-//   const baseUrl = 'http://localhost:3000';
+//   const baseUrl = 'http://localhost:3001';
 
 //   useEffect(() => {
 //     fetchData();

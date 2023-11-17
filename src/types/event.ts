@@ -12,11 +12,7 @@ type EventBase = {
   status: EventStatusEnum;
   videos: Video[];
   videosUnprocessedCount: number;
-};
-
-export type EventFromServer = EventBase & {
-  startTime: string;
-  endTime: string;
+  videosCount: number;
 };
 
 export type EventType = EventBase & {
@@ -27,3 +23,8 @@ export type EventType = EventBase & {
   durationFormatted: string;
   statusFormatted: string;
 };
+
+// export type EventFromServer = EventBase & {
+//   startTime: string;
+//   endTime: string;
+// };

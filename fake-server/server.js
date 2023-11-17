@@ -73,7 +73,7 @@ server.get('/events/:id', (req, res) => {
 });
 
 server.get('/events', (req, res) => {
-  const { fromDate, toDate, lat, lon, radius, tags, status, page = 1, limit = 5 } = req.query;
+  const { fromDate, toDate, lat, lon, radius, /*tags,*/ status, page = 1, limit = 5 } = req.query;
   // console.log(req.query);
   const db = router.db; // lowdb instance
   let events = db.get('events').value();
@@ -103,16 +103,16 @@ server.get('/events', (req, res) => {
   //   events = events.filter(event => tagsArray.every(tag => event.tags.includes(tag)));
   // }
 
-  // if (status) {
-  //   events = events.filter(event => event.status === Number(status));
-  // }
+  if (status) {
+    events = events.filter(event => event.status === Number(status));
+  }
 
   // Add property count of event videos with status 1
   events = events.map(event => {
-    const videos = db.get('videos').filter({ eventId: event.id, status: 1 }).value();
-    const x = { ...event, videosUnprocessedCount: videos.length };
-    // console.log(x.videosUnprocessedCount);
-    return x;
+    const eventVideos = db.get('videos').filter({ eventId: event.id }).value();
+    const eventVideosUnprocessed = db.get('videos').filter({ eventId: event.id, status: 1 }).value();
+    const eventWithVideosCount = { ...event, videosUnprocessedCount: eventVideosUnprocessed.length, videosCount: eventVideos.length };
+    return eventWithVideosCount;
   });
 
 
@@ -125,6 +125,6 @@ server.get('/events', (req, res) => {
 });
 
 server.use(router)
-server.listen(3000, () => {
+server.listen(3001, () => {
   console.log('JSON Server is running')
 })
