@@ -14,12 +14,13 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 
-export default function EventsTable({ rows }: EventsTableProps) {
+export default function EventsTable({ rows, eventsCount, getPageRows }: EventsTableProps) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
+    getPageRows(newPage + 1, rowsPerPage);
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +71,7 @@ export default function EventsTable({ rows }: EventsTableProps) {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={rows.length}
+        count={eventsCount}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

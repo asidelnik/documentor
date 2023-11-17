@@ -115,13 +115,13 @@ server.get('/events', (req, res) => {
     return eventWithVideosCount;
   });
 
-
+  const eventsCount = events.length;
   // Pagination
   const start = (page - 1) * limit;
   const end = start + limit;
   events = events.slice(start, end);
 
-  res.json(events);
+  res.json({ events, eventsCount });
 });
 
 server.use(router)

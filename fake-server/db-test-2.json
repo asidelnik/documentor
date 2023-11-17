@@ -24,7 +24,7 @@
       "endTime": "2023-10-23T00:00:20.000Z",
       "duration": 20,
       "locationName": "Winterfell, Westeros",
-      "status": 1,
+      "status": 2,
       "startLocation": {
         "type": "Point",
         "coordinates": [32.08496, 34.783297],
@@ -40,7 +40,7 @@
       "endTime": "2023-10-23T00:00:15.000Z",
       "duration": 15,
       "locationName": "King's Landing, Westeros",
-      "status": 1,
+      "status": 2,
       "startLocation": {
         "type": "Point",
         "coordinates": [32.084687, 34.784981],
@@ -56,7 +56,7 @@
       "endTime": "2023-10-23T00:00:10.000Z",
       "duration": 10,
       "locationName": "King's Landing, Westeros",
-      "status": 1,
+      "status": 2,
       "startLocation": {
         "type": "Point",
         "coordinates": [32.086087, 34.781999],
@@ -88,7 +88,7 @@
       "endTime": "2023-10-23T00:00:12.000Z",
       "duration": 12,
       "locationName": "King's Landing, Westeros",
-      "status": 1,
+      "status": 2,
       "startLocation": {
         "type": "Point",
         "coordinates": [32.08496, 34.783297],
@@ -192,7 +192,7 @@
       "endTime": "2023-10-23T00:00:10.000Z",
       "orientation": 1,
       "eventId": 1,
-      "status": 1,
+      "status": 2,
       "startLocation": {
         "type": "Point",
         "coordinates": [34.81487645767629, 32.16285692062229],
