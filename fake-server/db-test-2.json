@@ -11,7 +11,7 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [34.81487645767629, 32.16285692062229],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       },
       "tags": ["Incursion", "White walkers", "Jon Snow"]
@@ -27,7 +27,7 @@
       "status": 1,
       "startLocation": {
         "type": "Point",
-        "coordinates": [34.81487645767629, 32.16285692062229],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       },
       "tags": ["Battle", "Winterfell", "Robb Stark"]
@@ -43,7 +43,7 @@
       "status": 1,
       "startLocation": {
         "type": "Point",
-        "coordinates": [34.81487645767629, 32.16285692062229],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       },
       "tags": ["Dragon", "King's Landing", "Daenerys Targaryen"]
@@ -59,7 +59,7 @@
       "status": 1,
       "startLocation": {
         "type": "Point",
-        "coordinates": [34.81487645767629, 32.16285692062229],
+        "coordinates": [32.086087, 34.781999],
         "heading": 177
       },
       "tags": ["Trial", "Combat", "Tyrion Lannister"]
@@ -75,7 +75,7 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [34.81487645767629, 32.16285692062229],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       },
       "tags": ["Assassination", "Night King", "Arya Stark"]
@@ -91,7 +91,7 @@
       "status": 1,
       "startLocation": {
         "type": "Point",
-        "coordinates": [34.81487645767629, 32.16285692062229],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       },
       "tags": ["Wildfire", "Explosion", "Cersei Lannister"]
@@ -107,7 +107,7 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [34.81487645767629, 32.16285692062229],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       },
       "tags": ["Coronation", "King", "Bran Stark"]
@@ -123,7 +123,7 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [34.81487645767629, 32.16285692062229],
+        "coordinates": [32.086087, 34.781999],
         "heading": 177
       },
       "tags": ["Coronation", "Queen", "Sansa Stark"]
@@ -139,7 +139,7 @@
       "status": 3,
       "startLocation": {
         "type": "Point",
-        "coordinates": [34.81487645767629, 32.16285692062229],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       },
       "tags": ["Death", "Brienne of Tarth", "Jaime Lannister"]
@@ -155,7 +155,7 @@
       "status": 3,
       "startLocation": {
         "type": "Point",
-        "coordinates": [34.81487645767629, 32.16285692062229],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       },
       "tags": ["Poisoning", "Purple Wedding", "Joffrey Baratheon"]
