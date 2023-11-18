@@ -15,7 +15,7 @@ export default function EventsTablePage() {
   const baseUrl = 'http://localhost:3002';
 
   useEffect(() => {
-    fetchData(1, 3);
+    fetchData(1, 10);
   }, []);
 
   const fetchData = async (page: number, limit: number) => {
