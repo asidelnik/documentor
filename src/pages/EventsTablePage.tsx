@@ -12,14 +12,15 @@ export default function EventsTablePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const baseUrl = 'http://localhost:3001';
+  const baseUrl = 'http://localhost:3002';
 
   useEffect(() => {
-    fetchData(1, 5);
+    fetchData(1, 3);
   }, []);
 
   const fetchData = async (page: number, limit: number) => {
     try {
+      // const pageString = 'a';
       const getEventsRequestString = serverRoutes.getFilteredEvents({
         fromDate: '2023-10-01',
         toDate: '2023-10-27',
@@ -32,9 +33,11 @@ export default function EventsTablePage() {
         // tags: ['tag1', 'tag2'],
         // tagsJoined: ''
       });
-      const filteredEventsRes = await fetch(baseUrl + getEventsRequestString);
-      const filteredEvents = await filteredEventsRes.json();
-      // const data = response?.data;
+      const response = await fetch(baseUrl + getEventsRequestString);
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const filteredEvents = await response.json();
       if (filteredEvents && filteredEvents.events) {
         filteredEvents.events.map((event: EventType) => {
           event.startTime = new Date(event.startTime);
@@ -48,13 +51,13 @@ export default function EventsTablePage() {
         setEventsCount(filteredEvents.eventsCount);
       }
       setIsLoading(false);
-    } catch (error: any) {
-      setErrorMessage(error.message)
+    } catch (error) {
+      console.log(error);
+      setErrorMessage('error');
       setIsError(true);
       setIsLoading(false);
     }
-  };
-
+  }
 
   const getPageRows = (page: number, limit: number) => {
     fetchData(page, limit);

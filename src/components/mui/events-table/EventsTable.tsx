@@ -16,7 +16,7 @@ import { useState } from 'react';
 
 export default function EventsTable({ rows, eventsCount, getPageRows }: EventsTableProps) {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(3);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -69,7 +69,7 @@ export default function EventsTable({ rows, eventsCount, getPageRows }: EventsTa
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[3, 5, 10, 25]}
         component="div"
         count={eventsCount}
         rowsPerPage={rowsPerPage}
