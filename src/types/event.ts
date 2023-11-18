@@ -19,7 +19,6 @@ export type EventType = EventBase & {
   startTime: Date;
   endTime: Date;
   startTimeFormatted: string;
-  endTimeFormatted: string;
   durationFormatted: string;
   statusFormatted: string;
 };

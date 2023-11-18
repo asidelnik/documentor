@@ -36,9 +36,8 @@ export default function EventsTable({ rows, eventsCount, getPageRows }: EventsTa
             <TableRow>
               <TableCell>Title</TableCell>
               <TableCell>Start time</TableCell>
-              <TableCell>End time</TableCell>
-              <TableCell>Description</TableCell>
               <TableCell>Duration</TableCell>
+              <TableCell>Description</TableCell>
               <TableCell>Location</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Videos count</TableCell>
@@ -55,9 +54,8 @@ export default function EventsTable({ rows, eventsCount, getPageRows }: EventsTa
                   <Link to={`/events/${row.id}`}>{row.title}</Link>
                 </TableCell>
                 <TableCell>{row.startTimeFormatted}</TableCell>
-                <TableCell>{row.endTimeFormatted}</TableCell>
-                <TableCell>{row.description}</TableCell>
                 <TableCell>{row.durationFormatted}</TableCell>
+                <TableCell>{row.description}</TableCell>
                 <TableCell>{row.locationName}</TableCell>
                 <TableCell>{row.statusFormatted}</TableCell>
                 <TableCell>{row.videosCount}</TableCell>

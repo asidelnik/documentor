@@ -42,8 +42,7 @@ export default function EventsTablePage() {
         filteredEvents.events.map((event: EventType) => {
           event.startTime = new Date(event.startTime);
           event.endTime = new Date(event.endTime);
-          event.startTimeFormatted = event.startTime.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-          event.endTimeFormatted = event.endTime.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          event.startTimeFormatted = event.startTime.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' - ' + event.startTime.toLocaleTimeString('en-US');
           event.durationFormatted = secondsToTimeString(event.duration);
           event.statusFormatted = EventStatusEnum[event.status];
         });
