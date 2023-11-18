@@ -3,7 +3,7 @@ import jsonServer from 'json-server';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { tryParseInt } from './functions.js';
+import { tryParseInt, tryParseIntOrUndefined } from './functions.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -73,7 +73,7 @@ server.get('/events/:id', (req, res) => {
 });
 
 server.get('/events', (req, res) => {
-  const { fromDate, toDate, lat, lon, radius, /*tags,*/ status, page = 1, limit = 5 } = req.query;
+  const { fromDate, toDate, lat, lon, radius, /*tags,*/ status, page = 1, limit = 3 } = req.query;
   // console.log(req.query);
   const db = router.db; // lowdb instance
   let events = db.get('events').value();
@@ -117,14 +117,25 @@ server.get('/events', (req, res) => {
 
   const eventsCount = events.length;
   // Pagination
-  const start = (page - 1) * limit;
-  const end = start + limit;
+  const pageParsed = tryParseIntOrUndefined(page);
+  const limitParsed = tryParseIntOrUndefined(limit);
+
+  // TODO - fix this error handling. Responds with cors error instead  of json error
+  if (pageParsed === undefined || limitParsed === undefined) {
+    res.status(400).jsonp({
+      error: "Invalid pagination values"
+    })
+    return;
+  }
+
+  const start = (pageParsed - 1) * limitParsed;
+  const end = start + limitParsed;
   events = events.slice(start, end);
 
   res.json({ events, eventsCount });
 });
 
 server.use(router)
-server.listen(3001, () => {
+server.listen(3002, () => {
   console.log('JSON Server is running')
 })
