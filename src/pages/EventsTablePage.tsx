@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { EventType } from "../types/event";
 import EventsTable from "../components/mui/events-table/EventsTable";
-import { secondsToTimeString } from "../utils/functions";
+import { dateToString, secondsToTimeString } from "../utils/functions";
 import { EventStatusEnum } from "../enums/event-status-enum";
 import { serverRoutes } from "../server/server-routes";
 
@@ -42,7 +42,7 @@ export default function EventsTablePage() {
         filteredEvents.events.map((event: EventType) => {
           event.startTime = new Date(event.startTime);
           event.endTime = new Date(event.endTime);
-          event.startTimeFormatted = event.startTime.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' - ' + event.startTime.toLocaleTimeString('en-US');
+          event.startTimeFormatted = dateToString(event.startTime);
           event.durationFormatted = secondsToTimeString(event.duration);
           event.statusFormatted = EventStatusEnum[event.status];
         });

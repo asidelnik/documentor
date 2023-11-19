@@ -22,3 +22,15 @@ export function secondsToTimeString(seconds: number): string {
 
   return `${hoursString}:${minutesString}:${secondsString}`;
 }
+
+export function dateToString(date: Date): string {
+  return (
+    date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    }) +
+    ' - ' +
+    date.toLocaleTimeString('en-US')
+  );
+}
