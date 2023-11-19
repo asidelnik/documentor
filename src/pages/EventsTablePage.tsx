@@ -4,6 +4,8 @@ import EventsTable from "../components/mui/events-table/EventsTable";
 import { dateToString, secondsToTimeString } from "../utils/functions";
 import { EventStatusEnum } from "../enums/event-status-enum";
 import { serverRoutes } from "../server/server-routes";
+import EventsAddEditDialog from "../components/mui/events-add-edit-dialog/EventsAddEditDialog";
+import { EventsActionTitle } from "../enums/EventsActionTitle";
 
 
 export default function EventsTablePage() {
@@ -12,6 +14,7 @@ export default function EventsTablePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [dialog, setDialog] = useState({ isOpen: false, actionTitle: EventsActionTitle.Add });
   const baseUrl = 'http://localhost:3002';
 
   useEffect(() => {
@@ -62,11 +65,28 @@ export default function EventsTablePage() {
     fetchData(page, limit);
   };
 
+
+
+  const handleClickOpen = (actionTitle: EventsActionTitle) => {
+    setDialog({ actionTitle, isOpen: true });
+  };
+
+  const handleClose = () => {
+    setDialog({ ...dialog, isOpen: false });
+  };
+
   return (
     <>
-      <div className="temp-event-links">
-        <EventsTable rows={events} eventsCount={eventsCount} getPageRows={getPageRows} />
-      </div>
+      <EventsTable
+        rows={events}
+        eventsCount={eventsCount}
+        getPageRows={getPageRows}
+        openDialog={handleClickOpen}
+      />
+      <EventsAddEditDialog
+        dialog={dialog}
+        onClose={handleClose}
+      />
     </>
   );
 }

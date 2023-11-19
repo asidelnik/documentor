@@ -15,9 +15,10 @@ import { useState } from 'react';
 
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, IconButton } from '@mui/material';
+import { EventsActionTitle } from '../../../enums/EventsActionTitle';
 
 
-export default function EventsTable({ rows, eventsCount, getPageRows }: EventsTableProps) {
+export default function EventsTable({ rows, eventsCount, getPageRows, openDialog }: EventsTableProps) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(3);
 
@@ -32,11 +33,11 @@ export default function EventsTable({ rows, eventsCount, getPageRows }: EventsTa
   };
 
   const addEvent = () => {
-    console.log('add event');
+    openDialog(EventsActionTitle.Add);
   }
 
   const editEvent = () => {
-    console.log('edit event');
+    openDialog(EventsActionTitle.Edit);
   }
 
   return (
