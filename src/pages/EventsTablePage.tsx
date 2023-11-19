@@ -6,6 +6,7 @@ import { EventStatusEnum } from "../enums/event-status-enum";
 import { serverRoutes } from "../server/server-routes";
 import EventsAddEditDialog from "../components/mui/events-add-edit-dialog/EventsAddEditDialog";
 import { EventsActionTitle } from "../enums/EventsActionTitle";
+import { EventsDialog } from "../types/EventsDialog";
 
 
 export default function EventsTablePage() {
@@ -14,7 +15,7 @@ export default function EventsTablePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [dialog, setDialog] = useState({ isOpen: false, actionTitle: EventsActionTitle.Add });
+  const [dialog, setDialog] = useState<EventsDialog>({ isOpen: false, actionTitle: EventsActionTitle.Add, eventId: undefined });
   const baseUrl = 'http://localhost:3002';
 
   useEffect(() => {
@@ -67,12 +68,12 @@ export default function EventsTablePage() {
 
 
 
-  const handleClickOpen = (actionTitle: EventsActionTitle) => {
-    setDialog({ actionTitle, isOpen: true });
+  const handleClickOpen = (actionTitle: EventsActionTitle, eventId?: number) => {
+    setDialog({ isOpen: true, actionTitle, eventId });
   };
 
   const handleClose = () => {
-    setDialog({ ...dialog, isOpen: false });
+    setDialog({ ...dialog, isOpen: false, eventId: undefined });
   };
 
   return (

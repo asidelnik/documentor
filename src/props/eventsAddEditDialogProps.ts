@@ -1,11 +1,6 @@
-import { EventsActionTitle } from '../enums/EventsActionTitle';
-
-interface DialogOpenType {
-  isOpen: boolean;
-  actionTitle: EventsActionTitle;
-}
+import { EventsDialog } from '../types/EventsDialog';
 
 export interface EventsAddEditDialogProps {
-  dialog: DialogOpenType;
+  dialog: EventsDialog;
   onClose: () => void;
 }

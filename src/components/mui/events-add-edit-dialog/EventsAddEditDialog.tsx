@@ -3,7 +3,8 @@ import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
 import { EventsAddEditDialogProps } from '../../../props/eventsAddEditDialogProps';
 import { EventsActionTitle } from '../../../enums/EventsActionTitle';
-import { Button, DialogActions, DialogContent, IconButton, Typography } from '@mui/material';
+import { Button, DialogActions, DialogContent, IconButton } from '@mui/material';
+import EventForm from '../../event-form/EventForm';
 
 export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDialogProps) {
   const title = dialog.actionTitle === EventsActionTitle.Add ? 'Add event' : 'Edit event';
@@ -32,20 +33,7 @@ export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDi
         <CloseIcon />
       </IconButton>
       <DialogContent dividers>
-        <Typography gutterBottom>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </Typography>
-        <Typography gutterBottom>
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-        </Typography>
-        <Typography gutterBottom>
-          Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-          ullamcorper nulla non metus auctor fringilla.
-        </Typography>
+        <EventForm eventId={dialog.eventId} />
       </DialogContent>
 
       <DialogActions>

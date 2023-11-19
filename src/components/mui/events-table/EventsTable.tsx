@@ -36,8 +36,8 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
     openDialog(EventsActionTitle.Add);
   }
 
-  const editEvent = () => {
-    openDialog(EventsActionTitle.Edit);
+  const editEvent = (eventId: number) => {
+    openDialog(EventsActionTitle.Edit, eventId);
   }
 
   return (
@@ -64,7 +64,7 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell>
-                  <IconButton aria-label="edit event" onClick={editEvent}>
+                  <IconButton aria-label="edit event" onClick={() => editEvent(row.id)}>
                     <EditIcon className={c.editIcon} />
                   </IconButton>
                 </TableCell>
