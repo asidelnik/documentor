@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const server = jsonServer.create();
-const router = jsonServer.router(path.join(__dirname, 'db-test-2.json'));
+const router = jsonServer.router(path.join(__dirname, 'db-test.json'));
 const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
