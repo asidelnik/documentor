@@ -15,7 +15,7 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 
 server.get('/videos', (req, res) => {
-  const { fromDate, toDate, lat, lon, radius, tags, status, eventId, page = 1, limit = 10 } = req.query;
+  const { fromDate, toDate, lat, lon, radius, status, eventId, page = 1, limit = 10 } = req.query;
   console.log(req.query);
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
@@ -24,22 +24,26 @@ server.get('/videos', (req, res) => {
     const from = new Date(fromDate);
     const to = new Date(toDate);
     videos = videos.filter(video => {
-      const videoDate = new Date(video.date);
+      const videoDate = new Date(video.startTime);
       return videoDate >= from && videoDate <= to;
     });
   }
 
   if (lat && lon && radius) {
+    const parsedRadius = tryParseInt(radius, 0);
     videos = videos.filter(video => {
-      const distance = Math.sqrt(Math.pow(video.coordinates[0] - lat, 2) + Math.pow(video.coordinates[1] - lon, 2));
-      return distance <= radius;
+      const distance = Math.sqrt(
+        Math.pow(video.startLocation.coordinates[0] - lat, 2) +
+        Math.pow(video.startLocation.coordinates[1] - lon, 2)
+      );
+      return distance <= parsedRadius;
     });
   }
 
-  if (tags) {
-    const tagsArray = tags.split(',');
-    videos = videos.filter(video => tagsArray.every(tag => video.tags.includes(tag)));
-  }
+  // if (tags) {
+  //   const tagsArray = tags.split(',');
+  //   videos = videos.filter(video => tagsArray.every(tag => video.tags.includes(tag)));
+  // }
 
   if (status) {
     videos = videos.filter(video => video.status === Number(status));
@@ -49,12 +53,14 @@ server.get('/videos', (req, res) => {
     videos = videos.filter(video => video.eventId !== null);
   }
 
+  const videosCount = videos.length;
+
   // Pagination
   const start = (page - 1) * limit;
   const end = start + limit;
   videos = videos.slice(start, end);
 
-  res.json(videos);
+  res.json({ videos, videosCount });
 });
 
 server.get('/events/:id', (req, res) => {
@@ -97,6 +103,7 @@ server.get('/events', (req, res) => {
       return distance <= parsedRadius;
     });
   }
+
 
   // if (tags) {
   //   const tagsArray = tags.split(',');
