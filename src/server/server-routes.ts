@@ -7,7 +7,7 @@ export const serverRoutes = {
   getFilteredVideos: (params: GetVideosQueryParams) => {
     const paramsWithTags = {
       ...params,
-      tagsJoined: params.tags ? params.tags.join(',') : '',
+      // tagsJoined: params.tags ? params.tags.join(',') : '',
     };
     const urlParams = getURLSearchParams(paramsWithTags);
     return `/videos?${urlParams}&_expand=event`;

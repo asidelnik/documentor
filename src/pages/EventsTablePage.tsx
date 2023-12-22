@@ -16,7 +16,7 @@ export default function EventsTablePage() {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [dialog, setDialog] = useState<EventsDialog>({ isOpen: false, actionTitle: EventsActionTitle.Add, eventId: undefined });
-  const baseUrl = 'http://localhost:3002';
+  const baseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     fetchData(1, 10);
