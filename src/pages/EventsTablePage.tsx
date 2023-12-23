@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { EventType } from "../types/event";
+import { EventType, GetEventsResponse } from "../types/event";
 import EventsTable from "../components/mui/events-table/EventsTable";
 import { dateToString, secondsToTimeString } from "../utils/functions";
 import { EventStatusEnum } from "../enums/event-status-enum";
@@ -29,7 +29,7 @@ export default function EventsTablePage() {
         fromDate: '2023-10-01',
         toDate: '2023-10-27',
         lat: 32.0853,
-        lon: 34.7818,
+        lng: 34.7818,
         radius: 10,
         status: 2,
         page,
@@ -41,17 +41,21 @@ export default function EventsTablePage() {
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      const filteredEvents = await response.json();
-      if (filteredEvents && filteredEvents.events) {
-        filteredEvents.events.map((event: EventType) => {
-          event.startTime = new Date(event.startTime);
-          event.endTime = new Date(event.endTime);
-          event.startTimeFormatted = dateToString(event.startTime);
-          event.durationFormatted = secondsToTimeString(event.duration);
-          event.statusFormatted = EventStatusEnum[event.status];
+      const eventsRes: GetEventsResponse = await response.json();
+      if (eventsRes && eventsRes.events) {
+        const updatedEvents = eventsRes.events.map((event: EventType) => {
+          return {
+            ...event,
+            startTime: new Date(event.startTime),
+            endTime: new Date(event.endTime),
+            startTimeFormatted: dateToString(event.startTime),
+            durationFormatted: secondsToTimeString(event.duration),
+            statusFormatted: EventStatusEnum[event.status],
+          };
         });
-        setEvents(filteredEvents.events);
-        setEventsCount(filteredEvents.eventsCount);
+        // console.log({ eventsRes, updatedEvents });
+        setEvents(updatedEvents);
+        setEventsCount(eventsRes.eventsCount);
       }
       setIsLoading(false);
     } catch (error) {
@@ -78,12 +82,16 @@ export default function EventsTablePage() {
 
   return (
     <>
-      <EventsTable
-        rows={events}
-        eventsCount={eventsCount}
-        getPageRows={getPageRows}
-        openDialog={handleClickOpen}
-      />
+      {events && events.length > 0 && (
+        <>
+          <EventsTable
+            rows={events}
+            eventsCount={eventsCount}
+            getPageRows={getPageRows}
+            openDialog={handleClickOpen}
+          />
+        </>
+      )}
       <EventsAddEditDialog
         dialog={dialog}
         onClose={handleClose}

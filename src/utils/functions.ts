@@ -24,6 +24,7 @@ export function secondsToTimeString(seconds: number): string {
 }
 
 export function dateToString(date: Date): string {
+  if (!isValidDate(date)) return '';
   return (
     date.toLocaleDateString('en-US', {
       month: 'short',
@@ -33,4 +34,13 @@ export function dateToString(date: Date): string {
     ' - ' +
     date.toLocaleTimeString('en-US')
   );
+}
+
+function isValidDate(date: any): boolean {
+  return date instanceof Date && !isNaN(date.getTime());
+}
+
+export function tryParseIntOrUndefined(str: string): number | undefined {
+  const value = parseInt(str, 10);
+  return isNaN(value) ? undefined : value;
 }

@@ -1,4 +1,5 @@
 import { EventStatusEnum } from '../enums/event-status-enum';
+import { LocationType } from './location';
 import { Video } from './video';
 
 type EventBase = {
@@ -7,7 +8,7 @@ type EventBase = {
   description: string;
   duration: number;
   locationName: string;
-  startLocation: Location;
+  startLocation: LocationType;
   tags: string[];
   status: EventStatusEnum;
   videos: Video[];
@@ -23,7 +24,7 @@ export type EventType = EventBase & {
   statusFormatted: string;
 };
 
-// export type EventFromServer = EventBase & {
-//   startTime: string;
-//   endTime: string;
-// };
+export type GetEventsResponse = {
+  events: EventType[];
+  eventsCount: number;
+};

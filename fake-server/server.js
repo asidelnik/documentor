@@ -15,7 +15,7 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 
 server.get('/videos', (req, res) => {
-  const { fromDate, toDate, lat, lon, radius, status, eventId, page = 1, limit = 10 } = req.query;
+  const { fromDate, toDate, lat, lng, radius, status, eventId, page = 1, limit = 10 } = req.query;
   console.log(req.query);
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
@@ -29,12 +29,12 @@ server.get('/videos', (req, res) => {
     });
   }
 
-  if (lat && lon && radius) {
+  if (lat && lng && radius) {
     const parsedRadius = tryParseInt(radius, 0);
     videos = videos.filter(video => {
       const distance = Math.sqrt(
         Math.pow(video.startLocation.coordinates[0] - lat, 2) +
-        Math.pow(video.startLocation.coordinates[1] - lon, 2)
+        Math.pow(video.startLocation.coordinates[1] - lng, 2)
       );
       return distance <= parsedRadius;
     });
@@ -79,7 +79,7 @@ server.get('/events/:id', (req, res) => {
 });
 
 server.get('/events', (req, res) => {
-  const { fromDate, toDate, lat, lon, radius, /*tags,*/ status, page = 1, limit = 3 } = req.query;
+  const { fromDate, toDate, lat, lng, radius, /*tags,*/ status, page = 1, limit = 3 } = req.query;
   // console.log(req.query);
   const db = router.db; // lowdb instance
   let events = db.get('events').value();
@@ -93,12 +93,12 @@ server.get('/events', (req, res) => {
     });
   }
 
-  if (lat && lon && radius) {
+  if (lat && lng && radius) {
     const parsedRadius = tryParseInt(radius, 0);
     events = events.filter(event => {
       const distance = Math.sqrt(
         Math.pow(event.startLocation.coordinates[0] - lat, 2) +
-        Math.pow(event.startLocation.coordinates[1] - lon, 2)
+        Math.pow(event.startLocation.coordinates[1] - lng, 2)
       );
       return distance <= parsedRadius;
     });
@@ -143,6 +143,6 @@ server.get('/events', (req, res) => {
 });
 
 server.use(router)
-server.listen(3002, () => {
+server.listen(3004, () => {
   console.log('JSON Server is running')
 })

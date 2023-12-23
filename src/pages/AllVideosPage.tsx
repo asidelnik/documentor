@@ -6,6 +6,9 @@ import ReactPlayer from 'react-player'
 import { GetVideosQueryParams } from "../types/getVideosQueryParams";
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton } from "@mui/material";
+import { LocationOption } from "../types/location";
+import { locationOptions } from "../fake-data/fake-data";
+import { tryParseIntOrUndefined } from "../utils/functions";
 
 export default function AllVideosPage() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -14,15 +17,16 @@ export default function AllVideosPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [volume, setVolume] = useState(0.5);
+
+  const [selectedLocation, setSelectedLocation] = useState<number | undefined>(undefined);
 
   const [filters, setFilters] = useState<GetVideosQueryParams>({
     fromDate: '2023-10-01T00:00',
     toDate: '2023-10-27T00:00',
     lat: 32.0853,
-    lon: 34.7818,
+    lng: 34.7818,
     radius: 10,
-    status: 1,
+    status: undefined,
     page: 1,
     limit: 10,
   });
@@ -33,7 +37,8 @@ export default function AllVideosPage() {
 
   const fetchData = async (params: GetVideosQueryParams) => {
     try {
-      const getFilteredVideosRequestString = serverRoutes.getFilteredVideos(params);
+      const filteredParams = Object.fromEntries(Object.entries(params).filter(([_, value]) => value !== undefined));
+      const getFilteredVideosRequestString = serverRoutes.getFilteredVideos(filteredParams);
 
       const response = await fetch(baseUrl + getFilteredVideosRequestString);
       if (!response.ok) {
@@ -49,7 +54,6 @@ export default function AllVideosPage() {
             endTime: new Date(video.endTime),
           };
         });
-        console.log(filteredVideos);
         setVideos(updatedVideos);
         setVideosCount(filteredVideos.videosCount);
       }
@@ -80,6 +84,19 @@ export default function AllVideosPage() {
     fetchData(filters);
   }
 
+  const handleLocationChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const locationId = tryParseIntOrUndefined(event.target.value);
+    if (locationId === undefined) return;
+    setSelectedLocation(locationId);
+    const location = locationOptions.find(x => x.id == locationId);
+    if (!location) return;
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      lat: location?.value.lat,
+      lng: location?.value.lng,
+    }));
+  };
+
   return (
     <>
       <div className={c.filtersContainer}>
@@ -100,21 +117,22 @@ export default function AllVideosPage() {
             onChange={handleFilterChange}
             onKeyDown={handleSearch}
           />
-          {/* Add more filter inputs here */}
-          <input type="number"
-            name="lat"
-            value={filters.lat}
-            onChange={handleFilterChange}
-            onKeyDown={handleSearch}
-          />
-          <input type="number" name="lon" value={filters.lon} onChange={handleFilterChange}
-            onKeyDown={handleSearch}
-          />
-          <input type="number" name="radius" value={filters.radius} onChange={handleFilterChange}
-            onKeyDown={handleSearch}
-          />
 
-          <input type="number" name="status" value={filters.status} onChange={handleFilterChange}
+          <select name="location" value={selectedLocation} onChange={handleLocationChange}>
+            <option value="">Select Location</option>
+            {locationOptions.map((option: LocationOption, index: number) => (
+              <option key={index} value={option.id}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="number"
+            name="status"
+            placeholder="Status"
+            value={filters.status}
+            onChange={handleFilterChange}
             onKeyDown={handleSearch}
           />
           {/* <input type="text" name="tags" value={filters.tags} onChange={handleFilterChange} /> */}
@@ -143,7 +161,6 @@ export default function AllVideosPage() {
                     }
                   }
                 }}
-                volume={volume}
               />
             </div>
           ))}

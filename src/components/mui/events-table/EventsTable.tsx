@@ -41,61 +41,63 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
   }
 
   return (
-    <Paper sx={{ width: '100%', mb: 2 }}>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
-          <TableHead>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Start time</TableCell>
-              <TableCell>Duration</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Videos count</TableCell>
-              <TableCell>To review</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row: EventType) => (
-              <TableRow
-                key={row.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell>
-                  <IconButton aria-label="edit event" onClick={() => editEvent(row.id)}>
-                    <EditIcon className={c.editIcon} />
-                  </IconButton>
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  <Link to={`/events/${row.id}`}>{row.title}</Link>
-                </TableCell>
-                <TableCell>{row.startTimeFormatted}</TableCell>
-                <TableCell>{row.durationFormatted}</TableCell>
-                <TableCell>{row.description}</TableCell>
-                <TableCell>{row.locationName}</TableCell>
-                <TableCell>{row.statusFormatted}</TableCell>
-                <TableCell>{row.videosCount}</TableCell>
-                <TableCell>{row.videosUnprocessedCount}</TableCell>
+    <>
+      <Paper sx={{ width: '100%', mb: 2 }}>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
+            <TableHead>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Start time</TableCell>
+                <TableCell>Duration</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>Location</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Videos count</TableCell>
+                <TableCell>To review</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {rows.map((row: EventType) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell>
+                    <IconButton aria-label="edit event" onClick={() => editEvent(row.id)}>
+                      <EditIcon className={c.editIcon} />
+                    </IconButton>
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    <Link to={`/events/${row.id}`}>{row.title}</Link>
+                  </TableCell>
+                  <TableCell>{row.startTimeFormatted}</TableCell>
+                  <TableCell>{row.durationFormatted}</TableCell>
+                  <TableCell>{row.description}</TableCell>
+                  <TableCell>{row.locationName}</TableCell>
+                  <TableCell>{row.statusFormatted}</TableCell>
+                  <TableCell>{row.videosCount}</TableCell>
+                  <TableCell>{row.videosUnprocessedCount}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
-      <footer className={c.pagination}>
-        <Button variant="contained" onClick={addEvent}>Add</Button>
-        <TablePagination
-          rowsPerPageOptions={[3, 5, 10, 25]}
-          component="div"
-          count={eventsCount}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </footer>
-    </Paper >
+        <footer className={c.pagination}>
+          <Button variant="contained" onClick={addEvent}>Add</Button>
+          <TablePagination
+            rowsPerPageOptions={[3, 5, 10, 25]}
+            component="div"
+            count={eventsCount}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </footer>
+      </Paper >
+    </>
   );
 }

@@ -2,7 +2,7 @@ export type GetEventsQueryParams = {
   fromDate?: string;
   toDate?: string;
   lat?: number;
-  lon?: number;
+  lng?: number;
   radius?: number;
   status?: number;
   page?: number;
