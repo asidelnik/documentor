@@ -16,3 +16,14 @@ Violent events video documentation dashboard.
 
 **Event timeline**
 ![Event timeline](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/f1b8b820-67a7-4055-9377-e6b4d95c0258)
+
+## Tasks
+[ ] - Backwards navigation - from specific event to events page
+[ ] - Events filtering
+[ ] - Events - add event
+[ ] - Events - edit event - update info, remove videos, delete event
+[ ] - Events sorting
+[ ] - All videos - filtering - location, date...
+[ ] - All videos - select video/s to add to event
+[ ] - All videos - sorting
+[ ] - All videos - pagination or infinite scroll with lazy loading
