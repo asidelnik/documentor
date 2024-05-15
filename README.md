@@ -27,3 +27,5 @@ Violent events video documentation dashboard.
 - [ ] - All videos - select video/s to add to event
 - [ ] - All videos - sorting
 - [ ] - All videos - pagination or infinite scroll with lazy loading
+- [ ] - Timeline page
+- [ ] - Cloudinary & Node.JS
