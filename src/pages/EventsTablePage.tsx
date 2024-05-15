@@ -37,15 +37,15 @@ export default function EventsTablePage() {
         // tags: ['tag1', 'tag2'],
         // tagsJoined: ''
       });
-
       const response = await fetch(baseUrl + getEventsRequestString);
       if (!response.ok) {
         throw new Error(response.statusText);
       }
 
       const eventsRes: GetEventsResponse = await response.json();
+      let updatedEvents: EventType[] = [];
       if (eventsRes?.events?.length > 0) {
-        const updatedEvents = eventsRes.events.map((event: EventType) => {
+        updatedEvents = eventsRes.events.map((event: EventType) => {
           return {
             ...event,
             startTime: new Date(event.startTime),
@@ -55,13 +55,12 @@ export default function EventsTablePage() {
             statusFormatted: EventStatusEnum[event.status],
           };
         });
-        console.log({ updatedEvents });
-        setEvents(updatedEvents);
-        setEventsCount(eventsRes.eventsCount);
       }
+
+      setEvents(updatedEvents);
+      setEventsCount(eventsRes.eventsCount ?? 0);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
       setErrorMessage('error');
       setIsError(true);
       setIsLoading(false);
@@ -82,16 +81,12 @@ export default function EventsTablePage() {
 
   return (
     <>
-      {events && events.length > 0 && (
-        <>
-          <EventsTable
-            rows={events}
-            eventsCount={eventsCount}
-            getPageRows={getPageRows}
-            openDialog={handleClickOpen}
-          />
-        </>
-      )}
+      <EventsTable
+        rows={events}
+        eventsCount={eventsCount}
+        getPageRows={getPageRows}
+        openDialog={handleClickOpen}
+      />
       <EventsAddEditDialog
         dialog={dialog}
         onClose={handleClose}

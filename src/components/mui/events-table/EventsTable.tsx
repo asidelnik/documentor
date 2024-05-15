@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
 
-import { EventsTableProps } from '../../../props/eventsTableProps';
+import { IEventsTableProps } from '../../../props/eventsTableProps';
 import { EventType } from '../../../types/event';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -18,7 +18,7 @@ import { Button, IconButton } from '@mui/material';
 import { EventsActionTitle } from '../../../enums/EventsActionTitle';
 
 
-export default function EventsTable({ rows, eventsCount, getPageRows, openDialog }: EventsTableProps) {
+export default function EventsTable({ rows, eventsCount, getPageRows, openDialog }: IEventsTableProps) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -31,7 +31,7 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
     const perPage = parseInt(event.target.value, 10);
     setRowsPerPage(perPage);
     setPage(0);
-    getPageRows(0, perPage);
+    getPageRows(1, perPage);
   };
 
   const addEvent = () => {
@@ -49,19 +49,19 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
           <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
             <TableHead>
               <TableRow>
-                <TableCell></TableCell>
-                <TableCell>Title</TableCell>
-                <TableCell>Start time</TableCell>
-                <TableCell>Duration</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Location</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Videos</TableCell>
-                <TableCell>Review</TableCell>
+                <TableCell sx={{ padding: '10px 5px 10px 0px' }}></TableCell>
+                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Title</TableCell>
+                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Start time</TableCell>
+                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Duration</TableCell>
+                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Description</TableCell>
+                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Location</TableCell>
+                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Status</TableCell>
+                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Videos</TableCell>
+                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Review</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row: EventType) => (
+              {rows?.length > 0 && rows.map((row: EventType) => (
                 <TableRow
                   key={row.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

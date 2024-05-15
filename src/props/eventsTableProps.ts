@@ -1,7 +1,7 @@
 import { EventsActionTitle } from '../enums/EventsActionTitle';
 import { EventType } from '../types/event';
 
-export type EventsTableProps = {
+export interface IEventsTableProps {
   rows: EventType[];
   eventsCount: number;
   getPageRows: (page: number, rowsPerPage: number) => void;
