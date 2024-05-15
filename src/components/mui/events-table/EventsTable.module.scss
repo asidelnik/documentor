@@ -1,3 +1,16 @@
+.eventLink {
+  color: hsl(211, 100%, 40%);
+  font-weight: bold;
+}
+
+.eventToReview {
+  // color: white;
+  background-color: hsl(0, 100%, 80%);
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-weight: bold;
+}
+
 .pagination {
   display: flex;
   flex-direction: row;

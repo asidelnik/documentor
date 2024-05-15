@@ -72,7 +72,7 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
                     </IconButton>
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    <Link to={`/events/${row.id}`}>{row.title}</Link>
+                    <Link to={`/events/${row.id}`} className={c.eventLink}>{row.title}</Link>
                   </TableCell>
                   <TableCell>{row.startTimeFormatted}</TableCell>
                   <TableCell>{row.durationFormatted}</TableCell>
@@ -80,7 +80,9 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
                   <TableCell>{row.locationName}</TableCell>
                   <TableCell>{row.statusFormatted}</TableCell>
                   <TableCell>{row.videosCount}</TableCell>
-                  <TableCell>{row.videosUnprocessedCount}</TableCell>
+                  <TableCell>
+                    <span className={row.videosUnprocessedCount > 0 ? c.eventToReview : ''}>{row.videosUnprocessedCount}</span>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
