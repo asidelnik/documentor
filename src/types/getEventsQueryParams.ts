@@ -1,4 +1,4 @@
-export type GetEventsQueryParams = {
+export interface IGetEventsQueryParams {
   fromDate?: string;
   toDate?: string;
   lat?: number;
@@ -9,4 +9,4 @@ export type GetEventsQueryParams = {
   limit?: number;
   // tags?: string[];
   // tagsJoined: string;
-};
+}

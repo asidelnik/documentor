@@ -1,4 +1,4 @@
-import { GetEventsQueryParams } from '../types/getEventsQueryParams';
+import { IGetEventsQueryParams } from '../types/getEventsQueryParams';
 import { GetVideosQueryParams } from '../types/getVideosQueryParams';
 import { getURLSearchParams } from '../utils/functions';
 
@@ -14,7 +14,7 @@ export const serverRoutes = {
   },
 
   // Events page (table)
-  getFilteredEvents: (params: GetEventsQueryParams) => {
+  getFilteredEvents: (params: IGetEventsQueryParams) => {
     // const paramsWithTags = {
     //   ...params,
     //   // tagsJoined: params.tags ? params.tags.join(',') : '',
