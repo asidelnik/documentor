@@ -7,6 +7,7 @@ import { VideoFromServer } from "../types/video";
 import CommonError from "../components/errors/common/CommonError";
 
 export default function EventTimelinePage() {
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const { eventId } = useParams<{ eventId: string }>();
   const [data, setData] = useState<EventType | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,33 +15,33 @@ export default function EventTimelinePage() {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    const axiosFetchData = async () => {
-      try {
-        const url = `http://localhost:3000/timeline-events/${eventId}`;
-        const response = await axios.get(url);
-        const data = response?.data;
-        if (data) {
-          const event: EventType = {
-            ...response?.data,
-            startTime: new Date(response?.data.startTime),
-            endTime: new Date(response?.data.endTime),
-            videos: response?.data.videos.map((video: VideoFromServer) => ({
-              ...video,
-              startTime: new Date(video.startTime),
-              endTime: new Date(video.endTime),
-            })),
-          };
-          setData(event);
-          setIsLoading(false);
-        }
-      } catch (error: any) {
-        setErrorMessage(error.message)
-        setIsError(true);
-        setIsLoading(false);
-      }
-    };
     axiosFetchData();
   }, [eventId]);
+
+  const axiosFetchData = async () => {
+    try {
+      const response = await axios.get(baseUrl + 'events/' + eventId);
+      const data = response?.data;
+      if (data) {
+        const event: EventType = {
+          ...response?.data,
+          startTime: new Date(response?.data.startTime),
+          endTime: new Date(response?.data.endTime),
+          videos: response?.data.videos.map((video: VideoFromServer) => ({
+            ...video,
+            startTime: new Date(video.startTime),
+            endTime: new Date(video.endTime),
+          })),
+        };
+        setData(event);
+        setIsLoading(false);
+      }
+    } catch (error: any) {
+      setErrorMessage(error.message)
+      setIsError(true);
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -52,6 +53,7 @@ export default function EventTimelinePage() {
         {!isLoading && !isError && data && (
           <VideoList event={data} />
         )}
+        {data && <VideoList event={data} />}
       </div>
     </>
   )

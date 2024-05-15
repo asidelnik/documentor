@@ -1,12 +1,12 @@
-export type GetEventsQueryParams = {
+export interface IGetEventsQueryParams {
   fromDate?: string;
   toDate?: string;
   lat?: number;
-  lon?: number;
+  lng?: number;
   radius?: number;
   status?: number;
   page?: number;
   limit?: number;
-  tags?: string[];
-  tagsJoined: string;
-};
+  // tags?: string[];
+  // tagsJoined: string;
+}

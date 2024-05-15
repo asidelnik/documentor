@@ -7,6 +7,8 @@ import ReactPlayer from 'react-player'
 import { EventType } from "../../types/event";
 import { Link } from "react-router-dom";
 import { OrientationEnum } from "../../enums/orientation-enum";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { dateToString, secondsToTimeString } from "../../utils/functions";
 
 
 type Props = {
@@ -22,7 +24,8 @@ export default function VideoList({ event }: Props) {
   const lastVideoIndex = videos.length - 1;
   const [volume, setVolume] = useState(0.5);
   const playersRef = useRef([createRef<ReactPlayer>()]);
-  const eventDuration = formatDuration(event.duration);
+  const eventDuration = secondsToTimeString(event.duration);
+  const eventStartTime = dateToString(event.startTime);
 
   useEffect(() => {
     if (isSyncPlay) {
@@ -84,21 +87,16 @@ export default function VideoList({ event }: Props) {
     setVolume(parseFloat(e.target.value));
   }
 
-  function formatDuration(seconds: number): string {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-  }
-
   return (
     <div>
       <div className={c.eventInfoBar}>
-        <Link to="/events" className={c.backButton}>&larr;</Link>
+        <Link to="/events" className={c.backButton}>
+          <ArrowBackIcon />
+        </Link>
         <p className={c.title}>{event.title}</p>
         {event.locationName && <p className={c.locationName}>{event.locationName}</p>}
         <p>
-          {event.startTime.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' })}
+          {eventStartTime}
         </p>
         <p>{eventDuration}</p>
         <div className={c.tags}>{event.tags.map((tag: string, index: number) => (<p key={index} className={c.tag}>{tag}</p>))}</div>

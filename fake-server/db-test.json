@@ -1,0 +1,271 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "title": "Jon Snow",
+      "description": "White walkers incursion.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:13.000Z",
+      "duration": 13,
+      "locationName": "Night Watch street, Westeros",
+      "status": 2,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      },
+      "tags": ["Incursion", "White walkers", "Jon Snow"]
+    },
+    {
+      "id": 2,
+      "title": "Robb Stark",
+      "description": "Battle of Winterfell.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:20.000Z",
+      "duration": 20,
+      "locationName": "Winterfell, Westeros",
+      "status": 2,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.08496, 34.783297],
+        "heading": 177
+      },
+      "tags": ["Battle", "Winterfell", "Robb Stark"]
+    },
+    {
+      "id": 3,
+      "title": "Daenerys Targaryen",
+      "description": "Dragon attack on King's Landing.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:15.000Z",
+      "duration": 15,
+      "locationName": "King's Landing, Westeros",
+      "status": 2,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.084687, 34.784981],
+        "heading": 177
+      },
+      "tags": ["Dragon", "King's Landing", "Daenerys Targaryen"]
+    },
+    {
+      "id": 4,
+      "title": "Tyrion Lannister",
+      "description": "Trial by combat.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:10.000Z",
+      "duration": 10,
+      "locationName": "King's Landing, Westeros",
+      "status": 2,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.086087, 34.781999],
+        "heading": 177
+      },
+      "tags": ["Trial", "Combat", "Tyrion Lannister"]
+    },
+    {
+      "id": 5,
+      "title": "Arya Stark",
+      "description": "Assassination of the Night King.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:08.000Z",
+      "duration": 8,
+      "locationName": "Winterfell, Westeros",
+      "status": 2,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      },
+      "tags": ["Assassination", "Night King", "Arya Stark"]
+    },
+    {
+      "id": 6,
+      "title": "Cersei Lannister",
+      "description": "Wildfire explosion.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:12.000Z",
+      "duration": 12,
+      "locationName": "King's Landing, Westeros",
+      "status": 2,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.08496, 34.783297],
+        "heading": 177
+      },
+      "tags": ["Wildfire", "Explosion", "Cersei Lannister"]
+    },
+    {
+      "id": 7,
+      "title": "Bran Stark",
+      "description": "Coronation as King of the Six Kingdoms.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:05.000Z",
+      "duration": 5,
+      "locationName": "King's Landing, Westeros",
+      "status": 2,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.084687, 34.784981],
+        "heading": 177
+      },
+      "tags": ["Coronation", "King", "Bran Stark"]
+    },
+    {
+      "id": 8,
+      "title": "Sansa Stark",
+      "description": "Coronation as Queen in the North.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:05.000Z",
+      "duration": 5,
+      "locationName": "Winterfell, Westeros",
+      "status": 2,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.086087, 34.781999],
+        "heading": 177
+      },
+      "tags": ["Coronation", "Queen", "Sansa Stark"]
+    },
+    {
+      "id": 9,
+      "title": "Jaime Lannister",
+      "description": "Death in the arms of Brienne of Tarth.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:03.000Z",
+      "duration": 3,
+      "locationName": "Winterfell, Westeros",
+      "status": 3,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      },
+      "tags": ["Death", "Brienne of Tarth", "Jaime Lannister"]
+    },
+    {
+      "id": 10,
+      "title": "Joffrey Baratheon",
+      "description": "Poisoning at the Purple Wedding.",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "endTime": "2023-10-23T00:00:05.000Z",
+      "duration": 5,
+      "locationName": "King's Landing, Westeros",
+      "status": 3,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.08496, 34.783297],
+        "heading": 177
+      },
+      "tags": ["Poisoning", "Purple Wedding", "Joffrey Baratheon"]
+    }
+  ],
+  "videos": [
+    {
+      "id": 1,
+      "title": "Video 1",
+      "url": "https://www.youtube.com/embed/SekA57AxJVE",
+      "startTime": "2023-10-23T00:00:00.000Z",
+      "duration": 10,
+      "endTime": "2023-10-23T00:00:07.000Z",
+      "orientation": 2,
+      "eventId": 1,
+      "status": 1,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      },
+      "endLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      }
+    },
+    {
+      "id": 2,
+      "title": "Video 2",
+      "url": "https://www.youtube.com/embed/oG25KSvFEq0?si=HY-pxYbU2eK3fzxb",
+      "startTime": "2023-10-23T00:00:05.000Z",
+      "duration": 10,
+      "endTime": "2023-10-23T00:00:10.000Z",
+      "orientation": 1,
+      "eventId": 1,
+      "status": 2,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      },
+      "endLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      }
+    },
+    {
+      "id": 3,
+      "title": "Video 3",
+      "url": "https://www.youtube.com/embed/SekA57AxJVE",
+      "startTime": "2023-10-23T00:00:06.000Z",
+      "duration": 10,
+      "endTime": "2023-10-23T00:00:13.000Z",
+      "orientation": 2,
+      "eventId": null,
+      "status": 1,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      },
+      "endLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      }
+    },
+    {
+      "id": 4,
+      "title": "Video 4",
+      "url": "https://www.youtube.com/embed/oG25KSvFEq0?si=HY-pxYbU2eK3fzxb",
+      "startTime": "2023-10-23T00:00:10.000Z",
+      "duration": 10,
+      "endTime": "2023-10-23T00:00:17.000Z",
+      "orientation": 1,
+      "eventId": null,
+      "status": 1,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      },
+      "endLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      }
+    },
+    {
+      "id": 5,
+      "title": "Video 5",
+      "url": "https://www.youtube.com/embed/oG25KSvFEq0?si=HY-pxYbU2eK3fzxb",
+      "startTime": "2023-10-23T00:00:12.000Z",
+      "duration": 10,
+      "endTime": "2023-10-23T00:00:19.000Z",
+      "orientation": 2,
+      "eventId": null,
+      "status": 1,
+      "startLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      },
+      "endLocation": {
+        "type": "Point",
+        "coordinates": [32.0853, 34.7818],
+        "heading": 177
+      }
+    }
+  ]
+}

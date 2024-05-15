@@ -1,8 +1,6 @@
 import { OrientationEnum } from '../enums/orientation-enum';
 import { VideoStatusEnum } from '../enums/video-status-enum';
-/*
-
-*/
+import { LocationType } from './location';
 
 type VideoBase = {
   id: number;
@@ -15,8 +13,8 @@ type VideoBase = {
   eventId?: number;
   status: VideoStatusEnum;
   tags?: string[];
-  startLocation: Location;
-  endLocation: Location;
+  startLocation: LocationType;
+  endLocation: LocationType;
 };
 
 export type VideoFromServer = VideoBase & {
