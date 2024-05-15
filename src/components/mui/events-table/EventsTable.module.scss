@@ -1,17 +1,16 @@
 .pagination {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-start;
   align-items: center;
   column-gap: 20px;
 
   position: fixed;
   bottom: 0px;
-  right: 0px;
   background-color: white;
   width: 100%;
-  box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.09), 0 -6px 6px rgba(0, 0, 0, 0.13);
   padding: 10px 20px;
+  border-top: 1px solid #e0e0e0;
 }
 
 .editIcon {
