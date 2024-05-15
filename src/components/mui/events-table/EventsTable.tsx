@@ -20,7 +20,7 @@ import { EventsActionTitle } from '../../../enums/EventsActionTitle';
 
 export default function EventsTable({ rows, eventsCount, getPageRows, openDialog }: EventsTableProps) {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(3);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -28,8 +28,10 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    const perPage = parseInt(event.target.value, 10);
+    setRowsPerPage(perPage);
     setPage(0);
+    getPageRows(0, perPage);
   };
 
   const addEvent = () => {
@@ -54,8 +56,8 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
                 <TableCell>Description</TableCell>
                 <TableCell>Location</TableCell>
                 <TableCell>Status</TableCell>
-                <TableCell>Videos count</TableCell>
-                <TableCell>To review</TableCell>
+                <TableCell>Videos</TableCell>
+                <TableCell>Review</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -86,16 +88,17 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
         </TableContainer>
 
         <footer className={c.pagination}>
-          <Button variant="contained" onClick={addEvent}>Add</Button>
           <TablePagination
             rowsPerPageOptions={[3, 5, 10, 25]}
+            labelRowsPerPage="Rows"
+            rowsPerPage={rowsPerPage}
             component="div"
             count={eventsCount}
-            rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
+          <Button variant="contained" onClick={addEvent}>Add</Button>
         </footer>
       </Paper >
     </>

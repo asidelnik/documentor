@@ -37,12 +37,14 @@ export default function EventsTablePage() {
         // tags: ['tag1', 'tag2'],
         // tagsJoined: ''
       });
+
       const response = await fetch(baseUrl + getEventsRequestString);
       if (!response.ok) {
         throw new Error(response.statusText);
       }
+
       const eventsRes: GetEventsResponse = await response.json();
-      if (eventsRes && eventsRes.events) {
+      if (eventsRes?.events?.length > 0) {
         const updatedEvents = eventsRes.events.map((event: EventType) => {
           return {
             ...event,
@@ -53,7 +55,7 @@ export default function EventsTablePage() {
             statusFormatted: EventStatusEnum[event.status],
           };
         });
-        // console.log({ eventsRes, updatedEvents });
+        console.log({ updatedEvents });
         setEvents(updatedEvents);
         setEventsCount(eventsRes.eventsCount);
       }
@@ -69,8 +71,6 @@ export default function EventsTablePage() {
   const getPageRows = (page: number, limit: number) => {
     fetchData(page, limit);
   };
-
-
 
   const handleClickOpen = (actionTitle: EventsActionTitle, eventId?: number) => {
     setDialog({ isOpen: true, actionTitle, eventId });
