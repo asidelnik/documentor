@@ -1,8 +1,8 @@
-import { GetEventsQueryParams } from '../types/getEventsQueryParams';
+import { IGetEventsQueryParams } from '../types/getEventsQueryParams';
 import { GetVideosQueryParams } from '../types/getVideosQueryParams';
 
 export function getURLSearchParams(
-  params: GetVideosQueryParams | GetEventsQueryParams
+  params: GetVideosQueryParams | IGetEventsQueryParams
 ) {
   const urlParams = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
@@ -23,8 +23,9 @@ export function secondsToTimeString(seconds: number): string {
   return `${hoursString}:${minutesString}:${secondsString}`;
 }
 
-export function dateToString(date: Date): string {
-  if (!isValidDate(date)) return '';
+export function dateToString(dateStr: Date): string {
+  if (!isValidDateString(dateStr)) return '';
+  let date = new Date(dateStr);
   return (
     date.toLocaleDateString('en-US', {
       month: 'short',
@@ -36,7 +37,8 @@ export function dateToString(date: Date): string {
   );
 }
 
-function isValidDate(date: any): boolean {
+function isValidDateString(dateStr: Date): boolean {
+  const date = new Date(dateStr);
   return date instanceof Date && !isNaN(date.getTime());
 }
 
