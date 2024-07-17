@@ -31,6 +31,6 @@ Violent events video documentation dashboard.
 - [ ] - Cloudinary & Node.JS
 
 ## Visual Research
-- [Diagraming](https://www.pinterest.com/pin/433682639128677413/)
-- [Diagraming](https://www.pinterest.com/search/pins/?q=dashboard%20design&rs=typed)
+- [Dashboards - 1](https://www.pinterest.com/pin/433682639128677413/)
+- [Dashboard - 2](https://www.pinterest.com/search/pins/?q=dashboard%20design&rs=typed)
 
