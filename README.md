@@ -29,3 +29,8 @@ Violent events video documentation dashboard.
 - [ ] - All videos - pagination or infinite scroll with lazy loading
 - [ ] - Timeline page
 - [ ] - Cloudinary & Node.JS
+
+## Visual Research
+- [Diagraming](https://www.pinterest.com/pin/433682639128677413/)
+- [Diagraming](https://www.pinterest.com/search/pins/?q=dashboard%20design&rs=typed)
+
