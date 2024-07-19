@@ -2,7 +2,7 @@ import { OrientationEnum } from '../enums/orientation-enum';
 import { VideoStatusEnum } from '../enums/video-status-enum';
 import { LocationType } from './location';
 
-type VideoBase = {
+interface VideoBase {
   id: number;
   title?: string;
   url: string;
@@ -15,14 +15,14 @@ type VideoBase = {
   tags?: string[];
   startLocation: LocationType;
   endLocation: LocationType;
-};
+}
 
-export type VideoFromServer = VideoBase & {
+export interface VideoFromServer extends VideoBase {
   startTime: string;
   endTime: string;
-};
+}
 
-export type Video = VideoBase & {
+export interface Video extends VideoBase {
   startTime: Date;
   endTime: Date;
 };
