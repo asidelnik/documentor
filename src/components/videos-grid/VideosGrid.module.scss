@@ -1,0 +1,33 @@
+.videoCount {
+  margin: 0px;
+  padding: 15px;
+  font-weight: 400;
+  font-size: 0.75rem;
+  border-bottom: 1px solid hsl(0, 0%, 85%);
+}
+
+.videoGridContainer {
+  margin: 0px;
+  padding: 15px;
+
+  .videoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+    }
+
+    .videoItem {
+      // position: relative;
+      // cursor: pointer;
+      // overflow: hidden;
+      // border-radius: 0.5rem;
+      // transition: transform 0.2s ease-in-out;
+      width: fit-content !important;
+      // height: fit-content !important;
+    }
+  }
+}
