@@ -1,6 +1,7 @@
 import c from "./VideosGrid.module.scss";
 import ReactPlayer from 'react-player'
 import { VideosGridProps } from "../../props/VideosGridProps";
+import VideoInfo from "../video-info/VideoInfo";
 
 export default function VideosGrid({ videos, videosCount }: VideosGridProps) {
   return (
@@ -8,6 +9,7 @@ export default function VideosGrid({ videos, videosCount }: VideosGridProps) {
       <div className={c.videoCount}>{videosCount} videos</div>
       <div className={c.videoGridContainer}>
         <div className={c.videoGrid}>
+          {/* TODO - Virtual scrolling */}
           {videos.map((video) => (
             <div key={video.id} className={c.videoItem}>
               <ReactPlayer
@@ -24,6 +26,7 @@ export default function VideosGrid({ videos, videosCount }: VideosGridProps) {
                   }
                 }}
               />
+              <VideoInfo />
             </div>
           ))}
         </div>
