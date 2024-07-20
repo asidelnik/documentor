@@ -6,28 +6,33 @@
   border-bottom: 1px solid hsl(0, 0%, 85%);
 }
 
-.videoGridContainer {
+.container {
   margin: 0px;
   padding: 15px;
 
-  .videoGrid {
+  .videosGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, 315px);
     grid-auto-rows: 1fr;
-    gap: 1rem;
+    gap: 15px;
 
     @media (max-width: 500px) {
       grid-template-columns: 1fr;
     }
 
-    .videoItem {
-      // position: relative;
-      // cursor: pointer;
-      // overflow: hidden;
-      // border-radius: 0.5rem;
-      // transition: transform 0.2s ease-in-out;
-      width: fit-content !important;
-      // height: fit-content !important;
+    .video {
+      width: 100%;
+      background-color: hsl(0, 0%, 90%);
+
+      .videoPlayer {
+        width: fit-content !important;
+        // position: relative;
+        // cursor: pointer;
+        // overflow: hidden;
+        // border-radius: 0.5rem;
+        // transition: transform 0.2s ease-in-out;
+        // height: fit-content !important;
+      }
     }
   }
 }
