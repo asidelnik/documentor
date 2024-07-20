@@ -2,29 +2,32 @@ import c from "./VideoInfo.module.scss";
 import { IVideoInfoProps } from "../../props/IVideoInfoProps";
 import MapIcon from '@mui/icons-material/Map';
 import { IconButton } from "@mui/material";
-import { dateToStringDDMMYYYY, getStatusColor } from "../../utils/functions";
+import { dateToStringShortMonthDateYear } from "../../utils/functions";
+import { getStatusStyles } from "../../enums/video-status";
 export default function VideoInfo({ video }: IVideoInfoProps) {
-  const dateString = dateToStringDDMMYYYY(video.startTime);
-  const statusColor = getStatusColor(video.status)
+  const dateString = dateToStringShortMonthDateYear(video.startTime);
+  const statusStyles = getStatusStyles(video.status)
 
-// TODO - Hoverable list of events
+  // TODO - Hoverable list of events
   return (
     <>
-      <div className={c.container}>
-        <p>{dateString}</p>
-        <IconButton
-          aria-label="show map"
-        // onClick={showMapPopup}
-        >
-          <MapIcon />
-        </IconButton>
+      <div className={c.videoInfoContainer}>
+        <p className={c.date}>{dateString}</p>
+        <div className={c.icons}>
+          <IconButton
+            aria-label="show map"
+          // onClick={showMapPopup}
+          >
+            <MapIcon />
+          </IconButton>
 
-        <IconButton
-          aria-label="status"
-        // onClick={updateStatus}
-        >
-          <div className={c.status} style={{ backgroundColor: statusColor }}></div>
-        </IconButton>
+          <IconButton
+            aria-label="status"
+          // onClick={updateStatus}
+          >
+            <div className={c.status} style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
+          </IconButton>
+        </div>
       </div>
     </>
   )
