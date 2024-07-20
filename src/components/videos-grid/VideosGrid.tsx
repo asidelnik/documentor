@@ -1,9 +1,9 @@
 import c from "./VideosGrid.module.scss";
 import ReactPlayer from 'react-player'
-import { VideosGridProps } from "../../props/VideosGridProps";
+import { IVideosGridProps } from "../../props/IVideosGridProps";
 import VideoInfo from "../video-info/VideoInfo";
 
-export default function VideosGrid({ videos, videosCount }: VideosGridProps) {
+export default function VideosGrid({ videos, videosCount }: IVideosGridProps) {
   return (
     <>
       <div className={c.videoCount}>{videosCount} videos</div>

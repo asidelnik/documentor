@@ -6,9 +6,9 @@ import { ChangeEvent, useState } from "react";
 import { locationOptions } from "../../fake-data/fake-data";
 import { tryParseIntOrUndefined } from "../../utils/functions";
 import { GetVideosQueryParams } from "../../types/getVideosQueryParams";
-import { VideosFiltersProps } from "../../props/VideosFiltersProps";
+import { IVideosFiltersProps } from "../../props/IVideosFiltersProps";
 
-export default function VideosFilters({ defaultFilters, fetchData }: VideosFiltersProps) {
+export default function VideosFilters({ defaultFilters, fetchData }: IVideosFiltersProps) {
   const [selectedLocation, setSelectedLocation] = useState<number | undefined>(undefined);
   const [filters, setFilters] = useState<GetVideosQueryParams>(defaultFilters);
 
