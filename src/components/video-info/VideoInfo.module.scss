@@ -1,0 +1,17 @@
+.container {
+  background-color: hsl(0, 0%, 90%);
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+
+  .status {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
