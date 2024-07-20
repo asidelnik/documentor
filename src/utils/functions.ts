@@ -1,4 +1,4 @@
-import { statusMap } from '../enums/video-status-enum';
+import { statusMap, VideoStatusEnum } from '../enums/video-status';
 import { IGetEventsQueryParams } from '../types/getEventsQueryParams';
 import { GetVideosQueryParams } from '../types/getVideosQueryParams';
 
@@ -42,6 +42,15 @@ export function dateToStringDDMMYYYY(date: Date): string {
   return date.toLocaleDateString('en-GB');
 }
 
+export function dateToStringShortMonthDateYear(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  };
+  return date.toLocaleDateString('en-US', options);
+}
+
 function isValidDateString(dateStr: Date): boolean {
   const date = new Date(dateStr);
   return date instanceof Date && !isNaN(date.getTime());
@@ -50,8 +59,4 @@ function isValidDateString(dateStr: Date): boolean {
 export function tryParseIntOrUndefined(str: string): number | undefined {
   const value = parseInt(str, 10);
   return isNaN(value) ? undefined : value;
-}
-
-export function getStatusColor(statusId: number): string {
-  return statusMap[statusId].color || 'gray';
 }
