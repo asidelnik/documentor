@@ -7,6 +7,8 @@ import { locationOptions } from "../../fake-data/fake-data";
 import { tryParseIntOrUndefined } from "../../utils/functions";
 import { GetVideosQueryParams } from "../../types/getVideosQueryParams";
 import { IVideosFiltersProps } from "../../props/IVideosFiltersProps";
+import { statusTexts } from "../../enums/video-status";
+import CustomDropdown from "../../shared/components/custom-drop-down/CustomDropDown";
 
 export default function VideosFilters({ defaultFilters, fetchData }: IVideosFiltersProps) {
   const [selectedLocation, setSelectedLocation] = useState<number | undefined>(undefined);
@@ -42,6 +44,13 @@ export default function VideosFilters({ defaultFilters, fetchData }: IVideosFilt
       lng: location?.value.lng,
     }));
   };
+
+  function filtersHandler(fieldName: string, value: number) {
+    console.log(fieldName, value)
+    setFilters(prevFilters => ({ ...prevFilters, [fieldName]: value }));
+    fetchData(filters);
+  }
+
   return (
     <>
       <div className={c.filtersContainer}>
@@ -72,14 +81,12 @@ export default function VideosFilters({ defaultFilters, fetchData }: IVideosFilt
             ))}
           </select>
 
-          <input
-            type="number"
-            name="status"
-            placeholder="Status"
-            value={filters.status}
-            onChange={handleFilterChange}
-            onKeyDown={handleSearch}
+          <CustomDropdown
+            buttonText='Status'
+            options={statusTexts}
+            update={(value) => filtersHandler('status', value)}
           />
+
           {/* <input type="text" name="tags" value={filters.tags} onChange={handleFilterChange} /> */}
 
           <IconButton aria-label="search" onClick={handleSearchClick}>
