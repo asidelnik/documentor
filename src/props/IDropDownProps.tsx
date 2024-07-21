@@ -1,6 +1,8 @@
+import { ISelectOption } from '../types/ISelectOption';
 
-export interface IDropDownProps {
+export interface IMultipleSelectCheckmarksProps {
   buttonText: string;
-  options: { [key: number]: string };
-  update: (value: number) => void;
+  options: ISelectOption[];
+  defaultOptions: number[];
+  updateSelectedOptions: (selectedOptions: number[]) => void;
 }
