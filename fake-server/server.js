@@ -66,6 +66,21 @@ server.get('/videos', (req, res) => {
   res.json({ videos, videosCount });
 });
 
+
+
+server.put('/videos/:id', (req, res) => {
+  const db = router.db; // lowdb instance
+  const { id } = req.params;
+  const { status } = req.body;
+  const video = db.get('videos').find({ id: Number(id) }).value();
+  if (video) {
+    db.get('videos').find({ id: Number(id) }).assign({ status: Number(status) }).write();
+    res.json({ message: 'Video status updated successfully' });
+  } else {
+    res.status(404).send('Video not found');
+  }
+});
+
 server.get('/events/:id', (req, res) => {
   const db = router.db; // lowdb instance
   const { id } = req.params;
