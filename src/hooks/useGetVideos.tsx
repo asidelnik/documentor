@@ -11,15 +11,15 @@ export default function useGetVideos(defaultFilters: IGetVideosFilters) {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Abort fetchData request call if another call has been made before previous completion
   let fetchController = new AbortController();
 
   useEffect(() => {
     fetchData(defaultFilters);
-    return () => fetchController.abort()
+    return () => fetchController.abort();
   }, [])
 
   const fetchData = async (params: IGetVideosFilters) => {
+    setIsLoading(true);
     fetchController.abort('Newer fetch called');
     fetchController = new AbortController();
     const { signal } = fetchController;

@@ -1,17 +1,17 @@
 import c from "./VideoInfo.module.scss";
 import { IVideoInfoProps } from "../../props/IVideoInfoProps";
 import MapIcon from '@mui/icons-material/Map';
-import { IconButton } from "@mui/material";
+import { CircularProgress, IconButton } from "@mui/material";
 import { dateToStringShortMonthDateYear } from "../../utils/functions";
 import { getStatusStyles, statusAutocompleteOptions, statusLabels } from "../../constants/video-status";
 import PositionedMenu from "../../shared/components/positioned-menu/PositionedMenu";
+import { useUpdateVideoStatus } from "../../hooks/useUpdateVideoStatus";
 
 export default function VideoInfo({ video }: IVideoInfoProps) {
   const dateString = dateToStringShortMonthDateYear(video.startTime);
   const statusStyles = getStatusStyles(video.status)
 
-  function updateVideoStatus(selectedId: number) {
-    console.log(selectedId);
+  const { isLoading, isError, update } = useUpdateVideoStatus();
   }
 
   // TODO - Hoverable list of events
@@ -27,12 +27,15 @@ export default function VideoInfo({ video }: IVideoInfoProps) {
             <MapIcon />
           </IconButton>
 
-          <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status} select={updateVideoStatus}>
+          <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status} select={(option: number) => update(video.id, option)}>
+            {isLoading ? <CircularProgress size={20} /> : (
             <div className={c.status} title={statusLabels[video.status]}
               style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
+            )}
           </PositionedMenu>
         </div>
       </div>
     </>
+    // TODO - Hoverable list of events
   )
 }
