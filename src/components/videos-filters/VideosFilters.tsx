@@ -46,7 +46,6 @@ export default function VideosFilters({ defaultFilters, fetchData }: IVideosFilt
   };
 
   function selectHandler(fieldName: string, options: number[]) {
-    console.log(fieldName, options)
     const newFilters = {
       ...filters,
       [fieldName]: options,

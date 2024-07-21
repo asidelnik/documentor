@@ -60,7 +60,7 @@ export default function AllVideosPage() {
 
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setErrorMessage('error');
       setIsError(true);
       setIsLoading(false);

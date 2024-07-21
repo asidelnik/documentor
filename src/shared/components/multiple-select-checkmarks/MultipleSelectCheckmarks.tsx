@@ -27,8 +27,6 @@ export default function MultipleSelectCheckmarks({ buttonText, options, defaultO
 
   function onChangeHandler(event: SelectChangeEvent<number[]>) {
     const { target: { value: newSelectedIds } } = event;
-    console.log(newSelectedIds);
-
     if (Array.isArray(newSelectedIds)) {
       setSelectedIds(newSelectedIds);
       updateSelectedOptions(newSelectedIds);
