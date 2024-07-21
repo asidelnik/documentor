@@ -15,7 +15,7 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 
 server.get('/videos', (req, res) => {
-  const { fromDate, toDate, lat, lng, radius, status, eventId, page = 1, limit = 10 } = req.query;
+  const { fromDate, toDate, lat, lng, radius, statuses, eventId, page = 1, limit = 10 } = req.query;
   console.log(req.query);
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
@@ -45,8 +45,11 @@ server.get('/videos', (req, res) => {
   //   videos = videos.filter(video => tagsArray.every(tag => video.tags.includes(tag)));
   // }
 
-  if (status) {
-    videos = videos.filter(video => video.status === Number(status));
+  if (!statuses || statuses === '') {
+    videos = [];
+  } else {
+    const statusesArray = statuses.split(',').map(Number);
+    videos = videos.filter(video => statusesArray.includes(video.status));
   }
 
   if (eventId) {

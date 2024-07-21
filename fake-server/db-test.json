@@ -255,7 +255,7 @@
       "endTime": "2023-10-23T00:00:19.000Z",
       "orientation": 2,
       "eventId": null,
-      "status": 1,
+      "status": 2,
       "startLocation": {
         "type": "Point",
         "coordinates": [32.0853, 34.7818],
@@ -318,7 +318,7 @@
       "endTime": "2023-10-23T00:00:32.000Z",
       "orientation": 1,
       "eventId": null,
-      "status": 1,
+      "status": 2,
       "startLocation": {
         "type": "Point",
         "coordinates": [32.08496, 34.783297],
@@ -444,7 +444,7 @@
       "endTime": "2023-10-23T00:01:02.000Z",
       "orientation": 1,
       "eventId": null,
-      "status": 1,
+      "status": 2,
       "startLocation": {
         "type": "Point",
         "coordinates": [32.084687, 34.784981],
