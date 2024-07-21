@@ -6,15 +6,19 @@ import { dateToStringShortMonthDateYear } from "../../utils/functions";
 import { getStatusStyles, statusAutocompleteOptions, statusLabels } from "../../constants/video-status";
 import PositionedMenu from "../../shared/components/positioned-menu/PositionedMenu";
 import { useUpdateVideoStatus } from "../../hooks/useUpdateVideoStatus";
+import { useEffect } from "react";
 
-export default function VideoInfo({ video }: IVideoInfoProps) {
+export default function VideoInfo({ video, fetchData }: IVideoInfoProps) {
   const dateString = dateToStringShortMonthDateYear(video.startTime);
   const statusStyles = getStatusStyles(video.status)
 
   const { isLoading, isError, update } = useUpdateVideoStatus();
-  }
+  useEffect(() => {
+    if (isError === false) {
+      fetchData();
+    }
+  }, [isError])
 
-  // TODO - Hoverable list of events
   return (
     <>
       <div className={c.videoInfoContainer}>
@@ -29,8 +33,8 @@ export default function VideoInfo({ video }: IVideoInfoProps) {
 
           <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status} select={(option: number) => update(video.id, option)}>
             {isLoading ? <CircularProgress size={20} /> : (
-            <div className={c.status} title={statusLabels[video.status]}
-              style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
+              <div className={c.status} title={statusLabels[video.status]}
+                style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
             )}
           </PositionedMenu>
         </div>
