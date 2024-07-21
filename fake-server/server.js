@@ -14,6 +14,18 @@ const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 
+server.put('/videos/:id/:status', (req, res) => {
+  const db = router.db; // lowdb instance
+  const { id, status } = req.params;
+  const video = db.get('videos').find({ id: Number(id) }).value();
+  if (video) {
+    db.get('videos').find({ id: Number(id) }).assign({ status: Number(status) }).write();
+    res.json({ message: 'Video status updated successfully' });
+  } else {
+    res.status(404).send('Video not found');
+  }
+});
+
 server.get('/videos', (req, res) => {
   const { fromDate, toDate, lat, lng, radius, statuses, eventId, page = 1, limit = 10 } = req.query;
   console.log(req.query);
@@ -68,18 +80,7 @@ server.get('/videos', (req, res) => {
 
 
 
-server.put('/videos/:id', (req, res) => {
-  const db = router.db; // lowdb instance
-  const { id } = req.params;
-  const { status } = req.body;
-  const video = db.get('videos').find({ id: Number(id) }).value();
-  if (video) {
-    db.get('videos').find({ id: Number(id) }).assign({ status: Number(status) }).write();
-    res.json({ message: 'Video status updated successfully' });
-  } else {
-    res.status(404).send('Video not found');
-  }
-});
+
 
 server.get('/events/:id', (req, res) => {
   const db = router.db; // lowdb instance
