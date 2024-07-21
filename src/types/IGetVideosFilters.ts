@@ -8,7 +8,8 @@ export interface IGetVideosFilters {
   eventId?: boolean;
   page?: number;
   limit?: number;
-
-  // tags?: string[];
-  // tagsJoined: string;
+  // id?: number;
 }
+
+// tags?: string[];
+// tagsJoined: string;
