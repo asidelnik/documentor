@@ -5,14 +5,14 @@ import { LocationOption } from "../../types/location";
 import { ChangeEvent, useState } from "react";
 import { locationOptions } from "../../fake-data/fake-data";
 import { tryParseIntOrUndefined } from "../../utils/functions";
-import { GetVideosQueryParams } from "../../types/getVideosQueryParams";
+import { IGetVideosFilters } from "../../types/IGetVideosFilters";
 import { IVideosFiltersProps } from "../../props/IVideosFiltersProps";
-import { statusTexts } from "../../enums/video-status";
-import CustomDropdown from "../../shared/components/custom-drop-down/CustomDropDown";
+import { statusAutocompleteOptions, VideoStatusEnum } from "../../constants/video-status";
+import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 
 export default function VideosFilters({ defaultFilters, fetchData }: IVideosFiltersProps) {
   const [selectedLocation, setSelectedLocation] = useState<number | undefined>(undefined);
-  const [filters, setFilters] = useState<GetVideosQueryParams>(defaultFilters);
+  const [filters, setFilters] = useState<IGetVideosFilters>(defaultFilters);
 
   const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -45,10 +45,14 @@ export default function VideosFilters({ defaultFilters, fetchData }: IVideosFilt
     }));
   };
 
-  function filtersHandler(fieldName: string, value: number) {
-    console.log(fieldName, value)
-    setFilters(prevFilters => ({ ...prevFilters, [fieldName]: value }));
-    fetchData(filters);
+  function selectHandler(fieldName: string, options: number[]) {
+    console.log(fieldName, options)
+    const newFilters = {
+      ...filters,
+      [fieldName]: options,
+    };
+    fetchData(newFilters);
+    setFilters(newFilters);
   }
 
   return (
@@ -81,10 +85,11 @@ export default function VideosFilters({ defaultFilters, fetchData }: IVideosFilt
             ))}
           </select>
 
-          <CustomDropdown
-            buttonText='Status'
-            options={statusTexts}
-            update={(value) => filtersHandler('status', value)}
+          <MultipleSelectCheckmarks
+            buttonText='Statuses'
+            options={statusAutocompleteOptions}
+            defaultOptions={[VideoStatusEnum.Unprocessed]}
+            updateSelectedOptions={(options: number[]) => selectHandler('statuses', options)}
           />
 
           {/* <input type="text" name="tags" value={filters.tags} onChange={handleFilterChange} /> */}

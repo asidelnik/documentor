@@ -1,6 +1,6 @@
-import { GetVideosQueryParams } from '../types/getVideosQueryParams';
+import { IGetVideosFilters } from '../types/IGetVideosFilters';
 
 export interface IVideosFiltersProps {
-  defaultFilters: GetVideosQueryParams;
-  fetchData: (filters: GetVideosQueryParams) => void;
+  defaultFilters: IGetVideosFilters;
+  fetchData: (filters: IGetVideosFilters) => void;
 }

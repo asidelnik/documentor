@@ -1,9 +1,8 @@
-import { statusMap, VideoStatusEnum } from '../enums/video-status';
 import { IGetEventsQueryParams } from '../types/getEventsQueryParams';
-import { GetVideosQueryParams } from '../types/getVideosQueryParams';
+import { IGetVideosFilters } from '../types/IGetVideosFilters';
 
 export function getURLSearchParams(
-  params: GetVideosQueryParams | IGetEventsQueryParams
+  params: IGetVideosFilters | IGetEventsQueryParams
 ) {
   const urlParams = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {

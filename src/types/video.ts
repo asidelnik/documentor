@@ -1,5 +1,5 @@
 import { OrientationEnum } from '../enums/orientation-enum';
-import { VideoStatusEnum } from '../enums/video-status';
+import { VideoStatusEnum } from '../constants/video-status';
 import { LocationType } from './location';
 
 interface VideoBase {

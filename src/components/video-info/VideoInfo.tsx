@@ -3,7 +3,7 @@ import { IVideoInfoProps } from "../../props/IVideoInfoProps";
 import MapIcon from '@mui/icons-material/Map';
 import { IconButton } from "@mui/material";
 import { dateToStringShortMonthDateYear } from "../../utils/functions";
-import { getStatusStyles } from "../../enums/video-status";
+import { getStatusStyles, statusLabels } from "../../constants/video-status";
 export default function VideoInfo({ video }: IVideoInfoProps) {
   const dateString = dateToStringShortMonthDateYear(video.startTime);
   const statusStyles = getStatusStyles(video.status)
@@ -25,7 +25,8 @@ export default function VideoInfo({ video }: IVideoInfoProps) {
             aria-label="status"
           // onClick={updateStatus}
           >
-            <div className={c.status} style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
+            <div className={c.status} title={statusLabels[video.status]}
+              style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
           </IconButton>
         </div>
       </div>
