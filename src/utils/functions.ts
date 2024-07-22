@@ -1,8 +1,8 @@
 import { IGetEventsQueryParams } from '../types/getEventsQueryParams';
-import { GetVideosQueryParams } from '../types/getVideosQueryParams';
+import { IGetVideosFilters } from '../types/IGetVideosFilters';
 
 export function getURLSearchParams(
-  params: GetVideosQueryParams | IGetEventsQueryParams
+  params: IGetVideosFilters | IGetEventsQueryParams
 ) {
   const urlParams = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
@@ -35,6 +35,19 @@ export function dateToString(dateStr: Date): string {
     ' - ' +
     date.toLocaleTimeString('en-US')
   );
+}
+
+export function dateToStringDDMMYYYY(date: Date): string {
+  return date.toLocaleDateString('en-GB');
+}
+
+export function dateToStringShortMonthDateYear(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  };
+  return date.toLocaleDateString('en-US', options);
 }
 
 function isValidDateString(dateStr: Date): boolean {

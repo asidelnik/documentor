@@ -18,6 +18,11 @@ Violent events video documentation dashboard.
 ![Event timeline](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/f1b8b820-67a7-4055-9377-e6b4d95c0258)
 
 ## Tasks
+- [ ] - Bug: fix AbortController not working
+- [ ] - Connect project to Atlas DB
+- [ ] - Analytics page - graphs to show violence analytics
+- [ ] - React Flow
+
 - [ ] - Backwards navigation - from specific event to events page
 - [ ] - Events filtering
 - [ ] - Events - add event

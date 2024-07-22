@@ -1,0 +1,66 @@
+.filtersContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0px;
+  padding: 15px;
+  font-weight: 400;
+  font-size: 0.75rem;
+  border-bottom: 1px solid hsl(0, 0%, 85%);
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 5;
+
+  form {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 10px;
+    margin: 0px;
+    padding: 0px;
+    font-size: 1rem;
+    font-weight: 500;
+
+    input {
+      margin: 0px;
+      padding: 0px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      border: 1px solid hsl(0, 0%, 75%);
+      border-radius: 5px;
+      padding: 5px;
+      color: hsl(0, 0%, 20%);
+      width: 100%;
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    input[type='datetime-local']::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      background-color: hsl(0, 0%, 40%);
+    }
+
+    select {
+      margin: 0px;
+      padding: 0px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      border: 1px solid hsl(0, 0%, 75%);
+      border-radius: 5px;
+      padding: 5px;
+      color: hsl(0, 0%, 20%);
+      width: 100%;
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+    }
+  }
+}

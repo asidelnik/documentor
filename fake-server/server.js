@@ -14,8 +14,20 @@ const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 
+server.put('/videos/:id/:status', (req, res) => {
+  const db = router.db; // lowdb instance
+  const { id, status } = req.params;
+  const video = db.get('videos').find({ id: Number(id) }).value();
+  if (video) {
+    db.get('videos').find({ id: Number(id) }).assign({ status: Number(status) }).write();
+    res.json({ message: 'Video status updated successfully' });
+  } else {
+    res.status(404).send('Video not found');
+  }
+});
+
 server.get('/videos', (req, res) => {
-  const { fromDate, toDate, lat, lng, radius, status, eventId, page = 1, limit = 10 } = req.query;
+  const { fromDate, toDate, lat, lng, radius, statuses, eventId, page = 1, limit = 10 } = req.query;
   console.log(req.query);
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
@@ -45,8 +57,11 @@ server.get('/videos', (req, res) => {
   //   videos = videos.filter(video => tagsArray.every(tag => video.tags.includes(tag)));
   // }
 
-  if (status) {
-    videos = videos.filter(video => video.status === Number(status));
+  if (!statuses || statuses === '') {
+    videos = [];
+  } else {
+    const statusesArray = statuses.split(',').map(Number);
+    videos = videos.filter(video => statusesArray.includes(video.status));
   }
 
   if (eventId) {
@@ -62,6 +77,10 @@ server.get('/videos', (req, res) => {
 
   res.json({ videos, videosCount });
 });
+
+
+
+
 
 server.get('/events/:id', (req, res) => {
   const db = router.db; // lowdb instance
