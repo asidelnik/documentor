@@ -87,7 +87,7 @@ export default function VideosFilters({ defaultFilters, fetchData }: IVideosFilt
           <MultipleSelectCheckmarks
             buttonText='Statuses'
             options={statusAutocompleteOptions}
-            defaultOptions={[VideoStatusEnum.Unprocessed]}
+            defaultOptions={[VideoStatusEnum.Unprocessed, VideoStatusEnum.Usable, VideoStatusEnum.Restricted]}
             updateSelectedOptions={(options: number[]) => selectHandler('statuses', options)}
           />
 

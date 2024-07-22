@@ -7,7 +7,11 @@ export const filtersInitialState: IGetVideosFilters = {
   lat: 32.0853,
   lng: 34.7818,
   radius: 10,
-  statuses: [VideoStatusEnum.Unprocessed],
+  statuses: [
+    VideoStatusEnum.Unprocessed,
+    VideoStatusEnum.Usable,
+    VideoStatusEnum.Restricted,
+  ],
   page: 1,
   limit: 100,
 };
