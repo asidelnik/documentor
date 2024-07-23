@@ -1,30 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Video } from "../types/video";
-import { IGetVideosFilters } from "../types/IGetVideosFilters";
 import { serverRoutes } from "../server/server-routes";
+import { useFilters } from "../contexts/filters-context";
 
-export default function useGetVideos(defaultFilters: IGetVideosFilters) {
+export default function useGetVideos() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const [videos, setVideos] = useState<Video[]>([]);
   const [videosCount, setVideosCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean | null>(null);
+  const [isError, setIsError] = useState<boolean | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
-
-  let fetchController = new AbortController();
+  const filters = useFilters();
+  const abortControllerRef = useRef(new AbortController());
 
   useEffect(() => {
-    fetchData(defaultFilters);
-    return () => fetchController.abort();
-  }, [])
+    fetchData();
+    // Optionally reset the controller for future use
+    return () => abortControllerRef.current.abort('useGetVideos - unmount'); //abort('useGetVideos - unmount');
+  }, []); //signal, filters.statuses
 
-  const fetchData = async (params: IGetVideosFilters) => {
+  const fetchData = async () => {
     setIsLoading(true);
-    fetchController.abort('Newer fetch called');
-    fetchController = new AbortController();
-    const { signal } = fetchController;
+    setIsError(null);
+
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort('Request aborted');
+      abortControllerRef.current = new AbortController();
+    }
+    const { signal } = abortControllerRef.current;
+
     try {
-      const filteredParams = Object.fromEntries(Object.entries(params).filter(([_, value]) => value !== undefined));
+      const filteredParams = Object.fromEntries(Object.entries(filters).filter(([_, value]) => value !== undefined));
       const getFilteredVideosRequestString = serverRoutes.getFilteredVideos(filteredParams);
 
       const response = await fetch(baseUrl + getFilteredVideosRequestString, { signal });
@@ -45,13 +51,15 @@ export default function useGetVideos(defaultFilters: IGetVideosFilters) {
         setVideosCount(filteredVideos.videosCount);
       }
 
+      setIsError(false);
       setIsLoading(false);
     } catch (error) {
-      // console.log(error);
-      setErrorMessage('error');
-      setIsError(true);
+      console.log(error);
+      setErrorMessage(error === 'Aborted' ? '' : 'Error');
+      setIsError(error === 'Aborted' ? false : true);
       setIsLoading(false);
     }
   }
+
   return { videos, videosCount, isLoading, isError, errorMessage, fetchData };
 }

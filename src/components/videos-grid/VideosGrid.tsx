@@ -4,7 +4,7 @@ import { IVideosGridProps } from "../../props/IVideosGridProps";
 import VideoInfo from "../video-info/VideoInfo";
 import { Video } from "../../types/video";
 
-export default function VideosGrid({ videos, videosCount }: IVideosGridProps) {
+export default function VideosGrid({ videos, videosCount, fetchData }: IVideosGridProps) {
   return (
     <>
       <div className={c.videoCount}>{videosCount} videos</div>
@@ -30,7 +30,7 @@ export default function VideosGrid({ videos, videosCount }: IVideosGridProps) {
                     }
                   }}
                 />
-                <VideoInfo video={video} />
+                <VideoInfo video={video} fetchData={() => fetchData()} />
               </div>
             ))}
           </div>
