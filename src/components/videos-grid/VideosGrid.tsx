@@ -17,10 +17,10 @@ export default function VideosGrid({ videos, videosCount, fetchData }: IVideosGr
                 <ReactPlayer
                   key={video.id}
                   url={video.url}
-                  className={c.videoPlayer}
                   controls={true}
                   width='100%'
                   height='177px'
+                  light={<img src={video.thumbnail} alt={`Video ${video.id} Thumbnail`} width="100%" height="100%" />}
                   config={{
                     youtube: {
                       embedOptions: {
