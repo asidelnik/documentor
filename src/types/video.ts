@@ -6,6 +6,7 @@ interface VideoBase {
   id: number;
   title?: string;
   url: string;
+  thumbnail: string;
   // author: string;
   description?: string;
   duration: number;
