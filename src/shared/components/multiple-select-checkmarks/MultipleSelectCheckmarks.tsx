@@ -23,7 +23,7 @@ const MenuProps = {
 export default function MultipleSelectCheckmarks({ buttonText, options, defaultOptions, updateSelectedOptions }: IMultipleSelectCheckmarksProps) {
   const [selectedIds, setSelectedIds] = useState<number[]>(defaultOptions);
   const selectedLabels: string[] = selectedIds.length > 0 && options.length > 0 ?
-    selectedIds.map((selected) => options.find(option => option.id === selected)?.label!).filter(Boolean) : [];
+    selectedIds.map((selected) => options.find(option => option.id === selected)?.label).filter((label) => label !== undefined) : [];
 
   function onChangeHandler(event: SelectChangeEvent<number[]>) {
     const { target: { value: newSelectedIds } } = event;
@@ -44,7 +44,7 @@ export default function MultipleSelectCheckmarks({ buttonText, options, defaultO
           value={selectedIds}
           onChange={onChangeHandler}
           input={<OutlinedInput label={buttonText} />}
-          renderValue={(_selected) => selectedLabels.join(', ')}
+          renderValue={() => selectedLabels.join(', ')}
           MenuProps={MenuProps}
           defaultValue={defaultOptions}
         >
