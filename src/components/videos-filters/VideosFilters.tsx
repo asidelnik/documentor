@@ -9,6 +9,7 @@ import { IVideosFiltersProps } from "../../props/IVideosFiltersProps";
 import { statusAutocompleteOptions, VideoStatusEnum } from "../../constants/video-status";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 import { useFilters, useFiltersDispatch } from "../../contexts/filters-context";
+import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 
 export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
   // const [selectedLocation, setSelectedLocation] = useState<number | undefined>(undefined);
@@ -55,7 +56,14 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
     <>
       <div className={c.filtersContainer}>
         <form>
-          <input
+          <DateTimeRangePicker
+            fromDate={filters.fromDate}
+            toDate={filters.toDate}
+            updateFromDate={(date: string) => filtersDispatch({ type: 'from-date-update', payload: date })}
+            updateToDate={(date: string) => filtersDispatch({ type: 'to-date-update', payload: date })}
+          />
+
+          {/* <input
             type="datetime-local"
             name="fromDate"
             placeholder="From date"
@@ -70,7 +78,7 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
             value={filters.toDate}
             onChange={(event) => handleFilterChange(event, 'to-date-update')}
             onKeyDown={handleSearch}
-          />
+          /> */}
 
           {/* <select name="location" value={selectedLocation} onChange={handleLocationChange}>
             <option value="">Select Location</option>
