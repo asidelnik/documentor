@@ -1,7 +1,7 @@
 import { VideoStatusEnum } from '../constants/video-status';
-import { IGetVideosFilters } from '../types/IGetVideosFilters';
+import { IVideosFilters } from '../types/IGetVideosFilters';
 
-export const filtersInitialState: IGetVideosFilters = {
+export const filtersInitialState: IVideosFilters = {
   fromDate: '2023-10-01T00:00',
   toDate: '2023-10-27T00:00',
   lat: 32.0853,

@@ -1,15 +1,15 @@
 import { IGetEventsQueryParams } from '../types/getEventsQueryParams';
-import { IGetVideosFilters } from '../types/IGetVideosFilters';
+import { IVideosFilters } from '../types/IGetVideosFilters';
 import { getURLSearchParams } from '../utils/functions';
 
 export const serverRoutes = {
   // All videos page
-  getFilteredVideos: (params: IGetVideosFilters) => {
+  getFilteredVideos: (params: IVideosFilters) => {
     const urlParams = getURLSearchParams(params);
     return `/videos?${urlParams}&_expand=event`;
-    },
-    
-    updateVideoStatus: (videoId: number, status: number) => {
+  },
+
+  updateVideoStatus: (videoId: number, status: number) => {
     return `/videos/${videoId}?status=${status}`;
   },
 

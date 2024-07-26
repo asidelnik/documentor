@@ -1,9 +1,9 @@
 import { createContext, useContext, useReducer } from "react";
 import { filtersInitialState } from "../initial-state/filtersInitialState";
-import { IGetVideosFilters } from "../types/IGetVideosFilters";
+import { IVideosFilters } from "../types/IGetVideosFilters";
 import { FiltersActions, FiltersContextProviderProps } from "../types/FiltersContextTypes";
 
-const FiltersContext = createContext<IGetVideosFilters>(filtersInitialState);
+const FiltersContext = createContext<IVideosFilters>(filtersInitialState);
 const FiltersDispatchContext = createContext<any>(null);
 
 export function FiltersProvider({ children }: FiltersContextProviderProps) {
@@ -18,16 +18,16 @@ export function FiltersProvider({ children }: FiltersContextProviderProps) {
   );
 }
 
-function filtersReducer(filters: IGetVideosFilters, action: FiltersActions): any {
+function filtersReducer(filters: IVideosFilters, action: FiltersActions): any {
   switch (action.type) {
     case "update-statuses": {
-      return { ...filters, statuses: action.payload, } as IGetVideosFilters;
+      return { ...filters, statuses: action.payload, } as IVideosFilters;
     }
     case "update-from-date": {
-      return { ...filters, fromDate: action.payload, } as IGetVideosFilters;
+      return { ...filters, fromDate: action.payload, } as IVideosFilters;
     }
     case "update-to-date": {
-      return { ...filters, toDate: action.payload, } as IGetVideosFilters;
+      return { ...filters, toDate: action.payload, } as IVideosFilters;
     }
     default: {
       return filters;
