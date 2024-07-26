@@ -1,19 +1,34 @@
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { DateTimeValidationError, PickerChangeHandlerContext } from '@mui/x-date-pickers';
+import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
 import { IDateTimeRangePickerProps } from '../../../props/IDateTimeRangePickerProps';
 import dayjs from 'dayjs';
 
 export default function DateTimeRangePicker({ fromDate, toDate, updateFromDate, updateToDate }: IDateTimeRangePickerProps) {
-  function fromChangeHandler(value: any, context: PickerChangeHandlerContext<DateTimeValidationError>): void {
-    console.log(value, context)
+
+  //https://mui.com/x/react-date-pickers/date-time-picker/
+  function fromChangeHandler(value: dayjs.Dayjs): void {
+    console.log(value.toDate())
+  }
+
+  function toChangeHandler(value: dayjs.Dayjs): void {
+    console.log(value.toDate())
   }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateTimePicker label="From date" onChange={fromChangeHandler} value={dayjs(new Date())} defaultValue={dayjs(new Date())} sx={{ height: '150px' }} />
-      <DateTimePicker label="To date" onChange={fromChangeHandler} value={dayjs(new Date())} defaultValue={dayjs(new Date())} sx={{ height: '150px' }} />
+      <DesktopDateTimePicker
+        label="From date"
+        onChange={(value, context) => fromChangeHandler(value)}
+        value={dayjs(new Date())}
+      // sx={{ height: '50px' }}
+      />
+      <DesktopDateTimePicker
+        label="To date"
+        onChange={(value, context) => toChangeHandler(value)}
+        value={dayjs(new Date())}
+      // sx={{ height: '50px' }}
+      />
     </LocalizationProvider>
   );
 }
