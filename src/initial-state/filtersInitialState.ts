@@ -1,5 +1,5 @@
 import { VideoStatusEnum } from '../constants/video-status';
-import { IVideosFilters } from '../types/IGetVideosFilters';
+import { IVideosFilters } from '../types/IVideosFilters';
 
 export const filtersInitialState: IVideosFilters = {
   fromDate: '2023-10-01T00:00',

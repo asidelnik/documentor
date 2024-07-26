@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 import { filtersInitialState } from "../initial-state/filtersInitialState";
-import { IVideosFilters } from "../types/IGetVideosFilters";
+import { IVideosFilters } from "../types/IVideosFilters";
 import { FiltersActions, FiltersContextProviderProps } from "../types/FiltersContextTypes";
 
 const FiltersContext = createContext<IVideosFilters>(filtersInitialState);
