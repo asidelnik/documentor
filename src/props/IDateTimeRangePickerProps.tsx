@@ -4,4 +4,5 @@ export interface IDateTimeRangePickerProps {
   toDateProp?: Date;
   updateFromDate: (date: Date) => void;
   updateToDate: (date: Date) => void;
+  setValidationError: (isError: boolean) => void;
 }

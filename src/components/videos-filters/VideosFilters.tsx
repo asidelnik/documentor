@@ -2,7 +2,7 @@ import c from "./VideosFilters.module.scss";
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton } from "@mui/material";
 // import { LocationOption } from "../../types/location";
-import { useEffect } from "react"; //ChangeEvent
+import { useEffect, useState } from "react"; //ChangeEvent
 // import { locationOptions } from "../../fake-data/fake-data";
 // import { tryParseIntOrUndefined } from "../../utils/functions";
 import { IVideosFiltersProps } from "../../props/IVideosFiltersProps";
@@ -15,9 +15,10 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
   // const [selectedLocation, setSelectedLocation] = useState<number | undefined>(undefined);
   const filters = useFilters();
   const filtersDispatch = useFiltersDispatch();
+  const [isValidationError, setIsValidationError] = useState<boolean>(false);
 
   useEffect(() => {
-    fetchData();
+    if (!isValidationError) fetchData();
   }, [filters.fromDate, filters.toDate, filters.statuses])
 
   // const handleSearch = (event: any) => {
@@ -39,6 +40,7 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
             toDateProp={filters.toDate}
             updateFromDate={(date: Date) => filtersDispatch({ type: 'update-from-date', payload: date })}
             updateToDate={(date: Date) => filtersDispatch({ type: 'update-to-date', payload: date })}
+            setValidationError={setIsValidationError}
           />
 
           <MultipleSelectCheckmarks
@@ -48,7 +50,7 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
             updateSelectedOptions={(options: number[]) => selectHandler('update-statuses', options)}
           />
 
-          <IconButton aria-label="search" onClick={fetchData}>
+          <IconButton aria-label="search" onClick={fetchData} disabled={isValidationError}>
             <SearchIcon />
           </IconButton>
         </form>
