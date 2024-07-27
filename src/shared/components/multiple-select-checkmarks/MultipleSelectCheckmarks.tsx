@@ -35,7 +35,7 @@ export default function MultipleSelectCheckmarks({ buttonText, options, defaultO
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ width: '100%' }}>
         <InputLabel id="multiple-checkbox-label">{buttonText}</InputLabel>
         <Select
           labelId="multiple-checkbox-label"

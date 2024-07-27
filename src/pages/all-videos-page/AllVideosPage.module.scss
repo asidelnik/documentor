@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 50px);
+  
+  aside {
+    border-inline-end: 1px solid hsl(0, 0%, 85%);
+
+    .asideToggle {
+      width: 100%;
+      border-block-end: 1px solid hsl(0, 0%, 85%);
+      height: 52px;
+      padding-inline: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  }
+
+  .asideOpen {
+    flex: 0 0 350px;
+  }
+
+  .asideClose {
+    flex: 0 0 auto;
+  }
+
+  main {
+    flex: 1;
+  }
+}

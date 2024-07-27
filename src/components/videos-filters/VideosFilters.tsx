@@ -1,6 +1,4 @@
 import c from "./VideosFilters.module.scss";
-import SearchIcon from '@mui/icons-material/Search';
-import { IconButton } from "@mui/material";
 // import { LocationOption } from "../../types/location";
 import { useEffect, useState } from "react"; //ChangeEvent
 // import { locationOptions } from "../../fake-data/fake-data";
@@ -34,7 +32,6 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
   return (
     <>
       <div className={c.filtersContainer}>
-        <form>
           <DateTimeRangePicker
             fromDateProp={filters.fromDate}
             toDateProp={filters.toDate}
@@ -48,17 +45,11 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
             options={statusAutocompleteOptions}
             defaultOptions={[VideoStatusEnum.Unprocessed, VideoStatusEnum.Usable, VideoStatusEnum.Restricted]}
             updateSelectedOptions={(options: number[]) => selectHandler('update-statuses', options)}
-          />
-
-          <IconButton aria-label="search" onClick={fetchData} disabled={isValidationError}>
-            <SearchIcon />
-          </IconButton>
-        </form>
+        />
       </div>
     </>
   )
 }
-
 
 {/* <select name="location" value={selectedLocation} onChange={handleLocationChange}>
     <option value="">Select Location</option>

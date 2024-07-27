@@ -45,33 +45,38 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DesktopDateTimePicker
-        label="From date"
-        onChange={(value) => fromChangeHandler(value)}
-        value={fromDate}
-        disableFuture
-        maxDate={dayjs(new Date())}
-        onError={(newError: DateTimeValidationError) => fromErrorHandler(newError)}
-        slotProps={{
-          textField: {
-            helperText: fromError === 'maxDate' || fromError === 'disableFuture' ? 'Future date not allowed.' : '',
-          },
-        }}
-      />
-      <DesktopDateTimePicker
-        label="To date"
-        onChange={(value) => toChangeHandler(value)}
-        value={toDate}
-        disableFuture
-        shouldDisableDate={(date) => date.isBefore(fromDate)}
-        maxDate={dayjs(new Date())}
-        onError={(newError: DateTimeValidationError) => toErrorHandler(newError)}
-        slotProps={{
-          textField: {
-            helperText: toError === 'maxDate' || toError === 'disableFuture' ? 'Future date not allowed.' : '',
-          },
-        }}
-      />
+      <div style={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}>
+
+        <DesktopDateTimePicker
+          label="From date"
+          onChange={(value) => fromChangeHandler(value)}
+          value={fromDate}
+          disableFuture
+          maxDate={dayjs(new Date())}
+          onError={(newError: DateTimeValidationError) => fromErrorHandler(newError)}
+          slotProps={{
+            textField: {
+              helperText: fromError === 'maxDate' || fromError === 'disableFuture' ? 'Future date not allowed.' : '',
+            },
+          }}
+          sx={{ width: '100%' }}
+        />
+        <DesktopDateTimePicker
+          label="To date"
+          onChange={(value) => toChangeHandler(value)}
+          value={toDate}
+          disableFuture
+          shouldDisableDate={(date) => date.isBefore(fromDate)}
+          maxDate={dayjs(new Date())}
+          onError={(newError: DateTimeValidationError) => toErrorHandler(newError)}
+          slotProps={{
+            textField: {
+              helperText: toError === 'maxDate' || toError === 'disableFuture' ? 'Future date not allowed.' : '',
+            },
+          }}
+          sx={{ width: '100%' }}
+        />
+      </div>
     </LocalizationProvider>
   );
 }

@@ -7,10 +7,10 @@ import {
 
 import RootLayout from "./layouts/RootLayout";
 // Pages
-import AllVideosPage from "./pages/AllVideosPage";
 import EventsTablePage from "./pages/EventsTablePage";
 import EventTimelinePage from "./pages/EventTimelinePage";
 import NotFoundPage from "./pages/NotFoundPage";
+import AllVideosPage from "./pages/all-videos-page/AllVideosPage";
 
 
 export const router = createHashRouter(
