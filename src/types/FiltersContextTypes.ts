@@ -7,12 +7,12 @@ type UpdateStatusesAction = {
 
 type UpdateFromDateUpdateAction = {
   type: 'update-from-date';
-  payload: string;
+  payload: Date;
 };
 
 type UpdateToDateAction = {
   type: 'update-to-date';
-  payload: string;
+  payload: Date;
 };
 
 export type FiltersActions =

@@ -1,6 +1,6 @@
 export interface IVideosFilters {
-  fromDate?: string;
-  toDate?: string;
+  fromDate?: Date;
+  toDate?: Date;
   statuses?: number[];
   lat?: number;
   lng?: number;

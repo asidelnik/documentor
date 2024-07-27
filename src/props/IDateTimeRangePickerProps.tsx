@@ -1,7 +1,8 @@
 
 export interface IDateTimeRangePickerProps {
-  fromDate?: string;
-  toDate?: string;
-  updateFromDate: (date: string) => void;
-  updateToDate: (date: string) => void;
+  fromDate?: Date;
+  toDate?: Date;
+  updateFromDate: (date: Date) => void;
+  updateToDate: (date: Date) => void;
+  fetchData: () => void;
 }
