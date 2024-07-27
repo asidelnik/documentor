@@ -1,20 +1,28 @@
 .videoCount {
-  margin: 0px;
-  padding: 15px;
+  height: 52px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-block-end: 1px solid hsl(0, 0%, 85%);
+  padding-inline-start: 10px;
   font-weight: 400;
   font-size: 0.75rem;
-  border-bottom: 1px solid hsl(0, 0%, 85%);
+  margin: 0px;
 }
 
 .container {
   margin: 0px;
   padding: 15px;
+  overflow-y: scroll;
+  height: calc(100vh - 50px - 52px);
 
   .videosGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, 315px);
     grid-auto-rows: 1fr;
     gap: 15px;
+    padding-bottom: 70px;
 
     @media (max-width: 500px) {
       grid-template-columns: 1fr;

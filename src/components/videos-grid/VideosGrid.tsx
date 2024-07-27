@@ -20,6 +20,7 @@ export default function VideosGrid({ videos, videosCount, fetchData }: IVideosGr
                   controls={true}
                   width='100%'
                   height='177px'
+                  style={{ position: 'relative' }}
                   light={<img src={video.thumbnail} alt={`Video ${video.id} Thumbnail`} width="100%" height="100%" />}
                   config={{
                     youtube: {
