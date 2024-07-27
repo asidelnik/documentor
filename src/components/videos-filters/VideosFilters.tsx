@@ -2,7 +2,7 @@ import c from "./VideosFilters.module.scss";
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton } from "@mui/material";
 // import { LocationOption } from "../../types/location";
-import { ChangeEvent, useEffect } from "react";
+import { useEffect } from "react"; //ChangeEvent
 // import { locationOptions } from "../../fake-data/fake-data";
 // import { tryParseIntOrUndefined } from "../../utils/functions";
 import { IVideosFiltersProps } from "../../props/IVideosFiltersProps";
@@ -18,35 +18,13 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
 
   useEffect(() => {
     fetchData();
-  }, [filters])
+  }, [filters.fromDate, filters.toDate, filters.statuses])
 
-  const handleFilterChange = (event: ChangeEvent<HTMLInputElement>, dispatchType: string,) => {
-    filtersDispatch({ type: dispatchType, payload: event.target });
-  }
-
-  const handleSearch = (event: any) => {
-    if (event.key === 'Enter') {
-      fetchData();
-    }
-  }
-
-  const handleSearchClick = () => {
-    fetchData();
-  }
-
-  // const handleLocationChange = (event: ChangeEvent<HTMLSelectElement>) => {
-  //   const locationId = tryParseIntOrUndefined(event.target.value);
-  //   if (locationId === undefined) return;
-  //   setSelectedLocation(locationId);
-  //   const location = locationOptions.find(x => x.id == locationId);
-  //   if (!location) return;
-  //   filtersDispatch();
-  //   setFilters(prevFilters => ({
-  //     ...prevFilters,
-  //     lat: location?.value.lat,
-  //     lng: location?.value.lng,
-  //   }));
-  // };
+  // const handleSearch = (event: any) => {
+  //   if (event.key === 'Enter') {
+  //     fetchData();
+  //   }
+  // }
 
   function selectHandler(dispatchType: string, options: number[]) {
     filtersDispatch({ type: dispatchType, payload: options });
@@ -57,37 +35,11 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
       <div className={c.filtersContainer}>
         <form>
           <DateTimeRangePicker
-            fromDate={filters.fromDate}
-            toDate={filters.toDate}
-            updateFromDate={(date: string) => filtersDispatch({ type: 'from-date-update', payload: date })}
-            updateToDate={(date: string) => filtersDispatch({ type: 'to-date-update', payload: date })}
+            fromDateProp={filters.fromDate}
+            toDateProp={filters.toDate}
+            updateFromDate={(date: Date) => filtersDispatch({ type: 'update-from-date', payload: date })}
+            updateToDate={(date: Date) => filtersDispatch({ type: 'update-to-date', payload: date })}
           />
-
-          {/* <input
-            type="datetime-local"
-            name="fromDate"
-            placeholder="From date"
-            value={filters.fromDate}
-            onChange={(event) => handleFilterChange(event, 'from-date-update')}
-            onKeyDown={handleSearch}
-          />
-          <input
-            type="datetime-local"
-            name="toDate"
-            placeholder="To date"
-            value={filters.toDate}
-            onChange={(event) => handleFilterChange(event, 'to-date-update')}
-            onKeyDown={handleSearch}
-          /> */}
-
-          {/* <select name="location" value={selectedLocation} onChange={handleLocationChange}>
-            <option value="">Select Location</option>
-            {locationOptions.map((option: LocationOption, index: number) => (
-              <option key={index} value={option.id}>
-                {option.label}
-              </option>
-            ))}
-          </select> */}
 
           <MultipleSelectCheckmarks
             buttonText='Statuses'
@@ -96,7 +48,7 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
             updateSelectedOptions={(options: number[]) => selectHandler('update-statuses', options)}
           />
 
-          <IconButton aria-label="search" onClick={handleSearchClick}>
+          <IconButton aria-label="search" onClick={fetchData}>
             <SearchIcon />
           </IconButton>
         </form>
@@ -104,3 +56,27 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
     </>
   )
 }
+
+
+{/* <select name="location" value={selectedLocation} onChange={handleLocationChange}>
+    <option value="">Select Location</option>
+    {locationOptions.map((option: LocationOption, index: number) => (
+      <option key={index} value={option.id}>
+        {option.label}
+      </option>
+    ))}
+  </select> */}
+
+// const handleLocationChange = (event: ChangeEvent<HTMLSelectElement>) => {
+//   const locationId = tryParseIntOrUndefined(event.target.value);
+//   if (locationId === undefined) return;
+//   setSelectedLocation(locationId);
+//   const location = locationOptions.find(x => x.id == locationId);
+//   if (!location) return;
+//   filtersDispatch();
+//   setFilters(prevFilters => ({
+//     ...prevFilters,
+//     lat: location?.value.lat,
+//     lng: location?.value.lng,
+//   }));
+// };
