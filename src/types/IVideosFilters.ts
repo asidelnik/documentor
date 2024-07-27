@@ -1,6 +1,6 @@
-export interface IGetVideosFilters {
-  fromDate?: string;
-  toDate?: string;
+export interface IVideosFilters {
+  fromDate?: Date;
+  toDate?: Date;
   statuses?: number[];
   lat?: number;
   lng?: number;
