@@ -1,3 +1,4 @@
+import c from './DateTimeRangePicker.module.scss'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
@@ -45,8 +46,7 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div style={{ display: 'flex', flexDirection: 'column', rowGap: '20px' }}>
-
+      <div className={c.rangeContainer}>
         <DesktopDateTimePicker
           label="From date"
           onChange={(value) => fromChangeHandler(value)}
@@ -59,7 +59,7 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
               helperText: fromError === 'maxDate' || fromError === 'disableFuture' ? 'Future date not allowed.' : '',
             },
           }}
-          sx={{ width: '100%' }}
+          sx={{ width: '100%', backgroundColor: 'white' }}
         />
         <DesktopDateTimePicker
           label="To date"
@@ -74,7 +74,7 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
               helperText: toError === 'maxDate' || toError === 'disableFuture' ? 'Future date not allowed.' : '',
             },
           }}
-          sx={{ width: '100%' }}
+          sx={{ width: '100%', backgroundColor: 'white' }}
         />
       </div>
     </LocalizationProvider>

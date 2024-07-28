@@ -16,6 +16,8 @@
   -webkit-text-size-adjust: 100%;
 
   --max-width-500: 500px;
+  --white-bg-border: hsl(0, 0%, 85%);
+  --light-gray-bg-border: hsl(0, 0%, 80%);
 }
 
 iframe {

@@ -34,28 +34,26 @@ export default function MultipleSelectCheckmarks({ buttonText, options, defaultO
   }
 
   return (
-    <div>
-      <FormControl sx={{ width: '100%' }}>
-        <InputLabel id="multiple-checkbox-label">{buttonText}</InputLabel>
-        <Select
-          labelId="multiple-checkbox-label"
-          id="multiple-checkbox"
-          multiple
-          value={selectedIds}
-          onChange={onChangeHandler}
-          input={<OutlinedInput label={buttonText} />}
-          renderValue={() => selectedLabels.join(', ')}
-          MenuProps={MenuProps}
-          defaultValue={defaultOptions}
-        >
-          {options.map((option: ISelectOption) => (
-            <MenuItem key={option.id} value={option.id}>
-              <Checkbox checked={selectedIds.indexOf(option.id) > -1} />
-              <ListItemText primary={option.label} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div >
+    <FormControl sx={{ width: '100%', backgroundColor: 'white' }}>
+      <InputLabel id="multiple-checkbox-label">{buttonText}</InputLabel>
+      <Select
+        labelId="multiple-checkbox-label"
+        id="multiple-checkbox"
+        multiple
+        value={selectedIds}
+        onChange={onChangeHandler}
+        input={<OutlinedInput label={buttonText} />}
+        renderValue={() => selectedLabels.join(', ')}
+        MenuProps={MenuProps}
+        defaultValue={defaultOptions}
+      >
+        {options.map((option: ISelectOption) => (
+          <MenuItem key={option.id} value={option.id}>
+            <Checkbox checked={selectedIds.indexOf(option.id) > -1} />
+            <ListItemText primary={option.label} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }
