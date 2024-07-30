@@ -4,11 +4,11 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  border-block-end: 1px solid var(--white-bg-border);
   padding-inline-start: 10px;
   font-weight: 400;
   font-size: 0.75rem;
   margin: 0px;
+  border-block-end: 1px solid var(--light-gray-bg-border);
 }
 
 .container {
@@ -30,7 +30,7 @@
 
     .video {
       width: 100%;
-      background-color: hsl(0, 0%, 90%);
+      background-color: white;
     }
   }
 }
