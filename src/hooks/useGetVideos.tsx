@@ -31,7 +31,7 @@ export default function useGetVideos() {
 
     try {
       const filteredParams = Object.fromEntries(Object.entries(filters).filter(([_, value]) => value !== undefined));
-      const getFilteredVideosRequestString = serverRoutes.getFilteredVideos(filteredParams);
+      const getFilteredVideosRequestString = serverRoutes.videos.getFilteredVideos(filteredParams);
 
       const response = await fetch(baseUrl + getFilteredVideosRequestString, { signal });
       if (!response.ok) {
@@ -54,7 +54,7 @@ export default function useGetVideos() {
       setIsError(false);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setErrorMessage(error === 'Aborted' ? '' : 'Error');
       setIsError(error === 'Aborted' ? false : true);
       setIsLoading(false);

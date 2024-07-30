@@ -4,6 +4,7 @@ import { getURLSearchParams } from '../utils/functions';
 
 export const serverRoutes = {
   // All videos page
+  videos: {
   getFilteredVideos: (params: IVideosFilters) => {
     const urlParams = getURLSearchParams(params);
     return `/videos?${urlParams}&_expand=event`;
@@ -12,7 +13,8 @@ export const serverRoutes = {
   updateVideoStatus: (videoId: string, status: number) => {
     return `/videos/${videoId}?status=${status}`;
   },
-
+  },
+  events: {
   // Events page (table)
   getFilteredEvents: (params: IGetEventsQueryParams) => {
     // const paramsWithTags = {
@@ -26,4 +28,5 @@ export const serverRoutes = {
   // Add/Edit event form & Event timeline
   getEventWithVideos: (eventId: number) =>
     `/events/` + eventId + `?_embed=videos`,
+  },
 };

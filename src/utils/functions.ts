@@ -23,7 +23,7 @@ export function secondsToTimeString(seconds: number): string {
 
 export function dateToString(dateStr: Date): string {
   if (!isValidDateString(dateStr)) return '';
-  let date = new Date(dateStr);
+  const date = new Date(dateStr);
   return (
     date.toLocaleDateString('en-US', {
       month: 'short',

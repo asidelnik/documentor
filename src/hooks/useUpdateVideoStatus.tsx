@@ -14,7 +14,7 @@ export function useUpdateVideoStatus() {
     fetchController = new AbortController();
     const { signal } = fetchController;
     try {
-      const requestPath = serverRoutes.updateVideoStatus(id, status);
+      const requestPath = serverRoutes.videos.updateVideoStatus(id, status);
       const response = await fetch(baseUrl + requestPath, { method: 'PUT', signal });
       if (!response.ok) {
         throw new Error(response.statusText);
