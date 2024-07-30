@@ -8,7 +8,7 @@ export function useUpdateVideoStatus() {
 
   let fetchController = new AbortController();
 
-  async function update(id: number, status: number) {
+  async function update(id: string, status: number) {
     setIsLoading(true);
     fetchController.abort('Newer fetch called');
     fetchController = new AbortController();

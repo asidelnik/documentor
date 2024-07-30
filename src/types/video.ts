@@ -3,7 +3,7 @@ import { VideoStatusEnum } from '../constants/video-status';
 import { LocationType } from './location';
 
 interface VideoBase {
-  id: number;
+  id: string;
   title?: string;
   url: string;
   thumbnail: string;
@@ -26,4 +26,4 @@ export interface VideoFromServer extends VideoBase {
 export interface Video extends VideoBase {
   startTime: Date;
   endTime: Date;
-};
+}

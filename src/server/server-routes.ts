@@ -9,7 +9,7 @@ export const serverRoutes = {
     return `/videos?${urlParams}&_expand=event`;
   },
 
-  updateVideoStatus: (videoId: number, status: number) => {
+  updateVideoStatus: (videoId: string, status: number) => {
     return `/videos/${videoId}?status=${status}`;
   },
 
