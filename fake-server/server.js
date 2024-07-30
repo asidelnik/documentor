@@ -24,26 +24,30 @@ server.use(middlewares);
 server.put('/videos/:id/:status', (req, res) => {
   const db = router.db; // lowdb instance
   const { id, status } = req.params;
-  const video = db.get('videos').find({ id: Number(id) }).value();
+  const videos = db.get('videos');
+  const video = videos.find({ id }).value();
   if (video) {
-    db.get('videos').find({ id: Number(id) }).assign({ status: Number(status) }).write();
+    videos.find({ id }).assign({ status: Number(status) }).write();
     res.json({ message: 'Video status updated successfully' });
   } else {
     res.status(404).send('Video not found');
   }
 });
 
-server.put('/videos/:id/events', (req, res) => {
+server.put('/videos/:id/eventId', (req, res) => {
   const db = router.db; // lowdb instance
   const { id } = req.params;
-  const { events } = req.body;
+  const { eventId } = req.body;
+  const video = db.get('videos').find({ id });
+  const event = db.get('events').find({ id: eventId });
 
-  const video = db.get('videos').find({ id: Number(id) }).value();
-  if (video) {
-    db.get('videos').find({ id: Number(id) }).assign({ events }).write();
-    res.json({ message: 'Video events updated successfully' });
+  if (video.value() && event.value()) {
+    video.assign({ eventId }).write();
+    event.assign({ videoIds: [...event.videoIds, id] }).write();
+
+    res.json({ message: 'Video & event updated successfully' });
   } else {
-    res.status(404).send('Video not found');
+    res.status(404).send('Video or event not found');
   }
 });
 
@@ -119,8 +123,7 @@ server.get('/events/:id', (req, res) => {
   }
 });
 
-
-server.get('/events-to-group-videos', (req, res) => {
+server.get('/events-autocomplete', (req, res) => {
   const { page = 1, limit = 100 } = req.query;
   // console.log(req.query);
   const db = router.db; // lowdb instance
