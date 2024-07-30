@@ -14,6 +14,7 @@ const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 
+///////// Videos
 server.put('/videos/:id/:status', (req, res) => {
   const db = router.db; // lowdb instance
   const { id, status } = req.params;
@@ -82,14 +83,15 @@ server.get('/videos', (req, res) => {
 
 
 
+///////// Events
 server.get('/events/:id', (req, res) => {
   const db = router.db; // lowdb instance
   const { id } = req.params;
 
-  let event = db.get('events').find({ id: Number(id) }).value();
+  let event = db.get('events').find({ id }).value();
 
   if (event) {
-    const videos = db.get('videos').filter({ eventId: Number(id) }).value();
+    const videos = db.get('videos').filter({ eventId: id }).value();
     event = { ...event, videos };
     res.json(event);
   } else {

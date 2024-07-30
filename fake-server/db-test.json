@@ -1,7 +1,7 @@
 {
   "events": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Jon Snow",
       "description": "White walkers incursion.",
       "startTime": "2023-10-23T00:00:00.000Z",
@@ -17,7 +17,7 @@
       "tags": ["Incursion", "White walkers", "Jon Snow"]
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Robb Stark",
       "description": "Battle of Winterfell.",
       "startTime": "2023-10-23T00:00:00.000Z",
@@ -33,7 +33,7 @@
       "tags": ["Battle", "Winterfell", "Robb Stark"]
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Daenerys Targaryen",
       "description": "Dragon attack on King's Landing.",
       "startTime": "2023-10-23T00:00:00.000Z",
@@ -49,7 +49,7 @@
       "tags": ["Dragon", "King's Landing", "Daenerys Targaryen"]
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "Tyrion Lannister",
       "description": "Trial by combat.",
       "startTime": "2023-10-23T00:00:00.000Z",
@@ -65,7 +65,7 @@
       "tags": ["Trial", "Combat", "Tyrion Lannister"]
     },
     {
-      "id": 5,
+      "id": "5",
       "title": "Arya Stark",
       "description": "Assassination of the Night King.",
       "startTime": "2023-10-23T00:00:00.000Z",
@@ -81,7 +81,7 @@
       "tags": ["Assassination", "Night King", "Arya Stark"]
     },
     {
-      "id": 6,
+      "id": "6",
       "title": "Cersei Lannister",
       "description": "Wildfire explosion.",
       "startTime": "2023-10-23T00:00:00.000Z",
@@ -97,7 +97,7 @@
       "tags": ["Wildfire", "Explosion", "Cersei Lannister"]
     },
     {
-      "id": 7,
+      "id": "7",
       "title": "Bran Stark",
       "description": "Coronation as King of the Six Kingdoms.",
       "startTime": "2023-10-23T00:00:00.000Z",
@@ -113,7 +113,7 @@
       "tags": ["Coronation", "King", "Bran Stark"]
     },
     {
-      "id": 8,
+      "id": "8",
       "title": "Sansa Stark",
       "description": "Coronation as Queen in the North.",
       "startTime": "2023-10-23T00:00:00.000Z",
@@ -129,7 +129,7 @@
       "tags": ["Coronation", "Queen", "Sansa Stark"]
     },
     {
-      "id": 9,
+      "id": "9",
       "title": "Jaime Lannister",
       "description": "Death in the arms of Brienne of Tarth.",
       "startTime": "2023-10-23T00:00:00.000Z",
@@ -145,7 +145,7 @@
       "tags": ["Death", "Brienne of Tarth", "Jaime Lannister"]
     },
     {
-      "id": 10,
+      "id": "10",
       "title": "Joffrey Baratheon",
       "description": "Poisoning at the Purple Wedding.",
       "startTime": "2023-10-23T00:00:00.000Z",
@@ -163,7 +163,7 @@
   ],
   "videos": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Video 1",
       "url": "https://www.youtube.com/embed/SekA57AxJVE",
       "thumbnail": "https://img.youtube.com/vi/SekA57AxJVE/0.jpg",
@@ -171,7 +171,7 @@
       "duration": 10,
       "endTime": "2023-10-23T00:00:07.000Z",
       "orientation": 2,
-      "eventId": 1,
+      "eventId": "1",
       "status": 1,
       "startLocation": {
         "type": "Point",
@@ -185,7 +185,7 @@
       }
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Video 2",
       "url": "https://www.youtube.com/embed/oG25KSvFEq0",
       "thumbnail": "https://img.youtube.com/vi/oG25KSvFEq0/0.jpg",
@@ -193,7 +193,7 @@
       "duration": 10,
       "endTime": "2023-10-23T00:00:10.000Z",
       "orientation": 1,
-      "eventId": 1,
+      "eventId": "1",
       "status": 2,
       "startLocation": {
         "type": "Point",
@@ -207,7 +207,7 @@
       }
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Video 3",
       "url": "https://www.youtube.com/embed/SekA57AxJVE",
       "thumbnail": "https://img.youtube.com/vi/SekA57AxJVE/0.jpg",
@@ -229,7 +229,7 @@
       }
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "Video 4",
       "url": "https://www.youtube.com/embed/oG25KSvFEq0",
       "thumbnail": "https://img.youtube.com/vi/oG25KSvFEq0/0.jpg",
@@ -251,7 +251,7 @@
       }
     },
     {
-      "id": 5,
+      "id": "5",
       "title": "Video 5",
       "url": "https://www.youtube.com/embed/oG25KSvFEq0",
       "thumbnail": "https://img.youtube.com/vi/oG25KSvFEq0/0.jpg",
@@ -273,7 +273,7 @@
       }
     },
     {
-      "id": 6,
+      "id": "6",
       "title": "Video 6",
       "url": "https://www.youtube.com/embed/SekA57AxJVE",
       "thumbnail": "https://img.youtube.com/vi/SekA57AxJVE/0.jpg",
@@ -281,7 +281,7 @@
       "duration": 10,
       "endTime": "2023-10-23T00:00:22.000Z",
       "orientation": 1,
-      "eventId": 2,
+      "eventId": "2",
       "status": 3,
       "startLocation": {
         "type": "Point",
@@ -295,7 +295,7 @@
       }
     },
     {
-      "id": 7,
+      "id": "7",
       "title": "Video 7",
       "url": "https://www.youtube.com/embed/oG25KSvFEq0",
       "thumbnail": "https://img.youtube.com/vi/oG25KSvFEq0/0.jpg",
@@ -303,7 +303,7 @@
       "duration": 10,
       "endTime": "2023-10-23T00:00:27.000Z",
       "orientation": 2,
-      "eventId": 2,
+      "eventId": "2",
       "status": 1,
       "startLocation": {
         "type": "Point",
@@ -317,7 +317,7 @@
       }
     },
     {
-      "id": 8,
+      "id": "8",
       "title": "Video 8",
       "url": "https://www.youtube.com/embed/SekA57AxJVE",
       "thumbnail": "https://img.youtube.com/vi/SekA57AxJVE/0.jpg",
@@ -339,7 +339,7 @@
       }
     },
     {
-      "id": 9,
+      "id": "9",
       "title": "Video 9",
       "url": "https://www.youtube.com/embed/oG25KSvFEq0",
       "thumbnail": "https://img.youtube.com/vi/oG25KSvFEq0/0.jpg",
@@ -361,7 +361,7 @@
       }
     },
     {
-      "id": 10,
+      "id": "10",
       "title": "Video 10",
       "url": "https://www.youtube.com/embed/oG25KSvFEq0",
       "thumbnail": "https://img.youtube.com/vi/oG25KSvFEq0/0.jpg",
@@ -383,7 +383,7 @@
       }
     },
     {
-      "id": 11,
+      "id": "11",
       "title": "Video 11",
       "url": "https://www.youtube.com/embed/SekA57AxJVE",
       "thumbnail": "https://img.youtube.com/vi/SekA57AxJVE/0.jpg",
@@ -391,7 +391,7 @@
       "duration": 10,
       "endTime": "2023-10-23T00:00:47.000Z",
       "orientation": 2,
-      "eventId": 3,
+      "eventId": "3",
       "status": 2,
       "startLocation": {
         "type": "Point",
@@ -405,7 +405,7 @@
       }
     },
     {
-      "id": 12,
+      "id": "12",
       "title": "Video 12",
       "url": "https://www.youtube.com/embed/oG25KSvFEq0",
       "thumbnail": "https://img.youtube.com/vi/oG25KSvFEq0/0.jpg",
@@ -413,7 +413,7 @@
       "duration": 10,
       "endTime": "2023-10-23T00:00:52.000Z",
       "orientation": 1,
-      "eventId": 3,
+      "eventId": "3",
       "status": 3,
       "startLocation": {
         "type": "Point",
@@ -427,7 +427,7 @@
       }
     },
     {
-      "id": 13,
+      "id": "13",
       "title": "Video 13",
       "url": "https://www.youtube.com/embed/SekA57AxJVE",
       "thumbnail": "https://img.youtube.com/vi/SekA57AxJVE/0.jpg",
@@ -449,7 +449,7 @@
       }
     },
     {
-      "id": 14,
+      "id": "14",
       "title": "Video 14",
       "url": "https://www.youtube.com/embed/oG25KSvFEq0",
       "thumbnail": "https://img.youtube.com/vi/oG25KSvFEq0/0.jpg",
@@ -471,7 +471,7 @@
       }
     },
     {
-      "id": 15,
+      "id": "15",
       "title": "Video 15",
       "url": "https://www.youtube.com/embed/oG25KSvFEq0",
       "thumbnail": "https://img.youtube.com/vi/oG25KSvFEq0/0.jpg",
