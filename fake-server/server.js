@@ -14,6 +14,12 @@ const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 
+// Make the lowdb instance available to the routers
+// server.use((req, res, next) => {
+//   req.app.locals.db = router.db;
+//   next();
+// });
+
 ///////// Videos
 server.put('/videos/:id/:status', (req, res) => {
   const db = router.db; // lowdb instance
@@ -22,6 +28,20 @@ server.put('/videos/:id/:status', (req, res) => {
   if (video) {
     db.get('videos').find({ id: Number(id) }).assign({ status: Number(status) }).write();
     res.json({ message: 'Video status updated successfully' });
+  } else {
+    res.status(404).send('Video not found');
+  }
+});
+
+server.put('/videos/:id/events', (req, res) => {
+  const db = router.db; // lowdb instance
+  const { id } = req.params;
+  const { events } = req.body;
+
+  const video = db.get('videos').find({ id: Number(id) }).value();
+  if (video) {
+    db.get('videos').find({ id: Number(id) }).assign({ events }).write();
+    res.json({ message: 'Video events updated successfully' });
   } else {
     res.status(404).send('Video not found');
   }
@@ -99,6 +119,36 @@ server.get('/events/:id', (req, res) => {
   }
 });
 
+
+server.get('/events-to-group-videos', (req, res) => {
+  const { page = 1, limit = 100 } = req.query;
+  // console.log(req.query);
+  const db = router.db; // lowdb instance
+  let events = db.get('events').filter({ isDisabled: false })
+    .sortBy('startTime').reverse()
+    .value()
+    .map(event => ({ id: event.id, title: event.title }));
+
+  // Pagination
+  const pageParsed = tryParseIntOrUndefined(page);
+  const limitParsed = tryParseIntOrUndefined(limit);
+
+  // TODO - fix this error handling. Responds with cors error instead  of json error
+  if (pageParsed === undefined || limitParsed === undefined) {
+    res.status(400).jsonp({
+      error: "Invalid pagination values"
+    })
+    return;
+  }
+
+  const start = (pageParsed - 1) * limitParsed;
+  const end = start + limitParsed;
+  events = events.slice(start, end);
+
+  res.json({ events });
+});
+
+// GET Events by filters, sort & pagination (default sort latest)
 server.get('/events', (req, res) => {
   const { fromDate, toDate, lat, lng, radius, /*tags,*/ status, page = 1, limit = 3 } = req.query;
   // console.log(req.query);
@@ -167,3 +217,6 @@ server.use(router)
 server.listen(3004, () => {
   console.log('JSON Server is running')
 })
+
+// server.use(videosRouter);
+// server.use(eventsRouter);
