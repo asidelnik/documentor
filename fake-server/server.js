@@ -14,12 +14,6 @@ const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 
-// Make the lowdb instance available to the routers
-// server.use((req, res, next) => {
-//   req.app.locals.db = router.db;
-//   next();
-// });
-
 ///////// Videos
 server.put('/videos/:id/:status', (req, res) => {
   const db = router.db; // lowdb instance
@@ -220,6 +214,3 @@ server.use(router)
 server.listen(3004, () => {
   console.log('JSON Server is running')
 })
-
-// server.use(videosRouter);
-// server.use(eventsRouter);
