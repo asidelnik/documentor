@@ -11,7 +11,7 @@ interface VideoBase {
   description?: string;
   duration: number;
   orientation: OrientationEnum;
-  eventId?: number;
+  eventId: string | null;
   status: VideoStatusEnum;
   tags?: string[];
   startLocation: LocationType;

@@ -7,8 +7,9 @@ import { getStatusStyles, statusAutocompleteOptions, statusLabels } from "../../
 import PositionedMenu from "../../shared/components/positioned-menu/PositionedMenu";
 import { useUpdateVideoStatus } from "../../hooks/useUpdateVideoStatus";
 import { useEffect } from "react";
+import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 
-export default function VideoInfo({ video, fetchData }: IVideoInfoProps) {
+export default function VideoInfo({ video, events, fetchData }: IVideoInfoProps) {
   const dateString = dateToStringShortMonthDateYear(video.startTime);
   const statusStyles = getStatusStyles(video.status)
 
@@ -19,24 +20,33 @@ export default function VideoInfo({ video, fetchData }: IVideoInfoProps) {
     }
   }, [isError])
 
+  function updateVideoEvent(eventId: string) {
+    console.log(eventId);
+  }
+
   return (
     <>
       <div className={c.videoInfoContainer}>
-        <p className={c.date}>{dateString}</p>
-        <div className={c.icons}>
-          <IconButton
-            aria-label="show map"
-          // onClick={showMapPopup}
-          >
-            <MapIcon />
-          </IconButton>
+        <div className={c.row1}>
+          <p className={c.date}>{dateString}</p>
+          <div className={c.icons}>
+            <IconButton
+              aria-label="show map"
+            // onClick={showMapPopup}
+            >
+              <MapIcon />
+            </IconButton>
 
-          <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status} select={(option: number) => update(video.id, option)}>
-            {isLoading ? <CircularProgress size={20} /> : (
-              <div className={c.status} title={statusLabels[video.status]}
-                style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
-            )}
-          </PositionedMenu>
+            <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status} select={(option: number) => update(video.id, option)}>
+              {isLoading ? <CircularProgress size={20} /> : (
+                <div className={c.status} title={statusLabels[video.status]}
+                  style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
+              )}
+            </PositionedMenu>
+          </div>
+        </div>
+        <div className={c.row2}>
+          <CheckboxesTags options={events} checkedId={video.eventId} update={updateVideoEvent} />
         </div>
       </div>
     </>

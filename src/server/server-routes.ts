@@ -19,9 +19,7 @@ export const serverRoutes = {
     },
   },
   events: {
-    getEventsAutocomplete: () => {
-      return 'events-autocomplete';
-    },
+    getEventsAutocomplete: () => '/events-autocomplete',
 
     // Events page (table)
     getFilteredEvents: (params: IGetEventsQueryParams) => {
