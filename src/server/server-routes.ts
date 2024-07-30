@@ -5,28 +5,36 @@ import { getURLSearchParams } from '../utils/functions';
 export const serverRoutes = {
   // All videos page
   videos: {
-  getFilteredVideos: (params: IVideosFilters) => {
-    const urlParams = getURLSearchParams(params);
-    return `/videos?${urlParams}&_expand=event`;
-  },
+    getFilteredVideos: (params: IVideosFilters) => {
+      const urlParams = getURLSearchParams(params);
+      return `/videos?${urlParams}&_expand=event`;
+    },
 
-  updateVideoStatus: (videoId: string, status: number) => {
-    return `/videos/${videoId}?status=${status}`;
-  },
+    updateVideoStatus: (videoId: string, status: number) => {
+      return `/videos/${videoId}?status=${status}`;
+    },
+
+    updateVideoEvent: (videoId: string, eventId: string) => {
+      return `/videos/${videoId}/${eventId}`;
+    },
   },
   events: {
-  // Events page (table)
-  getFilteredEvents: (params: IGetEventsQueryParams) => {
-    // const paramsWithTags = {
-    //   ...params,
-    //   // tagsJoined: params.tags ? params.tags.join(',') : '',
-    // };
-    const urlParams = getURLSearchParams(params);
-    return `/events?${urlParams}`;
-  },
+    getEventsAutocomplete: () => {
+      return 'events-autocomplete';
+    },
 
-  // Add/Edit event form & Event timeline
-  getEventWithVideos: (eventId: number) =>
-    `/events/` + eventId + `?_embed=videos`,
+    // Events page (table)
+    getFilteredEvents: (params: IGetEventsQueryParams) => {
+      // const paramsWithTags = {
+      //   ...params,
+      //   // tagsJoined: params.tags ? params.tags.join(',') : '',
+      // };
+      const urlParams = getURLSearchParams(params);
+      return `/events?${urlParams}`;
+    },
+
+    // Add/Edit event form & Event timeline
+    getEventWithVideos: (eventId: number) =>
+      `/events/` + eventId + `?_embed=videos`,
   },
 };
