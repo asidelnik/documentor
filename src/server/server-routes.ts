@@ -14,8 +14,12 @@ export const serverRoutes = {
       return `/video-set-status/${videoId}?status=${status}`;
     },
 
-    updateVideoEvent: (videoId: string, eventId: string) => {
-      return `/videos/${videoId}/${eventId}`;
+    videoSetEvent: (
+      videoId: string,
+      newEventId: string | null,
+      oldEventId: string | null
+    ) => {
+      return `/video-set-event/${videoId}?newEventId=${newEventId}&oldEventId=${oldEventId}`;
     },
   },
   events: {

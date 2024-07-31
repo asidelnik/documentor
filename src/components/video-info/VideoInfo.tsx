@@ -8,11 +8,13 @@ import PositionedMenu from "../../shared/components/positioned-menu/PositionedMe
 import { useUpdateVideoStatus } from "../../hooks/useUpdateVideoStatus";
 import { useEffect } from "react";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
+import { useUpdateVideoEvent } from "../../hooks/useUpdateVideoEvent";
 
 export default function VideoInfo({ video, events, fetchData }: IVideoInfoProps) {
   const dateString = dateToStringShortMonthDateYear(video.startTime);
   const statusStyles = getStatusStyles(video.status)
   const { isStatusLoading, isStatusError, updateVideoStatus } = useUpdateVideoStatus();
+  const { isEventLoading, isEventError, updateVideoEvent } = useUpdateVideoEvent();
 
   useEffect(() => {
     if (isStatusError === false) {
@@ -42,10 +44,10 @@ export default function VideoInfo({ video, events, fetchData }: IVideoInfoProps)
           </div>
         </div>
         <div className={c.row2}>
-          <CheckboxesTags options={events} checkedIdProp={video.eventId} update={updateVideoEvent} />
+          <CheckboxesTags options={events} checkedId={video.eventId}
+            update={(newEventId: string | null, oldEventId: string | null) => updateVideoEvent(video.id, newEventId, oldEventId)} />
         </div>
       </div>
     </>
-    // TODO - Hoverable list of events
   )
 }
