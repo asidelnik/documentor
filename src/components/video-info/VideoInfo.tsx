@@ -12,17 +12,13 @@ import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 export default function VideoInfo({ video, events, fetchData }: IVideoInfoProps) {
   const dateString = dateToStringShortMonthDateYear(video.startTime);
   const statusStyles = getStatusStyles(video.status)
+  const { isStatusLoading, isStatusError, updateVideoStatus } = useUpdateVideoStatus();
 
-  const { isLoading, isError, update } = useUpdateVideoStatus();
   useEffect(() => {
-    if (isError === false) {
+    if (isStatusError === false) {
       fetchData();
     }
-  }, [isError])
-
-  function updateVideoEvent(eventId: string) {
-    console.log(eventId);
-  }
+  }, [isStatusError])
 
   return (
     <>
@@ -37,8 +33,8 @@ export default function VideoInfo({ video, events, fetchData }: IVideoInfoProps)
               <MapIcon />
             </IconButton>
 
-            <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status} select={(option: number) => update(video.id, option)}>
-              {isLoading ? <CircularProgress size={20} /> : (
+            <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status} select={(option: number) => updateVideoStatus(video.id, option)}>
+              {isStatusLoading ? <CircularProgress size={20} /> : (
                 <div className={c.status} title={statusLabels[video.status]}
                   style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
               )}

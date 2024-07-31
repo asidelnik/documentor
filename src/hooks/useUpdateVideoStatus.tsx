@@ -3,30 +3,30 @@ import { serverRoutes } from "../server/server-routes";
 
 export function useUpdateVideoStatus() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const [isLoading, setIsLoading] = useState<boolean | null>(null);
-  const [isError, setIsError] = useState<boolean | null>(null);
+  const [isStatusLoading, setIsStatusLoading] = useState<boolean | null>(null);
+  const [isStatusError, setIsStatusError] = useState<boolean | null>(null);
 
   let fetchController = new AbortController();
 
-  async function update(id: string, status: number) {
-    setIsLoading(true);
+  async function updateVideoStatus(id: string, status: number) {
+    setIsStatusLoading(true);
     fetchController.abort('Newer fetch called');
     fetchController = new AbortController();
     const { signal } = fetchController;
     try {
-      const requestPath = serverRoutes.videos.updateVideoStatus(id, status);
+      const requestPath = serverRoutes.videos.videoSetStatus(id, status);
       const response = await fetch(baseUrl + requestPath, { method: 'PUT', signal });
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      setIsLoading(false);
-      setIsError(false);
+      setIsStatusLoading(false);
+      setIsStatusError(false);
     } catch (error) {
       // console.log(error);
-      setIsLoading(false);
-      setIsError(true);
+      setIsStatusLoading(false);
+      setIsStatusError(true);
     }
   }
 
-  return { isLoading, isError, update };
+  return { isStatusLoading, isStatusError, updateVideoStatus };
 }

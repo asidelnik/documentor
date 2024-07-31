@@ -7,11 +7,11 @@ export const serverRoutes = {
   videos: {
     getFilteredVideos: (params: IVideosFilters) => {
       const urlParams = getURLSearchParams(params);
-      return `/videos?${urlParams}&_expand=event`;
+      return `/videos?${urlParams}`;
     },
 
-    updateVideoStatus: (videoId: string, status: number) => {
-      return `/videos/${videoId}?status=${status}`;
+    videoSetStatus: (videoId: string, status: number) => {
+      return `/video-set-status/${videoId}?status=${status}`;
     },
 
     updateVideoEvent: (videoId: string, eventId: string) => {

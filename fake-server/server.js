@@ -15,13 +15,16 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 
 ///////// Videos
-server.put('/videos/:id/:status', (req, res) => {
+server.put('/video-set-status/:id', (req, res) => {
   const db = router.db; // lowdb instance
-  const { id, status } = req.params;
-  const videos = db.get('videos');
-  const video = videos.find({ id }).value();
-  if (video) {
-    videos.find({ id }).assign({ status: Number(status) }).write();
+  const { id } = req.params;
+  const { status } = req.query;
+
+  const videoExists = db.get('videos').find({ id }).value() !== undefined;
+  // console.log({ id, status, videoExists })
+
+  if (videoExists) {
+    db.get('videos').find({ id }).assign({ status: Number(status) }).write();
     res.json({ message: 'Video status updated successfully' });
   } else {
     res.status(404).send('Video not found');
