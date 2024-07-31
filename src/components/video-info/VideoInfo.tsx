@@ -46,7 +46,7 @@ export default function VideoInfo({ video, events, fetchData }: IVideoInfoProps)
           </div>
         </div>
         <div className={c.row2}>
-          <CheckboxesTags options={events} checkedId={video.eventId} update={updateVideoEvent} />
+          <CheckboxesTags options={events} checkedIdProp={video.eventId} update={updateVideoEvent} />
         </div>
       </div>
     </>

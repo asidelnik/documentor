@@ -142,7 +142,7 @@ server.get('/events-autocomplete', (req, res) => {
   const end = start + limitParsed;
   events = events.slice(start, end);
 
-  res.json({ events });
+  res.json(events);
 });
 
 // GET Events by filters, sort & pagination (default sort latest)

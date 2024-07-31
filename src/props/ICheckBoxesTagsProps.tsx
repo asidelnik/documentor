@@ -3,6 +3,6 @@ import { IEventIdTitle } from "../types/IEventIdTitle";
 
 export interface ICheckBoxesTagsProps {
   options: IEventIdTitle[];
-  checkedId: string | null;
+  checkedIdProp: string | null;
   update: (id: string) => void;
 }

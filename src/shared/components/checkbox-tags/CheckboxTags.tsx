@@ -9,31 +9,35 @@ import { ICheckBoxesTagsProps } from '../../../props/ICheckBoxesTagsProps';
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export default function CheckboxesTags({ options, checkedId, update }: ICheckBoxesTagsProps) {
-  const [selectedId, setSelectedId] = useState<string | null>(checkedId);
+export default function CheckboxesTags({ options, checkedIdProp, update }: ICheckBoxesTagsProps) {
+  const [checkedId, setCheckedId] = useState<string | null>(checkedIdProp);
+  const checkedOption = options.find(o => o.id === checkedId);
+  // console.log(options);
 
   function checkboxClickHandler(optionId: string) {
-    setSelectedId(optionId);
+    // console.log(optionId)
+    setCheckedId(optionId);
     update(optionId);
   }
 
   return (
     <Autocomplete
       id="checkboxes-tags"
+      value={checkedOption}
       options={options}
       disableCloseOnSelect
-      disabled={options.length > 0}
+      limitTags={1}
+      disabled={options.length <= 0}
       getOptionLabel={(option) => option.title}
-      renderOption={(props, option) => {
-        const { key, ...optionProps } = props;
+      renderOption={(_, option) => {
         return (
-          <li key={key} {...optionProps}>
+          <li key={option.id}>
             <Checkbox
               icon={icon}
               checkedIcon={checkedIcon}
               style={{ marginRight: 8 }}
-              checked={option.id === selectedId}
-              onClick={() => checkboxClickHandler(option.id)}
+              checked={option.id === checkedId}
+              onChange={() => checkboxClickHandler(option.id)}
             />
             {option.title}
           </li>
@@ -42,7 +46,7 @@ export default function CheckboxesTags({ options, checkedId, update }: ICheckBox
 
       style={{ width: "100%" }}
       renderInput={(params) => (
-        <TextField {...params} label="Event" placeholder="Event" />
+        <TextField {...params} label="Event" placeholder="Event" value={checkedOption?.title} />
       )}
     />
   );
