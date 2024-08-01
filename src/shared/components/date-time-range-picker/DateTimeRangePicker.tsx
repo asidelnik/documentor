@@ -10,7 +10,7 @@ import { DateTimeValidationError } from '@mui/x-date-pickers/models';
 
 export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFromDate, updateToDate, setValidationError }: IDateTimeRangePickerProps) {
   const [fromDate, setFromDate] = useState<dayjs.Dayjs>(fromDateProp ? dayjs(fromDateProp) : dayjs(new Date()));
-  const [toDate, setToDate] = useState<dayjs.Dayjs>(toDateProp ? dayjs(fromDateProp) : dayjs(new Date()));
+  const [toDate, setToDate] = useState<dayjs.Dayjs>(toDateProp ? dayjs(toDateProp) : dayjs(new Date()));
   const [fromError, setFromError] = useState<DateTimeValidationError | null>(null);
   const [toError, setToError] = useState<DateTimeValidationError | null>(null);
 
