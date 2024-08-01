@@ -31,7 +31,7 @@ server.put('/video-set-status/:id', (req, res) => {
   }
 });
 
-// TODO - if video had another eventId, send it in request & remove video id from the event array
+
 server.put('/video-set-event/:id', (req, res) => {
   const db = router.db; // lowdb instance
   const { id } = req.params;
@@ -42,19 +42,28 @@ server.put('/video-set-event/:id', (req, res) => {
   // TODO - if the new video startime is less than other event's videos, set event startTime to that of video & set video first in array
   // Or let the admin user edit the order by himself.
 
-  // TODO - figure out how to condition the actions
   if (videoExists && newEventExists) {
-    db.get('videos').find({ id }).assign({ newEventId }).write();
+    // Set Video's eventId
+    db.get('videos').find({ id }).assign({ eventId: newEventId }).write();
 
+    // Update newly selected Event with videoId if doesn't exist yet
     db.get('events')
       .find({ id: newEventId })
-      .update('videoIds', videoIds => [...videoIds, id])
+      .update('videoIds', videoIds => {
+        if (!videoIds.includes(id)) {
+          return [...videoIds, id];
+        }
+        return videoIds;
+      })
       .write();
 
-    db.get('events')
-      .find({ id: oldEventId })
-      .update('videoIds', videoIds => videoIds.filter(id => id !== id))
-      .write();
+    // Remove videoId from old Event if exists
+    if (oldEventId !== null) {
+      db.get('events')
+        .find({ id: oldEventId })
+        .update('videoIds', videoIds => videoIds.filter(videoId => videoId !== id))
+        .write();
+    }
 
     res.json({ message: 'Video & event updated successfully' });
   } else {
