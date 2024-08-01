@@ -4,12 +4,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { ICheckBoxesTagsProps } from '../../../props/ICheckBoxesTagsProps';
+import { useMemo } from 'react';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 export default function CheckboxesTags({ options, checkedId, update }: ICheckBoxesTagsProps) {
-  const checkedOption = options.find(o => o.id === checkedId);
+  const checkedOption = useMemo(() => options.find(o => o.id === checkedId), [options, checkedId]);
   // console.log({ checkedIdProp: checkedId, checkedOption })
 
   return (
