@@ -25,14 +25,15 @@ export default function VideoInfo({ video, events, fetchData }: IVideoInfoProps)
   return (
     <>
       <div className={c.videoInfoContainer}>
-        <p className={c.date}>{dateString}</p>
-        <div className={c.icons}>
-          <IconButton
-            aria-label="show map"
-            onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${video.startLocation.coordinates}`, '_blank')}
-          >
-            <MapIcon />
-          </IconButton>
+        <div className={c.row1}>
+          <p className={c.date}>{dateString}</p>
+          <div className={c.icons}>
+            <IconButton
+              aria-label="show map"
+              onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${video.startLocation.coordinates}`, '_blank')}
+            >
+              <MapIcon />
+            </IconButton>
 
             <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status} select={(option: number) => updateVideoStatus(video.id, option)}>
               {isStatusLoading ? <CircularProgress size={20} /> : (
@@ -42,6 +43,7 @@ export default function VideoInfo({ video, events, fetchData }: IVideoInfoProps)
             </PositionedMenu>
           </div>
         </div>
+
         <div className={c.row2}>
           <CheckboxesTags options={events} checkedId={video.eventId}
             update={(newEventId: string | null, oldEventId: string | null) => updateVideoEvent(video.id, newEventId, oldEventId)} />

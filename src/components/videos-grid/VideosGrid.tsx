@@ -65,7 +65,7 @@ export default function VideosGrid({ videos, videosCount, fetchData }: IVideosGr
                     }
                   }}
                 />
-                <VideoInfo video={video} fetchData={() => fetchData()} events={events} />
+                <VideoInfo video={video} events={events} fetchData={() => fetchData()} />
               </div>
             ))}
           </div>
