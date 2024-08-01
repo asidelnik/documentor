@@ -26,7 +26,7 @@ export default function VideoInfo({ video, fetchData }: IVideoInfoProps) {
         <div className={c.icons}>
           <IconButton
             aria-label="show map"
-          // onClick={showMapPopup}
+            onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${video.startLocation.coordinates}`, '_blank')}
           >
             <MapIcon />
           </IconButton>
