@@ -39,32 +39,30 @@ server.put('/video-set-event/:id', (req, res) => {
     const { newEventId, oldEventId } = req.query;
 
     const videoExists = db.get('videos').find({ id }).value() !== undefined;
-    const newEventExists = db.get('events').find({ id: newEventId }).value() !== undefined;
+    const newEvent = db.get('events').find({ id: newEventId }).value();
+    const newEventExists = newEvent !== undefined;
 
     if (videoExists && newEventExists) {
       // Set Video's eventId
       db.get('videos').find({ id }).assign({ eventId: newEventId }).write();
 
-      // Update newly selected Event with videoId if doesn't exist yet
-      db.get('events')
-        .find({ id: newEventId })
-        .update('videoIds', videoIds => {
-          if (!videoIds.includes(id)) {
-            return [...videoIds, id];
-          }
-          return videoIds;
-        })
-        .write();
-
-      // Remove videoId from old Event if exists
-      if (oldEventId !== null) {
+      if (!newEvent.videoIds.includes(id)) {
+        // If the Video doesn't exist in the Event, add it
         db.get('events')
-          .find({ id: oldEventId })
-          .update('videoIds', videoIds => videoIds.filter(videoId => videoId !== id))
+          .find({ id: newEventId })
+          .update('videoIds', videoIds => [...videoIds, id])
           .write();
+
+        // If the Video existed in another event, remove it
+        if (oldEventId !== null) {
+          db.get('events')
+            .find({ id: oldEventId })
+            .update('videoIds', videoIds => videoIds.filter(videoId => videoId !== id))
+            .write();
+        }
       }
 
-      res.json({ message: 'Video & event updated successfully' });
+      res.json({ message: 'Success' });
     } else {
       res.status(404).send('Video or event not found');
     }
