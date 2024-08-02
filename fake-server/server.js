@@ -33,41 +33,43 @@ server.put('/video-set-status/:id', (req, res) => {
 
 
 server.put('/video-set-event/:id', (req, res) => {
-  const db = router.db; // lowdb instance
-  const { id } = req.params;
-  const { newEventId, oldEventId } = req.query;
+  try {
+    const db = router.db; // lowdb instance
+    const { id } = req.params;
+    const { newEventId, oldEventId } = req.query;
 
-  const videoExists = db.get('videos').find({ id }).value() !== undefined;
-  const newEventExists = db.get('events').find({ id: newEventId }).value() !== undefined;
-  // TODO - if the new video startime is less than other event's videos, set event startTime to that of video & set video first in array
-  // Or let the admin user edit the order by himself.
+    const videoExists = db.get('videos').find({ id }).value() !== undefined;
+    const newEventExists = db.get('events').find({ id: newEventId }).value() !== undefined;
 
-  if (videoExists && newEventExists) {
-    // Set Video's eventId
-    db.get('videos').find({ id }).assign({ eventId: newEventId }).write();
+    if (videoExists && newEventExists) {
+      // Set Video's eventId
+      db.get('videos').find({ id }).assign({ eventId: newEventId }).write();
 
-    // Update newly selected Event with videoId if doesn't exist yet
-    db.get('events')
-      .find({ id: newEventId })
-      .update('videoIds', videoIds => {
-        if (!videoIds.includes(id)) {
-          return [...videoIds, id];
-        }
-        return videoIds;
-      })
-      .write();
-
-    // Remove videoId from old Event if exists
-    if (oldEventId !== null) {
+      // Update newly selected Event with videoId if doesn't exist yet
       db.get('events')
-        .find({ id: oldEventId })
-        .update('videoIds', videoIds => videoIds.filter(videoId => videoId !== id))
+        .find({ id: newEventId })
+        .update('videoIds', videoIds => {
+          if (!videoIds.includes(id)) {
+            return [...videoIds, id];
+          }
+          return videoIds;
+        })
         .write();
-    }
 
-    res.json({ message: 'Video & event updated successfully' });
-  } else {
-    res.status(404).send('Video or event not found');
+      // Remove videoId from old Event if exists
+      if (oldEventId !== null) {
+        db.get('events')
+          .find({ id: oldEventId })
+          .update('videoIds', videoIds => videoIds.filter(videoId => videoId !== id))
+          .write();
+      }
+
+      res.json({ message: 'Video & event updated successfully' });
+    } else {
+      res.status(404).send('Video or event not found');
+    }
+  } catch (error) {
+    res.status(500).send('Internal server error');
   }
 });
 
