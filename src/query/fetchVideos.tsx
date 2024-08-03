@@ -10,7 +10,7 @@ export const fetchVideos = async (filters: IVideosFilters, signal: AbortSignal):
   );
   const getFilteredVideosRequestString = serverRoutes.videos.getFilteredVideos(filteredParams);
   const response = await fetch(baseUrl + getFilteredVideosRequestString, { signal });
-  return await response.json();
+  return response.json();
 };
 
 export const videosSelector = (data: IVideosData) => ({

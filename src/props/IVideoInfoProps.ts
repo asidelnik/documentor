@@ -1,8 +1,8 @@
-import { IEventIdTitle } from '../types/IEventIdTitle';
 import { IVideo } from '../types/IVideo';
+import { IEventsAutoComplete } from './IEventsAutoComplete';
 
 export interface IVideoInfoProps {
   video: IVideo;
-  events: IEventIdTitle[];
+  eventsData: IEventsAutoComplete;
   fetchData: () => void;
 }

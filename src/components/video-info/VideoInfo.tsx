@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import { useUpdateVideoEvent } from "../../hooks/useUpdateVideoEvent";
 
-export default function VideoInfo({ video, events, fetchData }: IVideoInfoProps) {
+export default function VideoInfo({ video, eventsData, fetchData }: IVideoInfoProps) {
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
   const statusStyles = getStatusStyles(video.status)
   const { isStatusLoading, isStatusError, updateVideoStatus } = useUpdateVideoStatus();
@@ -45,8 +45,10 @@ export default function VideoInfo({ video, events, fetchData }: IVideoInfoProps)
         </div>
 
         <div className={c.row2}>
-          <CheckboxesTags options={events} checkedId={video.eventId}
-            update={(newEventId: string | null, oldEventId: string | null) => updateVideoEvent(video.id, newEventId, oldEventId)} />
+          {eventsData.isFetching || eventsData.isPending || eventsData.error ? '' :
+            <CheckboxesTags options={eventsData.events} checkedId={video.eventId}
+              update={(newEventId: string | null, oldEventId: string | null) => updateVideoEvent(video.id, newEventId, oldEventId)} />
+          }
         </div>
       </div>
     </>

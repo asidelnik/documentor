@@ -38,9 +38,8 @@ export default function CheckboxesTags({ options, checkedId, update }: ICheckBox
       }}
       style={{ width: "100%" }}
       renderInput={(params) => (
-        <TextField {...params} placeholder="Event" value={checkedOption?.title} />
+        <TextField {...params} placeholder="Event" value={checkedOption?.title} style={{ height: 60 }} />
       )}
-      // inputValue={checkedOption?.title}
     />
   );
 }
