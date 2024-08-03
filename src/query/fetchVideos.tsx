@@ -3,13 +3,13 @@ import { IVideosData } from "../types/IVideosData";
 import { IVideosFilters } from "../types/IVideosFilters";
 import { IVideo } from "../types/IVideo";
 
-export const fetchVideos = async (filters: IVideosFilters): Promise<IVideosData> => {
+export const fetchVideos = async (filters: IVideosFilters, signal: AbortSignal): Promise<IVideosData> => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const filteredParams = Object.fromEntries(
     Object.entries(filters).filter(([_, value]) => value !== undefined)
   );
   const getFilteredVideosRequestString = serverRoutes.getFilteredVideos(filteredParams);
-  const response = await fetch(baseUrl + getFilteredVideosRequestString);
+  const response = await fetch(baseUrl + getFilteredVideosRequestString, { signal });
   return await response.json();
 };
 

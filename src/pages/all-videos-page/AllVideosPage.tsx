@@ -14,7 +14,7 @@ export default function AllVideosPage() {
   const filters = useFilters();
   const { isFetching, isPending, error, data, refetch } = useQuery<IVideosData>({
     queryKey: ['fetchVideos'],
-    queryFn: () => fetchVideos(filters),
+    queryFn: ({ signal }) => fetchVideos(filters, signal),
     select: (data: IVideosData) => videosSelector(data)
   });
 
