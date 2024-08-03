@@ -2,8 +2,8 @@ import { EventStatusEnum } from '../enums/event-status-enum';
 import { LocationType } from './location';
 import { IVideo } from './IVideo';
 
-type EventBase = {
-  id: number;
+interface EventBase {
+  id: string;
   title: string; // convert to name by removing dashes and capitalizing
   description: string;
   duration: number;
@@ -14,17 +14,18 @@ type EventBase = {
   videos: IVideo[];
   videosUnprocessedCount: number;
   videosCount: number;
-};
+  isDisabled: boolean;
+}
 
-export type EventType = EventBase & {
+export interface EventType extends EventBase {
   startTime: Date;
   endTime: Date;
   startTimeFormatted: string;
   durationFormatted: string;
   statusFormatted: string;
-};
+}
 
-export type GetEventsResponse = {
+export interface GetEventsResponse {
   events: EventType[];
   eventsCount: number;
-};
+}

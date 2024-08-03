@@ -8,7 +8,7 @@ export const fetchVideos = async (filters: IVideosFilters, signal: AbortSignal):
   const filteredParams = Object.fromEntries(
     Object.entries(filters).filter(([_, value]) => value !== undefined)
   );
-  const getFilteredVideosRequestString = serverRoutes.getFilteredVideos(filteredParams);
+  const getFilteredVideosRequestString = serverRoutes.videos.getFilteredVideos(filteredParams);
   const response = await fetch(baseUrl + getFilteredVideosRequestString, { signal });
   return await response.json();
 };

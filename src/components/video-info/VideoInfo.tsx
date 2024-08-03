@@ -7,39 +7,48 @@ import { getStatusStyles, statusAutocompleteOptions, statusLabels } from "../../
 import PositionedMenu from "../../shared/components/positioned-menu/PositionedMenu";
 import { useUpdateVideoStatus } from "../../hooks/useUpdateVideoStatus";
 import { useEffect } from "react";
+import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
+import { useUpdateVideoEvent } from "../../hooks/useUpdateVideoEvent";
 
-export default function VideoInfo({ video, fetchData }: IVideoInfoProps) {
+export default function VideoInfo({ video, events, fetchData }: IVideoInfoProps) {
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
   const statusStyles = getStatusStyles(video.status)
+  const { isStatusLoading, isStatusError, updateVideoStatus } = useUpdateVideoStatus();
+  const { isEventLoading, isEventError, updateVideoEvent } = useUpdateVideoEvent();
 
-  const { isLoading, isError, update } = useUpdateVideoStatus();
   useEffect(() => {
-    if (isError === false) {
+    if (isStatusError === false) {
       fetchData();
     }
-  }, [isError])
+  }, [isStatusError])
 
   return (
     <>
       <div className={c.videoInfoContainer}>
-        <p className={c.date}>{dateString}</p>
-        <div className={c.icons}>
-          <IconButton
-            aria-label="show map"
-            onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${video.startLocation.coordinates}`, '_blank')}
-          >
-            <MapIcon />
-          </IconButton>
+        <div className={c.row1}>
+          <p className={c.date}>{dateString}</p>
+          <div className={c.icons}>
+            <IconButton
+              aria-label="show map"
+              onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${video.startLocation.coordinates}`, '_blank')}
+            >
+              <MapIcon />
+            </IconButton>
 
-          <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status} select={(option: number) => update(video.id, option)}>
-            {isLoading ? <CircularProgress size={20} /> : (
-              <div className={c.status} title={statusLabels[video.status]}
-                style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
-            )}
-          </PositionedMenu>
+            <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status} select={(option: number) => updateVideoStatus(video.id, option)}>
+              {isStatusLoading ? <CircularProgress size={20} /> : (
+                <div className={c.status} title={statusLabels[video.status]}
+                  style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
+              )}
+            </PositionedMenu>
+          </div>
+        </div>
+
+        <div className={c.row2}>
+          <CheckboxesTags options={events} checkedId={video.eventId}
+            update={(newEventId: string | null, oldEventId: string | null) => updateVideoEvent(video.id, newEventId, oldEventId)} />
         </div>
       </div>
     </>
-    // TODO - Hoverable list of events
   )
 }
