@@ -23,7 +23,7 @@ export function secondsToTimeString(seconds: number): string {
 
 export function dateToString(dateStr: Date): string {
   if (!isValidDateString(dateStr)) return '';
-  let date = new Date(dateStr);
+  const date = new Date(dateStr);
   return (
     date.toLocaleDateString('en-US', {
       month: 'short',
@@ -33,10 +33,6 @@ export function dateToString(dateStr: Date): string {
     ' - ' +
     date.toLocaleTimeString('en-US')
   );
-}
-
-export function dateToStringDDMMYYYY(date: Date): string {
-  return date.toLocaleDateString('en-GB');
 }
 
 export function dateToStringShortMonthDateYear(date: Date): string {
@@ -53,7 +49,11 @@ function isValidDateString(dateStr: Date): boolean {
   return date instanceof Date && !isNaN(date.getTime());
 }
 
-export function tryParseIntOrUndefined(str: string): number | undefined {
-  const value = parseInt(str, 10);
-  return isNaN(value) ? undefined : value;
-}
+// export function tryParseIntOrUndefined(str: string): number | undefined {
+//   const value = parseInt(str, 10);
+//   return isNaN(value) ? undefined : value;
+// }
+
+// export function dateToStringDDMMYYYY(date: Date): string {
+//   return date.toLocaleDateString('en-GB');
+// }

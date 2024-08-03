@@ -2,7 +2,7 @@ import { OrientationEnum } from '../enums/orientation-enum';
 import { VideoStatusEnum } from '../constants/video-status';
 import { LocationType } from './location';
 
-interface VideoBase {
+export interface IVideo {
   id: number;
   title?: string;
   url: string;
@@ -16,14 +16,8 @@ interface VideoBase {
   tags?: string[];
   startLocation: LocationType;
   endLocation: LocationType;
-}
-
-export interface VideoFromServer extends VideoBase {
   startTime: string;
   endTime: string;
+  startTimeDate?: Date;
+  endTimeDate?: Date;
 }
-
-export interface Video extends VideoBase {
-  startTime: Date;
-  endTime: Date;
-};

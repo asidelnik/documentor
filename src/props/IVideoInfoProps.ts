@@ -1,6 +1,6 @@
-import { Video } from '../types/video';
+import { IVideo } from '../types/IVideo';
 
 export interface IVideoInfoProps {
-  video: Video;
+  video: IVideo;
   fetchData: () => void;
 }

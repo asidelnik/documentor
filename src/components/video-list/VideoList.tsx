@@ -1,8 +1,7 @@
 // TODO - decide if single video controls are enabled while sync playing.
 import c from "./VideoList.module.scss"
 import { useState, useRef, useEffect, createRef } from "react"; // , useEffect
-import { Video } from "../../types/video";
-// import VideoItem from "../video-item/VideoItem";
+import { IVideo } from "../../types/IVideo";
 import ReactPlayer from 'react-player'
 import { EventType } from "../../types/event";
 import { Link } from "react-router-dom";
@@ -20,7 +19,8 @@ export default function VideoList({ event }: Props) {
   const [isSyncPlay, setIsSyncPlay] = useState(false);
   const timelineIntervalId = useRef(0);
   const [timelineTime, setTimelineTime] = useState(0);
-  const timelineStartTime = videos[0].startTime;
+  // TODO - find a better solution than new Date()
+  const timelineStartTime = videos[0].startTimeDate || new Date();
   const lastVideoIndex = videos.length - 1;
   const [volume, setVolume] = useState(0.5);
   const playersRef = useRef([createRef<ReactPlayer>()]);
@@ -102,12 +102,13 @@ export default function VideoList({ event }: Props) {
         <div className={c.tags}>{event.tags.map((tag: string, index: number) => (<p key={index} className={c.tag}>{tag}</p>))}</div>
       </div>
       <div className={c.videoTimeline}>
-        {videos.map((video: Video, index: number) => (
+        {videos.map((video: IVideo, index: number) => (
           <ReactPlayer
             key={video.id}
             ref={playersRef.current[index]}
             url={video.url}
-            playing={isSyncPlayHandle(video.startTime)}
+            // TODO - find a better solution than new Date()
+            playing={isSyncPlayHandle(video.startTimeDate || new Date())}
             className={c.videoItem}
             controls={true}
             config={{

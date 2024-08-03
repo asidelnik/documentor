@@ -1,6 +1,6 @@
 import { EventStatusEnum } from '../enums/event-status-enum';
 import { LocationType } from './location';
-import { Video } from './video';
+import { IVideo } from './IVideo';
 
 type EventBase = {
   id: number;
@@ -11,7 +11,7 @@ type EventBase = {
   startLocation: LocationType;
   tags: string[];
   status: EventStatusEnum;
-  videos: Video[];
+  videos: IVideo[];
   videosUnprocessedCount: number;
   videosCount: number;
 };

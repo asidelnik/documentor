@@ -1,15 +1,15 @@
-import { Video } from "../../types/video";
+import { IVideo } from "../../types/IVideo";
 import VideoItem from "../video-item/VideoItem";
 
 type Props = {
-  data: Video[] | undefined;
+  data: IVideo[] | undefined;
 };
 
 export default function EventTimeline({ data }: Props) {
   return (
     <>
       <ul>
-        {data?.map((video: Video) => <VideoItem key={video.id} video={video} />)}
+        {data?.map((video: IVideo) => <VideoItem key={video.id} video={video} />)}
       </ul>
     </>
   )

@@ -1,9 +1,9 @@
-// import { Video } from "../../types/video"
+// import { IVideo } from "../../types/IVideo"
 // import { useEffect, useRef } from "react";
 // import YTPlayer from "yt-player";
 
 // type Props = {
-//   video: Video;
+//   video: IVideo;
 //   isSyncPlay: boolean;
 //   timelineTime: number;
 //   timelineStartTime: Date;
