@@ -5,28 +5,38 @@ import { CircularProgress, IconButton } from "@mui/material";
 import { dateToStringShortMonthDateYear } from "../../utils/functions";
 import { getStatusStyles, statusAutocompleteOptions, statusLabels } from "../../constants/video-status";
 import PositionedMenu from "../../shared/components/positioned-menu/PositionedMenu";
-import { useUpdateVideoStatus } from "../../hooks/useUpdateVideoStatus";
 import { useEffect } from "react";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import { useUpdateVideoEvent } from "../../hooks/useUpdateVideoEvent";
+import { useMutation } from "@tanstack/react-query";
+import { serverRoutes } from "../../server/server-routes";
 
 export default function VideoInfo({ video, eventsData, fetchData }: IVideoInfoProps) {
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
   const statusStyles = getStatusStyles(video.status)
-  const { isStatusLoading, isStatusError, updateVideoStatus } = useUpdateVideoStatus();
+
+  const { status, mutate } = useMutation({
+    mutationFn: (status: number) => {
+      const baseUrl = import.meta.env.VITE_BASE_URL;
+      const requestPath = serverRoutes.videos.videoSetStatus(video.id, status);
+      return fetch(baseUrl + requestPath, { method: 'PUT' });
+    },
+  })
+
   const { isEventLoading, isEventError, updateVideoEvent } = useUpdateVideoEvent();
 
+
   useEffect(() => {
-    if (isStatusError === false) {
+    if (status === 'success') {
       fetchData();
     }
-  }, [isStatusError])
+  }, [status])
 
   return (
     <>
       <div className={c.videoInfoContainer}>
         <div className={c.row1}>
-          <p className={c.date}>{dateString}</p>
+          <p className={c.date} title={video.startTime}>{dateString}</p>
           <div className={c.icons}>
             <IconButton
               aria-label="show map"
@@ -35,8 +45,9 @@ export default function VideoInfo({ video, eventsData, fetchData }: IVideoInfoPr
               <MapIcon />
             </IconButton>
 
-            <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status} select={(option: number) => updateVideoStatus(video.id, option)}>
-              {isStatusLoading ? <CircularProgress size={20} /> : (
+            <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status}
+              select={(option: number) => mutate(option)}>
+              {status === 'pending' ? <CircularProgress size={20} /> : (
                 <div className={c.status} title={statusLabels[video.status]}
                   style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
               )}
