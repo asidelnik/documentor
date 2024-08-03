@@ -6,7 +6,7 @@ import './index.css'
 import { ThemeProvider } from '@mui/material';
 import { muiTheme } from './components/mui/theme.tsx';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from './query-client/queryClient.tsx';
+import { queryClient } from './query/queryClient.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
