@@ -1,7 +1,7 @@
-import { Video } from '../types/video';
+import { IVideo } from '../types/IVideo';
 
 export interface IVideosGridProps {
-  videos: Video[];
+  videos: IVideo[];
   videosCount: number;
   fetchData: () => void;
 }

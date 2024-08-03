@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Video } from "../types/video";
+import { IVideo } from "../types/IVideo";
 import { serverRoutes } from "../server/server-routes";
 import { useFilters } from "../contexts/filters-context";
 
 export default function useGetVideos() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const [videos, setVideos] = useState<Video[]>([]);
+  const [videos, setVideos] = useState<IVideo[]>([]);
   const [videosCount, setVideosCount] = useState(0);
   const [isLoading, setIsLoading] = useState<boolean | null>(null);
   const [isError, setIsError] = useState<boolean | null>(null);
@@ -32,7 +32,6 @@ export default function useGetVideos() {
     try {
       const filteredParams = Object.fromEntries(Object.entries(filters).filter(([_, value]) => value !== undefined));
       const getFilteredVideosRequestString = serverRoutes.getFilteredVideos(filteredParams);
-
       const response = await fetch(baseUrl + getFilteredVideosRequestString, { signal });
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -40,11 +39,11 @@ export default function useGetVideos() {
 
       const filteredVideos = await response.json();
       if (filteredVideos && filteredVideos.videos) {
-        const updatedVideos = filteredVideos.videos.map((video: Video) => {
+        const updatedVideos = filteredVideos.videos.map((video: IVideo) => {
           return {
             ...video,
-            startTime: new Date(video.startTime),
-            endTime: new Date(video.endTime),
+            startTimeDate: new Date(video.startTime),
+            endTimeDate: new Date(video.endTime),
           };
         });
         setVideos(updatedVideos);

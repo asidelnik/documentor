@@ -3,7 +3,7 @@ import axios from "axios";
 import VideoList from "../components/video-list/VideoList";
 import { useParams } from "react-router-dom";
 import { EventType } from "../types/event";
-import { VideoFromServer } from "../types/video";
+import { IVideo } from "../types/IVideo";
 import CommonError from "../components/errors/common/CommonError";
 
 export default function EventTimelinePage() {
@@ -27,10 +27,10 @@ export default function EventTimelinePage() {
           ...response?.data,
           startTime: new Date(response?.data.startTime),
           endTime: new Date(response?.data.endTime),
-          videos: response?.data.videos.map((video: VideoFromServer) => ({
+          videos: response?.data.videos.map((video: IVideo) => ({
             ...video,
-            startTime: new Date(video.startTime),
-            endTime: new Date(video.endTime),
+            startTimeDate: new Date(video.startTime),
+            endTimeDate: new Date(video.endTime),
           })),
         };
         setData(event);

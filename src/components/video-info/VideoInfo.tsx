@@ -9,7 +9,7 @@ import { useUpdateVideoStatus } from "../../hooks/useUpdateVideoStatus";
 import { useEffect } from "react";
 
 export default function VideoInfo({ video, fetchData }: IVideoInfoProps) {
-  const dateString = dateToStringShortMonthDateYear(video.startTime);
+  const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
   const statusStyles = getStatusStyles(video.status)
 
   const { isLoading, isError, update } = useUpdateVideoStatus();
