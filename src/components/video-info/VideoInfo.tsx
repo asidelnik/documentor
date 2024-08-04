@@ -26,6 +26,8 @@ export default function VideoInfo({ video, eventsData, fetchData }: IVideoInfoPr
     }
   }, [videoStatus, eventStatus])
 
+  const eventUpdateHandler = (newEventId: string | null) => setVideoEvent({ videoId: video.id, newEventId: newEventId, oldEventId: video.eventId });
+
   return (
     <>
       <div className={c.videoInfoContainer}>
@@ -52,7 +54,7 @@ export default function VideoInfo({ video, eventsData, fetchData }: IVideoInfoPr
         <div className={c.row2}>
           {eventsData.isFetching || eventsData.isPending || eventsData.error ? '' :
             <CheckboxesTags options={eventsData.events} checkedId={video.eventId}
-              update={(newEventId: string | null) => setVideoEvent({ videoId: video.id, newEventId: newEventId, oldEventId: video.eventId })} />
+              update={eventUpdateHandler} />
           }
         </div>
       </div>
