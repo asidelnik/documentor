@@ -11,7 +11,6 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 export default function CheckboxesTags({ options, checkedId, update }: ICheckBoxesTagsProps) {
   const checkedOption = useMemo(() => options.find(o => o.id === checkedId), [options, checkedId]);
-  // console.log({ checkedIdProp: checkedId, checkedOption })
 
   return (
     <Autocomplete
@@ -30,7 +29,7 @@ export default function CheckboxesTags({ options, checkedId, update }: ICheckBox
               checkedIcon={checkedIcon}
               style={{ marginRight: 8 }}
               checked={option.id === checkedId}
-              onChange={() => update(option.id, checkedId)}
+              onChange={() => update(option.id)}
             />
             {option.title}
           </li>

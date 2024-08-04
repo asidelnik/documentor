@@ -7,30 +7,24 @@ import { getStatusStyles, statusAutocompleteOptions, statusLabels } from "../../
 import PositionedMenu from "../../shared/components/positioned-menu/PositionedMenu";
 import { useEffect } from "react";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
-import { useUpdateVideoEvent } from "../../hooks/useUpdateVideoEvent";
 import { useMutation } from "@tanstack/react-query";
-import { serverRoutes } from "../../server/server-routes";
+import { mutateVideoStatus } from "../../query/mutateVideoStatus";
+import { mutateVideoEvent } from "../../query/mutateVideoEvent";
 
 export default function VideoInfo({ video, eventsData, fetchData }: IVideoInfoProps) {
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
   const statusStyles = getStatusStyles(video.status)
+  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${video.startLocation.coordinates}`;
 
-  const { status, mutate } = useMutation({
-    mutationFn: (status: number) => {
-      const baseUrl = import.meta.env.VITE_BASE_URL;
-      const requestPath = serverRoutes.videos.videoSetStatus(video.id, status);
-      return fetch(baseUrl + requestPath, { method: 'PUT' });
-    },
-  })
-
-  const { isEventLoading, isEventError, updateVideoEvent } = useUpdateVideoEvent();
-
+  const { status: videoStatus, mutate: setVideoStatus } = useMutation({ mutationFn: mutateVideoStatus });
+  // Maybe move into the CheckboxTags (pass the video.id & urlPath)
+  const { status: eventStatus, mutate: setVideoEvent } = useMutation({ mutationFn: mutateVideoEvent });
 
   useEffect(() => {
-    if (status === 'success') {
+    if (videoStatus === 'success' || eventStatus === 'success') {
       fetchData();
     }
-  }, [status])
+  }, [videoStatus, eventStatus])
 
   return (
     <>
@@ -40,14 +34,14 @@ export default function VideoInfo({ video, eventsData, fetchData }: IVideoInfoPr
           <div className={c.icons}>
             <IconButton
               aria-label="show map"
-              onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${video.startLocation.coordinates}`, '_blank')}
+              onClick={() => window.open(mapUrl, '_blank')}
             >
               <MapIcon />
             </IconButton>
 
             <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status}
-              select={(option: number) => mutate(option)}>
-              {status === 'pending' ? <CircularProgress size={20} /> : (
+              select={(option: number) => setVideoStatus({ videoId: video.id, status: option })}>
+              {videoStatus === 'pending' ? <CircularProgress size={20} /> : (
                 <div className={c.status} title={statusLabels[video.status]}
                   style={{ backgroundColor: statusStyles.bg, boxShadow: statusStyles.boxShadow }}></div>
               )}
@@ -58,7 +52,7 @@ export default function VideoInfo({ video, eventsData, fetchData }: IVideoInfoPr
         <div className={c.row2}>
           {eventsData.isFetching || eventsData.isPending || eventsData.error ? '' :
             <CheckboxesTags options={eventsData.events} checkedId={video.eventId}
-              update={(newEventId: string | null, oldEventId: string | null) => updateVideoEvent(video.id, newEventId, oldEventId)} />
+              update={(newEventId: string | null) => setVideoEvent({ videoId: video.id, newEventId: newEventId, oldEventId: video.eventId })} />
           }
         </div>
       </div>
