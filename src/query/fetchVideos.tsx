@@ -10,6 +10,9 @@ export const fetchVideos = async (filters: IVideosFilters, signal: AbortSignal):
   );
   const getFilteredVideosRequestString = serverRoutes.videos.getFilteredVideos(filteredParams);
   const response = await fetch(baseUrl + getFilteredVideosRequestString, { signal });
+  if (!response.ok) {
+    throw new Error('Network error');
+  }
   return response.json();
 };
 
