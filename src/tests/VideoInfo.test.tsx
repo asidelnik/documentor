@@ -1,18 +1,20 @@
 import { render, screen } from "@testing-library/react"; // , fireEvent
 import { describe, it, expect, vi } from "vitest";
 import VideoInfo from "../components/video-info/VideoInfo";
-import { Video } from "../types/video";
 import { IEventIdTitle } from "../types/IEventIdTitle";
 import { dateToStringShortMonthDateYear } from "../utils/functions";
+import { IVideo } from "../types/IVideo";
 
 describe("VideoInfo Component", () => {
-  const video: Video = {
+  const video: IVideo = {
     id: "1",
     title: "Video 1",
     url: "https://www.youtube.com/embed/SekA57AxJVE",
     thumbnail: "https://img.youtube.com/vi/SekA57AxJVE/0.jpg",
-    startTime: new Date("2023-10-24T00:00:00.000Z"),
-    endTime: new Date("2023-10-24T00:00:07.000Z"),
+    startTime: "2023-10-24T00:00:00.000Z",
+    endTime: "2023-10-24T00:00:07.000Z",
+    startTimeDate: new Date("2023-10-24T00:00:00.000Z"),
+    endTimeDate: new Date("2023-10-24T00:00:07.000Z"),
     duration: 10,
     orientation: 2,
     eventId: "1",
@@ -41,14 +43,14 @@ describe("VideoInfo Component", () => {
     render(
       <VideoInfo
         video={video}
-        events={events}
+        eventsData={events}
         fetchData={fetchData}
       // updateVideoStatus={mockUpdateVideoStatus}
       // updateVideoEvent={mockUpdateVideoEvent}
       />
     );
 
-    const videoStartTime = screen.getByText(dateToStringShortMonthDateYear(video.startTime));
+    const videoStartTime = screen.getByText(dateToStringShortMonthDateYear(video.startTimeDate ?? new Date()));
     expect(videoStartTime).toBeInTheDocument();
     const eventInput = document.getElementById('checkboxes-tags');
     expect(eventInput).toBeInTheDocument();
