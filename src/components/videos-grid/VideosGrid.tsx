@@ -3,20 +3,8 @@ import ReactPlayer from 'react-player'
 import { IVideosGridProps } from "../../props/IVideosGridProps";
 import VideoInfo from "../video-info/VideoInfo";
 import { IVideo } from "../../types/IVideo";
-import { IEventIdTitle } from "../../types/IEventIdTitle";
-import { useQuery } from "@tanstack/react-query";
-import { fetchEventsAutocomplete } from "../../query/fetchEventsAutocomplete";
-import { IEventsAutoComplete } from "../../props/IEventsAutoComplete";
 
-
-
-export default function VideosGrid({ videos, videosCount, fetchData }: IVideosGridProps) {
-  const { isFetching, isPending, error, data } = useQuery<IEventIdTitle[]>({
-    queryKey: ['fetchEventsAutocomplete'],
-    queryFn: ({ signal }) => fetchEventsAutocomplete(signal)
-  });
-  const eventsData: IEventsAutoComplete = { isFetching, isPending, error, events: data ?? [] };
-
+export default function VideosGrid({ videos, videosCount, eventsData, fetchData }: IVideosGridProps) {
   return (
     <>
       <div className={c.videoCount}>{videosCount} videos</div>
