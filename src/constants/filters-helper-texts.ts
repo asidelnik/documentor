@@ -3,7 +3,6 @@ import { DateTimeValidationError } from '@mui/x-date-pickers/models';
 export function filtersHelperTexts(
   error: DateTimeValidationError | string | null
 ): string {
-  console.log(error);
   switch (error) {
     case 'maxDate':
       return 'Later than "To date field". Or future date.';
