@@ -1,9 +1,11 @@
 import { serverRoutes } from "../server/server-routes";
 import { IVideosData } from "../types/IVideosData";
-import { IVideosFilters } from "../types/IVideosFilters";
 import { IVideo } from "../types/IVideo";
+import { QueryKey } from "@tanstack/react-query";
+import { IVideosFilters } from "../types/IVideosFilters";
 
-export const fetchVideos = async (filters: IVideosFilters, signal: AbortSignal): Promise<IVideosData> => {
+export const fetchVideos = async (queryKey: QueryKey, signal: AbortSignal): Promise<IVideosData> => {
+  const filters = queryKey[1] as IVideosFilters;
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const filteredParams = Object.fromEntries(
     Object.entries(filters).filter(([_, value]) => value !== undefined)

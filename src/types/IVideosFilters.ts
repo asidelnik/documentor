@@ -2,12 +2,12 @@ export interface IVideosFilters {
   fromDate?: Date;
   toDate?: Date;
   statuses?: number[];
-  lat?: number;
-  lng?: number;
-  radius?: number;
-  eventId?: boolean;
   page?: number;
   limit?: number;
+  // lat?: number;
+  // lng?: number;
+  // radius?: number;
+  // eventId?: boolean;
   // id?: number;
 }
 

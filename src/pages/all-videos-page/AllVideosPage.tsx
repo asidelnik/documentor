@@ -1,5 +1,5 @@
 import c from './AllVideosPage.module.scss'
-import { CircularProgress, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import VideosFilters from '../../components/videos-filters/VideosFilters';
 import VideosGrid from '../../components/videos-grid/VideosGrid';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
@@ -20,12 +20,18 @@ export default function AllVideosPage() {
     queryFn: ({ signal }) => fetchEventsAutocomplete(signal)
   });
 
-  const { isFetching: videosIsFetching, isPending: videosIsPending, error: videosError, data: videosData, refetch: videosRefetch } = useQuery<IVideosData>({
-    queryKey: ['fetchVideos'],
-    queryFn: ({ signal }) => fetchVideos(filters, signal),
+  const {
+    // isFetching: videosIsFetching,
+    // isPending: videosIsPending,
+    // error: videosError,
+    data: videosData,
+  } = useQuery<IVideosData>({
+    queryKey: ['videos', filters],
+    queryFn: ({ queryKey, signal }) => fetchVideos(queryKey, signal),  // Move filters into the queryKey to call invalidate from filters component & pass filters.
     select: (data: IVideosData) => videosSelector(data)
   });
   const eventsDataProp: IEventsAutoComplete = { isFetching: eventsIsFetching, isPending: eventsIsPending, error: eventsError, events: eventsData ?? [] };
+
 
   return (
     <>
@@ -38,22 +44,24 @@ export default function AllVideosPage() {
           </div>
 
           <div className={toggleAside ? 'visible' : 'hidden'}>
-            <VideosFilters fetchData={videosRefetch} />
+            <VideosFilters />
           </div>
         </aside>
         <main>
-          {videosIsFetching || videosIsPending ?
-            <CircularProgress /> :
-            !videosError && videosData ?
               <VideosGrid
-                videos={videosData.videos}
-                videosCount={videosData.videosCount}
-                eventsData={eventsDataProp}
-                fetchData={videosRefetch} /> :
-              ''
-          }
+            videos={videosData?.videos ?? []}
+            videosCount={videosData?.videosCount ?? 0}
+            eventsData={eventsDataProp} />
         </main>
       </div>
     </>
   )
 }
+{/* 
+  {videosIsFetching || videosIsPending ?
+  <CircularProgress /> :
+  !videosError && videosData ?
+  :
+      ''
+  }
+*/}
