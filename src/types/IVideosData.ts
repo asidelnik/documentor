@@ -1,6 +1,6 @@
-import { IVideo } from './IVideo';
+// import { IVideo } from './IVideo';
 
-export interface IVideosData {
-  videos: IVideo[];
-  videosCount: number;
-}
+// export interface IVideosData {
+//   videos: IVideo[];
+//   videosCount: number;
+// }

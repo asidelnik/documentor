@@ -1,10 +1,9 @@
 import { serverRoutes } from "../server/server-routes";
-import { IVideosData } from "../types/IVideosData";
 import { IVideo } from "../types/IVideo";
 import { QueryKey } from "@tanstack/react-query";
 import { IVideosFilters } from "../types/IVideosFilters";
 
-export const fetchVideos = async (queryKey: QueryKey, signal: AbortSignal): Promise<IVideosData> => {
+export const fetchVideos = async (queryKey: QueryKey, signal: AbortSignal): Promise<IVideo[]> => {
   const filters = queryKey[1] as IVideosFilters;
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const filteredParams = Object.fromEntries(
@@ -18,11 +17,10 @@ export const fetchVideos = async (queryKey: QueryKey, signal: AbortSignal): Prom
   return response.json();
 };
 
-export const videosSelector = (data: IVideosData) => ({
-  ...data,
-  videos: data.videos.map((video: IVideo) => ({
+export const videosSelector = (videos: IVideo[]) => {
+  return videos.map((video: IVideo) => ({
     ...video,
     startTimeDate: new Date(video.startTime),
     endTimeDate: new Date(video.endTime),
-  })),
-});
+  }))
+}

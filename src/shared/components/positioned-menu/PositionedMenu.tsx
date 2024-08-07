@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { IPositionedMenuProps } from '../../../types/IPositionedMenuProps';
 import { IconButton } from '@mui/material';
 
-export default function PositionedMenu({ options, videoStatus, select, children }: IPositionedMenuProps) {
+export default function PositionedMenu({ options, videoStatus, isDisabled, select, children }: IPositionedMenuProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -28,6 +28,7 @@ export default function PositionedMenu({ options, videoStatus, select, children 
         aria-controls={open ? 'positioned-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
+        disabled={isDisabled}
         onClick={handleClick}
       >
         {children}

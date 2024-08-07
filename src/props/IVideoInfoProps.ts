@@ -4,5 +4,4 @@ import { IEventsAutoComplete } from './IEventsAutoComplete';
 export interface IVideoInfoProps {
   video: IVideo;
   eventsData: IEventsAutoComplete;
-  fetchData: () => void;
 }

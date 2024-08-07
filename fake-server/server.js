@@ -26,6 +26,7 @@ server.put('/video-set-status/:id', (req, res) => {
   if (videoExists) {
     db.get('videos').find({ id }).assign({ status: Number(status) }).write();
     res.json({ message: 'Video status updated successfully' });
+    // res.status(404).send('Video not found');
   } else {
     res.status(404).send('Video not found');
   }
@@ -71,6 +72,7 @@ server.put('/video-set-event/:id', (req, res) => {
   }
 });
 
+
 server.get('/videos', (req, res) => {
   const { fromDate, toDate, lat, lng, radius, statuses, eventId, page = 1, limit = 10 } = req.query;
   console.log(req.query);
@@ -113,14 +115,14 @@ server.get('/videos', (req, res) => {
     videos = videos.filter(video => video.eventId !== null);
   }
 
-  const videosCount = videos.length;
+  // const videosCount = videos.length;
 
   // Pagination
   const start = (page - 1) * limit;
   const end = start + limit;
   videos = videos.slice(start, end);
 
-  res.json({ videos, videosCount });
+  res.json(videos); //{ , videosCount });
 });
 
 

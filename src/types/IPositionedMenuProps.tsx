@@ -6,6 +6,7 @@ import { ISelectOption } from "./ISelectOption";
 export interface IPositionedMenuProps {
   options: ISelectOption[];
   videoStatus: VideoStatusEnum;
+  isDisabled: boolean
   select: (option: number) => void;
   children: ReactNode;
 }

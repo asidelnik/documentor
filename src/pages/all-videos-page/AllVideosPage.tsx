@@ -8,9 +8,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useFilters } from '../../contexts/filters-context';
 import { fetchEventsAutocomplete } from '../../query/fetchEventsAutocomplete';
 import { IEventIdTitle } from '../../types/IEventIdTitle';
-import { IVideosData } from '../../types/IVideosData';
 import { fetchVideos, videosSelector } from '../../query/fetchVideos';
 import { IEventsAutoComplete } from '../../props/IEventsAutoComplete';
+import { IVideo } from '../../types/IVideo';
 
 export default function AllVideosPage() {
   const filters = useFilters();
@@ -31,11 +31,11 @@ export default function AllVideosPage() {
     // isFetching: videosIsFetching,
     // isPending: videosIsPending,
     // error: videosError,
-    data: videosData,
-  } = useQuery<IVideosData>({
+    data: videos,
+  } = useQuery<IVideo[]>({
     queryKey: ['videos', filters],
     queryFn: ({ queryKey, signal }) => fetchVideos(queryKey, signal),  // Move filters into the queryKey to call invalidate from filters component & pass filters.
-    select: (data: IVideosData) => videosSelector(data)
+    select: (data: IVideo[]) => videosSelector(data)
   });
   const eventsDataProp: IEventsAutoComplete = { isFetching: eventsIsFetching, isPending: eventsIsPending, error: eventsError, events: eventsData ?? [] };
 
@@ -56,8 +56,8 @@ export default function AllVideosPage() {
         </aside>
         <main>
           <VideosGrid
-            videos={videosData?.videos ?? []}
-            videosCount={videosData?.videosCount ?? 0}
+            videos={videos ?? []}
+            // videosCount={videosCount ?? 0}
             eventsData={eventsDataProp} />
         </main>
       </div>

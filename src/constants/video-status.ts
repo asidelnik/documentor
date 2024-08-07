@@ -22,7 +22,7 @@ export const statusAutocompleteOptions: ISelectOption[] = [
 export function getStatusStyles(statusId: number): IStyles {
   switch (statusId) {
     case VideoStatusEnum.Unprocessed:
-      return { bg: 'none', boxShadow: 'inset 0 0 0 3px red' };
+      return { bg: 'transparent', boxShadow: 'inset 0 0 0 3px red' };
     case VideoStatusEnum.Usable:
       return { bg: 'green', boxShadow: 'none' };
     case VideoStatusEnum.Restricted:
