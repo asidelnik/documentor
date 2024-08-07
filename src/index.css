@@ -42,3 +42,7 @@ a {
 .visible {
   display: block;
 }
+
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+    background-color: hsl(0, 0%, 100%);
+}
