@@ -8,8 +8,7 @@ import { useState } from 'react';
 import { DateTimeValidationError } from '@mui/x-date-pickers/models';
 import { filtersHelperTexts } from '../../../constants/filters-helper-texts';
 
-
-export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFromDate, updateToDate, setValidationError }: IDateTimeRangePickerProps) {
+export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFromDate, updateToDate }: IDateTimeRangePickerProps) {
   const [fromDate, setFromDate] = useState<dayjs.Dayjs>(fromDateProp ? dayjs(fromDateProp) : dayjs(new Date()));
   const [toDate, setToDate] = useState<dayjs.Dayjs>(toDateProp ? dayjs(toDateProp) : dayjs(new Date()));
   const [fromError, setFromError] = useState<DateTimeValidationError | null>(null);
@@ -21,7 +20,6 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
 
     if (!dayjs(value).isValid()) {
       setFromError("invalidDate")
-      setValidationError(true);
       return;
     }
 
@@ -41,7 +39,6 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
 
   function fromErrorHandler(newError: DateTimeValidationError) {
     setFromError(newError);
-    setValidationError(newError === null && toError === null ? false : true);
   }
 
   function toChangeHandler(value: dayjs.Dayjs | null): void {
@@ -49,7 +46,6 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
 
     if (!dayjs(value).isValid()) {
       setToError("invalidDate")
-      setValidationError(true);
       return;
     }
 
@@ -62,7 +58,6 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
 
   function toErrorHandler(newError: DateTimeValidationError) {
     setToError(newError);
-    setValidationError(newError === null && fromError === null ? false : true);
   }
 
   return (

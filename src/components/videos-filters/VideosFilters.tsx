@@ -1,8 +1,4 @@
 import c from "./VideosFilters.module.scss";
-// import { LocationOption } from "../../types/location";
-import { useEffect, useState } from "react"; //ChangeEvent
-// import { locationOptions } from "../../fake-data/fake-data";
-// import { tryParseIntOrUndefined } from "../../utils/functions";
 import { IVideosFiltersProps } from "../../props/IVideosFiltersProps";
 import { statusAutocompleteOptions, VideoStatusEnum } from "../../constants/video-status";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
@@ -13,11 +9,6 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
   // const [selectedLocation, setSelectedLocation] = useState<number | undefined>(undefined);
   const filters = useFilters();
   const filtersDispatch = useFiltersDispatch();
-  const [isValidationError, setIsValidationError] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!isValidationError) fetchData();
-  }, [filters.fromDate, filters.toDate, filters.statuses])
 
   // const handleSearch = (event: any) => {
   //   if (event.key === 'Enter') {
@@ -37,7 +28,6 @@ export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
             toDateProp={filters.toDate}
             updateFromDate={(date: Date) => filtersDispatch({ type: 'update-from-date', payload: date })}
             updateToDate={(date: Date) => filtersDispatch({ type: 'update-to-date', payload: date })}
-            setValidationError={setIsValidationError}
           />
 
           <MultipleSelectCheckmarks
