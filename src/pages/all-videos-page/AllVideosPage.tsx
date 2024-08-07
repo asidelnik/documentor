@@ -15,8 +15,15 @@ import { IEventsAutoComplete } from '../../props/IEventsAutoComplete';
 export default function AllVideosPage() {
   const filters = useFilters();
   const [toggleAside, setToggleAside] = useState<boolean>(true);
-  const { isFetching: eventsIsFetching, isPending: eventsIsPending, error: eventsError, data: eventsData } = useQuery<IEventIdTitle[]>({
-    queryKey: ['fetchEventsAutocomplete'],
+  // useToggleAsideOnKeyPress(toggleAside, setToggleAside);
+
+  const {
+    isFetching: eventsIsFetching,
+    isPending: eventsIsPending,
+    error: eventsError,
+    data: eventsData
+  } = useQuery<IEventIdTitle[]>({
+    queryKey: ['events-autocomplete'],
     queryFn: ({ signal }) => fetchEventsAutocomplete(signal)
   });
 
@@ -48,7 +55,7 @@ export default function AllVideosPage() {
           </div>
         </aside>
         <main>
-              <VideosGrid
+          <VideosGrid
             videos={videosData?.videos ?? []}
             videosCount={videosData?.videosCount ?? 0}
             eventsData={eventsDataProp} />
