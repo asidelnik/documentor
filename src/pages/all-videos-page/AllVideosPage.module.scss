@@ -1,9 +1,9 @@
 .container {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 60px);
   background-color: var(--light-gray-bg);
-  
+
   aside {
     border-inline-end: 1px solid var(--light-gray-bg-border);
 
@@ -13,7 +13,7 @@
       padding-inline: 10px;
       display: flex;
       flex-direction: row;
-      justify-content: flex-start;
+      justify-content: flex-end;
       align-items: center;
     }
   }
