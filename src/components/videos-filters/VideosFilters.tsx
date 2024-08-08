@@ -1,56 +1,46 @@
 import c from "./VideosFilters.module.scss";
-// import { LocationOption } from "../../types/location";
-import { useEffect, useState } from "react"; //ChangeEvent
-// import { locationOptions } from "../../fake-data/fake-data";
-// import { tryParseIntOrUndefined } from "../../utils/functions";
-import { IVideosFiltersProps } from "../../props/IVideosFiltersProps";
+
 import { statusAutocompleteOptions, VideoStatusEnum } from "../../constants/video-status";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 import { useFilters, useFiltersDispatch } from "../../contexts/filters-context";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 
-export default function VideosFilters({ fetchData }: IVideosFiltersProps) {
-  // const [selectedLocation, setSelectedLocation] = useState<number | undefined>(undefined);
+export default function VideosFilters() {
   const filters = useFilters();
   const filtersDispatch = useFiltersDispatch();
-  const [isValidationError, setIsValidationError] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!isValidationError) fetchData();
-  }, [filters.fromDate, filters.toDate, filters.statuses])
+  const updateFromDateHandler = (fromDate: Date) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
+  const updateToDateHandler = (toDate: Date) => filtersDispatch({ type: 'update-to-date', payload: toDate });
+  const selectHandler = (dispatchType: string, options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
 
-  // const handleSearch = (event: any) => {
-  //   if (event.key === 'Enter') {
-  //     fetchData();
-  //   }
-  // }
-
-  function selectHandler(dispatchType: string, options: number[]) {
-    filtersDispatch({ type: dispatchType, payload: options });
-  }
 
   return (
     <>
       <div className={c.filtersContainer}>
-          <DateTimeRangePicker
-            fromDateProp={filters.fromDate}
-            toDateProp={filters.toDate}
-            updateFromDate={(date: Date) => filtersDispatch({ type: 'update-from-date', payload: date })}
-            updateToDate={(date: Date) => filtersDispatch({ type: 'update-to-date', payload: date })}
-            setValidationError={setIsValidationError}
-          />
+        <DateTimeRangePicker
+          fromDateProp={filters.fromDate}
+          toDateProp={filters.toDate}
+          updateFromDate={updateFromDateHandler}
+          updateToDate={updateToDateHandler}
+        />
 
-          <MultipleSelectCheckmarks
-            buttonText='Statuses'
-            options={statusAutocompleteOptions}
-            defaultOptions={[VideoStatusEnum.Unprocessed, VideoStatusEnum.Usable, VideoStatusEnum.Restricted]}
-            updateSelectedOptions={(options: number[]) => selectHandler('update-statuses', options)}
+        <MultipleSelectCheckmarks
+          buttonText='Statuses'
+          options={statusAutocompleteOptions}
+          defaultOptions={[VideoStatusEnum.Unprocessed, VideoStatusEnum.Usable, VideoStatusEnum.Restricted]}
+          updateSelectedOptions={(options: number[]) => selectHandler('update-statuses', options)}
         />
       </div>
     </>
   )
 }
 
+
+// import { LocationOption } from "../../types/location";
+// import { locationOptions } from "../../fake-data/fake-data";
+// import { tryParseIntOrUndefined } from "../../utils/functions";
+
+// const [selectedLocation, setSelectedLocation] = useState<number | undefined>(undefined);
 {/* <select name="location" value={selectedLocation} onChange={handleLocationChange}>
     <option value="">Select Location</option>
     {locationOptions.map((option: LocationOption, index: number) => (

@@ -6,42 +6,55 @@ import dayjs from 'dayjs';
 import { IDateTimeRangePickerProps } from '../../../props/IDateTimeRangePickerProps';
 import { useState } from 'react';
 import { DateTimeValidationError } from '@mui/x-date-pickers/models';
+import { filtersHelperTexts } from '../../../constants/filters-helper-texts';
 
-
-export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFromDate, updateToDate, setValidationError }: IDateTimeRangePickerProps) {
+export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFromDate, updateToDate }: IDateTimeRangePickerProps) {
   const [fromDate, setFromDate] = useState<dayjs.Dayjs>(fromDateProp ? dayjs(fromDateProp) : dayjs(new Date()));
   const [toDate, setToDate] = useState<dayjs.Dayjs>(toDateProp ? dayjs(toDateProp) : dayjs(new Date()));
   const [fromError, setFromError] = useState<DateTimeValidationError | null>(null);
   const [toError, setToError] = useState<DateTimeValidationError | null>(null);
+  const getMaxFromDate = fromDate.isAfter(toDate) ? toDate.startOf('day') : dayjs().endOf('day');
 
   function fromChangeHandler(value: dayjs.Dayjs | null): void {
     if (value === null) return;
+
+    if (!dayjs(value).isValid()) {
+      setFromError("invalidDate")
+      return;
+    }
+
+    if (toError === 'invalidDate') return;
+
     if (value.isAfter(toDate)) {
       const dayEnd = value.endOf('day'); // .add(7, 'day');
       setToDate(dayEnd);
-      // TODO - if validation error, don't update to date & don't fetch data
       updateToDate(dayEnd.toDate())
     }
+
     setFromDate(value)
-    // TODO - if validation error, don't update from date & don't fetch data
     updateFromDate(value.toDate())
   }
 
   function fromErrorHandler(newError: DateTimeValidationError) {
     setFromError(newError);
-    setValidationError(newError === null && toError === null ? false : true);
   }
 
   function toChangeHandler(value: dayjs.Dayjs | null): void {
     if (value === null) return;
+
+    if (!dayjs(value).isValid()) {
+      setToError("invalidDate")
+      return;
+    }
+
+    if (fromError === 'invalidDate') return;
+
     setToDate(value)
-    // TODO - if validation error, don't update to date & don't fetch data
     updateToDate(value.toDate())
   }
 
   function toErrorHandler(newError: DateTimeValidationError) {
     setToError(newError);
-    setValidationError(newError === null && fromError === null ? false : true);
   }
 
   return (
@@ -49,32 +62,31 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
       <div className={c.rangeContainer}>
         <DesktopDateTimePicker
           label="From date"
-          onChange={(value) => fromChangeHandler(value)}
           value={fromDate}
           disableFuture
-          maxDate={dayjs(new Date())}
+          disabled={toError === 'invalidDate'}
+          maxDate={getMaxFromDate}
+          onChange={(value) => fromChangeHandler(value)}
           onError={(newError: DateTimeValidationError) => fromErrorHandler(newError)}
           slotProps={{
             textField: {
-              helperText: fromError === 'maxDate' || fromError === 'disableFuture' ? 'Future date not allowed.' : '',
+              helperText: filtersHelperTexts(fromError),
             },
           }}
-          sx={{ width: '100%', backgroundColor: 'white' }}
+          sx={{ width: '100%' }}
         />
         <DesktopDateTimePicker
           label="To date"
-          onChange={(value) => toChangeHandler(value)}
           value={toDate}
-          disableFuture
-          shouldDisableDate={(date) => date.isBefore(fromDate)}
-          maxDate={dayjs(new Date())}
+          disabled={fromError === 'invalidDate'}
+          onChange={(value) => toChangeHandler(value)}
           onError={(newError: DateTimeValidationError) => toErrorHandler(newError)}
           slotProps={{
             textField: {
-              helperText: toError === 'maxDate' || toError === 'disableFuture' ? 'Future date not allowed.' : '',
+              helperText: filtersHelperTexts(toError),
             },
           }}
-          sx={{ width: '100%', backgroundColor: 'white' }}
+          sx={{ width: '100%' }}
         />
       </div>
     </LocalizationProvider>

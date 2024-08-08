@@ -16,8 +16,9 @@
   -webkit-text-size-adjust: 100%;
 
   --max-width-500: 500px;
-  --white-bg-border: hsl(0, 0%, 85%);
-  --light-gray-bg-border: hsl(0, 0%, 80%);
+  --light-gray-bg-border: hsl(0, 0%, 76%);
+
+  --light-gray-bg: hsl(0, 0%, 92%);
 }
 
 iframe {
@@ -40,4 +41,8 @@ a {
 
 .visible {
   display: block;
+}
+
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+    background-color: hsl(0, 0%, 100%);
 }

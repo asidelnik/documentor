@@ -25,7 +25,7 @@ export default function EventsTablePage() {
   const fetchData = async (page: number, limit: number) => {
     try {
       // const pageString = 'a';
-      const getEventsRequestString = serverRoutes.getFilteredEvents({
+      const getEventsRequestString = serverRoutes.events.getFilteredEvents({
         fromDate: '2023-10-01',
         toDate: '2023-10-27',
         lat: 32.0853,
