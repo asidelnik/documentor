@@ -2,24 +2,37 @@ import { QueryClient } from "@tanstack/react-query";
 import { IVideo } from "../types/IVideo";
 import { IVideoStatusMutationProps } from "./mutateVideoStatus";
 import { IVideosFilters } from "../types/IVideosFilters";
+import { VideoMutaion } from "../enums/VideoMutation";
+import { IVideoEventMutationProps } from "./mutateVideoEvent";
 
-export const videoStatusOnMutate = async (
-  statusMutation: IVideoStatusMutationProps,
+export const videoOnMutate = async (
+  mutation: IVideoStatusMutationProps | IVideoEventMutationProps,
   queryClient: QueryClient,
-  filters: IVideosFilters
+  filters: IVideosFilters,
+  type: VideoMutaion
 ) => {
   // Cancel any outgoing refetches
   // (so they don't overwrite our optimistic update)
-  await queryClient.cancelQueries({ queryKey: ['videos', statusMutation.videoId] });
+  await queryClient.cancelQueries({ queryKey: ['videos', mutation.videoId] });
   // Snapshot the previous value
   const videosData = queryClient.getQueryData<IVideo[]>(['videos', filters]);
-  const previousVideo = videosData?.find((v) => v.id === statusMutation.videoId);
+  const previousVideo = videosData?.find((v) => v.id === mutation.videoId);
   if (!previousVideo) return null;
-  const updatedVideo = { ...previousVideo, status: statusMutation.status };
+  let updatedVideo: IVideo | undefined;
+  if (type === VideoMutaion.Status) {
+    if ('status' in mutation) {
+      updatedVideo = { ...previousVideo, status: mutation.status };
+    }
+  } else {
+    if ('newEventId' in mutation) {
+      updatedVideo = { ...previousVideo, eventId: mutation.newEventId };
+    }
+  }
+  if (!updatedVideo) return null;
   // Optimistically update to the new value
   queryClient.setQueryData(['videos', filters], (previousVideos: IVideo[]) => {
     return (previousVideos || []).map((vid: IVideo) =>
-      vid.id === statusMutation.videoId ? updatedVideo : vid
+      vid.id === mutation.videoId ? updatedVideo : vid
     );
   });
   // Return a context with the previous and new video

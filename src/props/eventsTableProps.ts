@@ -6,4 +6,4 @@ export interface IEventsTableProps {
   eventsCount: number;
   getPageRows: (page: number, rowsPerPage: number) => void;
   openDialog: (actionTitle: EventsActionTitle, eventId?: number) => void;
-};
+}

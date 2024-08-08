@@ -28,12 +28,10 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
     if (value.isAfter(toDate)) {
       const dayEnd = value.endOf('day'); // .add(7, 'day');
       setToDate(dayEnd);
-      // TODO - if validation error, don't update to date & don't fetch data
       updateToDate(dayEnd.toDate())
     }
 
     setFromDate(value)
-    // TODO - if validation error, don't update from date & don't fetch data
     updateFromDate(value.toDate())
   }
 
@@ -52,7 +50,6 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
     if (fromError === 'invalidDate') return;
 
     setToDate(value)
-    // TODO - if validation error, don't update to date & don't fetch data
     updateToDate(value.toDate())
   }
 

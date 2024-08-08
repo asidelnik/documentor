@@ -5,4 +5,5 @@ export interface ICheckBoxesTagsProps {
   options: IEventIdTitle[];
   checkedId: string | null;
   update: (newId: string | null) => void;
+  isDisabled: boolean;
 }

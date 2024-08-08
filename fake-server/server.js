@@ -40,33 +40,47 @@ server.put('/video-set-event/:id', (req, res) => {
     const { newEventId, oldEventId } = req.query;
 
     const videoExists = db.get('videos').find({ id }).value() !== undefined;
-    const newEvent = db.get('events').find({ id: newEventId }).value();
-    const newEventExists = newEvent !== undefined;
+    if (!videoExists) res.status(404).send('Video not found');
 
-    if (videoExists && newEventExists) {
-      // Set Video's eventId
-      db.get('videos').find({ id }).assign({ eventId: newEventId }).write();
+    if (newEventId === null) {
+      db.get('videos').find({ id }).assign({ eventId: null }).write();
 
-      if (!newEvent.videoIds.includes(id)) {
-        // If the Video doesn't exist in the Event, add it
+      if (oldEventId !== null) {
         db.get('events')
-          .find({ id: newEventId })
-          .update('videoIds', videoIds => [...videoIds, id])
+          .find({ id: oldEventId })
+          .update('videoIds', videoIds => videoIds.filter(videoId => videoId !== id))
           .write();
-
-        // If the Video existed in another event, remove it
-        if (oldEventId !== null) {
-          db.get('events')
-            .find({ id: oldEventId })
-            .update('videoIds', videoIds => videoIds.filter(videoId => videoId !== id))
-            .write();
-        }
       }
-
-      res.json({ message: 'Success' });
     } else {
-      res.status(404).send('Video or event not found');
+      const newEvent = db.get('events').find({ id: newEventId }).value();
+      const newEventExists = newEvent !== undefined;
+
+      if (videoExists && newEventExists) {
+        // Set Video's eventId
+        db.get('videos').find({ id }).assign({ eventId: newEventId }).write();
+
+        if (!newEvent.videoIds.includes(id)) {
+          // If the Video doesn't exist in the Event, add it
+          db.get('events')
+            .find({ id: newEventId })
+            .update('videoIds', videoIds => [...videoIds, id])
+            .write();
+
+          // If the Video existed in another event, remove it
+          if (oldEventId !== null) {
+            db.get('events')
+              .find({ id: oldEventId })
+              .update('videoIds', videoIds => videoIds.filter(videoId => videoId !== id))
+              .write();
+          }
+        }
+
+        res.json({ message: 'Success' });
+      } else {
+        res.status(404).send('Video or event not found');
+      }
     }
+    res.json({ message: 'Success' });
   } catch (error) {
     res.status(500).send('Internal server error');
   }
