@@ -8,9 +8,10 @@ Violent events video documentation dashboard.
 **All videos - page**
 ![All videos](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/26e58a04-cfb0-4576-adc8-faece00ed9ff)
 
-**Video item - Set Event - backend flowchart**
+**Video item - Set Event - server logic flowchart**
 ![image](https://github.com/user-attachments/assets/690ffc24-ee75-420b-9862-1a4817bf652c)
 
+![Image](https://github.com/user-attachments/assets/f7a334a7-2a6c-4f67-978d-0a6513874540)
 
 **Events table - page**
 ![Events table](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/8e19789f-266a-4506-85ab-142a89db5270)
