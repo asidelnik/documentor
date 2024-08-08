@@ -37,7 +37,10 @@ server.put('/video-set-event/:id', (req, res) => {
   try {
     const db = router.db; // lowdb instance
     const { id } = req.params;
-    const { newEventId, oldEventId } = req.query;
+    let { newEventId, oldEventId } = req.query;
+
+    newEventId = newEventId === 'null' ? null : newEventId;
+    oldEventId = oldEventId === 'null' ? null : oldEventId;
 
     const videoExists = db.get('videos').find({ id }).value() !== undefined;
     if (!videoExists) res.status(404).send('Video not found');
