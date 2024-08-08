@@ -5,7 +5,9 @@ Violent events video documentation dashboard.
 [Project planning link](https://github.com/users/asidelnik/projects/1)
 
 ## Wireframes & Flowcharts
-**All videos - page**
+**Videos - page (website)**
+![image](https://github.com/user-attachments/assets/ef85b0a6-ec5f-4b7f-bf61-04790b2099f5)
+**Videos - page (UI spec)**
 ![All videos](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/26e58a04-cfb0-4576-adc8-faece00ed9ff)
 
 **Video item - Set Event - server logic flowchart**
