@@ -11,6 +11,7 @@ import { IVideoStatusMutationProps, mutateVideoStatus } from "../../query/mutate
 // import { mutateVideoEvent } from "../../query/mutateVideoEvent";
 import { IVideo } from "../../types/IVideo";
 import { useFilters } from "../../contexts/filters-context";
+import { videoStatusOnMutate } from "../../query/videoStatusMutation";
 
 export default function VideoInfo({ video/*, eventsData*/ }: IVideoInfoProps) {
   const filters = useFilters();
@@ -22,28 +23,8 @@ export default function VideoInfo({ video/*, eventsData*/ }: IVideoInfoProps) {
   const { status, mutate: setVideoStatus } = useMutation({
     mutationFn: mutateVideoStatus,
     // When mutate is called:
-    onMutate: async (statusMutation: IVideoStatusMutationProps) => {
-      // Cancel any outgoing refetches
-      // (so they don't overwrite our optimistic update)
-      await queryClient.cancelQueries({ queryKey: ['videos', video.id] });
-
-      // Snapshot the previous value
-      const videosData = queryClient.getQueryData<IVideo[]>(['videos', filters]);
-      const previousVideo = videosData?.find(v => v.id === video.id);
-      if (!previousVideo) return null;
-      const updatedVideo = { ...previousVideo, status: statusMutation.status };
-      console.log(updatedVideo)
-
-      // Optimistically update to the new value
-      queryClient.setQueryData(['videos', filters], (previousVideos: IVideo[]) => {
-        return (previousVideos || []).map((vid: IVideo) =>
-          vid.id === video.id ? updatedVideo : vid);
-      });
-
-      // Return a context with the previous and new video
-      // console.log({ previousVideo, updatedVideo })
-      return { previousVideo, updatedVideo }
-    },
+    onMutate: (statusMutation: IVideoStatusMutationProps) =>
+      videoStatusOnMutate(statusMutation, queryClient, filters),
     // If the mutation fails, use the context we returned above
     onError: (err, _statusMutation, context) => {
       if (context) {
@@ -77,9 +58,11 @@ export default function VideoInfo({ video/*, eventsData*/ }: IVideoInfoProps) {
               <MapIcon />
             </IconButton>
 
-            <PositionedMenu options={statusAutocompleteOptions} videoStatus={video.status}
-              select={statusUpdateHandler} isDisabled={status === 'pending'}>
-              {/* isFetchingVideos > 0}> */}
+            <PositionedMenu
+              options={statusAutocompleteOptions}
+              videoStatus={video.status}
+              isDisabled={status === 'pending'}
+              select={statusUpdateHandler}>
               {/* {videoStatusStatus === 'pending' ? <CircularProgress size={20} /> : ( */}
               <div className={c.status} title={statusLabels[video.status]}
                 style={{
@@ -87,7 +70,6 @@ export default function VideoInfo({ video/*, eventsData*/ }: IVideoInfoProps) {
                   boxShadow: optimisticStatusStyles.boxShadow,
                   opacity: status === 'pending' ? 0.5 : 1 //isFetchingVideos > 0 ? 0.5 : 1
                 }}></div>
-              {/* )} */}
             </PositionedMenu>
           </div>
         </div>
