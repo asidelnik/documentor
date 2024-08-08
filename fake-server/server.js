@@ -142,6 +142,47 @@ server.get('/videos', (req, res) => {
   res.json(videos); //{ , videosCount });
 });
 
+// TODO - merge the count into the videos fetch request
+server.get('/videos-count', (req, res) => {
+  const { fromDate, toDate, lat, lng, radius, statuses, eventId } = req.query;
+  console.log(req.query);
+  const db = router.db; // lowdb instance
+  let videos = db.get('videos').value();
+
+  if (fromDate && toDate) {
+    const from = new Date(fromDate);
+    const to = new Date(toDate);
+    videos = videos.filter(video => {
+      const videoDate = new Date(video.startTime);
+      return videoDate >= from && videoDate <= to;
+    });
+  }
+
+  if (lat && lng && radius) {
+    const parsedRadius = tryParseInt(radius, 0);
+    videos = videos.filter(video => {
+      const distance = Math.sqrt(
+        Math.pow(video.startLocation.coordinates[0] - lat, 2) +
+        Math.pow(video.startLocation.coordinates[1] - lng, 2)
+      );
+      return distance <= parsedRadius;
+    });
+  }
+
+  if (!statuses || statuses === '') {
+    videos = [];
+  } else {
+    const statusesArray = statuses.split(',').map(Number);
+    videos = videos.filter(video => statusesArray.includes(video.status));
+  }
+
+  if (eventId) {
+    videos = videos.filter(video => video.eventId !== null);
+  }
+
+  res.json(videos.length);
+});
+
 
 
 

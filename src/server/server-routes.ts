@@ -21,6 +21,10 @@ export const serverRoutes = {
     ) => {
       return `/video-set-event/${videoId}?newEventId=${newEventId}&oldEventId=${oldEventId}`;
     },
+    getFilteredVideosCount: (params: IVideosFilters) => {
+      const urlParams = getURLSearchParams(params);
+      return `/videos-count?${urlParams}`;
+    },
   },
   events: {
     getEventsAutocomplete: '/events-autocomplete',
