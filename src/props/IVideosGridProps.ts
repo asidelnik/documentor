@@ -3,6 +3,6 @@ import { IEventsAutoComplete } from './IEventsAutoComplete';
 
 export interface IVideosGridProps {
   videos: IVideo[];
-  // videosCount: number;
+  videosCount: number;
   eventsData: IEventsAutoComplete;
 }

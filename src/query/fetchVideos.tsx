@@ -24,3 +24,18 @@ export const videosSelector = (videos: IVideo[]) => {
     endTimeDate: new Date(video.endTime),
   }))
 }
+
+export const fetchVideosCount = async (queryKey: QueryKey, signal: AbortSignal): Promise<number> => {
+  const filters = queryKey[1] as IVideosFilters;
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const filteredParams = Object.fromEntries(
+    Object.entries(filters).filter(([_, value]) => value !== undefined)
+  );
+  const getFilteredVideosRequestString = serverRoutes.videos.getFilteredVideosCount(filteredParams);
+
+  const response = await fetch(baseUrl + getFilteredVideosRequestString, { signal });
+  if (!response.ok) {
+    throw new Error('Network error');
+  }
+  return response.json();
+};

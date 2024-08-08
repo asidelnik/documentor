@@ -4,11 +4,10 @@ import { IVideosGridProps } from "../../props/IVideosGridProps";
 import VideoInfo from "../video-info/VideoInfo";
 import { IVideo } from "../../types/IVideo";
 
-export default function VideosGrid({ videos, eventsData }: IVideosGridProps) {
-  // console.log({ videos })
+export default function VideosGrid({ videos, videosCount, eventsData }: IVideosGridProps) {
   return (
     <>
-      {/* <div className={c.videoCount}>{videosCount} videos</div> */}
+      <div className={c.videoCount}>{videosCount} videos</div>
       {videos && videos.length > 0 && (
         <div className={c.container}>
           <div className={c.videosGrid}>
