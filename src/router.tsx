@@ -24,7 +24,7 @@ export const router = createHashRouter(
         element={<AllVideosPage />}
       />
       <Route
-        path="/all-videos"
+        path="/videos"
         element={<AllVideosPage />}
       />
       <Route

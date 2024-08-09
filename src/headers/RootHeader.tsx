@@ -22,7 +22,7 @@ export default function RootHeader() {
         <nav>
           <div className={c.links}>
             <div>
-              <NavLink to="/all-videos" className={getNavLinkClass}>Videos</NavLink>
+              <NavLink to="/videos" className={getNavLinkClass}>Videos</NavLink>
             </div>
             <div>
               <NavLink to="/events" className={getNavLinkClass}>Events</NavLink>
