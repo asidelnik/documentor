@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { EventType, GetEventsResponse } from "../types/event";
 import EventsTable from "../components/events-table/EventsTable";
+import EventsAddEditDialog from "../components/events-add-edit-dialog/EventsAddEditDialog";
 import { dateToString, secondsToTimeString } from "../utils/functions";
 import { EventStatusEnum } from "../enums/event-status-enum";
 import { serverRoutes } from "../server/server-routes";
-import EventsAddEditDialog from "../components/mui/events-add-edit-dialog/EventsAddEditDialog";
 import { EventsActionTitle } from "../enums/EventsActionTitle";
 import { EventsDialog } from "../types/EventsDialog";
 

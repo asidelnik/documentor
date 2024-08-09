@@ -9,14 +9,14 @@ import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
 import AddIcon from '@mui/icons-material/Add';
 
-import { IEventsTableProps } from '../../../props/eventsTableProps';
-import { EventType } from '../../../types/event';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
-import { EventsActionTitle } from '../../../enums/EventsActionTitle';
+import { EventsActionTitle } from '../../enums/EventsActionTitle';
+import EventsFilters from '../events-filters/EventsFilters';
+import { IEventsTableProps } from '../../props/eventsTableProps';
 
 
 export default function EventsTable({ rows, eventsCount, getPageRows, openDialog }: IEventsTableProps) {

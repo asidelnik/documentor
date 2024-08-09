@@ -11,5 +11,3 @@ export interface IVideosFilters {
   // id?: number;
 }
 
-// tags?: string[];
-// tagsJoined: string;

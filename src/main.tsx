@@ -4,7 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./router.tsx";
 import './index.css'
 import { ThemeProvider } from '@mui/material';
-import { muiTheme } from './components/mui/theme.tsx';
+import { muiTheme } from './mui/theme.tsx';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './query/queryClient.tsx';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
