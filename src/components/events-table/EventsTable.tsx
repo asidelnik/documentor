@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
+import AddIcon from '@mui/icons-material/Add';
 
 import { IEventsTableProps } from '../../../props/eventsTableProps';
 import { EventType } from '../../../types/event';
@@ -14,7 +15,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 import EditIcon from '@mui/icons-material/Edit';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { EventsActionTitle } from '../../../enums/EventsActionTitle';
 
 
@@ -45,6 +46,9 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
   return (
     <>
       <Paper sx={{ width: '100%', mb: 2 }}>
+        <EventsFilters
+
+        />
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
             <TableHead>
@@ -100,7 +104,9 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
-          <Button variant="contained" onClick={addEvent}>Add</Button>
+          <IconButton onClick={addEvent}>
+            <AddIcon />
+          </IconButton>
         </footer>
       </Paper >
     </>

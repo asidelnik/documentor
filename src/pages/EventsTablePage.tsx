@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { EventType, GetEventsResponse } from "../types/event";
-import EventsTable from "../components/mui/events-table/EventsTable";
+import EventsTable from "../components/events-table/EventsTable";
 import { dateToString, secondsToTimeString } from "../utils/functions";
 import { EventStatusEnum } from "../enums/event-status-enum";
 import { serverRoutes } from "../server/server-routes";
