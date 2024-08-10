@@ -91,7 +91,7 @@ server.put('/video-set-event/:id', (req, res) => {
 
 
 server.get('/videos', (req, res) => {
-  const { fromDate, toDate, lat, lng, radius, statuses, eventId, page = 1, limit = 10 } = req.query;
+  const { fromDate, toDate, statuses, page = 1, limit = 10 } = req.query;
   console.log(req.query);
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
@@ -105,22 +105,6 @@ server.get('/videos', (req, res) => {
     });
   }
 
-  if (lat && lng && radius) {
-    const parsedRadius = tryParseInt(radius, 0);
-    videos = videos.filter(video => {
-      const distance = Math.sqrt(
-        Math.pow(video.startLocation.coordinates[0] - lat, 2) +
-        Math.pow(video.startLocation.coordinates[1] - lng, 2)
-      );
-      return distance <= parsedRadius;
-    });
-  }
-
-  // if (tags) {
-  //   const tagsArray = tags.split(',');
-  //   videos = videos.filter(video => tagsArray.every(tag => video.tags.includes(tag)));
-  // }
-
   if (!statuses || statuses === '') {
     videos = [];
   } else {
@@ -128,9 +112,7 @@ server.get('/videos', (req, res) => {
     videos = videos.filter(video => statusesArray.includes(video.status));
   }
 
-  if (eventId) {
-    videos = videos.filter(video => video.eventId !== null);
-  }
+
 
   // const videosCount = videos.length;
 
@@ -141,6 +123,21 @@ server.get('/videos', (req, res) => {
 
   res.json(videos); //{ , videosCount });
 });
+
+// if (lat && lng && radius) {
+//   const parsedRadius = tryParseInt(radius, 0);
+//   videos = videos.filter(video => {
+//     const distance = Math.sqrt(
+//       Math.pow(video.startLocation.coordinates[0] - lat, 2) +
+//       Math.pow(video.startLocation.coordinates[1] - lng, 2)
+//     );
+//     return distance <= parsedRadius;
+//   });
+// }
+
+// if (eventId) {
+//   videos = videos.filter(video => video.eventId !== null);
+// }
 
 // TODO - merge the count into the videos fetch request
 server.get('/videos-count', (req, res) => {
@@ -233,7 +230,7 @@ server.get('/events-autocomplete', (req, res) => {
 
 // GET Events by filters, sort & pagination (default sort latest)
 server.get('/events', (req, res) => {
-  const { fromDate, toDate, lat, lng, radius, /*tags,*/ status, page = 1, limit = 3 } = req.query;
+  const { fromDate, toDate, priority, freeText, page = 1, limit = 3 } = req.query;/*lat, lng, radius,*/
   // console.log(req.query);
   const db = router.db; // lowdb instance
   let events = db.get('events').value();
@@ -247,25 +244,19 @@ server.get('/events', (req, res) => {
     });
   }
 
-  if (lat && lng && radius) {
-    const parsedRadius = tryParseInt(radius, 0);
-    events = events.filter(event => {
-      const distance = Math.sqrt(
-        Math.pow(event.startLocation.coordinates[0] - lat, 2) +
-        Math.pow(event.startLocation.coordinates[1] - lng, 2)
-      );
-      return distance <= parsedRadius;
-    });
+  if (!priority || priority === '') {
+    events = [];
+  } else {
+    const eventsArray = priority.split(',').map(Number);
+    events = events.filter(event => eventsArray.includes(event.priority));
   }
 
-
-  // if (tags) {
-  //   const tagsArray = tags.split(',');
-  //   events = events.filter(event => tagsArray.every(tag => event.tags.includes(tag)));
-  // }
-
-  if (status) {
-    events = events.filter(event => event.status === Number(status));
+  if (freeText && freeText.trim() !== '') {
+    const lowerCaseFreeText = freeText.toLowerCase();
+    events = events.filter(event =>
+      event.title.toLowerCase().includes(lowerCaseFreeText) ||
+      event.description.toLowerCase().includes(lowerCaseFreeText)
+    );
   }
 
   // Add property count of event videos with status 1
@@ -295,6 +286,26 @@ server.get('/events', (req, res) => {
 
   res.json({ events, eventsCount });
 });
+
+
+// if (lat && lng && radius) {
+//   const parsedRadius = tryParseInt(radius, 0);
+//   events = events.filter(event => {
+//     const distance = Math.sqrt(
+//       Math.pow(event.startLocation.coordinates[0] - lat, 2) +
+//       Math.pow(event.startLocation.coordinates[1] - lng, 2)
+//     );
+//     return distance <= parsedRadius;
+//   });
+// }
+
+
+// if (tags) {
+//   const tagsArray = tags.split(',');
+//   events = events.filter(event => tagsArray.every(tag => event.tags.includes(tag)));
+// }
+
+
 
 server.use(router)
 server.listen(3004, () => {
