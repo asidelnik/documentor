@@ -2,7 +2,8 @@ import { EventStatusEnum } from '../enums/event-status-enum';
 import { LocationType } from './location';
 import { IVideo } from './IVideo';
 
-interface EventBase {
+// Todo - decide if to move all proeprties into 1 event interface
+export interface EventBase {
   id: string;
   title: string; // convert to name by removing dashes and capitalizing
   description: string;

@@ -6,10 +6,11 @@ export const eventsFiltersInitialState: IEventsFilters = {
   toDate: new Date('2023-10-27T00:00'), // For debugging
   priority: [EventPriority.Low, EventPriority.Medium, EventPriority.High],
   freeText: '',
-  //// Location filtering
-  // lat: 32.0853,
-  // lng: 34.7818,
-  // radius: 10,
   page: 1,
   limit: 100,
 };
+
+//// Location filtering
+// lat: 32.0853,
+// lng: 34.7818,
+// radius: 10,
