@@ -1,6 +1,6 @@
-import { EventsDialog } from '../types/EventsDialog';
+import { IEventsDialog } from '../types/IEventsDialog';
 
 export interface EventsAddEditDialogProps {
-  dialog: EventsDialog;
+  dialog: IEventsDialog;
   onClose: () => void;
 }

@@ -3,7 +3,7 @@ import c from "./VideoList.module.scss"
 import { useState, useRef, useEffect, createRef } from "react"; // , useEffect
 import { IVideo } from "../../types/IVideo";
 import ReactPlayer from 'react-player'
-import { EventType } from "../../types/event";
+import { IEventAndCalcs } from "../../types/IEvent";
 import { Link } from "react-router-dom";
 import { OrientationEnum } from "../../enums/orientation-enum";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -11,7 +11,7 @@ import { dateToString, secondsToTimeString } from "../../utils/functions";
 
 
 type Props = {
-  event: EventType;
+  event: IEventAndCalcs;
 };
 
 export default function VideoList({ event }: Props) {

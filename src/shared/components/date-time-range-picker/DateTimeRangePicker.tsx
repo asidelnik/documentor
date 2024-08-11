@@ -71,7 +71,7 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
             helperText: filtersHelperTexts(fromError),
           },
         }}
-        sx={{ width: '300px' }}
+        sx={{ width: '300px', backgroundColor: 'white' }}
       />
       <DesktopDateTimePicker
         label="To date"
@@ -84,7 +84,7 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
             helperText: filtersHelperTexts(toError),
           },
         }}
-        sx={{ width: '300px' }}
+        sx={{ width: '300px', backgroundColor: 'white' }}
       />
     </LocalizationProvider>
   );

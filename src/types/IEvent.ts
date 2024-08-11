@@ -3,8 +3,9 @@ import { LocationType } from './location';
 import { IVideo } from './IVideo';
 
 // Todo - decide if to move all proeprties into 1 event interface
-export interface EventBase {
+export interface IEvent {
   id: string;
+  priority: number;
   title: string; // convert to name by removing dashes and capitalizing
   description: string;
   duration: number;
@@ -16,17 +17,20 @@ export interface EventBase {
   videosUnprocessedCount: number;
   videosCount: number;
   isDisabled: boolean;
+  startTime: string;
+  endTime: string;
 }
 
-export interface EventType extends EventBase {
-  startTime: Date;
-  endTime: Date;
+export interface IEventAndCalcs extends IEvent {
+  startTimeDate: Date;
+  endTimeDate: Date;
   startTimeFormatted: string;
   durationFormatted: string;
   statusFormatted: string;
+  priorityFormatted: string;
 }
 
-export interface GetEventsResponse {
-  events: EventType[];
+export interface IEventsAndCount {
+  events: IEvent[];
   eventsCount: number;
 }
