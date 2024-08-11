@@ -5,23 +5,21 @@ import DateTimeRangePicker from "../../shared/components/date-time-range-picker/
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 
 export default function EventsFilters() {
-  const eventsFilters = useEventsFilters();
-  const eventsFiltersDispatch = useEventsFiltersDispatch();
-  /*
-  Filters: time period, location, priority, free text on title & description
-  Server: 
-  UI: 
-  */
-  const updateFromDateHandler = (fromDate: Date) => eventsFiltersDispatch({ type: 'update-from-date', payload: fromDate });
-  const updateToDateHandler = (toDate: Date) => eventsFiltersDispatch({ type: 'update-to-date', payload: toDate });
-  const selectHandler = (dispatchType: string, options: number[]) => eventsFiltersDispatch({ type: dispatchType, payload: options });
+  const filters = useEventsFilters();
+  const filtersDispatch = useEventsFiltersDispatch();
+  console.log(filters);
+
+  // Filters: free text on title & description, location
+  const updateFromDateHandler = (fromDate: Date) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
+  const updateToDateHandler = (toDate: Date) => filtersDispatch({ type: 'update-to-date', payload: toDate });
+  const selectHandler = (dispatchType: string, options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
 
   return (
     <>
       <div className={c.filtersContainer}>
         <DateTimeRangePicker
-          fromDateProp={eventsFilters.fromDate}
-          toDateProp={eventsFilters.toDate}
+          fromDateProp={filters.fromDate}
+          toDateProp={filters.toDate}
           updateFromDate={updateFromDateHandler}
           updateToDate={updateToDateHandler}
         />
