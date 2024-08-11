@@ -1,10 +1,10 @@
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
-import { EventsAddEditDialogProps } from '../../../props/eventsAddEditDialogProps';
-import { EventsActionTitle } from '../../../enums/EventsActionTitle';
 import { Button, DialogActions, DialogContent, IconButton } from '@mui/material';
-import EventForm from '../../event-form/EventForm';
+import { EventsAddEditDialogProps } from '../../props/eventsAddEditDialogProps';
+import { EventsActionTitle } from '../../enums/EventsActionTitle';
+import EventForm from '../event-form/EventForm';
 
 export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDialogProps) {
   const title = dialog.actionTitle === EventsActionTitle.Add ? 'Add event' : 'Edit event';
