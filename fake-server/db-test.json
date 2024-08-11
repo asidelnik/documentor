@@ -17,7 +17,7 @@
       "videoIds": ["1", "2"],
       "tags": ["Incursion", "White walkers", "Jon Snow"],
       "isDisabled": false,
-      "priority": 1
+      "priority": 2
     },
     {
       "id": "2",
@@ -36,7 +36,7 @@
       "videoIds": ["6", "7"],
       "tags": ["Battle", "Winterfell", "Robb Stark"],
       "isDisabled": false,
-      "priority": 1
+      "priority": 3
     },
     {
       "id": "3",
@@ -55,7 +55,7 @@
       "videoIds": ["11", "12", "2"],
       "tags": ["Dragon", "King's Landing", "Daenerys Targaryen"],
       "isDisabled": false,
-      "priority": 1
+      "priority": 2
     },
     {
       "id": "4",
@@ -74,7 +74,7 @@
       "videoIds": [],
       "tags": ["Trial", "Combat", "Tyrion Lannister"],
       "isDisabled": false,
-      "priority": 1
+      "priority": 3
     },
     {
       "id": "5",
