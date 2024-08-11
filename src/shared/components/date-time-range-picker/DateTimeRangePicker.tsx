@@ -1,4 +1,3 @@
-import c from './DateTimeRangePicker.module.scss'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
@@ -59,36 +58,34 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div className={c.rangeContainer}>
-        <DesktopDateTimePicker
-          label="From date"
-          value={fromDate}
-          disableFuture
-          disabled={toError === 'invalidDate'}
-          maxDate={getMaxFromDate}
-          onChange={(value) => fromChangeHandler(value)}
-          onError={(newError: DateTimeValidationError) => fromErrorHandler(newError)}
-          slotProps={{
-            textField: {
-              helperText: filtersHelperTexts(fromError),
-            },
-          }}
-          sx={{ width: '100%' }}
-        />
-        <DesktopDateTimePicker
-          label="To date"
-          value={toDate}
-          disabled={fromError === 'invalidDate'}
-          onChange={(value) => toChangeHandler(value)}
-          onError={(newError: DateTimeValidationError) => toErrorHandler(newError)}
-          slotProps={{
-            textField: {
-              helperText: filtersHelperTexts(toError),
-            },
-          }}
-          sx={{ width: '100%' }}
-        />
-      </div>
+      <DesktopDateTimePicker
+        label="From date"
+        value={fromDate}
+        disableFuture
+        disabled={toError === 'invalidDate'}
+        maxDate={getMaxFromDate}
+        onChange={(value) => fromChangeHandler(value)}
+        onError={(newError: DateTimeValidationError) => fromErrorHandler(newError)}
+        slotProps={{
+          textField: {
+            helperText: filtersHelperTexts(fromError),
+          },
+        }}
+        sx={{ width: '300px' }}
+      />
+      <DesktopDateTimePicker
+        label="To date"
+        value={toDate}
+        disabled={fromError === 'invalidDate'}
+        onChange={(value) => toChangeHandler(value)}
+        onError={(newError: DateTimeValidationError) => toErrorHandler(newError)}
+        slotProps={{
+          textField: {
+            helperText: filtersHelperTexts(toError),
+          },
+        }}
+        sx={{ width: '300px' }}
+      />
     </LocalizationProvider>
   );
 }
