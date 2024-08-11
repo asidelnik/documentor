@@ -7,9 +7,12 @@ import { EventStatusEnum } from "../enums/event-status-enum";
 import { serverRoutes } from "../server/server-routes";
 import { EventsActionTitle } from "../enums/EventsActionTitle";
 import { EventsDialog } from "../types/EventsDialog";
+import { useEventsFilters } from "../contexts/events-filters-context";
 
 
 export default function EventsTablePage() {
+  const filters = useEventsFilters();
+  // const filtersDispatch = useEventsFiltersDispatch();
   const [events, setEvents] = useState<EventType[]>([]);
   const [eventsCount, setEventsCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,23 +23,11 @@ export default function EventsTablePage() {
 
   useEffect(() => {
     fetchData(1, 10);
-  }, []);
+  }, [filters.fromDate, filters.toDate, filters.priority, filters.freeText]);
 
   const fetchData = async (page: number, limit: number) => {
     try {
-      // const pageString = 'a';
-      const getEventsRequestString = serverRoutes.events.getFilteredEvents({
-        fromDate: '2023-10-01',
-        toDate: '2023-10-27',
-        lat: 32.0853,
-        lng: 34.7818,
-        radius: 10,
-        status: 2,
-        page,
-        limit
-        // tags: ['tag1', 'tag2'],
-        // tagsJoined: ''
-      });
+      const getEventsRequestString = serverRoutes.events.getFilteredEvents(filters);
       const response = await fetch(baseUrl + getEventsRequestString);
       if (!response.ok) {
         throw new Error(response.statusText);

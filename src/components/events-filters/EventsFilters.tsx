@@ -7,7 +7,6 @@ import MultipleSelectCheckmarks from "../../shared/components/multiple-select-ch
 export default function EventsFilters() {
   const filters = useEventsFilters();
   const filtersDispatch = useEventsFiltersDispatch();
-  console.log(filters);
 
   // Filters: free text on title & description, location
   const updateFromDateHandler = (fromDate: Date) => filtersDispatch({ type: 'update-from-date', payload: fromDate });

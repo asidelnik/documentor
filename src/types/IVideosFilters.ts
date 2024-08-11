@@ -4,10 +4,10 @@ export interface IVideosFilters {
   statuses?: number[];
   page?: number;
   limit?: number;
-  // lat?: number;
-  // lng?: number;
-  // radius?: number;
-  // eventId?: boolean;
-  // id?: number;
 }
+// lat?: number;
+// lng?: number;
+// radius?: number;
+// eventId?: boolean;
+// id?: number;
 

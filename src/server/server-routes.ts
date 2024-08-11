@@ -1,4 +1,4 @@
-import { IGetEventsQueryParams } from '../types/getEventsQueryParams';
+import { IEventsFilters } from '../types/IEventsFilters';
 import { IVideosFilters } from '../types/IVideosFilters';
 import { getURLSearchParams } from '../utils/functions';
 
@@ -30,11 +30,7 @@ export const serverRoutes = {
     getEventsAutocomplete: '/events-autocomplete',
 
     // Events page (table)
-    getFilteredEvents: (params: IGetEventsQueryParams) => {
-      // const paramsWithTags = {
-      //   ...params,
-      //   // tagsJoined: params.tags ? params.tags.join(',') : '',
-      // };
+    getFilteredEvents: (params: IEventsFilters) => {
       const urlParams = getURLSearchParams(params);
       return `/events?${urlParams}`;
     },
