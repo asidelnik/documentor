@@ -1,5 +1,4 @@
 import c from "./VideosFilters.module.scss";
-
 import { statusAutocompleteOptions, VideoStatusEnum } from "../../constants/video-status";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 import { useFilters, useFiltersDispatch } from "../../contexts/filters-context";
@@ -17,12 +16,14 @@ export default function VideosFilters() {
   return (
     <>
       <div className={c.filtersContainer}>
-        <DateTimeRangePicker
-          fromDateProp={filters.fromDate}
-          toDateProp={filters.toDate}
-          updateFromDate={updateFromDateHandler}
-          updateToDate={updateToDateHandler}
-        />
+        <div className={c.rangeContainer}>
+          <DateTimeRangePicker
+            fromDateProp={filters.fromDate}
+            toDateProp={filters.toDate}
+            updateFromDate={updateFromDateHandler}
+            updateToDate={updateToDateHandler}
+          />
+        </div>
 
         <MultipleSelectCheckmarks
           buttonText='Statuses'

@@ -1,3 +1,4 @@
+import c from "./EventsFilters.module.scss";
 import { eventAutocompleteOptions, EventPriority } from "../../constants/event-constants";
 import { useEventsFilters, useEventsFiltersDispatch } from "../../contexts/events-filters-context";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
@@ -17,21 +18,21 @@ export default function EventsFilters() {
 
   return (
     <>
-      {/* <div className={c.filtersContainer}> */}
-      <DateTimeRangePicker
-        fromDateProp={eventsFilters.fromDate}
-        toDateProp={eventsFilters.toDate}
-        updateFromDate={updateFromDateHandler}
-        updateToDate={updateToDateHandler}
-      />
+      <div className={c.filtersContainer}>
+        <DateTimeRangePicker
+          fromDateProp={eventsFilters.fromDate}
+          toDateProp={eventsFilters.toDate}
+          updateFromDate={updateFromDateHandler}
+          updateToDate={updateToDateHandler}
+        />
 
-      <MultipleSelectCheckmarks
-        buttonText='Priority'
-        options={eventAutocompleteOptions}
-        defaultOptions={[EventPriority.Low, EventPriority.Medium, EventPriority.High]}
-        updateSelectedOptions={(options: number[]) => selectHandler('update-priority', options)}
-      />
-      {/* </div> */}
+        <MultipleSelectCheckmarks
+          buttonText='Priority'
+          options={eventAutocompleteOptions}
+          defaultOptions={[EventPriority.Low, EventPriority.Medium, EventPriority.High]}
+          updateSelectedOptions={(options: number[]) => selectHandler('update-priority', options)}
+        />
+      </div>
     </>
   )
 }

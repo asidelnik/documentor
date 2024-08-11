@@ -8,4 +8,11 @@
   padding: 20px;
   font-weight: 400;
   font-size: 0.75rem;
+
+  .rangeContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 100%;
+  }
 }
