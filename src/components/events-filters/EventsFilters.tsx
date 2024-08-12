@@ -4,13 +4,14 @@ import { useEventsFilters, useEventsFiltersDispatch } from "../../contexts/event
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 import TextField from "@mui/material/TextField";
-import { ChangeEvent } from "react";
+import { useDebouncedFilter } from "../../hooks/useDebouncedFilter";
 
 export default function EventsFilters() {
   const filters = useEventsFilters();
   const filtersDispatch = useEventsFiltersDispatch();
+  const { handleTextChange } = useDebouncedFilter();
 
-  // Filters: free text on title & description, location
+  // TODO filter: location
   const updateFromDateHandler = (fromDate: Date) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const updateToDateHandler = (toDate: Date) => filtersDispatch({ type: 'update-to-date', payload: toDate });
   const selectHandler = (dispatchType: string, options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
@@ -34,9 +35,10 @@ export default function EventsFilters() {
 
         <TextField
           id="title-desc"
-          label="Text filter"
+          label="Texts filter"
           variant="outlined"
-          onChange={(event: ChangeEvent<HTMLInputElement>) => filtersDispatch({ type: 'update-free-text', payload: event.target.value })}
+          onChange={handleTextChange}
+          sx={{ width: '300px' }}
         />
       </div>
     </>
