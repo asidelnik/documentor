@@ -32,6 +32,12 @@ function filtersReducer(filters: IEventsFilters, action: EventsFiltersActions): 
     case "update-free-text": {
       return { ...filters, freeText: action.payload, } as IEventsFilters;
     }
+    case "update-page": {
+      return { ...filters, page: action.payload, } as IEventsFilters;
+    }
+    case "update-limit": {
+      return { ...filters, limit: action.payload, } as IEventsFilters;
+    }
     default: {
       return filters;
     }

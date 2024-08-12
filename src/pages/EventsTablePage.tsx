@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { IEvent, IEventAndCalcs, IEventsAndCount } from "../types/IEvent";
 import EventsTable from "../components/events-table/EventsTable";
 import EventsAddEditDialog from "../components/events-add-edit-dialog/EventsAddEditDialog";
@@ -19,16 +19,20 @@ export default function EventsTablePage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [dialog, setDialog] = useState<IEventsDialog>({ isOpen: false, actionTitle: EventsActionTitle.Add, eventId: undefined });
   const baseUrl = import.meta.env.VITE_BASE_URL;
+  let fetchController = new AbortController();
 
   useEffect(() => {
     fetchData();
-  }, [filters.fromDate, filters.toDate, filters.priority, filters.freeText]);
+    return () => fetchController.abort()
+  }, [filters]);
 
-  // TODO - decide between mui or react query table pagination & server state
-  const fetchData = async (page?: number, limit?: number) => {
+  const fetchData = async () => {
+    fetchController.abort('Newer fetch called');
+    fetchController = new AbortController();
+    const { signal } = fetchController;
     try {
-      const getEventsRequestString = serverRoutes.events.getFilteredEvents(filters);
-      const response = await fetch(baseUrl + getEventsRequestString);
+      const eventsFetchPath = serverRoutes.events.getFilteredEvents(filters);
+      const response = await fetch(baseUrl + eventsFetchPath, { signal });
       if (!response.ok) {
         throw new Error(response.statusText);
       }
@@ -59,10 +63,6 @@ export default function EventsTablePage() {
     }
   }
 
-  const getPageRows = (page: number, limit: number) => {
-    fetchData(page, limit);
-  };
-
   const handleClickOpen = (actionTitle: EventsActionTitle, eventId?: string) => {
     setDialog({ isOpen: true, actionTitle, eventId });
   };
@@ -76,7 +76,6 @@ export default function EventsTablePage() {
       <EventsTable
         rows={events}
         eventsCount={eventsCount}
-        getPageRows={getPageRows}
         openDialog={handleClickOpen}
       />
       <EventsAddEditDialog
