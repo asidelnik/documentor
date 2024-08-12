@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import VideoList from "../components/video-list/VideoList";
 import { useParams } from "react-router-dom";
-import { EventType } from "../types/event";
+import { IEventAndCalcs } from "../types/IEvent";
 import { IVideo } from "../types/IVideo";
 import CommonError from "../components/errors/common/CommonError";
 
 export default function EventTimelinePage() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const { eventId } = useParams<{ eventId: string }>();
-  const [data, setData] = useState<EventType | undefined>(undefined);
+  const [data, setData] = useState<IEventAndCalcs | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -23,7 +23,7 @@ export default function EventTimelinePage() {
       const response = await axios.get(baseUrl + 'events/' + eventId);
       const data = response?.data;
       if (data) {
-        const event: EventType = {
+        const event: IEventAndCalcs = {
           ...response?.data,
           startTime: new Date(response?.data.startTime),
           endTime: new Date(response?.data.endTime),

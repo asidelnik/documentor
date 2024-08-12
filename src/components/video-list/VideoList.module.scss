@@ -8,7 +8,7 @@
   padding: 0 1.5rem;
   font-size: 0.8rem;
   background-color: hsl(0, 0%, 90%);
-  border-block-end: 1px solid hsl(0, 0%, 80%);
+  border-block-end: 1px solid var(--light-gray-border);
 
   a.backButton,
   a.backButton:hover {

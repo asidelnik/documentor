@@ -1,7 +1,7 @@
-import { IGetEventsQueryParams } from '../types/getEventsQueryParams';
+import { IEventsFilters } from '../types/IEventsFilters';
 import { IVideosFilters } from '../types/IVideosFilters';
 
-export function getURLSearchParams(params: IVideosFilters | IGetEventsQueryParams) {
+export function getURLSearchParams(params: IVideosFilters | IEventsFilters) {
   const urlParams = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
     urlParams.append(key, String(value));

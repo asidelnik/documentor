@@ -1,10 +1,18 @@
+.columnTitle {
+  padding: 10px 5px 10px 0px;
+}
+
 .eventLink {
-  color: hsl(211, 100%, 40%);
   font-weight: bold;
+  text-decoration: none;
+  width: 100%;
+}
+
+.eventLink:hover {
+  color: var(--primary-color);
 }
 
 .eventToReview {
-  // color: white;
   background-color: hsl(0, 100%, 80%);
   border-radius: 4px;
   padding: 2px 5px;
@@ -28,8 +36,5 @@
 
 .editIcon {
   transform: rotate(270deg);
-
-  // svg {
-  //   font-size: 23px;
-  // }
+  color: var(--primary-color);
 }

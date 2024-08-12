@@ -7,15 +7,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import { IconButton } from '@mui/material';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-import { IEventsTableProps } from '../../../props/eventsTableProps';
-import { EventType } from '../../../types/event';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-import EditIcon from '@mui/icons-material/Edit';
-import { Button, IconButton } from '@mui/material';
-import { EventsActionTitle } from '../../../enums/EventsActionTitle';
+import { EventsActionTitle } from '../../enums/EventsActionTitle';
+import EventsFilters from '../events-filters/EventsFilters';
+import { IEventsTableProps } from '../../props/eventsTableProps';
+import { IEventAndCalcs } from '../../types/IEvent';
+import { eventPrioirtyLabels, EventPriority } from '../../constants/event-constants';
 
 
 export default function EventsTable({ rows, eventsCount, getPageRows, openDialog }: IEventsTableProps) {
@@ -38,41 +44,55 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
     openDialog(EventsActionTitle.Add);
   }
 
-  const editEvent = (eventId: number) => {
+  const editEvent = (eventId: string) => {
     openDialog(EventsActionTitle.Edit, eventId);
   }
 
   return (
     <>
       <Paper sx={{ width: '100%', mb: 2 }}>
+        <EventsFilters
+
+        />
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table" stickyHeader>
+          <Table sx={{ minWidth: 650 }} aria-label="table" stickyHeader>
             <TableHead>
               <TableRow>
-                <TableCell sx={{ padding: '10px 5px 10px 0px' }}></TableCell>
-                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Title</TableCell>
-                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Start time</TableCell>
-                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Duration</TableCell>
-                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Description</TableCell>
-                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Location</TableCell>
-                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Status</TableCell>
-                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Videos</TableCell>
-                <TableCell sx={{ padding: '10px 5px 10px 0px' }}>Review</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Priority</TableCell>
+                <TableCell>Start time</TableCell>
+                <TableCell>Duration</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>Location</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Videos</TableCell>
+                <TableCell>To Review</TableCell>
               </TableRow>
             </TableHead>
+
             <TableBody>
-              {rows?.length > 0 && rows.map((row: EventType) => (
+              {rows?.length > 0 && rows.map((row: IEventAndCalcs) => (
                 <TableRow
                   key={row.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  hover={true}
                 >
+                  <TableCell></TableCell>
                   <TableCell>
                     <IconButton aria-label="edit event" onClick={() => editEvent(row.id)}>
-                      <EditIcon className={c.editIcon} />
+                      <EditIcon className={c.editIcon} sx={{ fontSize: '1.1rem' }} />
                     </IconButton>
                   </TableCell>
                   <TableCell component="th" scope="row">
                     <Link to={`/events/${row.id}`} className={c.eventLink}>{row.title}</Link>
+                  </TableCell>
+                  <TableCell title={eventPrioirtyLabels[row.priority]}>
+                    {row.priority === EventPriority.Low ? <KeyboardArrowDownIcon sx={{ color: 'hsl(207, 100%, 50%)' }} /> :
+                      row.priority === EventPriority.Medium ? <KeyboardArrowUpIcon sx={{ color: 'orange' }} /> :
+                        <KeyboardDoubleArrowUpIcon sx={{ color: 'red' }} />
+                    }
                   </TableCell>
                   <TableCell>{row.startTimeFormatted}</TableCell>
                   <TableCell>{row.durationFormatted}</TableCell>
@@ -100,7 +120,12 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
-          <Button variant="contained" onClick={addEvent}>Add</Button>
+          <IconButton
+            onClick={addEvent}
+            sx={{ backgroundColor: 'primary.main', ":hover": { backgroundColor: 'primary.light' } }}
+          >
+            <AddIcon sx={{ color: 'white', fontWeight: 'bold' }} />
+          </IconButton>
         </footer>
       </Paper >
     </>

@@ -11,22 +11,13 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.0853,
-          34.7818
-        ],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       },
-      "videoIds": [
-        "1",
-        "2"
-      ],
-      "tags": [
-        "Incursion",
-        "White walkers",
-        "Jon Snow"
-      ],
-      "isDisabled": false
+      "videoIds": ["1", "2"],
+      "tags": ["Incursion", "White walkers", "Jon Snow"],
+      "isDisabled": false,
+      "priority": 2
     },
     {
       "id": "2",
@@ -39,22 +30,13 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       },
-      "videoIds": [
-        "6",
-        "7"
-      ],
-      "tags": [
-        "Battle",
-        "Winterfell",
-        "Robb Stark"
-      ],
-      "isDisabled": false
+      "videoIds": ["6", "7"],
+      "tags": ["Battle", "Winterfell", "Robb Stark"],
+      "isDisabled": false,
+      "priority": 3
     },
     {
       "id": "3",
@@ -67,22 +49,13 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       },
-      "videoIds": [
-        "11",
-        "12"
-      ],
-      "tags": [
-        "Dragon",
-        "King's Landing",
-        "Daenerys Targaryen"
-      ],
-      "isDisabled": false
+      "videoIds": ["11", "12", "2"],
+      "tags": ["Dragon", "King's Landing", "Daenerys Targaryen"],
+      "isDisabled": false,
+      "priority": 2
     },
     {
       "id": "4",
@@ -95,19 +68,13 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.086087,
-          34.781999
-        ],
+        "coordinates": [32.086087, 34.781999],
         "heading": 177
       },
       "videoIds": [],
-      "tags": [
-        "Trial",
-        "Combat",
-        "Tyrion Lannister"
-      ],
-      "isDisabled": false
+      "tags": ["Trial", "Combat", "Tyrion Lannister"],
+      "isDisabled": false,
+      "priority": 3
     },
     {
       "id": "5",
@@ -120,19 +87,13 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.0853,
-          34.7818
-        ],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       },
-      "videoIds": [],
-      "tags": [
-        "Assassination",
-        "Night King",
-        "Arya Stark"
-      ],
-      "isDisabled": false
+      "videoIds": ["1"],
+      "tags": ["Assassination", "Night King", "Arya Stark"],
+      "isDisabled": false,
+      "priority": 1
     },
     {
       "id": "6",
@@ -145,19 +106,13 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       },
       "videoIds": [],
-      "tags": [
-        "Wildfire",
-        "Explosion",
-        "Cersei Lannister"
-      ],
-      "isDisabled": false
+      "tags": ["Wildfire", "Explosion", "Cersei Lannister"],
+      "isDisabled": false,
+      "priority": 1
     },
     {
       "id": "7",
@@ -170,19 +125,13 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       },
       "videoIds": [],
-      "tags": [
-        "Coronation",
-        "King",
-        "Bran Stark"
-      ],
-      "isDisabled": false
+      "tags": ["Coronation", "King", "Bran Stark"],
+      "isDisabled": false,
+      "priority": 1
     },
     {
       "id": "8",
@@ -195,19 +144,13 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.086087,
-          34.781999
-        ],
+        "coordinates": [32.086087, 34.781999],
         "heading": 177
       },
       "videoIds": [],
-      "tags": [
-        "Coronation",
-        "Queen",
-        "Sansa Stark"
-      ],
-      "isDisabled": false
+      "tags": ["Coronation", "Queen", "Sansa Stark"],
+      "isDisabled": false,
+      "priority": 1
     },
     {
       "id": "9",
@@ -220,19 +163,13 @@
       "status": 3,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.0853,
-          34.7818
-        ],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       },
       "videoIds": [],
-      "tags": [
-        "Death",
-        "Brienne of Tarth",
-        "Jaime Lannister"
-      ],
-      "isDisabled": false
+      "tags": ["Death", "Brienne of Tarth", "Jaime Lannister"],
+      "isDisabled": false,
+      "priority": 1
     },
     {
       "id": "10",
@@ -245,19 +182,13 @@
       "status": 3,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       },
-      "videoIds": [],
-      "tags": [
-        "Poisoning",
-        "Purple Wedding",
-        "Joffrey Baratheon"
-      ],
-      "isDisabled": false
+      "videoIds": ["3"],
+      "tags": ["Poisoning", "Purple Wedding", "Joffrey Baratheon"],
+      "isDisabled": false,
+      "priority": 1
     }
   ],
   "videos": [
@@ -270,7 +201,7 @@
       "duration": 10,
       "endTime": "2023-10-24T00:00:07.000Z",
       "orientation": 2,
-      "eventId": "1",
+      "eventId": "5",
       "status": 1,
       "startLocation": {
         "type": "Point",
@@ -292,22 +223,16 @@
       "duration": 10,
       "endTime": "2023-10-23T00:00:10.000Z",
       "orientation": 1,
-      "eventId": "1",
-      "status": 2,
+      "eventId": "3",
+      "status": 1,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.0853,
-          34.7818
-        ],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.0853,
-          34.7818
-        ],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       }
     },
@@ -320,22 +245,16 @@
       "duration": 10,
       "endTime": "2023-10-23T00:00:13.000Z",
       "orientation": 2,
-      "eventId": null,
-      "status": 3,
+      "eventId": "10",
+      "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.0853,
-          34.7818
-        ],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.0853,
-          34.7818
-        ],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       }
     },
@@ -349,21 +268,15 @@
       "endTime": "2023-10-23T00:00:17.000Z",
       "orientation": 1,
       "eventId": null,
-      "status": 1,
+      "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.0853,
-          34.7818
-        ],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.0853,
-          34.7818
-        ],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       }
     },
@@ -380,18 +293,12 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.0853,
-          34.7818
-        ],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.0853,
-          34.7818
-        ],
+        "coordinates": [32.0853, 34.7818],
         "heading": 177
       }
     },
@@ -408,18 +315,12 @@
       "status": 3,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       }
     },
@@ -433,21 +334,15 @@
       "endTime": "2023-10-23T00:00:27.000Z",
       "orientation": 2,
       "eventId": "2",
-      "status": 1,
+      "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       }
     },
@@ -464,18 +359,12 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       }
     },
@@ -492,18 +381,12 @@
       "status": 3,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       }
     },
@@ -520,18 +403,12 @@
       "status": 1,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.08496,
-          34.783297
-        ],
+        "coordinates": [32.08496, 34.783297],
         "heading": 177
       }
     },
@@ -548,18 +425,12 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       }
     },
@@ -576,18 +447,12 @@
       "status": 3,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       }
     },
@@ -604,18 +469,12 @@
       "status": 1,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       }
     },
@@ -632,18 +491,12 @@
       "status": 2,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       }
     },
@@ -660,18 +513,12 @@
       "status": 3,
       "startLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       },
       "endLocation": {
         "type": "Point",
-        "coordinates": [
-          32.084687,
-          34.784981
-        ],
+        "coordinates": [32.084687, 34.784981],
         "heading": 177
       }
     }
