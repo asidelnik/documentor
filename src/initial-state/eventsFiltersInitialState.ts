@@ -4,7 +4,7 @@ import { IEventsFilters } from '../types/IEventsFilters';
 export const eventsFiltersInitialState: IEventsFilters = {
   fromDate: new Date('2023-10-01T00:00'), // For debugging
   toDate: new Date('2023-10-27T00:00'), // For debugging
-  priority: [EventPriority.Low, EventPriority.Medium, EventPriority.High],
+  priority: [EventPriority.High, EventPriority.Medium, EventPriority.Low],
   freeText: '',
   page: 1,
   limit: 100,

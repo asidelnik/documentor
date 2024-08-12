@@ -28,7 +28,7 @@ export default function EventsFilters() {
         <MultipleSelectCheckmarks
           buttonText='Priority'
           options={eventPriorityAutocompleteOptions}
-          defaultOptions={[EventPriority.Low, EventPriority.Medium, EventPriority.High]}
+          defaultOptions={[EventPriority.High, EventPriority.Medium, EventPriority.Low]}
           updateSelectedOptions={(options: number[]) => selectHandler('update-priority', options)}
         />
 
