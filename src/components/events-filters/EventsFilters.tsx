@@ -3,6 +3,8 @@ import { eventPriorityAutocompleteOptions, EventPriority } from "../../constants
 import { useEventsFilters, useEventsFiltersDispatch } from "../../contexts/events-filters-context";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
+import TextField from "@mui/material/TextField";
+import { ChangeEvent } from "react";
 
 export default function EventsFilters() {
   const filters = useEventsFilters();
@@ -28,6 +30,13 @@ export default function EventsFilters() {
           options={eventPriorityAutocompleteOptions}
           defaultOptions={[EventPriority.Low, EventPriority.Medium, EventPriority.High]}
           updateSelectedOptions={(options: number[]) => selectHandler('update-priority', options)}
+        />
+
+        <TextField
+          id="title-desc"
+          label="Text filter"
+          variant="outlined"
+          onChange={(event: ChangeEvent<HTMLInputElement>) => filtersDispatch({ type: 'update-free-text', payload: event.target.value })}
         />
       </div>
     </>
