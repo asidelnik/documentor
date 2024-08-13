@@ -200,6 +200,7 @@ server.get('/events/:id', (req, res) => {
   }
 });
 
+
 server.get('/events-autocomplete', (req, res) => {
   const { page = 1, limit = 100 } = req.query;
   // console.log(req.query);
@@ -207,7 +208,7 @@ server.get('/events-autocomplete', (req, res) => {
   let events = db.get('events').filter({ isDisabled: false })
     .sortBy('startTime').reverse()
     .value()
-    .map(event => ({ id: event.id, title: event.title }));
+    .map(event => ({ id: event.id, label: event.title }));
 
   // Pagination
   const pageParsed = tryParseIntOrUndefined(page);
@@ -227,6 +228,7 @@ server.get('/events-autocomplete', (req, res) => {
 
   res.json(events);
 });
+
 
 // GET Events by filters, sort & pagination (default sort latest)
 server.get('/events', (req, res) => {
