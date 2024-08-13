@@ -3,7 +3,7 @@ import { IconButton } from '@mui/material';
 import VideosFilters from '../../components/videos-filters/VideosFilters';
 import VideosGrid from '../../components/videos-grid/VideosGrid';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useFilters } from '../../contexts/filters-context';
 import { fetchEventsAutocomplete } from '../../query/fetchEventsAutocomplete';
@@ -11,11 +11,16 @@ import { IEventIdTitle } from '../../types/IEventIdTitle';
 import { fetchVideos, fetchVideosCount, videosSelector } from '../../query/fetchVideos';
 import { IEventsAutoComplete } from '../../props/IEventsAutoComplete';
 import { IVideo } from '../../types/IVideo';
+import { useEventsFiltersDispatch } from '../../contexts/events-filters-context';
 
 export default function AllVideosPage() {
   const filters = useFilters();
   const [toggleAside, setToggleAside] = useState<boolean>(true);
+  const eventsFiltersDispatch = useEventsFiltersDispatch();
   // useToggleAsideOnKeyPress(toggleAside, setToggleAside);
+  useEffect(() => {
+    eventsFiltersDispatch({ type: 'update-page', payload: 1 });
+  }, []);
 
   const {
     isFetching: eventsIsFetching,

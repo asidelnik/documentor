@@ -46,9 +46,7 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
   return (
     <>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EventsFilters
-
-        />
+        <EventsFilters />
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="table" stickyHeader>
             <TableHead>
@@ -111,7 +109,7 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
             rowsPerPage={filters.limit}
             component="div"
             count={eventsCount}
-            page={filters.page - 1}
+            page={filters.page === 0 ? 0 : filters.page - 1}
             onPageChange={handlePageChange}
             onRowsPerPageChange={handleLimitChange}
           />
