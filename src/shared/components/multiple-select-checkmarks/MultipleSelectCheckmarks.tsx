@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import { IMultipleSelectCheckmarksProps } from '../../../props/IDropDownProps';
-import { ISelectOption } from '../../../types/ISelectOption';
+import { IOptionNum } from '../../../types/IOptionNum';
 import { useState } from 'react';
 
 const ITEM_HEIGHT = 48;
@@ -47,7 +47,7 @@ export default function MultipleSelectCheckmarks({ buttonText, options, defaultO
         MenuProps={MenuProps}
         defaultValue={defaultOptions}
       >
-        {options.map((option: ISelectOption) => (
+        {options.map((option: IOptionNum) => (
           <MenuItem key={option.id} value={option.id}>
             <Checkbox checked={selectedIds.indexOf(option.id) > -1} />
             <ListItemText primary={option.label} />

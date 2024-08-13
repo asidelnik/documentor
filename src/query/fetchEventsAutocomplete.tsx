@@ -1,7 +1,7 @@
 import { serverRoutes } from "../server/server-routes";
-import { IEventIdTitle } from "../types/IEventIdTitle";
+import { IOptionStr } from "../types/IOptionStr";
 
-export const fetchEventsAutocomplete = async (signal: AbortSignal): Promise<IEventIdTitle[]> => {
+export const fetchEventsAutocomplete = async (signal: AbortSignal): Promise<IOptionStr[]> => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const path = serverRoutes.events.getEventsAutocomplete;
   const response = await fetch(baseUrl + path, { signal });

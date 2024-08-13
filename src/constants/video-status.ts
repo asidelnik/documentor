@@ -1,5 +1,5 @@
 import { IStyles } from '../types/IStyles';
-import { ISelectOption } from '../types/ISelectOption';
+import { IOptionNum } from '../types/IOptionNum';
 
 export enum VideoStatusEnum {
   Unprocessed = 1,
@@ -13,7 +13,7 @@ export const statusLabels: { [key: number]: string } = {
   3: 'Restricted',
 };
 
-export const statusAutocompleteOptions: ISelectOption[] = [
+export const statusAutocompleteOptions: IOptionNum[] = [
   { id: 1, label: 'Unprocessed' },
   { id: 2, label: 'Usable' },
   { id: 3, label: 'Restricted' },
