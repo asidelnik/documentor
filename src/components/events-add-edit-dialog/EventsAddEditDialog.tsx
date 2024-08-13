@@ -35,7 +35,7 @@ export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDi
         <CloseIcon />
       </IconButton>
       <DialogContent dividers>
-        <EventForm eventId={dialog.eventId} />
+        <EventForm eventId={dialog.eventId} actionTitle={dialog.actionTitle} />
       </DialogContent>
 
       <DialogActions>
