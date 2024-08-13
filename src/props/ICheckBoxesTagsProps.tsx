@@ -1,9 +1,10 @@
-import { IEventIdTitle } from "../types/IEventIdTitle";
+import { IOptionStr } from "../types/IOptionStr";
 
 
 export interface ICheckBoxesTagsProps {
-  options: IEventIdTitle[];
+  options: IOptionStr[];
   checkedId: string | null;
   update: (newId: string | null) => void;
   isDisabled: boolean;
+  placeholder: string;
 }

@@ -101,6 +101,7 @@ export default function VideoInfo({ video, eventsData }: IVideoInfoProps) {
             checkedId={video.eventId}
             update={eventUpdateHandler}
             isDisabled={eventsData.events.length <= 0 || eventStatus === 'pending'}
+            placeholder='Event'
           />
           {/* } */}
         </div>
