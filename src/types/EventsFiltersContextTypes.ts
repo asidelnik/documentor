@@ -19,10 +19,12 @@ type UpdateFreeTextAction = {
   type: 'update-free-text';
   payload: string;
 };
+
 type UpdatePageAction = {
   type: 'update-page';
   payload: number;
 };
+
 type UpdateLimitAction = {
   type: 'update-limit';
   payload: number;
