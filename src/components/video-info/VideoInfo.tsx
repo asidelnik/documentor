@@ -3,7 +3,7 @@ import { IVideoInfoProps } from "../../props/IVideoInfoProps";
 import MapIcon from '@mui/icons-material/Map';
 import { IconButton } from "@mui/material";
 import { dateToStringShortMonthDateYear } from "../../utils/functions";
-import { getStatusStyles, statusAutocompleteNumOptions, statusLabels } from "../../constants/video-status";
+import { eventStatusNumOptions, getStatusStyles, statusLabels } from "../../constants/video-status";
 import PositionedMenu from "../../shared/components/positioned-menu/PositionedMenu";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -79,7 +79,7 @@ export default function VideoInfo({ video, eventsData }: IVideoInfoProps) {
             </IconButton>
 
             <PositionedMenu
-              options={statusAutocompleteNumOptions}
+              options={eventStatusNumOptions}
               videoStatus={video.status}
               isDisabled={statusStatus === 'pending'}
               select={statusUpdateHandler}>

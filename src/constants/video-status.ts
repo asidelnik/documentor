@@ -14,7 +14,7 @@ export const statusLabels: { [key: number]: string } = {
   3: 'Restricted',
 };
 
-export const statusAutocompleteNumOptions: IOptionNum[] = [
+export const eventStatusNumOptions: IOptionNum[] = [
   { id: 1, label: 'Unprocessed' },
   { id: 2, label: 'Usable' },
   { id: 3, label: 'Restricted' },
