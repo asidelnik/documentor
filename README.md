@@ -16,6 +16,7 @@ Violent events video documentation dashboard.
 ![Image](https://github.com/user-attachments/assets/f7a334a7-2a6c-4f67-978d-0a6513874540)
 
 **Events table - page**
+<img width="1665" alt="image" src="https://github.com/user-attachments/assets/05fb5b68-ad2f-4d05-a12a-b3a1073e4b30">
 ![Events table](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/8e19789f-266a-4506-85ab-142a89db5270)
 
 
