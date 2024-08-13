@@ -5,10 +5,10 @@ Violent events video documentation dashboard.
 [Project planning link](https://github.com/users/asidelnik/projects/1)
 
 ## Wireframes & Flowcharts
-**Videos - page (website)**
+**Videos - page**
 ![image](https://github.com/user-attachments/assets/ef85b0a6-ec5f-4b7f-bf61-04790b2099f5)
 
-**Events table - page**
+**Events - page**
 <img width="1665" alt="image" src="https://github.com/user-attachments/assets/05fb5b68-ad2f-4d05-a12a-b3a1073e4b30">
 
 ## Logic Flowcharts
