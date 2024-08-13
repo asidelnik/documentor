@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
-import { IMultipleSelectCheckmarksProps } from '../../../props/IDropDownProps';
+import { IMultipleSelectCheckmarksProps } from '../../../props/IMultipleSelectCheckmarksProps';
 import { IOptionNum } from '../../../types/IOptionNum';
 import { useState } from 'react';
 
@@ -20,7 +20,7 @@ const MenuProps = {
   },
 };
 
-export default function MultipleSelectCheckmarks({ buttonText, options, defaultOptions, updateSelectedOptions }: IMultipleSelectCheckmarksProps) {
+export default function MultipleSelectCheckmarks({ buttonText, options, defaultOptions, width, updateSelectedOptions }: IMultipleSelectCheckmarksProps) {
   const [selectedIds, setSelectedIds] = useState<number[]>(defaultOptions);
   const selectedLabels: string[] = selectedIds.length > 0 && options.length > 0 ?
     selectedIds.map((selected) => options.find(option => option.id === selected)?.label).filter((label) => label !== undefined) : [];
@@ -34,7 +34,7 @@ export default function MultipleSelectCheckmarks({ buttonText, options, defaultO
   }
 
   return (
-    <FormControl sx={{ width: '300px', backgroundColor: 'white' }}>
+    <FormControl sx={{ width, backgroundColor: 'white' }}>
       <InputLabel id="multiple-checkbox-label">{buttonText}</InputLabel>
       <Select
         labelId="multiple-checkbox-label"

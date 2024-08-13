@@ -29,6 +29,7 @@ export default function VideosFilters() {
           buttonText='Statuses'
           options={eventStatusNumOptions}
           defaultOptions={filters?.statuses ?? []}
+          width={'300px'}
           updateSelectedOptions={(options: number[]) => selectHandler('update-statuses', options)}
         />
       </div>
