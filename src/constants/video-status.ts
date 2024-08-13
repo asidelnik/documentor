@@ -1,5 +1,6 @@
 import { IStyles } from '../types/IStyles';
 import { IOptionNum } from '../types/IOptionNum';
+import { IOptionStr } from '../types/IOptionStr';
 
 export enum VideoStatusEnum {
   Unprocessed = 1,
@@ -13,10 +14,16 @@ export const statusLabels: { [key: number]: string } = {
   3: 'Restricted',
 };
 
-export const statusAutocompleteOptions: IOptionNum[] = [
+export const statusAutocompleteNumOptions: IOptionNum[] = [
   { id: 1, label: 'Unprocessed' },
   { id: 2, label: 'Usable' },
   { id: 3, label: 'Restricted' },
+];
+
+export const eventsStatusStrOptions: IOptionStr[] = [
+  { id: '1', label: 'Unprocessed' },
+  { id: '2', label: 'Usable' },
+  { id: '3', label: 'Restricted' },
 ];
 
 export function getStatusStyles(statusId: number): IStyles {
