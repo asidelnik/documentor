@@ -24,6 +24,7 @@ export default function EventsTablePage() {
         eventsCount={eventsCount}
         openDialog={handleClickOpen}
       />
+
       <EventsAddEditDialog
         dialog={dialog}
         onClose={handleClose}

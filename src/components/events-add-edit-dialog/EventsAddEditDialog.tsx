@@ -15,9 +15,11 @@ export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDi
 
   return (
     <Dialog
-      fullScreen
       onClose={handleClose}
       open={dialog.isOpen}
+      fullWidth
+      maxWidth='xl'
+      aria-labelledby="add-edit-event-dialog"
     >
       <DialogTitle>{title}</DialogTitle>
       <IconButton

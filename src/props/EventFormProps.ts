@@ -1,3 +1,3 @@
 export interface EventFormProps {
-  eventId?: number;
+  eventId?: string;
 }
