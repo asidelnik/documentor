@@ -1,12 +1,13 @@
 // import c from './EventForm.module.scss';
 import { TextField } from "@mui/material";
-import { EventFormProps } from "../../props/EventFormProps";
+import { IEventFormProps } from "../../props/IEventFormProps";
 import { ChangeEvent } from "react";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import { eventPriorityStrOptions } from "../../constants/event-constants";
+import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 
 
-export default function EventForm({ eventId }: EventFormProps) {
+export default function EventForm({ eventId, actionTitle }: IEventFormProps) {
   // const [formData, setFormData] = useState({
   //   username: '',
   //   password: '',
@@ -21,8 +22,11 @@ export default function EventForm({ eventId }: EventFormProps) {
   //   const { name, value } = e.target;
   //   setFormData({ ...formData, [name]: value });
   // };
-  const eventTitleHandler = (event: ChangeEvent<HTMLInputElement>) => setEventTitle(event.target.value);
-  const eventUpdateHandler = (newEventId: string | null) => setVideoEvent({ videoId: video.id, newEventId: newEventId, oldEventId: video.eventId });
+  const titleHandler = (event: ChangeEvent<HTMLInputElement>) => setTitle(event.target.value);
+  const priorityHandler = (id: string | null) => setPriority(id);
+  const fromDateHandler = (fromDate: Date) => setFromDate(fromDate);
+  const toDateHandler = (toDate: Date) => setToDate(toDate);
+  const statusHandler = (id: string) => setStatus(id);
 
   return (
     <>
@@ -32,19 +36,41 @@ export default function EventForm({ eventId }: EventFormProps) {
         id="title"
         label="Event title"
         variant="outlined"
-        onChange={eventTitleHandler}
+        onChange={titleHandler}
         sx={{ width: '400px' }}
       />
 
       <CheckboxesTags
         options={eventPriorityStrOptions}
         checkedId={null}
-        update={eventUpdateHandler}
+        update={priorityHandler}
         isDisabled={false}
         placeholder='Priority'
       />
 
+      <DateTimeRangePicker
+        fromDateProp={undefined}
+        toDateProp={undefined}
+        updateFromDate={fromDateHandler}
+        updateToDate={toDateHandler}
+      />
 
+      <TextField
+        id="description"
+        label="Description"
+        multiline
+        rows={4}
+        defaultValue=""
+      />
+
+      {/* TODO - add new Event Status */}
+      {/* <CheckboxesTags
+        options={eventsStatusStrOptions}
+        checkedId={null}
+        update={statusHandler}
+        isDisabled={actionTitle === EventsActionTitle.Add}
+        placeholder='Status'
+      /> */}
 
     </>
   )
