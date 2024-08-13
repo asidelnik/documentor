@@ -205,7 +205,7 @@ server.get('/events-autocomplete', (req, res) => {
   const { page = 1, limit = 100 } = req.query;
   // console.log(req.query);
   const db = router.db; // lowdb instance
-  let events = db.get('events').filter({ isDisabled: false })
+  let events = db.get('events').filter({ status: 1 })
     .sortBy('startTime').reverse()
     .value()
     .map(event => ({ id: event.id, label: event.title }));
