@@ -2,7 +2,7 @@
 Violent events video documentation dashboard.
 
 ## Project planning
-[Project planning link](https://github.com/users/asidelnik/projects/1)
+[Project planning link](https://github.com/users/asidelnik/projects/1) - Github Projects project
 
 ## Wireframes & Flowcharts
 **Videos - page**
