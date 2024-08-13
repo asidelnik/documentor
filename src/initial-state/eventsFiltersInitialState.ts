@@ -7,7 +7,7 @@ export const eventsFiltersInitialState: IEventsFilters = {
   priority: [EventPriority.High, EventPriority.Medium, EventPriority.Low],
   freeText: '',
   page: 1,
-  limit: 100,
+  limit: 50,
 };
 
 //// Location filtering

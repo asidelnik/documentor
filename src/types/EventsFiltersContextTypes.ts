@@ -20,11 +20,23 @@ type UpdateFreeTextAction = {
   payload: string;
 };
 
+type UpdatePageAction = {
+  type: 'update-page';
+  payload: number;
+};
+
+type UpdateLimitAction = {
+  type: 'update-limit';
+  payload: number;
+};
+
 export type EventsFiltersActions =
   | UpdateFromDateUpdateAction
   | UpdateToDateAction
   | UpdatePriorityAction
-  | UpdateFreeTextAction;
+  | UpdateFreeTextAction
+  | UpdatePageAction
+  | UpdateLimitAction;
 
 export type EventsFiltersContextProviderProps = {
   children: ReactNode;

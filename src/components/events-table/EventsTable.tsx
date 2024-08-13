@@ -13,31 +13,26 @@ import { IconButton } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 
 import { EventsActionTitle } from '../../enums/EventsActionTitle';
 import EventsFilters from '../events-filters/EventsFilters';
 import { IEventsTableProps } from '../../props/eventsTableProps';
 import { IEventAndCalcs } from '../../types/IEvent';
 import { eventPrioirtyLabels, EventPriority } from '../../constants/event-constants';
+import { useEventsFilters, useEventsFiltersDispatch } from '../../contexts/events-filters-context';
 
 
-export default function EventsTable({ rows, eventsCount, getPageRows, openDialog }: IEventsTableProps) {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTableProps) {
+  const filters = useEventsFilters();
+  const filtersDispatch = useEventsFiltersDispatch();
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-    getPageRows(newPage + 1, rowsPerPage);
+  const handlePageChange = (_event: unknown, newPage: number) => {
+    filtersDispatch({ type: 'update-page', payload: newPage + 1 })
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const perPage = parseInt(event.target.value, 10);
-    setRowsPerPage(perPage);
-    setPage(0);
-    getPageRows(1, perPage);
+  const handleLimitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    filtersDispatch({ type: 'update-limit', payload: event.target.value })
   };
 
   const addEvent = () => {
@@ -51,9 +46,7 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
   return (
     <>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EventsFilters
-
-        />
+        <EventsFilters />
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="table" stickyHeader>
             <TableHead>
@@ -111,14 +104,14 @@ export default function EventsTable({ rows, eventsCount, getPageRows, openDialog
 
         <footer className={c.pagination}>
           <TablePagination
-            rowsPerPageOptions={[3, 5, 10, 25]}
+            rowsPerPageOptions={[3, 5, 10, 25, 50]}
             labelRowsPerPage="Rows"
-            rowsPerPage={rowsPerPage}
+            rowsPerPage={filters.limit}
             component="div"
             count={eventsCount}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
+            page={filters.page === 0 ? 0 : filters.page - 1}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleLimitChange}
           />
           <IconButton
             onClick={addEvent}

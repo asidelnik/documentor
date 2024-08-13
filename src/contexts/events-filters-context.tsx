@@ -21,16 +21,22 @@ export function EventsFiltersProvider({ children }: EventsFiltersContextProvider
 function filtersReducer(filters: IEventsFilters, action: EventsFiltersActions): any {
   switch (action.type) {
     case "update-from-date": {
-      return { ...filters, fromDate: action.payload, } as IEventsFilters;
+      return { ...filters, fromDate: action.payload, page: 1 } as IEventsFilters;
     }
     case "update-to-date": {
-      return { ...filters, toDate: action.payload, } as IEventsFilters;
+      return { ...filters, toDate: action.payload, page: 1 } as IEventsFilters;
     }
     case "update-priority": {
-      return { ...filters, priority: action.payload, } as IEventsFilters;
+      return { ...filters, priority: action.payload, page: 1 } as IEventsFilters;
     }
     case "update-free-text": {
-      return { ...filters, freeText: action.payload, } as IEventsFilters;
+      return { ...filters, freeText: action.payload, page: 1 } as IEventsFilters;
+    }
+    case "update-limit": {
+      return { ...filters, limit: action.payload, page: 1 } as IEventsFilters;
+    }
+    case "update-page": {
+      return { ...filters, page: action.payload, } as IEventsFilters;
     }
     default: {
       return filters;
