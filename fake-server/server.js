@@ -232,7 +232,7 @@ server.get('/events-autocomplete', (req, res) => {
 
 // GET Events by filters, sort & pagination (default sort latest)
 server.get('/events', (req, res) => {
-  const { fromDate, toDate, priority, freeText, page = 1, limit = 3 } = req.query;/*lat, lng, radius,*/
+  const { fromDate, toDate, priority, freeText, statuses, page = 1, limit = 3 } = req.query;/*lat, lng, radius,*/
   // console.log(req.query);
   const db = router.db; // lowdb instance
   let events = db.get('events').value();
@@ -249,8 +249,8 @@ server.get('/events', (req, res) => {
   if (!priority || priority === '') {
     events = [];
   } else {
-    const eventsArray = priority.split(',').map(Number);
-    events = events.filter(event => eventsArray.includes(event.priority));
+    const priorityArray = priority.split(',').map(Number);
+    events = events.filter(event => priorityArray.includes(event.priority));
   }
 
   if (freeText && freeText.trim() !== '') {
@@ -259,6 +259,13 @@ server.get('/events', (req, res) => {
       event.title.toLowerCase().includes(lowerCaseFreeText) ||
       event.description.toLowerCase().includes(lowerCaseFreeText)
     );
+  }
+
+  if (!statuses || statuses === '') {
+    events = [];
+  } else {
+    const statusesArray = statuses.split(',').map(Number);
+    events = events.filter(event => statusesArray.includes(event.status));
   }
 
   // Add property count of event videos with status 1
