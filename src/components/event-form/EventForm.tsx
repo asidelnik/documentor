@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 import { EventFormProps } from "../../props/EventFormProps";
 import { ChangeEvent } from "react";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
-import { eventPriorityAutocompleteOptions } from "../../constants/event-constants";
+import { eventPriorityStrOptions } from "../../constants/event-constants";
 
 
 export default function EventForm({ eventId }: EventFormProps) {
@@ -22,6 +22,7 @@ export default function EventForm({ eventId }: EventFormProps) {
   //   setFormData({ ...formData, [name]: value });
   // };
   const eventTitleHandler = (event: ChangeEvent<HTMLInputElement>) => setEventTitle(event.target.value);
+  const eventUpdateHandler = (newEventId: string | null) => setVideoEvent({ videoId: video.id, newEventId: newEventId, oldEventId: video.eventId });
 
   return (
     <>
@@ -32,16 +33,18 @@ export default function EventForm({ eventId }: EventFormProps) {
         label="Event title"
         variant="outlined"
         onChange={eventTitleHandler}
-        sx={{ width: '300px' }}
+        sx={{ width: '400px' }}
       />
 
       <CheckboxesTags
-        options={eventPriorityAutocompleteOptions}
-        checkedId={video.eventId}
+        options={eventPriorityStrOptions}
+        checkedId={null}
         update={eventUpdateHandler}
-        isDisabled={eventsData.events.length <= 0 || eventStatus === 'pending'}
+        isDisabled={false}
         placeholder='Priority'
       />
+
+
 
     </>
   )

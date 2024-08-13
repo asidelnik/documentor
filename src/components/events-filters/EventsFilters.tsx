@@ -1,5 +1,5 @@
 import c from "./EventsFilters.module.scss";
-import { eventPriorityAutocompleteOptions } from "../../constants/event-constants";
+import { eventPriorityNumOptions } from "../../constants/event-constants";
 import { useEventsFilters, useEventsFiltersDispatch } from "../../contexts/events-filters-context";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
@@ -28,7 +28,7 @@ export default function EventsFilters() {
 
         <MultipleSelectCheckmarks
           buttonText='Priority'
-          options={eventPriorityAutocompleteOptions}
+          options={eventPriorityNumOptions}
           defaultOptions={filters?.priority ?? []}
           updateSelectedOptions={(options: number[]) => selectChangeHandler('update-priority', options)}
         />

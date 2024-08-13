@@ -1,4 +1,5 @@
 import { IOptionNum } from '../types/IOptionNum';
+import { IOptionStr } from '../types/IOptionStr';
 
 export enum EventPriority {
   Low = 1,
@@ -6,7 +7,7 @@ export enum EventPriority {
   High = 3,
 }
 
-export const eventPriorityAutocompleteOptions: IOptionNum[] = [
+export const eventPriorityNumOptions: IOptionNum[] = [
   { id: 3, label: 'High' },
   { id: 2, label: 'Medium' },
   { id: 1, label: 'Low' },
@@ -17,3 +18,9 @@ export const eventPrioirtyLabels: { [key: number]: string } = {
   2: 'Medium',
   1: 'Low',
 };
+
+export const eventPriorityStrOptions: IOptionStr[] = [
+  { id: '3', label: 'High' },
+  { id: '2', label: 'Medium' },
+  { id: '1', label: 'Low' },
+];
