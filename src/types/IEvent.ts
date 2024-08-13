@@ -1,4 +1,3 @@
-import { EventStatusEnum } from '../enums/event-status-enum';
 import { LocationType } from './location';
 import { IVideo } from './IVideo';
 
@@ -12,11 +11,10 @@ export interface IEvent {
   locationName: string;
   startLocation: LocationType;
   tags: string[];
-  status: EventStatusEnum;
   videos: IVideo[];
   videosUnprocessedCount: number;
   videosCount: number;
-  isDisabled: boolean;
+  isEnabled: boolean;
   startTime: string;
   endTime: string;
 }
@@ -26,7 +24,6 @@ export interface IEventAndCalcs extends IEvent {
   endTimeDate: Date;
   startTimeFormatted: string;
   durationFormatted: string;
-  statusFormatted: string;
   priorityFormatted: string;
 }
 

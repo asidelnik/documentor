@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { IEvent, IEventAndCalcs, IEventsAndCount } from '../types/IEvent';
 import { dateToString, secondsToTimeString } from '../utils/functions';
-import { EventStatusEnum } from '../enums/event-status-enum';
 import { serverRoutes } from '../server/server-routes';
 import { useEventsFilters } from '../contexts/events-filters-context';
 import { eventPrioirtyLabels } from '../constants/event-constants';
@@ -41,7 +40,6 @@ export const useFetchEvents = () => {
             endTimeDate: new Date(event.endTime),
             startTimeFormatted: dateToString(new Date(event.startTime)),
             durationFormatted: secondsToTimeString(event.duration),
-            statusFormatted: EventStatusEnum[event.status],
             priorityFormatted: eventPrioirtyLabels[event.priority],
           };
         }) as IEventAndCalcs[];

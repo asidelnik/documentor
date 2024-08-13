@@ -91,7 +91,7 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
                   <TableCell>{row.durationFormatted}</TableCell>
                   <TableCell>{row.description}</TableCell>
                   <TableCell>{row.locationName}</TableCell>
-                  <TableCell>{row.statusFormatted}</TableCell>
+                  <TableCell>{row.isEnabled ? 'Open' : 'Closed'}</TableCell>
                   <TableCell>{row.videosCount}</TableCell>
                   <TableCell>
                     <span className={row.videosUnprocessedCount > 0 ? c.eventToReview : ''}>{row.videosUnprocessedCount}</span>

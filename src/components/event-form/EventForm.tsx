@@ -3,8 +3,9 @@ import { TextField } from "@mui/material";
 import { IEventFormProps } from "../../props/IEventFormProps";
 import { ChangeEvent } from "react";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
-import { eventPriorityStrOptions } from "../../constants/event-constants";
+import { eventPriorityStrOptions, eventStatusStrOptions } from "../../constants/event-constants";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
+import { EventsActionTitle } from "../../enums/EventsActionTitle";
 
 
 export default function EventForm({ eventId, actionTitle }: IEventFormProps) {
@@ -26,7 +27,7 @@ export default function EventForm({ eventId, actionTitle }: IEventFormProps) {
   const priorityHandler = (id: string | null) => setPriority(id);
   const fromDateHandler = (fromDate: Date) => setFromDate(fromDate);
   const toDateHandler = (toDate: Date) => setToDate(toDate);
-  const statusHandler = (id: string) => setStatus(id);
+  const isEnabledHandler = (value: boolean) => setIsEnabled(value);
 
   return (
     <>
@@ -64,8 +65,9 @@ export default function EventForm({ eventId, actionTitle }: IEventFormProps) {
       />
 
       {/* TODO - add new Event Status */}
+
       {/* <CheckboxesTags
-        options={eventsStatusStrOptions}
+        options={eventStatusStrOptions}
         checkedId={null}
         update={statusHandler}
         isDisabled={actionTitle === EventsActionTitle.Add}
@@ -75,10 +77,3 @@ export default function EventForm({ eventId, actionTitle }: IEventFormProps) {
     </>
   )
 }
-
-/*
-title: string;
-  description: string;
-  location: string;
-  status: EventStatusEnum;
- */
