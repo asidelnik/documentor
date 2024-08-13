@@ -1,5 +1,5 @@
 import c from "./EventsFilters.module.scss";
-import { eventPriorityNumOptions } from "../../constants/event-constants";
+import { eventPriorityNumOptions, eventStatusNumOptions } from "../../constants/event-constants";
 import { useEventsFilters, useEventsFiltersDispatch } from "../../contexts/events-filters-context";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
@@ -30,6 +30,7 @@ export default function EventsFilters() {
           buttonText='Priority'
           options={eventPriorityNumOptions}
           defaultOptions={filters?.priority ?? []}
+          width={'240px'}
           updateSelectedOptions={(options: number[]) => selectChangeHandler('update-priority', options)}
         />
 
@@ -39,6 +40,14 @@ export default function EventsFilters() {
           variant="outlined"
           onChange={textChangeHandler}
           sx={{ width: '300px' }}
+        />
+
+        <MultipleSelectCheckmarks
+          buttonText='Status'
+          options={eventStatusNumOptions}
+          defaultOptions={filters?.statuses ?? []}
+          width={'180px'}
+          updateSelectedOptions={(options: number[]) => selectChangeHandler('update-status', options)}
         />
       </div>
     </>

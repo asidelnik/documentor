@@ -14,7 +14,7 @@ export interface IEvent {
   videos: IVideo[];
   videosUnprocessedCount: number;
   videosCount: number;
-  isEnabled: boolean;
+  status: number;
   startTime: string;
   endTime: string;
 }

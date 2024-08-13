@@ -24,3 +24,14 @@ export const eventPriorityStrOptions: IOptionStr[] = [
   { id: '2', label: 'Medium' },
   { id: '1', label: 'Low' },
 ];
+
+
+export enum EventStatus {
+  Open = 1,
+  Closed = 2,
+}
+
+export const eventStatusNumOptions: IOptionNum[] = [
+  { id: 1, label: 'Open' },
+  { id: 2, label: 'Closed' },
+];

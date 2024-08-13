@@ -19,7 +19,7 @@ import { EventsActionTitle } from '../../enums/EventsActionTitle';
 import EventsFilters from '../events-filters/EventsFilters';
 import { IEventsTableProps } from '../../props/eventsTableProps';
 import { IEventAndCalcs } from '../../types/IEvent';
-import { eventPrioirtyLabels, EventPriority } from '../../constants/event-constants';
+import { eventPrioirtyLabels, EventPriority, EventStatus } from '../../constants/event-constants';
 import { useEventsFilters, useEventsFiltersDispatch } from '../../contexts/events-filters-context';
 
 
@@ -91,7 +91,7 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
                   <TableCell>{row.durationFormatted}</TableCell>
                   <TableCell>{row.description}</TableCell>
                   <TableCell>{row.locationName}</TableCell>
-                  <TableCell>{row.isEnabled ? 'Open' : 'Closed'}</TableCell>
+                  <TableCell>{row.status === EventStatus.Open ? 'Open' : 'Closed'}</TableCell>
                   <TableCell>{row.videosCount}</TableCell>
                   <TableCell>
                     <span className={row.videosUnprocessedCount > 0 ? c.eventToReview : ''}>{row.videosUnprocessedCount}</span>
