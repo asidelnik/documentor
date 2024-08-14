@@ -31,3 +31,18 @@ export interface IEventsAndCount {
   events: IEvent[];
   eventsCount: number;
 }
+
+export interface IEventForm {
+  title: string;
+  priority: number;
+  startTime: Date;
+  endTime?: Date;
+  description?: string;
+  status: boolean;
+  // videoIds: string[];
+}
+
+export interface IEventAndDates extends IEvent {
+  startTimeDate: Date;
+  endTimeDate: Date;
+}

@@ -3,15 +3,14 @@ import c from "./VideoList.module.scss"
 import { useState, useRef, useEffect, createRef } from "react"; // , useEffect
 import { IVideo } from "../../types/IVideo";
 import ReactPlayer from 'react-player'
-import { IEventAndCalcs } from "../../types/IEvent";
+import { IEventAndDates } from "../../types/IEvent";
 import { Link } from "react-router-dom";
 import { OrientationEnum } from "../../enums/orientation-enum";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { dateToString, secondsToTimeString } from "../../utils/functions";
 
-
 type Props = {
-  event: IEventAndCalcs;
+  event: IEventAndDates;
 };
 
 export default function VideoList({ event }: Props) {
@@ -25,7 +24,7 @@ export default function VideoList({ event }: Props) {
   const [volume, setVolume] = useState(0.5);
   const playersRef = useRef([createRef<ReactPlayer>()]);
   const eventDuration = secondsToTimeString(event.duration);
-  const eventStartTime = dateToString(event.startTime);
+  const eventStartTime = dateToString(event.startTimeDate);
 
   useEffect(() => {
     if (isSyncPlay) {
