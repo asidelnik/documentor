@@ -1,13 +1,13 @@
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, DialogActions, DialogContent, IconButton } from '@mui/material';
+import { DialogContent, IconButton } from '@mui/material';
 import { EventsAddEditDialogProps } from '../../props/eventsAddEditDialogProps';
-import { EventsActionTitle } from '../../enums/EventsActionTitle';
+import { EventsAction } from '../../enums/EventsAction';
 import EventForm from '../event-form/EventForm';
 
 export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDialogProps) {
-  const title = dialog.actionTitle === EventsActionTitle.Add ? 'Add event' : 'Edit event';
+  const title = dialog.eventsAction === EventsAction.Add ? 'Add event' : 'Edit event';
 
   const handleClose = () => {
     onClose();
@@ -35,14 +35,8 @@ export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDi
         <CloseIcon />
       </IconButton>
       <DialogContent dividers>
-        <EventForm eventId={dialog.eventId} actionTitle={dialog.actionTitle} />
+        <EventForm /*eventId={dialog.eventId}*/ eventsAction={dialog.eventsAction} />
       </DialogContent>
-
-      <DialogActions>
-        <Button autoFocus onClick={handleClose}>
-          Save
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
