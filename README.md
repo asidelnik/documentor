@@ -1,4 +1,4 @@
-# Document violence - dashboard - V1
+# Documentor
 Violent events video documentation dashboard.
 
 ## Project planning
