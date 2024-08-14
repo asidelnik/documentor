@@ -15,7 +15,7 @@ import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Link } from 'react-router-dom';
 
-import { EventsActionTitle } from '../../enums/EventsActionTitle';
+import { EventsAction } from '../../enums/EventsAction';
 import EventsFilters from '../events-filters/EventsFilters';
 import { IEventsTableProps } from '../../props/eventsTableProps';
 import { IEventAndCalcs } from '../../types/IEvent';
@@ -36,11 +36,11 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
   };
 
   const addEvent = () => {
-    openDialog(EventsActionTitle.Add);
+    openDialog(EventsAction.Add);
   }
 
   const editEvent = (eventId: string) => {
-    openDialog(EventsActionTitle.Edit, eventId);
+    openDialog(EventsAction.Edit, eventId);
   }
 
   return (
@@ -91,7 +91,7 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
                   <TableCell>{row.durationFormatted}</TableCell>
                   <TableCell>{row.description}</TableCell>
                   <TableCell>{row.locationName}</TableCell>
-                  <TableCell>{row.status === EventStatus.Open ? 'Open' : 'Closed'}</TableCell>
+                  <TableCell>{row.status === EventStatus.Active ? 'Active' : 'Inactive'}</TableCell>
                   <TableCell>{row.videosCount}</TableCell>
                   <TableCell>
                     <span className={row.videosUnprocessedCount > 0 ? c.eventToReview : ''}>{row.videosUnprocessedCount}</span>

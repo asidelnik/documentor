@@ -6,7 +6,7 @@ export const eventsFiltersInitialState: IEventsFilters = {
   toDate: new Date('2023-10-27T00:00'), // For debugging
   priority: [EventPriority.High, EventPriority.Medium, EventPriority.Low],
   freeText: '',
-  statuses: [EventStatus.Open, EventStatus.Closed],
+  statuses: [EventStatus.Active, EventStatus.Inactive],
   page: 1,
   limit: 50,
 };

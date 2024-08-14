@@ -1,7 +1,7 @@
-import { EventsActionTitle } from '../enums/EventsActionTitle';
+import { EventsAction } from '../enums/EventsAction';
 
 export interface IEventsDialog {
   isOpen: boolean;
-  actionTitle: EventsActionTitle;
+  eventsAction: EventsAction;
   eventId?: string;
 }

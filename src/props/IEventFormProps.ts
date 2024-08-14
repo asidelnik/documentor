@@ -1,6 +1,6 @@
-import { EventsActionTitle } from '../enums/EventsActionTitle';
+import { EventsAction } from '../enums/EventsAction';
 
 export interface IEventFormProps {
-  eventId?: string;
-  actionTitle: EventsActionTitle;
+  // eventId?: string;
+  eventsAction: EventsAction;
 }
