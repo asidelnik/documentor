@@ -13,7 +13,7 @@ import { IEventForm } from "../../types/IEvent";
 
 // Define validation schema
 const validationSchema = yup.object({
-  title: yup.string().required("Title is required").max(5, 'Maximum title length.'),
+  title: yup.string().required("Title is required").max(100, 'Maximum characters (100) exceded.'),
   priority: yup.number().required("Priority is required"),
   startTime: yup.date().required("From date is required"),
   endTime: yup.date(),
@@ -22,7 +22,7 @@ const validationSchema = yup.object({
 });
 
 export default function EventForm({ /*eventId,*/ eventsAction }: IEventFormProps) {
-  const { control, getValues, handleSubmit, setValue, formState: { errors, isValid } } = useForm<IEventForm>({
+  const { control, getValues, trigger, handleSubmit, setValue, formState: { errors, isValid } } = useForm<IEventForm>({
     defaultValues: {
       title: "",
       priority: EventPriority.Low,
@@ -55,6 +55,7 @@ export default function EventForm({ /*eventId,*/ eventsAction }: IEventFormProps
             value={field.value}
             onChange={(event: ChangeEvent<HTMLInputElement>) => setValue("title", event.target.value)}
             sx={{ width: '60%' }}
+            onBlur={() => trigger('title')}
           />
         )}
       />
