@@ -3,5 +3,5 @@ import { IEventsAutoComplete } from './IEventsAutoComplete';
 
 export interface IVideoInfoProps {
   video: IVideo;
-  eventsData: IEventsAutoComplete;
+  eventsData?: IEventsAutoComplete;
 }

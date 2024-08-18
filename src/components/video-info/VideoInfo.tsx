@@ -94,17 +94,19 @@ export default function VideoInfo({ video, eventsData }: IVideoInfoProps) {
           </div>
         </div>
 
-        <div className={c.row2}>
-          {/* {eventsData.isFetching || eventsData.isPending || eventsData.error ? '' : */}
-          <CheckboxesTags
-            options={eventsData.events}
-            checkedId={video.eventId}
-            update={eventUpdateHandler}
-            isDisabled={eventsData.events.length <= 0 || eventStatus === 'pending'}
-            placeholder='Event'
-          />
-          {/* } */}
-        </div>
+        {eventsData &&
+          <div className={c.row2}>
+            {/* {eventsData.isFetching || eventsData.isPending || eventsData.error ? '' : */}
+            <CheckboxesTags
+              options={eventsData.events}
+              checkedId={video.eventId}
+              update={eventUpdateHandler}
+              isDisabled={eventsData.events.length <= 0 || eventStatus === 'pending'}
+              placeholder='Event'
+            />
+            {/* } */}
+          </div>
+        }
       </div>
     </>
   )
