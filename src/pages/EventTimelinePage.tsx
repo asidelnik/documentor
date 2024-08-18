@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import VideoList from "../components/video-list/VideoList";
+import VideosTimeline from "../components/videos-timeline/VideosTimeline";
 import { useParams } from "react-router-dom";
 import { IEvent, IEventAndDates } from "../types/IEvent";
 import CommonError from "../components/errors/common/CommonError";
@@ -52,9 +52,9 @@ export default function EventTimelinePage() {
         )}
         {isError && <CommonError errorMessage="Event not found" />}
         {!isLoading && !isError && event && (
-          <VideoList event={event} />
+          <VideosTimeline event={event} />
         )}
-        {event && <VideoList event={event} />}
+        {event && <VideosTimeline event={event} />}
       </div>
     </>
   )
