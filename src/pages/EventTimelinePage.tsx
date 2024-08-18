@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { IEvent, IEventAndDates } from "../types/IEvent";
 import CommonError from "../components/errors/common/CommonError";
 
+// Implement useFetchEvent or fetchEventById()
 export default function EventTimelinePage() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const { eventId } = useParams<{ eventId: string }>();
