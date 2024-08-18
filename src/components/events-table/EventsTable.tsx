@@ -103,6 +103,12 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
         </TableContainer>
 
         <footer className={c.pagination}>
+          <IconButton
+            onClick={addEvent}
+            sx={{ backgroundColor: 'primary.main', ":hover": { backgroundColor: 'primary.light' } }}
+          >
+            <AddIcon sx={{ color: 'white', fontWeight: 'bold' }} />
+          </IconButton>
           <TablePagination
             rowsPerPageOptions={[3, 5, 10, 25, 50]}
             labelRowsPerPage="Rows"
@@ -113,12 +119,6 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
             onPageChange={handlePageChange}
             onRowsPerPageChange={handleLimitChange}
           />
-          <IconButton
-            onClick={addEvent}
-            sx={{ backgroundColor: 'primary.main', ":hover": { backgroundColor: 'primary.light' } }}
-          >
-            <AddIcon sx={{ color: 'white', fontWeight: 'bold' }} />
-          </IconButton>
         </footer>
       </Paper >
     </>
