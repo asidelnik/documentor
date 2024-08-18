@@ -3,3 +3,9 @@
    flex-direction: column;
    row-gap: 30px;
 }
+
+.datePickersContainer {
+   display: flex;
+   flex-direction: row;
+   column-gap: 30px;
+}

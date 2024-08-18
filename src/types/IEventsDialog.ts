@@ -1,7 +1,8 @@
 import { EventsAction } from '../enums/EventsAction';
+import { IEventAndDates } from './IEvent';
 
 export interface IEventsDialog {
   isOpen: boolean;
   eventsAction: EventsAction;
-  eventId?: string;
+  event: IEventAndDates | null;
 }
