@@ -7,8 +7,7 @@ import { EventsAction } from '../../enums/EventsAction';
 import EventForm from '../event-form/EventForm';
 
 export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDialogProps) {
-  const title = dialog.eventsAction === EventsAction.Add ? 'Add event' : 'Edit event';
-
+  const dialogTitle = dialog.eventsAction === EventsAction.Add ? 'Add event' : 'Edit event';
   const handleClose = () => {
     onClose();
   };
@@ -21,7 +20,7 @@ export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDi
       maxWidth='xl'
       aria-labelledby="add-edit-event-dialog"
     >
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle>{dialogTitle}</DialogTitle>
       <IconButton
         aria-label="close"
         onClick={handleClose}
@@ -35,7 +34,10 @@ export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDi
         <CloseIcon />
       </IconButton>
       <DialogContent dividers>
-        <EventForm /*eventId={dialog.eventId}*/ eventsAction={dialog.eventsAction} />
+        <EventForm
+          eventsAction={dialog.eventsAction}
+          eventToEdit={dialog.event}
+        />
       </DialogContent>
     </Dialog>
   );

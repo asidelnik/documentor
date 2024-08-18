@@ -1,6 +1,7 @@
 import { EventsAction } from '../enums/EventsAction';
+import { IEventAndDates } from '../types/IEvent';
 
 export interface IEventFormProps {
-  // eventId?: string;
   eventsAction: EventsAction;
+  eventToEdit: IEventAndDates | null;
 }

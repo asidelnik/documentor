@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Divider, FormControl, FormControlLabel, InputLabel, MenuItem, Select, SelectChangeEvent, Switch, TextField } from "@mui/material";
 import { IEventFormProps } from "../../props/IEventFormProps";
-import { EventPriority, eventPriorityNumOptions } from "../../constants/event-constants";
+import { EventPriority, eventPriorityNumOptions, EventStatus } from "../../constants/event-constants";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 import { EventsAction } from "../../enums/EventsAction";
 import { ChangeEvent } from "react";
@@ -18,18 +18,18 @@ const validationSchema = yup.object({
   startTime: yup.date().required("From date is required"),
   endTime: yup.date(),
   description: yup.string().max(100, 'Maximum description length.'),
-  status: yup.boolean().required("Status is required"),
+  status: yup.number().required("Status is required"),
 });
 
-export default function EventForm({ /*eventId,*/ eventsAction }: IEventFormProps) {
+export default function EventForm({ eventsAction, eventToEdit }: IEventFormProps) {
   const { control, getValues, trigger, handleSubmit, setValue, formState: { errors, isValid } } = useForm<IEventForm>({
     defaultValues: {
-      title: "",
-      priority: EventPriority.Low,
-      startTime: new Date(),
-      endTime: undefined,
-      description: '',
-      status: true,
+      title: eventToEdit?.title ?? "",
+      priority: eventToEdit?.priority ?? EventPriority.Low,
+      startTime: eventToEdit?.startTimeDate ?? new Date(),
+      endTime: eventToEdit?.endTimeDate ?? undefined,
+      description: eventToEdit?.description ?? '',
+      status: eventToEdit?.status ?? EventStatus.Active,
       // videoIds: [],
     },
     resolver: yupResolver(validationSchema),
@@ -54,7 +54,7 @@ export default function EventForm({ /*eventId,*/ eventsAction }: IEventFormProps
             helperText={errors.title ? errors.title.message : ""}
             value={field.value}
             onChange={(event: ChangeEvent<HTMLInputElement>) => setValue("title", event.target.value)}
-            sx={{ width: '60%' }}
+            sx={{ width: '630px' }}
             onBlur={() => trigger('title')}
           />
         )}
@@ -82,12 +82,14 @@ export default function EventForm({ /*eventId,*/ eventsAction }: IEventFormProps
         )}
       />
 
-      <DateTimeRangePicker
-        fromDateProp={getValues("startTime")}
-        toDateProp={getValues("endTime")}
-        updateFromDate={(fromDate: Date) => setValue("startTime", fromDate)}
-        updateToDate={(toDate: Date) => setValue("endTime", toDate)}
-      />
+      <div className={c.datePickersContainer}>
+        <DateTimeRangePicker
+          fromDateProp={getValues("startTime")}
+          toDateProp={getValues("endTime")}
+          updateFromDate={(fromDate: Date) => setValue("startTime", fromDate)}
+          updateToDate={(toDate: Date) => setValue("endTime", toDate)}
+        />
+      </div>
 
       <Controller
         name="description"
@@ -102,7 +104,7 @@ export default function EventForm({ /*eventId,*/ eventsAction }: IEventFormProps
             onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setValue("description", event.target.value)}
             error={!!errors.description}
             helperText={errors.description ? errors.description.message : ""}
-            sx={{ width: '60%' }}
+            sx={{ width: '630px' }}
           />
         )}
       />
@@ -114,8 +116,8 @@ export default function EventForm({ /*eventId,*/ eventsAction }: IEventFormProps
           <FormControlLabel control={
             <Switch
               {...field}
-              onChange={(e) => setValue("status", e.target.checked)}
-              checked={field.value}
+              onChange={(e) => setValue("status", e.target.checked ? 1 : 2)}
+              checked={field.value === EventStatus.Active}
               disabled={eventsAction === EventsAction.Add}
             />
           } label={field.value ? 'Active' : 'Inactive'} />

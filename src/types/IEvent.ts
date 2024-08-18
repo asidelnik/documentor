@@ -38,7 +38,7 @@ export interface IEventForm {
   startTime: Date;
   endTime?: Date;
   description?: string;
-  status: boolean;
+  status: number;
   // videoIds: string[];
 }
 
