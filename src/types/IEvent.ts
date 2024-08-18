@@ -39,7 +39,6 @@ export interface IEventForm {
   endTime?: Date;
   description?: string;
   status: number;
-  // videoIds: string[];
 }
 
 export interface IEventAndDates extends IEvent {

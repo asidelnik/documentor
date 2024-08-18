@@ -31,7 +31,6 @@ export default function EventForm({ eventsAction, eventToEdit }: IEventFormProps
       endTime: eventToEdit?.endTimeDate ?? undefined,
       description: eventToEdit?.description ?? '',
       status: eventToEdit?.status ?? EventStatus.Active,
-      // videoIds: [],
     },
     resolver: yupResolver(validationSchema),
   });

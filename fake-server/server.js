@@ -296,6 +296,40 @@ server.get('/events', (req, res) => {
   res.json({ events, eventsCount });
 });
 
+server.post('/events', (req, res) => {
+  const db = router.db; // lowdb instance
+  const { title, priority, startTime, endTime, description, status } = req.body;
+
+  // Validate required fields
+  if (!title || !priority || !startTime || !status) {
+    return res.status(400).send('Missing required fields');
+  }
+  // Calculate the duration
+
+  const newEvent = {
+    id: db.get('events').value().length + 1, // Generate a new ID
+    title,
+    description: description || '',
+    startTime,
+    endTime: endTime || null,
+    // duration,
+    // locationName: "Night Watch street, Westeros",
+    // startLocation: {
+    //   "type": "Point",
+    //   "coordinates": [32.0853, 34.7818],
+    //   "heading": 177
+    // },
+    videoIds: [],
+    tags: [],
+    status,
+    priority,
+  };
+
+  db.get('events').push(newEvent).write();
+  res.status(201).json(newEvent);
+});
+
+
 
 // if (lat && lng && radius) {
 //   const parsedRadius = tryParseInt(radius, 0);
