@@ -10,6 +10,7 @@ import { EventsAction } from "../../enums/EventsAction";
 import { ChangeEvent } from "react";
 import { IOptionNum } from "../../types/IOptionNum";
 import { IEventForm } from "../../types/IEvent";
+import VideoList from '../video-list/VideoList';
 
 // Define validation schema
 const validationSchema = yup.object({
@@ -39,10 +40,11 @@ export default function EventForm({ eventsAction, eventToEdit }: IEventFormProps
     console.log("Form data submitted:", data);
   };
 
-  return (
+  return (<>
     <form className={c.eventsForm} onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="title"
+
         control={control}
         render={({ field }) => (
           <TextField
@@ -113,18 +115,24 @@ export default function EventForm({ eventsAction, eventToEdit }: IEventFormProps
         name="status"
         control={control}
         render={({ field }) => (
-          <FormControlLabel control={
-            <Switch
-              {...field}
-              onChange={(e) => setValue("status", e.target.checked ? 1 : 2)}
-              checked={field.value === EventStatus.Active}
-              disabled={eventsAction === EventsAction.Add}
-            />
-          } label={field.value ? 'Active' : 'Inactive'} />
+          <FormControlLabel
+            control={
+              <Switch
+                {...field}
+                onChange={(e) => setValue("status", e.target.checked ? 1 : 2)}
+                checked={field.value === EventStatus.Active}
+                disabled={eventsAction === EventsAction.Add}
+              />
+            }
+            label={field.value === EventStatus.Active ? 'Active' : 'Inactive'}
+            sx={{ width: '100px' }}
+          />
         )}
       />
 
       <Divider component="div" />
+
+      <VideoList videos={eventToEdit?.videos} />
 
       <Button
         type="submit"
@@ -137,5 +145,6 @@ export default function EventForm({ eventsAction, eventToEdit }: IEventFormProps
         Save
       </Button>
     </form>
+  </>
   );
 }

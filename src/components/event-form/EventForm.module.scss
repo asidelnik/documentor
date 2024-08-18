@@ -1,11 +1,12 @@
 .eventsForm {
-   display: flex;
-   flex-direction: column;
-   row-gap: 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  padding-block-start: 12px;
 }
 
 .datePickersContainer {
-   display: flex;
-   flex-direction: row;
-   column-gap: 30px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 30px;
 }
