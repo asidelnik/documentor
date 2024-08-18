@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { OrientationEnum } from "../../enums/orientation-enum";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { dateToString, secondsToTimeString } from "../../utils/functions";
-import { IVideosTimelineProps } from "./IVideosTimelineProps";
+import { IVideosTimelineProps } from "../../props/IVideosTimelineProps";
 
 export default function VideosTimeline({ event }: IVideosTimelineProps) {
   const { videos } = event;

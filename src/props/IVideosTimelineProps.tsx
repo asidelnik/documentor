@@ -1,4 +1,4 @@
-import { IEventAndDates } from "../../types/IEvent";
+import { IEventAndDates } from "../types/IEvent";
 
 export interface IVideosTimelineProps {
   event: IEventAndDates;
