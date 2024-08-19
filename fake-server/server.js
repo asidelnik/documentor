@@ -42,11 +42,12 @@ server.put('/video-set-event/:id', (req, res) => {
     oldEventId = oldEventId === 'null' ? null : oldEventId;
 
     const videoExists = db.get('videos').find({ id }).value() !== undefined;
-    if (!videoExists) res.status(404).send('Video not found');
+    if (!videoExists) {
+      throw new Error('Video not found');
+    }
 
     if (newEventId === null) {
       db.get('videos').find({ id }).assign({ eventId: null }).write();
-
       if (oldEventId !== null) {
         db.get('events')
           .find({ id: oldEventId })
@@ -76,15 +77,13 @@ server.put('/video-set-event/:id', (req, res) => {
               .write();
           }
         }
-
-        res.json({ message: 'Success' });
       } else {
-        res.status(404).send('Video or event not found');
+        throw new Error('Video or event not found')
       }
     }
     res.json({ message: 'Success' });
   } catch (error) {
-    res.status(500).send('Internal server error');
+    res.status(500).send(error.message);
   }
 });
 
