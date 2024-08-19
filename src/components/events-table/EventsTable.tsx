@@ -47,7 +47,7 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
     <>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EventsFilters />
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ height: 'calc(100vh - 245px)' }}>
           <Table sx={{ minWidth: 650 }} aria-label="table" stickyHeader>
             <TableHead>
               <TableRow>
