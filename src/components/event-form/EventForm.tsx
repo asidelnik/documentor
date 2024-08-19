@@ -39,8 +39,8 @@ export default function EventForm({ eventsAction, eventToEdit }: IEventFormProps
   const onSubmit = async (data: IEventForm) => {
     if (eventsAction === EventsAction.Add) {
       addEvent(data);
-    } else if (eventsAction === EventsAction.Edit) {
-      editEvent(data);
+    } else if (eventsAction === EventsAction.Edit && eventToEdit) {
+      editEvent(data, eventToEdit.id);
     }
   };
 

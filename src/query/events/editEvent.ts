@@ -1,9 +1,9 @@
 import { serverRoutes } from '../../server/server-routes';
 import { IEventForm } from '../../types/IEvent';
 
-export const editEvent = async (data: IEventForm) => {
+export const editEvent = async (data: IEventForm, id: string) => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const requestPath = serverRoutes.events.editEvent;
+  const requestPath = serverRoutes.events.editEvent(id);
   const response = await fetch(baseUrl + requestPath, {
     method: 'PUT',
     headers: {

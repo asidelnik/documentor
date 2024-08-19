@@ -40,6 +40,7 @@ export const serverRoutes = {
       `/events/` + eventId + `?_embed=videos`,
 
     addEvent: '/events',
-    editEvent: '/events-edit',
+
+    editEvent: (id: string) => `/events/${id}`,
   },
 };
