@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IEventsDialog } from '../types/IEventsDialog';
 import { EventsAction } from '../enums/EventsAction';
-import fetchEventById from '../query/fetchEventById';
+import fetchEventById from '../query/events/fetchEventById';
 
 export function useEventsDialog() {
   const [dialog, setDialog] = useState<IEventsDialog>({

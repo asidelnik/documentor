@@ -7,11 +7,11 @@ import { eventStatusNumOptions, getStatusStyles, statusLabels } from "../../cons
 import PositionedMenu from "../../shared/components/positioned-menu/PositionedMenu";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IVideoStatusMutationProps, mutateVideoStatus } from "../../query/mutateVideoStatus";
-import { IVideoEventMutationProps, mutateVideoEvent } from "../../query/mutateVideoEvent";
+import { IVideoStatusMutationProps, mutateVideoStatus } from "../../query/videos/mutateVideoStatus";
+import { IVideoEventMutationProps, mutateVideoEvent } from "../../query/videos/mutateVideoEvent";
 import { IVideo } from "../../types/IVideo";
 import { useFilters } from "../../contexts/filters-context";
-import { videoOnMutate } from "../../query/videoStatusMutation";
+import { videoOnMutate } from "../../query/videos/videoStatusMutation";
 import { VideoMutaion } from "../../enums/VideoMutation";
 
 export default function VideoInfo({ video, eventsData }: IVideoInfoProps) {
