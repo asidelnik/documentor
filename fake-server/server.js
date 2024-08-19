@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'db-test.json'));
 const middlewares = jsonServer.defaults();
-
+server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
 ///////// Videos
@@ -21,7 +21,6 @@ server.put('/video-set-status/:id', (req, res) => {
   const { status } = req.query;
 
   const videoExists = db.get('videos').find({ id }).value() !== undefined;
-  // console.log({ id, status, videoExists })
 
   if (videoExists) {
     db.get('videos').find({ id }).assign({ status: Number(status) }).write();
@@ -92,7 +91,6 @@ server.put('/video-set-event/:id', (req, res) => {
 
 server.get('/videos', (req, res) => {
   const { fromDate, toDate, statuses, page = 1, limit = 10 } = req.query;
-  console.log(req.query);
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
 
@@ -142,7 +140,6 @@ server.get('/videos', (req, res) => {
 // TODO - merge the count into the videos fetch request
 server.get('/videos-count', (req, res) => {
   const { fromDate, toDate, lat, lng, radius, statuses, eventId } = req.query;
-  console.log(req.query);
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
 
@@ -203,7 +200,6 @@ server.get('/events/:id', (req, res) => {
 
 server.get('/events-autocomplete', (req, res) => {
   const { page = 1, limit = 100 } = req.query;
-  // console.log(req.query);
   const db = router.db; // lowdb instance
   let events = db.get('events').filter({ status: 1 })
     .sortBy('startTime').reverse()
@@ -233,7 +229,6 @@ server.get('/events-autocomplete', (req, res) => {
 // GET Events by filters, sort & pagination (default sort latest)
 server.get('/events', (req, res) => {
   const { fromDate, toDate, priority, freeText, statuses, page = 1, limit = 3 } = req.query;/*lat, lng, radius,*/
-  // console.log(req.query);
   const db = router.db; // lowdb instance
   let events = db.get('events').value();
 
