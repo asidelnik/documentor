@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player';
 import { IVideo } from '../../types/IVideo';
 import VideoInfo from '../video-info/VideoInfo';
 import { IVideoListProps } from '../../props/IVideoListProps';
+import { VideoInfoEnum } from '../../enums/VideoInfoEnum';
 
 export default function VideoList({ videos }: IVideoListProps) {
   if (!videos) return null;
@@ -30,7 +31,7 @@ export default function VideoList({ videos }: IVideoListProps) {
                   },
                 }}
               />
-              <VideoInfo video={video} />
+              <VideoInfo video={video} videoInfoType={VideoInfoEnum.EventVideoList} />
             </div>
           ))}
         </div>

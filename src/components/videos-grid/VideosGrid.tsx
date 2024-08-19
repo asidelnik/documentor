@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player'
 import { IVideosGridProps } from "../../props/IVideosGridProps";
 import VideoInfo from "../video-info/VideoInfo";
 import { IVideo } from "../../types/IVideo";
+import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 
 export default function VideosGrid({ videos, videosCount, eventsData }: IVideosGridProps) {
   return (
@@ -32,7 +33,11 @@ export default function VideosGrid({ videos, videosCount, eventsData }: IVideosG
                   }}
                 />
 
-                <VideoInfo video={video} eventsData={eventsData} />
+                <VideoInfo
+                  video={video}
+                  eventsData={eventsData}
+                  videoInfoType={VideoInfoEnum.VideosGrid}
+                />
               </div>
             ))}
           </div>

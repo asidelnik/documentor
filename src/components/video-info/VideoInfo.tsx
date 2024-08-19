@@ -13,8 +13,9 @@ import { IVideo } from "../../types/IVideo";
 import { useFilters } from "../../contexts/filters-context";
 import { videoOnMutate } from "../../query/videos/videoStatusMutation";
 import { VideoMutaion } from "../../enums/VideoMutation";
+import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 
-export default function VideoInfo({ video, eventsData }: IVideoInfoProps) {
+export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoInfoProps) {
   const filters = useFilters();
   const queryClient = useQueryClient()
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
@@ -78,23 +79,25 @@ export default function VideoInfo({ video, eventsData }: IVideoInfoProps) {
               <MapIcon />
             </IconButton>
 
-            <PositionedMenu
-              options={eventStatusNumOptions}
-              videoStatus={video.status}
-              isDisabled={statusStatus === 'pending'}
-              select={statusUpdateHandler}>
-              {/* {videoStatusStatus === 'pending' ? <CircularProgress size={20} /> : ( */}
-              <div className={c.status} title={statusLabels[video.status]}
-                style={{
-                  backgroundColor: optimisticStatusStyles.bg,
-                  boxShadow: optimisticStatusStyles.boxShadow,
-                  opacity: statusStatus === 'pending' ? 0.5 : 1 //isFetchingVideos > 0 ? 0.5 : 1
-                }}></div>
-            </PositionedMenu>
+            {videoInfoType === VideoInfoEnum.VideosGrid &&
+              <PositionedMenu
+                options={eventStatusNumOptions}
+                videoStatus={video.status}
+                isDisabled={statusStatus === 'pending'}
+                select={statusUpdateHandler}>
+                {/* {videoStatusStatus === 'pending' ? <CircularProgress size={20} /> : ( */}
+                <div className={c.status} title={statusLabels[video.status]}
+                  style={{
+                    backgroundColor: optimisticStatusStyles.bg,
+                    boxShadow: optimisticStatusStyles.boxShadow,
+                    opacity: statusStatus === 'pending' ? 0.5 : 1 //isFetchingVideos > 0 ? 0.5 : 1
+                  }}></div>
+              </PositionedMenu>
+            }
           </div>
         </div>
 
-        {eventsData &&
+        {videoInfoType === VideoInfoEnum.VideosGrid && eventsData &&
           <div className={c.row2}>
             {/* {eventsData.isFetching || eventsData.isPending || eventsData.error ? '' : */}
             <CheckboxesTags
