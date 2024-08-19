@@ -1,11 +1,11 @@
 import { serverRoutes } from '../../server/server-routes';
 import { IEventForm } from '../../types/IEvent';
 
-export const addEvent = async (data: IEventForm) => {
+export const editEvent = async (data: IEventForm) => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const requestPath = serverRoutes.events.addEvent;
+  const requestPath = serverRoutes.events.editEvent;
   const response = await fetch(baseUrl + requestPath, {
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -14,7 +14,7 @@ export const addEvent = async (data: IEventForm) => {
   });
 
   if (!response.ok) {
-    throw new Error('Network add event error');
+    throw new Error('Network edit event error');
   }
   return response.json();
 };

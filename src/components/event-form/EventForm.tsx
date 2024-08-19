@@ -12,6 +12,7 @@ import { IOptionNum } from "../../types/IOptionNum";
 import { IEventForm } from "../../types/IEvent";
 import VideoList from '../video-list/VideoList';
 import { addEvent } from '../../query/events/addEvent';
+import { editEvent } from '../../query/events/editEvent';
 
 const validationSchema = yup.object({
   title: yup.string().required("Title is required").max(100, 'Maximum characters (100) exceded.'),
@@ -36,7 +37,11 @@ export default function EventForm({ eventsAction, eventToEdit }: IEventFormProps
   });
 
   const onSubmit = async (data: IEventForm) => {
-    addEvent(data);
+    if (eventsAction === EventsAction.Add) {
+      addEvent(data);
+    } else if (eventsAction === EventsAction.Edit) {
+      editEvent(data);
+    }
   };
 
   return (<>
