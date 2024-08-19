@@ -5,7 +5,7 @@ import { CircularProgress, DialogContent, IconButton } from '@mui/material';
 import { IEventsAddEditDialogProps } from '../../props/IEventsAddEditDialogProps';
 import { EventsAction } from '../../enums/EventsAction';
 import EventForm from '../event-form/EventForm';
-import useFetchEventById from '../../hooks/useFetchEvent';
+import useFetchEventById from '../../hooks/useFetchEventById';
 import { useEffect } from 'react';
 
 export default function EventsAddEditDialog({ dialog, onClose, onSubmit }: IEventsAddEditDialogProps) {
