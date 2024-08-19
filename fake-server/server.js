@@ -301,7 +301,7 @@ server.post('/events', (req, res) => {
   // Calculate the duration
 
   const newEvent = {
-    id: db.get('events').value().length + 1, // Generate a new ID
+    id: (db.get('events').value().length + 1).toString(),
     title,
     description: description || '',
     startTime,
