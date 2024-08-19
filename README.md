@@ -29,19 +29,10 @@ Violent events video documentation dashboard.
 
 
 ## Tasks
-- [ ] - Bug: fix AbortController not working
+
 - [ ] - Connect project to Atlas DB
 - [ ] - Analytics page - graphs to show violence analytics
 - [ ] - React Flow
-
-- [ ] - Backwards navigation - from specific event to events page
-- [ ] - Events filtering
-- [ ] - Events - add event
-- [ ] - Events - edit event - update info, remove videos, delete event
-- [ ] - Events sorting
-- [ ] - All videos - filtering - location, date...
-- [ ] - All videos - select video/s to add to event
-- [ ] - All videos - sorting
 - [ ] - All videos - pagination or infinite scroll with lazy loading
 - [ ] - Timeline page
 - [ ] - Cloudinary & Node.JS
