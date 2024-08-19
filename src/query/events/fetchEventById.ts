@@ -1,4 +1,4 @@
-import { IEvent, IEventAndDates } from '../types/IEvent';
+import { IEvent, IEventAndDates } from '../../types/IEvent';
 
 export default async function fetchEventById(
   eventId: string
