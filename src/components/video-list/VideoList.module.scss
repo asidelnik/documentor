@@ -14,9 +14,13 @@
     gap: 15px;
     background-color: var(--light-gray-bg);
     padding: 15px;
+    max-height: 260px;
+    border-radius: 5px;
+    overflow-x: auto;
 
     .video {
       width: 315px;
+      height: 243px;
       background-color: white;
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
