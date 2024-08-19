@@ -2,19 +2,16 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
 import { DialogContent, IconButton } from '@mui/material';
-import { EventsAddEditDialogProps } from '../../props/eventsAddEditDialogProps';
+import { IEventsAddEditDialogProps } from '../../props/IEventsAddEditDialogProps';
 import { EventsAction } from '../../enums/EventsAction';
 import EventForm from '../event-form/EventForm';
 
-export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDialogProps) {
+export default function EventsAddEditDialog({ dialog, onClose, onSubmit }: IEventsAddEditDialogProps) {
   const dialogTitle = dialog.eventsAction === EventsAction.Add ? 'Add event' : 'Edit event';
-  const handleClose = () => {
-    onClose();
-  };
 
   return (
     <Dialog
-      onClose={handleClose}
+      onClose={onClose}
       open={dialog.isOpen}
       fullWidth
       maxWidth='xl'
@@ -23,7 +20,7 @@ export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDi
       <DialogTitle>{dialogTitle}</DialogTitle>
       <IconButton
         aria-label="close"
-        onClick={handleClose}
+        onClick={onClose}
         sx={{
           position: 'absolute',
           right: 8,
@@ -37,6 +34,7 @@ export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDi
         <EventForm
           eventsAction={dialog.eventsAction}
           eventToEdit={dialog.event}
+          onSubmit={(isSuccess: boolean, message: string) => onSubmit(isSuccess, message)}
         />
       </DialogContent>
     </Dialog>

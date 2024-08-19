@@ -23,7 +23,7 @@ const validationSchema = yup.object({
   status: yup.number().required("Status is required"),
 });
 
-export default function EventForm({ eventsAction, eventToEdit }: IEventFormProps) {
+export default function EventForm({ eventsAction, eventToEdit, onSubmit }: IEventFormProps) {
   const { control, getValues, trigger, handleSubmit, setValue, formState: { errors, isValid } } = useForm<IEventForm>({
     defaultValues: {
       title: eventToEdit?.title ?? "",
@@ -36,16 +36,23 @@ export default function EventForm({ eventsAction, eventToEdit }: IEventFormProps
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = async (data: IEventForm) => {
-    if (eventsAction === EventsAction.Add) {
-      addEvent(data);
-    } else if (eventsAction === EventsAction.Edit && eventToEdit) {
-      editEvent(data, eventToEdit.id);
+  const onSubmitHandler = async (data: IEventForm) => {
+    try {
+      if (eventsAction === EventsAction.Add) {
+        await addEvent(data);
+        onSubmit(true, 'Event added');
+      }
+      else if (eventsAction === EventsAction.Edit && eventToEdit) {
+        await editEvent(data, eventToEdit.id);
+        onSubmit(true, 'Event updated');
+      }
+    } catch (error) {
+      onSubmit(false, 'Submission failure');
     }
   };
 
   return (<>
-    <form className={c.eventsForm} onSubmit={handleSubmit(onSubmit)}>
+    <form className={c.eventsForm} onSubmit={handleSubmit(onSubmitHandler)}>
       <Controller
         name="title"
 
