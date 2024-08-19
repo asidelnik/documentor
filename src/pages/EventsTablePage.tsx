@@ -8,7 +8,7 @@ import { Snackbar } from "@mui/material";
 import { SubmissionStatusEnum } from "../enums/SubmissionStatusEnum";
 
 export default function EventsTablePage() {
-  const { events, eventsCount } = useFetchEvents();
+  const { events, eventsCount, isLoading } = useFetchEvents();
   const { dialog, handleClickOpen, handleClose } = useEventsDialog();
   const [snackBar, setSnackBar] = useState<IFormSubmissionResult>({ isShow: false, submissionStatus: undefined, message: '' });
 
@@ -30,6 +30,7 @@ export default function EventsTablePage() {
       <EventsTable
         rows={events}
         eventsCount={eventsCount}
+        isLoading={isLoading}
         openDialog={handleClickOpen}
       />
 

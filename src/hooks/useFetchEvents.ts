@@ -25,6 +25,7 @@ export const useFetchEvents = () => {
     fetchController = new AbortController();
     const { signal } = fetchController;
     try {
+      setIsLoading(true);
       const eventsFetchPath = serverRoutes.events.getFilteredEvents(filters);
       const response = await fetch(baseUrl + eventsFetchPath, { signal });
       if (!response.ok) {
@@ -46,11 +47,15 @@ export const useFetchEvents = () => {
       }
       setEvents(updatedEvents);
       setEventsCount(eventsRes.eventsCount ?? 0);
-      setIsLoading(false);
+      if (!signal.aborted) {
+        setIsLoading(false);
+      }
     } catch (error) {
       setErrorMessage('Error');
       setIsError(true);
-      setIsLoading(false);
+      if (!signal.aborted) {
+        setIsLoading(false);
+      }
     }
   };
 
