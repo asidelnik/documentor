@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { IEvent, IEventAndDates } from '../types/IEvent';
+import { IVideo } from '../types/IVideo';
 
-export default function useFetchEvent() {
+export default function useFetchEventById() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const [event, setEvent] = useState<IEventAndDates | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -10,6 +11,7 @@ export default function useFetchEvent() {
 
   const fetchEvent = async (eventId: string) => {
     try {
+      setIsLoading(true);
       const response = await fetch(baseUrl + '/events/' + eventId);
       if (!response.ok) {
         throw new Error('Network error');
@@ -21,6 +23,13 @@ export default function useFetchEvent() {
           startTimeDate: new Date(data.startTime),
           endTimeDate: new Date(data.endTime),
         };
+
+        event.videos = event.videos.map((video: IVideo) => ({
+          ...video,
+          startTimeDate: new Date(video.startTime),
+          endTimeDate: new Date(video.endTime),
+        }));
+
         setEvent(event);
         setIsLoading(false);
         setIsError(false);
@@ -33,5 +42,5 @@ export default function useFetchEvent() {
     }
   };
 
-  return { event, fetchEvent };
+  return { event, fetchEvent, isLoading, isError, errorMessage };
 }

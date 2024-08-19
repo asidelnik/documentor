@@ -9,7 +9,7 @@ import { SubmissionStatusEnum } from "../enums/SubmissionStatusEnum";
 
 export default function EventsTablePage() {
   const { events, eventsCount, isLoading } = useFetchEvents();
-  const { dialog, handleClickOpen, handleClose } = useEventsDialog();
+  const { dialog, handleOpen, handleClose } = useEventsDialog();
   const [snackBar, setSnackBar] = useState<IFormSubmissionResult>({ isShow: false, submissionStatus: undefined, message: '' });
 
   function onSubmitHandler(isSuccess: boolean, message: string): void {
@@ -31,7 +31,7 @@ export default function EventsTablePage() {
         rows={events}
         eventsCount={eventsCount}
         isLoading={isLoading}
-        openDialog={handleClickOpen}
+        openDialog={handleOpen}
       />
 
       <EventsAddEditDialog

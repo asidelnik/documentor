@@ -1,13 +1,22 @@
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
-import { DialogContent, IconButton } from '@mui/material';
+import { CircularProgress, DialogContent, IconButton } from '@mui/material';
 import { IEventsAddEditDialogProps } from '../../props/IEventsAddEditDialogProps';
 import { EventsAction } from '../../enums/EventsAction';
 import EventForm from '../event-form/EventForm';
+import useFetchEventById from '../../hooks/useFetchEvent';
+import { useEffect } from 'react';
 
 export default function EventsAddEditDialog({ dialog, onClose, onSubmit }: IEventsAddEditDialogProps) {
   const dialogTitle = dialog.eventsAction === EventsAction.Add ? 'Add event' : 'Edit event';
+  const { event, fetchEvent, isLoading } = useFetchEventById();
+
+  useEffect(() => {
+    if (dialog.eventId) {
+      fetchEvent(dialog.eventId);
+    }
+  }, [dialog.eventId]);
 
   return (
     <Dialog
@@ -31,11 +40,19 @@ export default function EventsAddEditDialog({ dialog, onClose, onSubmit }: IEven
         <CloseIcon />
       </IconButton>
       <DialogContent dividers>
-        <EventForm
-          eventsAction={dialog.eventsAction}
-          eventToEdit={dialog.event}
-          onSubmit={(isSuccess: boolean, message: string) => onSubmit(isSuccess, message)}
-        />
+        {dialog.eventsAction === EventsAction.Edit && isLoading &&
+          <div className='event-dialog-progress-container'><CircularProgress /></div>
+        }
+        {
+          (
+            dialog.eventsAction === EventsAction.Add || (dialog.eventsAction === EventsAction.Edit && !isLoading && event)
+          ) &&
+          <EventForm
+            eventsAction={dialog.eventsAction}
+            eventToEdit={event}
+            onSubmit={(isSuccess: boolean, message: string) => onSubmit(isSuccess, message)}
+          />
+        }
       </DialogContent>
     </Dialog>
   );
