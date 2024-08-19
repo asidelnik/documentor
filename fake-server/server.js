@@ -323,6 +323,27 @@ server.post('/events', (req, res) => {
   res.status(201).json(newEvent);
 });
 
+server.put('/events/:id', (req, res) => {
+  const db = router.db; // lowdb instance
+  const { id } = req.params;
+  const { title, priority, startTime, endTime, description, status } = req.body;
+  // Validate required fields
+  if (!title || !priority || !startTime || !status) {
+    return res.status(400).send('Missing required fields');
+  }
+
+  const event = db.get('events').find({ id }).value();
+
+  if (event !== undefined) {
+
+    const updatedEvent = { ...event, title, description, startTime, endTime, status, priority };
+
+    db.get('events').find({ id }).assign(updatedEvent).write();
+    res.json({ message: 'Event updated successfully' });
+  } else {
+    res.status(404).send('Event not found');
+  }
+});
 
 
 // if (lat && lng && radius) {
