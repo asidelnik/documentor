@@ -11,8 +11,8 @@ import { ChangeEvent } from "react";
 import { IOptionNum } from "../../types/IOptionNum";
 import { IEventForm } from "../../types/IEvent";
 import VideoList from '../video-list/VideoList';
+import { addEvent } from '../../query/events/addEvent';
 
-// Define validation schema
 const validationSchema = yup.object({
   title: yup.string().required("Title is required").max(100, 'Maximum characters (100) exceded.'),
   priority: yup.number().required("Priority is required"),
@@ -35,8 +35,8 @@ export default function EventForm({ eventsAction, eventToEdit }: IEventFormProps
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data: any) => {
-    console.log("Form data submitted:", data);
+  const onSubmit = async (data: IEventForm) => {
+    addEvent(data);
   };
 
   return (<>
