@@ -1,4 +1,5 @@
 import { IEvent, IEventAndDates } from '../../types/IEvent';
+import { IVideo } from '../../types/IVideo';
 
 export default async function fetchEventById(
   eventId: string
@@ -16,6 +17,13 @@ export default async function fetchEventById(
         startTimeDate: new Date(data.startTime),
         endTimeDate: new Date(data.endTime),
       };
+
+      event.videos = event.videos.map((video: IVideo) => ({
+        ...video,
+        startTimeDate: new Date(video.startTime),
+        endTimeDate: new Date(video.endTime),
+      }));
+
       return event;
     }
     throw new Error('Data not found');
