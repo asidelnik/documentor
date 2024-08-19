@@ -1,5 +1,5 @@
 import c from "./VideosFilters.module.scss";
-import { statusAutocompleteOptions } from "../../constants/video-status";
+import { eventStatusNumOptions } from "../../constants/video-status";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 import { useFilters, useFiltersDispatch } from "../../contexts/filters-context";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
@@ -27,8 +27,9 @@ export default function VideosFilters() {
 
         <MultipleSelectCheckmarks
           buttonText='Statuses'
-          options={statusAutocompleteOptions}
+          options={eventStatusNumOptions}
           defaultOptions={filters?.statuses ?? []}
+          width={'300px'}
           updateSelectedOptions={(options: number[]) => selectHandler('update-statuses', options)}
         />
       </div>

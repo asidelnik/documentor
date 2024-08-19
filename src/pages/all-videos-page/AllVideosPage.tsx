@@ -6,9 +6,9 @@ import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useFilters } from '../../contexts/filters-context';
-import { fetchEventsAutocomplete } from '../../query/fetchEventsAutocomplete';
-import { IEventIdTitle } from '../../types/IEventIdTitle';
-import { fetchVideos, fetchVideosCount, videosSelector } from '../../query/fetchVideos';
+import { fetchEventsAutocomplete } from '../../query/events/fetchEventsAutocomplete';
+import { IOptionStr } from '../../types/IOptionStr';
+import { fetchVideos, fetchVideosCount, videosSelector } from '../../query/videos/fetchVideos';
 import { IEventsAutoComplete } from '../../props/IEventsAutoComplete';
 import { IVideo } from '../../types/IVideo';
 import { useEventsFiltersDispatch } from '../../contexts/events-filters-context';
@@ -27,7 +27,7 @@ export default function AllVideosPage() {
     isPending: eventsIsPending,
     error: eventsError,
     data: eventsData
-  } = useQuery<IEventIdTitle[]>({
+  } = useQuery<IOptionStr[]>({
     queryKey: ['events-autocomplete'],
     queryFn: ({ signal }) => fetchEventsAutocomplete(signal)
   });

@@ -9,21 +9,21 @@ import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-import { IconButton } from '@mui/material';
+import { CircularProgress, IconButton } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Link } from 'react-router-dom';
 
-import { EventsActionTitle } from '../../enums/EventsActionTitle';
+import { EventsAction } from '../../enums/EventsAction';
 import EventsFilters from '../events-filters/EventsFilters';
-import { IEventsTableProps } from '../../props/eventsTableProps';
+import { IEventsTableProps } from '../../props/IEventsTableProps';
 import { IEventAndCalcs } from '../../types/IEvent';
-import { eventPrioirtyLabels, EventPriority } from '../../constants/event-constants';
+import { eventPrioirtyLabels, EventPriority, EventStatus } from '../../constants/event-constants';
 import { useEventsFilters, useEventsFiltersDispatch } from '../../contexts/events-filters-context';
 
 
-export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTableProps) {
+export default function EventsTable({ rows, eventsCount, isLoading, openDialog }: IEventsTableProps) {
   const filters = useEventsFilters();
   const filtersDispatch = useEventsFiltersDispatch();
 
@@ -36,18 +36,18 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
   };
 
   const addEvent = () => {
-    openDialog(EventsActionTitle.Add);
+    openDialog(EventsAction.Add);
   }
 
   const editEvent = (eventId: string) => {
-    openDialog(EventsActionTitle.Edit, eventId);
+    openDialog(EventsAction.Edit, eventId);
   }
 
   return (
     <>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EventsFilters />
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ height: 'calc(100vh - 245px)' }}>
           <Table sx={{ minWidth: 650 }} aria-label="table" stickyHeader>
             <TableHead>
               <TableRow>
@@ -65,44 +65,59 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
               </TableRow>
             </TableHead>
 
+
             <TableBody>
-              {rows?.length > 0 && rows.map((row: IEventAndCalcs) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  hover={true}
-                >
-                  <TableCell></TableCell>
-                  <TableCell>
-                    <IconButton aria-label="edit event" onClick={() => editEvent(row.id)}>
-                      <EditIcon className={c.editIcon} sx={{ fontSize: '1.1rem' }} />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    <Link to={`/events/${row.id}`} className={c.eventLink}>{row.title}</Link>
-                  </TableCell>
-                  <TableCell title={eventPrioirtyLabels[row.priority]}>
-                    {row.priority === EventPriority.Low ? <KeyboardArrowDownIcon sx={{ color: 'hsl(207, 100%, 50%)' }} /> :
-                      row.priority === EventPriority.Medium ? <KeyboardArrowUpIcon sx={{ color: 'orange' }} /> :
-                        <KeyboardDoubleArrowUpIcon sx={{ color: 'red' }} />
-                    }
-                  </TableCell>
-                  <TableCell>{row.startTimeFormatted}</TableCell>
-                  <TableCell>{row.durationFormatted}</TableCell>
-                  <TableCell>{row.description}</TableCell>
-                  <TableCell>{row.locationName}</TableCell>
-                  <TableCell>{row.statusFormatted}</TableCell>
-                  <TableCell>{row.videosCount}</TableCell>
-                  <TableCell>
-                    <span className={row.videosUnprocessedCount > 0 ? c.eventToReview : ''}>{row.videosUnprocessedCount}</span>
+              {isLoading ? (
+                <TableRow>
+                  <TableCell colSpan={11} align="center">
+                    <CircularProgress />
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (<>
+                  {rows?.length > 0 && rows.map((row: IEventAndCalcs) => (
+                    <TableRow
+                      key={row.id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      hover={true}
+                    >
+                      <TableCell></TableCell>
+                      <TableCell>
+                        <IconButton aria-label="edit event" onClick={() => editEvent(row.id)}>
+                          <EditIcon className={c.editIcon} sx={{ fontSize: '1.1rem' }} />
+                        </IconButton>
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        <Link to={`/events/${row.id}`} className={c.eventLink}>{row.title}</Link>
+                      </TableCell>
+                      <TableCell title={eventPrioirtyLabels[row.priority]}>
+                        {row.priority === EventPriority.Low ? <KeyboardArrowDownIcon sx={{ color: 'hsl(207, 100%, 50%)' }} /> :
+                          row.priority === EventPriority.Medium ? <KeyboardArrowUpIcon sx={{ color: 'orange' }} /> :
+                            <KeyboardDoubleArrowUpIcon sx={{ color: 'red' }} />
+                        }
+                      </TableCell>
+                      <TableCell>{row.startTimeFormatted}</TableCell>
+                      <TableCell>{row.durationFormatted}</TableCell>
+                      <TableCell>{row.description}</TableCell>
+                      <TableCell>{row.locationName}</TableCell>
+                      <TableCell>{row.status === EventStatus.Active ? 'Active' : 'Inactive'}</TableCell>
+                      <TableCell>{row.videosCount}</TableCell>
+                      <TableCell>
+                        <span className={row.videosUnprocessedCount > 0 ? c.eventToReview : ''}>{row.videosUnprocessedCount}</span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </>)}
             </TableBody>
           </Table>
         </TableContainer>
 
         <footer className={c.pagination}>
+          <IconButton
+            onClick={addEvent}
+            sx={{ backgroundColor: 'primary.main', ":hover": { backgroundColor: 'primary.light' } }}
+          >
+            <AddIcon sx={{ color: 'white', fontWeight: 'bold' }} />
+          </IconButton>
           <TablePagination
             rowsPerPageOptions={[3, 5, 10, 25, 50]}
             labelRowsPerPage="Rows"
@@ -113,12 +128,6 @@ export default function EventsTable({ rows, eventsCount, openDialog }: IEventsTa
             onPageChange={handlePageChange}
             onRowsPerPageChange={handleLimitChange}
           />
-          <IconButton
-            onClick={addEvent}
-            sx={{ backgroundColor: 'primary.main', ":hover": { backgroundColor: 'primary.light' } }}
-          >
-            <AddIcon sx={{ color: 'white', fontWeight: 'bold' }} />
-          </IconButton>
         </footer>
       </Paper >
     </>

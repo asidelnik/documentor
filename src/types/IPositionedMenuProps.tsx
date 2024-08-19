@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 import { VideoStatusEnum } from "../constants/video-status";
-import { ISelectOption } from "./ISelectOption";
+import { IOptionNum } from "./IOptionNum";
 
 
 export interface IPositionedMenuProps {
-  options: ISelectOption[];
+  options: IOptionNum[];
   videoStatus: VideoStatusEnum;
   isDisabled: boolean
   select: (option: number) => void;

@@ -38,5 +38,9 @@ export const serverRoutes = {
     // Add/Edit event form & Event timeline
     getEventWithVideos: (eventId: number) =>
       `/events/` + eventId + `?_embed=videos`,
+
+    addEvent: '/events',
+
+    editEvent: (id: string) => `/events/${id}`,
   },
 };

@@ -1,4 +1,4 @@
-import { serverRoutes } from "../server/server-routes";
+import { serverRoutes } from "../../server/server-routes";
 
 export const mutateVideoEvent = async ({ videoId, newEventId, oldEventId }: IVideoEventMutationProps) => {
   const baseUrl = import.meta.env.VITE_BASE_URL;

@@ -1,42 +1,43 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import VideoList from "../components/video-list/VideoList";
+import VideosTimeline from "../components/videos-timeline/VideosTimeline";
 import { useParams } from "react-router-dom";
-import { IEventAndCalcs } from "../types/IEvent";
-import { IVideo } from "../types/IVideo";
+import { IEvent, IEventAndDates } from "../types/IEvent";
 import CommonError from "../components/errors/common/CommonError";
 
+// Implement useFetchEvent or fetchEventById()
 export default function EventTimelinePage() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const { eventId } = useParams<{ eventId: string }>();
-  const [data, setData] = useState<IEventAndCalcs | undefined>(undefined);
+  const [event, setEvent] = useState<IEventAndDates | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    axiosFetchData();
+    fetchData();
   }, [eventId]);
 
-  const axiosFetchData = async () => {
+  const fetchData = async () => {
+    console.log(eventId)
     try {
-      const response = await axios.get(baseUrl + 'events/' + eventId);
-      const data = response?.data;
+      const response = await fetch(baseUrl + '/events/' + eventId);
+      console.log(response)
+      if (!response.ok) {
+        throw new Error('Network error');
+      }
+      const data: IEvent = await response.json();
       if (data) {
-        const event: IEventAndCalcs = {
-          ...response?.data,
-          startTime: new Date(response?.data.startTime),
-          endTime: new Date(response?.data.endTime),
-          videos: response?.data.videos.map((video: IVideo) => ({
-            ...video,
-            startTimeDate: new Date(video.startTime),
-            endTimeDate: new Date(video.endTime),
-          })),
+        const event: IEventAndDates = {
+          ...data,
+          startTimeDate: new Date(data.startTime),
+          endTimeDate: new Date(data.endTime),
         };
-        setData(event);
+        setEvent(event);
         setIsLoading(false);
+        setIsError(false);
       }
     } catch (error: any) {
+      console.log(error.message)
       setErrorMessage(error.message)
       setIsError(true);
       setIsLoading(false);
@@ -50,10 +51,10 @@ export default function EventTimelinePage() {
           <h2>Loading...</h2>
         )}
         {isError && <CommonError errorMessage="Event not found" />}
-        {!isLoading && !isError && data && (
-          <VideoList event={data} />
+        {!isLoading && !isError && event && (
+          <VideosTimeline event={event} />
         )}
-        {data && <VideoList event={data} />}
+        {event && <VideosTimeline event={event} />}
       </div>
     </>
   )

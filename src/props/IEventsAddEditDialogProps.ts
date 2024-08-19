@@ -1,6 +1,7 @@
 import { IEventsDialog } from '../types/IEventsDialog';
 
-export interface EventsAddEditDialogProps {
+export interface IEventsAddEditDialogProps {
   dialog: IEventsDialog;
   onClose: () => void;
+  onSubmit: (isSuccess: boolean, message: string) => void;
 }

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { IEvent, IEventAndCalcs, IEventsAndCount } from '../types/IEvent';
 import { dateToString, secondsToTimeString } from '../utils/functions';
-import { EventStatusEnum } from '../enums/event-status-enum';
 import { serverRoutes } from '../server/server-routes';
 import { useEventsFilters } from '../contexts/events-filters-context';
 import { eventPrioirtyLabels } from '../constants/event-constants';
@@ -26,6 +25,7 @@ export const useFetchEvents = () => {
     fetchController = new AbortController();
     const { signal } = fetchController;
     try {
+      setIsLoading(true);
       const eventsFetchPath = serverRoutes.events.getFilteredEvents(filters);
       const response = await fetch(baseUrl + eventsFetchPath, { signal });
       if (!response.ok) {
@@ -41,18 +41,21 @@ export const useFetchEvents = () => {
             endTimeDate: new Date(event.endTime),
             startTimeFormatted: dateToString(new Date(event.startTime)),
             durationFormatted: secondsToTimeString(event.duration),
-            statusFormatted: EventStatusEnum[event.status],
             priorityFormatted: eventPrioirtyLabels[event.priority],
           };
         }) as IEventAndCalcs[];
       }
       setEvents(updatedEvents);
       setEventsCount(eventsRes.eventsCount ?? 0);
-      setIsLoading(false);
+      if (!signal.aborted) {
+        setIsLoading(false);
+      }
     } catch (error) {
       setErrorMessage('Error');
       setIsError(true);
-      setIsLoading(false);
+      if (!signal.aborted) {
+        setIsLoading(false);
+      }
     }
   };
 

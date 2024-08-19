@@ -1,8 +1,9 @@
-import { ISelectOption } from '../types/ISelectOption';
+import { IOptionNum } from '../types/IOptionNum';
 
 export interface IMultipleSelectCheckmarksProps {
   buttonText: string;
-  options: ISelectOption[];
+  options: IOptionNum[];
   defaultOptions: number[];
+  width: string;
   updateSelectedOptions: (selectedOptions: number[]) => void;
 }

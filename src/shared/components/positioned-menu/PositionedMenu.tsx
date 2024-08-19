@@ -50,7 +50,14 @@ export default function PositionedMenu({ options, videoStatus, isDisabled, selec
         }}
       >
         {options.map(option => {
-          return <MenuItem key={option.id} selected={option.id === videoStatus} onClick={() => selectItem(option.id)}>{option.label}</MenuItem>
+          return (
+            <MenuItem
+              key={option.id}
+              selected={option.id === videoStatus}
+              onClick={() => selectItem(option.id)}>
+              {option.label}
+            </MenuItem>
+          )
         })}
       </Menu>
     </div>

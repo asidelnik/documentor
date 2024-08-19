@@ -1,55 +1,33 @@
-.eventInfoBar {
-  width: 100%;
+.container {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  column-gap: 50px;
-  padding: 0 1.5rem;
-  font-size: 0.8rem;
-  background-color: hsl(0, 0%, 90%);
-  border-block-end: 1px solid var(--light-gray-border);
-
-  a.backButton,
-  a.backButton:hover {
-    color: black;
-    font-weight: bold;
-    text-decoration: none;
+  flex-direction: column;
+  row-gap: 15px;
+  
+  h3 {
+    margin: 0px;
   }
-
-  .title {
-    font-weight: 500;
-  }
-
-  .tags {
+  .videosContainer {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
-    column-gap: 8px;
+    flex: 0 0 315px;
+    gap: 15px;
+    background-color: var(--light-gray-bg);
+    padding: 15px;
+    max-height: 260px;
+    border-radius: 5px;
+    overflow-x: auto;
 
-    .tag {
-      padding: 0.2rem 0.5rem;
-      border-radius: 5px;
-      background-color: hsl(0, 0%, 85%);
+    .video {
+      width: 315px;
+      height: 243px;
+      background-color: white;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .video:hover {
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
     }
   }
-}
-
-.videoTimeline {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: baseline;
-  column-gap: 20px;
-  padding: 1rem;
-  
-  .videoItem {
-    width: fit-content !important;
-    height: fit-content !important;
-  }
-}
-
-.syncControls {
-  padding: 0 1rem;
 }

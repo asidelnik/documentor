@@ -1,28 +1,35 @@
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, DialogActions, DialogContent, IconButton } from '@mui/material';
-import { EventsAddEditDialogProps } from '../../props/eventsAddEditDialogProps';
-import { EventsActionTitle } from '../../enums/EventsActionTitle';
+import { CircularProgress, DialogContent, IconButton } from '@mui/material';
+import { IEventsAddEditDialogProps } from '../../props/IEventsAddEditDialogProps';
+import { EventsAction } from '../../enums/EventsAction';
 import EventForm from '../event-form/EventForm';
+import useFetchEventById from '../../hooks/useFetchEventById';
+import { useEffect } from 'react';
 
-export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDialogProps) {
-  const title = dialog.actionTitle === EventsActionTitle.Add ? 'Add event' : 'Edit event';
+export default function EventsAddEditDialog({ dialog, onClose, onSubmit }: IEventsAddEditDialogProps) {
+  const dialogTitle = dialog.eventsAction === EventsAction.Add ? 'Add event' : 'Edit event';
+  const { event, fetchEvent, isLoading } = useFetchEventById();
 
-  const handleClose = () => {
-    onClose();
-  };
+  useEffect(() => {
+    if (dialog.eventId) {
+      fetchEvent(dialog.eventId);
+    }
+  }, [dialog.eventId]);
 
   return (
     <Dialog
-      fullScreen
-      onClose={handleClose}
+      onClose={onClose}
       open={dialog.isOpen}
+      fullWidth
+      maxWidth='xl'
+      aria-labelledby="add-edit-event-dialog"
     >
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle>{dialogTitle}</DialogTitle>
       <IconButton
         aria-label="close"
-        onClick={handleClose}
+        onClick={onClose}
         sx={{
           position: 'absolute',
           right: 8,
@@ -33,14 +40,20 @@ export default function EventsAddEditDialog({ dialog, onClose }: EventsAddEditDi
         <CloseIcon />
       </IconButton>
       <DialogContent dividers>
-        <EventForm eventId={dialog.eventId} />
+        {dialog.eventsAction === EventsAction.Edit && isLoading &&
+          <div className='event-dialog-progress-container'><CircularProgress /></div>
+        }
+        {
+          (
+            dialog.eventsAction === EventsAction.Add || (dialog.eventsAction === EventsAction.Edit && !isLoading && event)
+          ) &&
+          <EventForm
+            eventsAction={dialog.eventsAction}
+            eventToEdit={event}
+            onSubmit={(isSuccess: boolean, message: string) => onSubmit(isSuccess, message)}
+          />
+        }
       </DialogContent>
-
-      <DialogActions>
-        <Button autoFocus onClick={handleClose}>
-          Save
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }

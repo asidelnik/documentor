@@ -47,10 +47,18 @@ a {
 }
 
 .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
-    background-color: hsl(0, 0%, 100%);
+  background-color: hsl(0, 0%, 100%);
 }
 
 .css-11xur9t-MuiPaper-root-MuiTableContainer-root {
   border-block-end: 1px solid var(--light-gray-border);
   box-shadow: 0px 2px 7px 0px white;
+}
+
+.event-dialog-progress-container {
+  height: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

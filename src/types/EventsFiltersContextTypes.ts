@@ -20,6 +20,11 @@ type UpdateFreeTextAction = {
   payload: string;
 };
 
+type UpdateStatusAction = {
+  type: 'update-status';
+  payload: number[];
+};
+
 type UpdatePageAction = {
   type: 'update-page';
   payload: number;
@@ -35,6 +40,7 @@ export type EventsFiltersActions =
   | UpdateToDateAction
   | UpdatePriorityAction
   | UpdateFreeTextAction
+  | UpdateStatusAction
   | UpdatePageAction
   | UpdateLimitAction;
 

@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { ICheckBoxesTagsProps } from '../../../props/ICheckBoxesTagsProps';
 
-export default function CheckboxesTags({ options, checkedId, update, isDisabled }: ICheckBoxesTagsProps) {
+export default function CheckboxesTags({ options, checkedId, update, isDisabled, placeholder }: ICheckBoxesTagsProps) {
   const checkedOption = checkedId === null ? undefined : options.find(o => o.id === checkedId);
 
   return (
@@ -13,13 +13,13 @@ export default function CheckboxesTags({ options, checkedId, update, isDisabled 
       options={options}
       style={{ width: "100%" }}
       disabled={isDisabled}
-      getOptionLabel={(option) => option.title}
+      getOptionLabel={(option) => option.label}
       onChange={(_event, value) => update(value?.id ?? null)}
       // isOptionEqualToValue={(option, value) => option.id === value?.id}
       renderInput={(params) => (
         <TextField {...params}
-          placeholder="Event"
-          value={checkedOption?.title ?? ''}
+          placeholder={placeholder}
+          value={checkedOption?.label ?? ''}
           style={{ height: 60 }} />
       )}
     />

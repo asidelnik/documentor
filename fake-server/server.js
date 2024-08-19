@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'db-test.json'));
 const middlewares = jsonServer.defaults();
-
+server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
 ///////// Videos
@@ -21,7 +21,6 @@ server.put('/video-set-status/:id', (req, res) => {
   const { status } = req.query;
 
   const videoExists = db.get('videos').find({ id }).value() !== undefined;
-  // console.log({ id, status, videoExists })
 
   if (videoExists) {
     db.get('videos').find({ id }).assign({ status: Number(status) }).write();
@@ -43,11 +42,12 @@ server.put('/video-set-event/:id', (req, res) => {
     oldEventId = oldEventId === 'null' ? null : oldEventId;
 
     const videoExists = db.get('videos').find({ id }).value() !== undefined;
-    if (!videoExists) res.status(404).send('Video not found');
+    if (!videoExists) {
+      throw new Error('Video not found');
+    }
 
     if (newEventId === null) {
       db.get('videos').find({ id }).assign({ eventId: null }).write();
-
       if (oldEventId !== null) {
         db.get('events')
           .find({ id: oldEventId })
@@ -77,22 +77,19 @@ server.put('/video-set-event/:id', (req, res) => {
               .write();
           }
         }
-
-        res.json({ message: 'Success' });
       } else {
-        res.status(404).send('Video or event not found');
+        throw new Error('Video or event not found')
       }
     }
     res.json({ message: 'Success' });
   } catch (error) {
-    res.status(500).send('Internal server error');
+    res.status(500).send(error.message);
   }
 });
 
 
 server.get('/videos', (req, res) => {
   const { fromDate, toDate, statuses, page = 1, limit = 10 } = req.query;
-  console.log(req.query);
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
 
@@ -142,7 +139,6 @@ server.get('/videos', (req, res) => {
 // TODO - merge the count into the videos fetch request
 server.get('/videos-count', (req, res) => {
   const { fromDate, toDate, lat, lng, radius, statuses, eventId } = req.query;
-  console.log(req.query);
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
 
@@ -200,14 +196,14 @@ server.get('/events/:id', (req, res) => {
   }
 });
 
+
 server.get('/events-autocomplete', (req, res) => {
   const { page = 1, limit = 100 } = req.query;
-  // console.log(req.query);
   const db = router.db; // lowdb instance
-  let events = db.get('events').filter({ isDisabled: false })
+  let events = db.get('events').filter({ status: 1 })
     .sortBy('startTime').reverse()
     .value()
-    .map(event => ({ id: event.id, title: event.title }));
+    .map(event => ({ id: event.id, label: event.title }));
 
   // Pagination
   const pageParsed = tryParseIntOrUndefined(page);
@@ -228,10 +224,10 @@ server.get('/events-autocomplete', (req, res) => {
   res.json(events);
 });
 
+
 // GET Events by filters, sort & pagination (default sort latest)
 server.get('/events', (req, res) => {
-  const { fromDate, toDate, priority, freeText, page = 1, limit = 3 } = req.query;/*lat, lng, radius,*/
-  // console.log(req.query);
+  const { fromDate, toDate, priority, freeText, statuses, page = 1, limit = 3 } = req.query;/*lat, lng, radius,*/
   const db = router.db; // lowdb instance
   let events = db.get('events').value();
 
@@ -247,8 +243,8 @@ server.get('/events', (req, res) => {
   if (!priority || priority === '') {
     events = [];
   } else {
-    const eventsArray = priority.split(',').map(Number);
-    events = events.filter(event => eventsArray.includes(event.priority));
+    const priorityArray = priority.split(',').map(Number);
+    events = events.filter(event => priorityArray.includes(event.priority));
   }
 
   if (freeText && freeText.trim() !== '') {
@@ -257,6 +253,13 @@ server.get('/events', (req, res) => {
       event.title.toLowerCase().includes(lowerCaseFreeText) ||
       event.description.toLowerCase().includes(lowerCaseFreeText)
     );
+  }
+
+  if (!statuses || statuses === '') {
+    events = [];
+  } else {
+    const statusesArray = statuses.split(',').map(Number);
+    events = events.filter(event => statusesArray.includes(event.status));
   }
 
   // Add property count of event videos with status 1
@@ -285,6 +288,68 @@ server.get('/events', (req, res) => {
   events = events.slice(start, end);
 
   res.json({ events, eventsCount });
+});
+
+server.post('/events', (req, res) => {
+  try {
+    const db = router.db;
+    const { title, priority, startTime, endTime, description, status } = req.body;
+
+    // Validate required fields
+    if (!title || !priority || !startTime || !status) {
+      throw new Error('Missing required fields');
+    }
+    // Calculate the duration
+
+    const newEvent = {
+      id: (db.get('events').value().length + 1).toString(),
+      title,
+      description: description || '',
+      startTime,
+      endTime: endTime || null,
+      // duration,
+      // locationName: "Night Watch street, Westeros",
+      // startLocation: {
+      //   "type": "Point",
+      //   "coordinates": [32.0853, 34.7818],
+      //   "heading": 177
+      // },
+      videoIds: [],
+      tags: [],
+      status,
+      priority,
+    };
+
+    db.get('events').push(newEvent).write();
+    res.status(201).json({ message: 'Event added successfully' });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+server.put('/events/:id', (req, res) => {
+  try {
+    const db = router.db;
+    const { id } = req.params;
+    const { title, priority, startTime, endTime, description, status } = req.body;
+    // Validate required fields
+    if (!title || !priority || !startTime || !status) {
+      throw new Error('Missing required fields');
+    }
+
+    const event = db.get('events').find({ id }).value();
+
+    if (event !== undefined) {
+      const updatedEvent = { ...event, title, description, startTime, endTime, status, priority };
+
+      db.get('events').find({ id }).assign(updatedEvent).write();
+      res.status(200).json({ message: 'Event updated successfully' });
+    } else {
+      throw new Error('Event not found');
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 });
 
 

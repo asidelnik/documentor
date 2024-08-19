@@ -1,7 +1,7 @@
-import { serverRoutes } from "../server/server-routes";
-import { IVideo } from "../types/IVideo";
+import { serverRoutes } from "../../server/server-routes";
+import { IVideo } from "../../types/IVideo";
 import { QueryKey } from "@tanstack/react-query";
-import { IVideosFilters } from "../types/IVideosFilters";
+import { IVideosFilters } from "../../types/IVideosFilters";
 
 export const fetchVideos = async (queryKey: QueryKey, signal: AbortSignal): Promise<IVideo[]> => {
   const filters = queryKey[1] as IVideosFilters;

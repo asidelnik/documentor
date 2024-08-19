@@ -1,8 +1,8 @@
-import { IEventIdTitle } from '../types/IEventIdTitle';
+import { IOptionStr } from '../types/IOptionStr';
 
 export interface IEventsAutoComplete {
   isFetching: boolean;
   isPending: boolean;
   error: Error | null;
-  events: IEventIdTitle[];
+  events: IOptionStr[];
 }

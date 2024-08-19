@@ -1,8 +1,8 @@
 import { QueryClient } from "@tanstack/react-query";
-import { IVideo } from "../types/IVideo";
+import { IVideo } from "../../types/IVideo";
 import { IVideoStatusMutationProps } from "./mutateVideoStatus";
-import { IVideosFilters } from "../types/IVideosFilters";
-import { VideoMutaion } from "../enums/VideoMutation";
+import { IVideosFilters } from "../../types/IVideosFilters";
+import { VideoMutaion } from "../../enums/VideoMutation";
 import { IVideoEventMutationProps } from "./mutateVideoEvent";
 
 export const videoOnMutate = async (

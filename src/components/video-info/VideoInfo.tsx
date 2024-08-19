@@ -3,18 +3,19 @@ import { IVideoInfoProps } from "../../props/IVideoInfoProps";
 import MapIcon from '@mui/icons-material/Map';
 import { IconButton } from "@mui/material";
 import { dateToStringShortMonthDateYear } from "../../utils/functions";
-import { getStatusStyles, statusAutocompleteOptions, statusLabels } from "../../constants/video-status";
+import { eventStatusNumOptions, getStatusStyles, statusLabels } from "../../constants/video-status";
 import PositionedMenu from "../../shared/components/positioned-menu/PositionedMenu";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IVideoStatusMutationProps, mutateVideoStatus } from "../../query/mutateVideoStatus";
-import { IVideoEventMutationProps, mutateVideoEvent } from "../../query/mutateVideoEvent";
+import { IVideoStatusMutationProps, mutateVideoStatus } from "../../query/videos/mutateVideoStatus";
+import { IVideoEventMutationProps, mutateVideoEvent } from "../../query/videos/mutateVideoEvent";
 import { IVideo } from "../../types/IVideo";
 import { useFilters } from "../../contexts/filters-context";
-import { videoOnMutate } from "../../query/videoStatusMutation";
+import { videoOnMutate } from "../../query/videos/videoStatusMutation";
 import { VideoMutaion } from "../../enums/VideoMutation";
+import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 
-export default function VideoInfo({ video, eventsData }: IVideoInfoProps) {
+export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoInfoProps) {
   const filters = useFilters();
   const queryClient = useQueryClient()
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
@@ -78,32 +79,37 @@ export default function VideoInfo({ video, eventsData }: IVideoInfoProps) {
               <MapIcon />
             </IconButton>
 
-            <PositionedMenu
-              options={statusAutocompleteOptions}
-              videoStatus={video.status}
-              isDisabled={statusStatus === 'pending'}
-              select={statusUpdateHandler}>
-              {/* {videoStatusStatus === 'pending' ? <CircularProgress size={20} /> : ( */}
-              <div className={c.status} title={statusLabels[video.status]}
-                style={{
-                  backgroundColor: optimisticStatusStyles.bg,
-                  boxShadow: optimisticStatusStyles.boxShadow,
-                  opacity: statusStatus === 'pending' ? 0.5 : 1 //isFetchingVideos > 0 ? 0.5 : 1
-                }}></div>
-            </PositionedMenu>
+            {videoInfoType === VideoInfoEnum.VideosGrid &&
+              <PositionedMenu
+                options={eventStatusNumOptions}
+                videoStatus={video.status}
+                isDisabled={statusStatus === 'pending'}
+                select={statusUpdateHandler}>
+                {/* {videoStatusStatus === 'pending' ? <CircularProgress size={20} /> : ( */}
+                <div className={c.status} title={statusLabels[video.status]}
+                  style={{
+                    backgroundColor: optimisticStatusStyles.bg,
+                    boxShadow: optimisticStatusStyles.boxShadow,
+                    opacity: statusStatus === 'pending' ? 0.5 : 1 //isFetchingVideos > 0 ? 0.5 : 1
+                  }}></div>
+              </PositionedMenu>
+            }
           </div>
         </div>
 
-        <div className={c.row2}>
-          {/* {eventsData.isFetching || eventsData.isPending || eventsData.error ? '' : */}
-          <CheckboxesTags
-            options={eventsData.events}
-            checkedId={video.eventId}
-            update={eventUpdateHandler}
-            isDisabled={eventsData.events.length <= 0 || eventStatus === 'pending'}
-          />
-          {/* } */}
-        </div>
+        {videoInfoType === VideoInfoEnum.VideosGrid && eventsData &&
+          <div className={c.row2}>
+            {/* {eventsData.isFetching || eventsData.isPending || eventsData.error ? '' : */}
+            <CheckboxesTags
+              options={eventsData.events}
+              checkedId={video.eventId}
+              update={eventUpdateHandler}
+              isDisabled={eventsData.events.length <= 0 || eventStatus === 'pending'}
+              placeholder='Event'
+            />
+            {/* } */}
+          </div>
+        }
       </div>
     </>
   )
