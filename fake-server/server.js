@@ -291,57 +291,64 @@ server.get('/events', (req, res) => {
 });
 
 server.post('/events', (req, res) => {
-  const db = router.db; // lowdb instance
-  const { title, priority, startTime, endTime, description, status } = req.body;
+  try {
+    const db = router.db;
+    const { title, priority, startTime, endTime, description, status } = req.body;
 
-  // Validate required fields
-  if (!title || !priority || !startTime || !status) {
-    return res.status(400).send('Missing required fields');
+    // Validate required fields
+    if (!title || !priority || !startTime || !status) {
+      throw new Error('Missing required fields');
+    }
+    // Calculate the duration
+
+    const newEvent = {
+      id: (db.get('events').value().length + 1).toString(),
+      title,
+      description: description || '',
+      startTime,
+      endTime: endTime || null,
+      // duration,
+      // locationName: "Night Watch street, Westeros",
+      // startLocation: {
+      //   "type": "Point",
+      //   "coordinates": [32.0853, 34.7818],
+      //   "heading": 177
+      // },
+      videoIds: [],
+      tags: [],
+      status,
+      priority,
+    };
+
+    db.get('events').push(newEvent).write();
+    res.status(201).json({ message: 'Event added successfully' });
+  } catch (error) {
+    res.status(500).send(error.message);
   }
-  // Calculate the duration
-
-  const newEvent = {
-    id: (db.get('events').value().length + 1).toString(),
-    title,
-    description: description || '',
-    startTime,
-    endTime: endTime || null,
-    // duration,
-    // locationName: "Night Watch street, Westeros",
-    // startLocation: {
-    //   "type": "Point",
-    //   "coordinates": [32.0853, 34.7818],
-    //   "heading": 177
-    // },
-    videoIds: [],
-    tags: [],
-    status,
-    priority,
-  };
-
-  db.get('events').push(newEvent).write();
-  res.status(201).json(newEvent);
 });
 
 server.put('/events/:id', (req, res) => {
-  const db = router.db; // lowdb instance
-  const { id } = req.params;
-  const { title, priority, startTime, endTime, description, status } = req.body;
-  // Validate required fields
-  if (!title || !priority || !startTime || !status) {
-    return res.status(400).send('Missing required fields');
-  }
+  try {
+    const db = router.db;
+    const { id } = req.params;
+    const { title, priority, startTime, endTime, description, status } = req.body;
+    // Validate required fields
+    if (!title || !priority || !startTime || !status) {
+      throw new Error('Missing required fields');
+    }
 
-  const event = db.get('events').find({ id }).value();
+    const event = db.get('events').find({ id }).value();
 
-  if (event !== undefined) {
+    if (event !== undefined) {
+      const updatedEvent = { ...event, title, description, startTime, endTime, status, priority };
 
-    const updatedEvent = { ...event, title, description, startTime, endTime, status, priority };
-
-    db.get('events').find({ id }).assign(updatedEvent).write();
-    res.json({ message: 'Event updated successfully' });
-  } else {
-    res.status(404).send('Event not found');
+      db.get('events').find({ id }).assign(updatedEvent).write();
+      res.status(200).json({ message: 'Event updated successfully' });
+    } else {
+      throw new Error('Event not found');
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
   }
 });
 
