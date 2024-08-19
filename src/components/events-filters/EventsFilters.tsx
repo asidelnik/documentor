@@ -46,7 +46,7 @@ export default function EventsFilters() {
           buttonText='Status'
           options={eventStatusNumOptions}
           defaultOptions={filters?.statuses ?? []}
-          width={'180px'}
+          width={'220px'}
           updateSelectedOptions={(options: number[]) => selectChangeHandler('update-status', options)}
         />
       </div>

@@ -32,6 +32,6 @@ export enum EventStatus {
 }
 
 export const eventStatusNumOptions: IOptionNum[] = [
-  { id: 1, label: 'Open' },
-  { id: 2, label: 'Closed' },
+  { id: 1, label: 'Active' },
+  { id: 2, label: 'Inactive' },
 ];
