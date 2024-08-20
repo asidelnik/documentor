@@ -89,7 +89,7 @@ server.put('/video-set-event/:id', (req, res) => {
 
 
 server.get('/videos', (req, res) => {
-  const { fromDate, toDate, statuses, page = 1, limit = 10 } = req.query;
+  const { fromDate, toDate, statuses, eventId, page = 1, limit = 10 } = req.query;
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
 
@@ -109,7 +109,9 @@ server.get('/videos', (req, res) => {
     videos = videos.filter(video => statusesArray.includes(video.status));
   }
 
-
+  if (eventId) {
+    videos = videos.filter(video => video.eventId === eventId);
+  }
 
   // const videosCount = videos.length;
 
@@ -138,8 +140,8 @@ server.get('/videos', (req, res) => {
 
 // TODO - merge the count into the videos fetch request
 server.get('/videos-count', (req, res) => {
-  const { fromDate, toDate, lat, lng, radius, statuses, eventId } = req.query;
-  const db = router.db; // lowdb instance
+  const { fromDate, toDate, /*lat, lng, radius,*/ statuses, eventId } = req.query;
+  const db = router.db;
   let videos = db.get('videos').value();
 
   if (fromDate && toDate) {
@@ -151,16 +153,16 @@ server.get('/videos-count', (req, res) => {
     });
   }
 
-  if (lat && lng && radius) {
-    const parsedRadius = tryParseInt(radius, 0);
-    videos = videos.filter(video => {
-      const distance = Math.sqrt(
-        Math.pow(video.startLocation.coordinates[0] - lat, 2) +
-        Math.pow(video.startLocation.coordinates[1] - lng, 2)
-      );
-      return distance <= parsedRadius;
-    });
-  }
+  // if (lat && lng && radius) {
+  //   const parsedRadius = tryParseInt(radius, 0);
+  //   videos = videos.filter(video => {
+  //     const distance = Math.sqrt(
+  //       Math.pow(video.startLocation.coordinates[0] - lat, 2) +
+  //       Math.pow(video.startLocation.coordinates[1] - lng, 2)
+  //     );
+  //     return distance <= parsedRadius;
+  //   });
+  // }
 
   if (!statuses || statuses === '') {
     videos = [];
@@ -170,7 +172,7 @@ server.get('/videos-count', (req, res) => {
   }
 
   if (eventId) {
-    videos = videos.filter(video => video.eventId !== null);
+    videos = videos.filter(video => video.eventId === eventId);
   }
 
   res.json(videos.length);
