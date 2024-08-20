@@ -9,6 +9,7 @@ export const videosFiltersInitialState: IVideosFilters = {
     VideoStatusEnum.Usable,
     VideoStatusEnum.Restricted,
   ],
+  eventId: undefined,
   page: 1,
   limit: 100,
 };
