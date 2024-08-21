@@ -277,9 +277,23 @@ server.get('/events', (req, res) => {
     .map(event => {
       const eventVideos = db.get('videos').filter({ eventId: event.id }).value();
       const eventVideosUnprocessed = db.get('videos').filter({ eventId: event.id, status: 1 }).value();
-      const eventWithVideosCount = { ...event, videosUnprocessedCount: eventVideosUnprocessed.length, videosCount: eventVideos.length };
-      return eventWithVideosCount;
+      return {
+        id: event.id,
+        title: event.title,
+        description: event.description,
+        startTime: event.startTime,
+        endTime: event.endTime,
+        duration: event.duration,
+        locationName: event.locationName,
+        tags: event.tags,
+        videoIds: event.videoIds,
+        status: event.status,
+        priority: event.priority,
+        videosUnprocessedCount: eventVideosUnprocessed.length,
+        videosCount: eventVideos.length
+      };
     });
+
 
   const eventsCount = events.length;
   // Pagination
