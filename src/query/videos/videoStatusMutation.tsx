@@ -22,6 +22,7 @@ export const videoOnMutate = async (
   if (type === VideoMutaion.Status) {
     if ('status' in mutation) {
       updatedVideo = { ...previousVideo, status: mutation.status };
+      queryClient.invalidateQueries({ queryKey: ['badges'] })
     }
   } else {
     if ('newEventId' in mutation) {
