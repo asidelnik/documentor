@@ -9,4 +9,5 @@ export interface ICheckBoxesTagsProps {
   placeholder?: string;
   label?: string;
   width: string;
+  size: 'small' | 'medium';
 }
