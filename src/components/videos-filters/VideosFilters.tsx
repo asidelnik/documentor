@@ -29,7 +29,7 @@ export default function VideosFilters({ eventsData }: IVideoFiltersProps) {
         </div>
 
         <MultipleSelectCheckmarks
-          buttonText='Statuses'
+          buttonText='Status'
           options={eventStatusNumOptions}
           defaultOptions={filters?.statuses ?? []}
           width={'300px'}
@@ -41,7 +41,7 @@ export default function VideosFilters({ eventsData }: IVideoFiltersProps) {
           checkedId={filters.eventId ?? null}
           update={eventFilterHandler}
           isDisabled={eventsData.events.length <= 0}
-          placeholder='Event'
+          label='Event'
           width={'300px'}
         />
       </div>
