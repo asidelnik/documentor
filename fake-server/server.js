@@ -3,7 +3,7 @@ import jsonServer from 'json-server';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { tryParseInt, tryParseIntOrUndefined } from './functions.js';
+import { tryParseIntOrUndefined } from './functions.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -208,7 +208,8 @@ server.get('/events-autocomplete', (req, res) => {
   const { page = 1, limit = 100 } = req.query;
   const db = router.db; // lowdb instance
   let events = db.get('events').filter({ status: 1 })
-    .sortBy('startTime').reverse()
+    .sort((a, b) => b.videoIds.length - a.videoIds.length)
+    .sort((a, b) => b.startTime - a.startTime)
     .value()
     .map(event => ({ id: event.id, label: event.title }));
 
@@ -270,12 +271,15 @@ server.get('/events', (req, res) => {
   }
 
   // Add property count of event videos with status 1
-  events = events.map(event => {
-    const eventVideos = db.get('videos').filter({ eventId: event.id }).value();
-    const eventVideosUnprocessed = db.get('videos').filter({ eventId: event.id, status: 1 }).value();
-    const eventWithVideosCount = { ...event, videosUnprocessedCount: eventVideosUnprocessed.length, videosCount: eventVideos.length };
-    return eventWithVideosCount;
-  });
+  events = events
+    .sort((a, b) => b.videoIds.length - a.videoIds.length)
+    .sort((a, b) => b.startTime - a.startTime)
+    .map(event => {
+      const eventVideos = db.get('videos').filter({ eventId: event.id }).value();
+      const eventVideosUnprocessed = db.get('videos').filter({ eventId: event.id, status: 1 }).value();
+      const eventWithVideosCount = { ...event, videosUnprocessedCount: eventVideosUnprocessed.length, videosCount: eventVideos.length };
+      return eventWithVideosCount;
+    });
 
   const eventsCount = events.length;
   // Pagination
