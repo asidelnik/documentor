@@ -6,5 +6,7 @@ export interface ICheckBoxesTagsProps {
   checkedId: string | null;
   update: (newId: string | null) => void;
   isDisabled: boolean;
-  placeholder: string;
+  placeholder?: string;
+  label?: string;
+  width: string;
 }

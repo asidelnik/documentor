@@ -3,14 +3,17 @@ import { eventStatusNumOptions } from "../../constants/video-status";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 import { useFilters, useFiltersDispatch } from "../../contexts/filters-context";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
+import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
+import { IVideoFiltersProps } from "../../props/IVideoFiltersProps";
 
-export default function VideosFilters() {
+export default function VideosFilters({ eventsData }: IVideoFiltersProps) {
   const filters = useFilters();
   const filtersDispatch = useFiltersDispatch();
 
   const updateFromDateHandler = (fromDate: Date) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const updateToDateHandler = (toDate: Date) => filtersDispatch({ type: 'update-to-date', payload: toDate });
   const selectHandler = (dispatchType: string, options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
+  const eventFilterHandler = (newEventId: string | null) => filtersDispatch({ type: 'update-event-id', payload: newEventId });
 
 
   return (
@@ -26,11 +29,20 @@ export default function VideosFilters() {
         </div>
 
         <MultipleSelectCheckmarks
-          buttonText='Statuses'
+          buttonText='Status'
           options={eventStatusNumOptions}
           defaultOptions={filters?.statuses ?? []}
           width={'300px'}
           updateSelectedOptions={(options: number[]) => selectHandler('update-statuses', options)}
+        />
+
+        <CheckboxesTags
+          options={eventsData.events}
+          checkedId={filters.eventId ?? null}
+          update={eventFilterHandler}
+          isDisabled={eventsData.events.length <= 0}
+          label='Event'
+          width={'300px'}
         />
       </div>
     </>

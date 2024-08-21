@@ -15,10 +15,16 @@ type UpdateToDateAction = {
   payload: Date;
 };
 
+type UpdateEventIdAction = {
+  type: 'update-event-id';
+  payload: string | undefined;
+};
+
 export type FiltersActions =
   | UpdateStatusesAction
   | UpdateFromDateUpdateAction
-  | UpdateToDateAction;
+  | UpdateToDateAction
+  | UpdateEventIdAction;
 
 export type FiltersContextProviderProps = {
   children: ReactNode;

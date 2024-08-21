@@ -29,6 +29,9 @@ function filtersReducer(filters: IVideosFilters, action: FiltersActions): any {
     case "update-to-date": {
       return { ...filters, toDate: action.payload, } as IVideosFilters;
     }
+    case "update-event-id": {
+      return { ...filters, eventId: action.payload, } as IVideosFilters;
+    }
     default: {
       return filters;
     }

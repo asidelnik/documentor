@@ -31,6 +31,7 @@ export default function AllVideosPage() {
     queryKey: ['events-autocomplete'],
     queryFn: ({ signal }) => fetchEventsAutocomplete(signal)
   });
+
   const eventsDataProp: IEventsAutoComplete = { isFetching: eventsIsFetching, isPending: eventsIsPending, error: eventsError, events: eventsData ?? [] };
 
   const {
@@ -59,7 +60,7 @@ export default function AllVideosPage() {
           </div>
 
           <div className={toggleAside ? 'visible' : 'hidden'}>
-            <VideosFilters />
+            <VideosFilters eventsData={eventsDataProp} />
           </div>
         </aside>
         <main>

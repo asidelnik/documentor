@@ -3,7 +3,7 @@ import jsonServer from 'json-server';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { tryParseInt, tryParseIntOrUndefined } from './functions.js';
+import { tryParseIntOrUndefined } from './functions.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -90,6 +90,8 @@ server.put('/video-set-event/:id', (req, res) => {
 
 server.get('/videos', (req, res) => {
   const { fromDate, toDate, statuses, page = 1, limit = 10 } = req.query;
+  let { eventId } = req.query;
+
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
 
@@ -109,7 +111,10 @@ server.get('/videos', (req, res) => {
     videos = videos.filter(video => statusesArray.includes(video.status));
   }
 
-
+  eventId = eventId === 'null' ? null : eventId;
+  if (eventId) {
+    videos = videos.filter(video => video.eventId === eventId);
+  }
 
   // const videosCount = videos.length;
 
@@ -138,8 +143,9 @@ server.get('/videos', (req, res) => {
 
 // TODO - merge the count into the videos fetch request
 server.get('/videos-count', (req, res) => {
-  const { fromDate, toDate, lat, lng, radius, statuses, eventId } = req.query;
-  const db = router.db; // lowdb instance
+  const { fromDate, toDate, statuses } = req.query; /*lat, lng, radius,*/
+  let { eventId } = req.query;
+  const db = router.db;
   let videos = db.get('videos').value();
 
   if (fromDate && toDate) {
@@ -151,16 +157,16 @@ server.get('/videos-count', (req, res) => {
     });
   }
 
-  if (lat && lng && radius) {
-    const parsedRadius = tryParseInt(radius, 0);
-    videos = videos.filter(video => {
-      const distance = Math.sqrt(
-        Math.pow(video.startLocation.coordinates[0] - lat, 2) +
-        Math.pow(video.startLocation.coordinates[1] - lng, 2)
-      );
-      return distance <= parsedRadius;
-    });
-  }
+  // if (lat && lng && radius) {
+  //   const parsedRadius = tryParseInt(radius, 0);
+  //   videos = videos.filter(video => {
+  //     const distance = Math.sqrt(
+  //       Math.pow(video.startLocation.coordinates[0] - lat, 2) +
+  //       Math.pow(video.startLocation.coordinates[1] - lng, 2)
+  //     );
+  //     return distance <= parsedRadius;
+  //   });
+  // }
 
   if (!statuses || statuses === '') {
     videos = [];
@@ -169,8 +175,9 @@ server.get('/videos-count', (req, res) => {
     videos = videos.filter(video => statusesArray.includes(video.status));
   }
 
+  eventId = eventId === 'null' ? null : eventId;
   if (eventId) {
-    videos = videos.filter(video => video.eventId !== null);
+    videos = videos.filter(video => video.eventId === eventId);
   }
 
   res.json(videos.length);
@@ -201,7 +208,8 @@ server.get('/events-autocomplete', (req, res) => {
   const { page = 1, limit = 100 } = req.query;
   const db = router.db; // lowdb instance
   let events = db.get('events').filter({ status: 1 })
-    .sortBy('startTime').reverse()
+    .sort((a, b) => b.videoIds.length - a.videoIds.length)
+    .sort((a, b) => b.startTime - a.startTime)
     .value()
     .map(event => ({ id: event.id, label: event.title }));
 
@@ -263,12 +271,29 @@ server.get('/events', (req, res) => {
   }
 
   // Add property count of event videos with status 1
-  events = events.map(event => {
-    const eventVideos = db.get('videos').filter({ eventId: event.id }).value();
-    const eventVideosUnprocessed = db.get('videos').filter({ eventId: event.id, status: 1 }).value();
-    const eventWithVideosCount = { ...event, videosUnprocessedCount: eventVideosUnprocessed.length, videosCount: eventVideos.length };
-    return eventWithVideosCount;
-  });
+  events = events
+    .sort((a, b) => b.videoIds.length - a.videoIds.length)
+    .sort((a, b) => b.startTime - a.startTime)
+    .map(event => {
+      const eventVideos = db.get('videos').filter({ eventId: event.id }).value();
+      const eventVideosUnprocessed = db.get('videos').filter({ eventId: event.id, status: 1 }).value();
+      return {
+        id: event.id,
+        title: event.title,
+        description: event.description,
+        startTime: event.startTime,
+        endTime: event.endTime,
+        duration: event.duration,
+        locationName: event.locationName,
+        tags: event.tags,
+        videoIds: event.videoIds,
+        status: event.status,
+        priority: event.priority,
+        videosUnprocessedCount: eventVideosUnprocessed.length,
+        videosCount: eventVideos.length
+      };
+    });
+
 
   const eventsCount = events.length;
   // Pagination
