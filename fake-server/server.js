@@ -89,7 +89,9 @@ server.put('/video-set-event/:id', (req, res) => {
 
 
 server.get('/videos', (req, res) => {
-  const { fromDate, toDate, statuses, eventId, page = 1, limit = 10 } = req.query;
+  const { fromDate, toDate, statuses, page = 1, limit = 10 } = req.query;
+  let { eventId } = req.query;
+
   const db = router.db; // lowdb instance
   let videos = db.get('videos').value();
 
@@ -109,6 +111,7 @@ server.get('/videos', (req, res) => {
     videos = videos.filter(video => statusesArray.includes(video.status));
   }
 
+  eventId = eventId === 'null' ? null : eventId;
   if (eventId) {
     videos = videos.filter(video => video.eventId === eventId);
   }
@@ -140,7 +143,8 @@ server.get('/videos', (req, res) => {
 
 // TODO - merge the count into the videos fetch request
 server.get('/videos-count', (req, res) => {
-  const { fromDate, toDate, /*lat, lng, radius,*/ statuses, eventId } = req.query;
+  const { fromDate, toDate, statuses } = req.query; /*lat, lng, radius,*/
+  let { eventId } = req.query;
   const db = router.db;
   let videos = db.get('videos').value();
 
@@ -171,6 +175,7 @@ server.get('/videos-count', (req, res) => {
     videos = videos.filter(video => statusesArray.includes(video.status));
   }
 
+  eventId = eventId === 'null' ? null : eventId;
   if (eventId) {
     videos = videos.filter(video => video.eventId === eventId);
   }
