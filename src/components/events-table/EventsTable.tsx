@@ -47,7 +47,7 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
     <>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EventsFilters />
-        <TableContainer component={Paper} sx={{ height: 'calc(100vh - 245px)' }}>
+        <TableContainer component={Paper} sx={{ height: 'calc(100vh - 76px - 100px - 80px)' }}>
           <Table sx={{ minWidth: 650 }} aria-label="table" stickyHeader>
             <TableHead>
               <TableRow>
@@ -64,7 +64,6 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
                 <TableCell>To Review</TableCell>
               </TableRow>
             </TableHead>
-
 
             <TableBody>
               {isLoading ? (

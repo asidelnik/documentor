@@ -32,8 +32,6 @@ export default function AllVideosPage() {
     queryFn: ({ signal }) => fetchEventsAutocomplete(signal)
   });
 
-  const eventsDataProp: IEventsAutoComplete = { isFetching: eventsIsFetching, isPending: eventsIsPending, error: eventsError, events: eventsData ?? [] };
-
   const {
     data: videos,
   } = useQuery<IVideo[]>({
@@ -48,6 +46,8 @@ export default function AllVideosPage() {
     queryKey: ['videos-count', filters],
     queryFn: ({ queryKey, signal }) => fetchVideosCount(queryKey, signal)
   });
+
+  const eventsDataProp: IEventsAutoComplete = { isFetching: eventsIsFetching, isPending: eventsIsPending, error: eventsError, events: eventsData ?? [] };
 
   return (
     <>

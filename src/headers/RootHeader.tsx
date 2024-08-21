@@ -1,19 +1,26 @@
 import c from './RootHeader.module.scss';
+import { Badge } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { NavLink } from 'react-router-dom';
+import { IHeaderBadgeCounts } from '../types/IHeaderBadgeCounts';
+import { IClassNameProps } from '../props/IClassNameProps';
+import { fetchBadges } from '../query/header/fetchBadges';
+import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
+import FolderSharedIcon from '@mui/icons-material/FolderShared';
 
-type ClassNameProps = {
-  isActive: boolean;
-  isPending: boolean;
-}
 
 export default function RootHeader() {
+  const {
+    isFetching,
+    isPending,
+    error,
+    data
+  } = useQuery<IHeaderBadgeCounts>({
+    queryKey: ['badges'],
+    queryFn: ({ signal }) => fetchBadges(signal)
+  });
 
-  const getNavLinkClass = ({ isActive, isPending }: ClassNameProps) =>
-    isActive
-      ? c.active
-      : isPending
-        ? c.pending
-        : "";
+  const getNavLinkClass = ({ isActive }: IClassNameProps) => isActive ? c.active : "";
 
   return (
     <>
@@ -22,10 +29,30 @@ export default function RootHeader() {
         <nav>
           <div className={c.links}>
             <div>
-              <NavLink to="/videos" className={getNavLinkClass}>Videos</NavLink>
+              <Badge
+                badgeContent={data?.videos}
+                color="error"
+                invisible={isFetching || isPending || error !== null}
+                title='Count of unprocessed videos'
+              >
+                <NavLink to="/videos" className={getNavLinkClass}>
+                  <SmartDisplayIcon />
+                  Videos
+                </NavLink>
+              </Badge>
             </div>
             <div>
-              <NavLink to="/events" className={getNavLinkClass}>Events</NavLink>
+              <Badge
+                badgeContent={data?.events}
+                color="error"
+                invisible={isFetching || isPending || error !== null}
+                title='Count of active events with high priority'
+              >
+                <NavLink to="/events" className={getNavLinkClass}>
+                  <FolderSharedIcon />
+                  Events
+                </NavLink>
+              </Badge>
             </div>
           </div>
         </nav>

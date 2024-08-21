@@ -1,4 +1,3 @@
-// import { LocationType } from './location';
 import { IVideo } from './IVideo';
 
 // Todo - decide if to move all proeprties into 1 event interface

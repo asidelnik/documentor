@@ -43,4 +43,7 @@ export const serverRoutes = {
 
     editEvent: (id: string) => `/events/${id}`,
   },
+  others: {
+    getHeaderBadgeCounts: '/header-badges',
+  },
 };
