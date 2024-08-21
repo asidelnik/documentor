@@ -14,7 +14,9 @@ const middlewares = jsonServer.defaults();
 server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
-///////// Videos
+/////////////////////////////////////////////////////////////////////////////////
+// Videos
+/////////////////////////////////////////////////////////////////////////////////
 server.put('/video-set-status/:id', (req, res) => {
   const db = router.db; // lowdb instance
   const { id } = req.params;
@@ -126,20 +128,6 @@ server.get('/videos', (req, res) => {
   res.json(videos); //{ , videosCount });
 });
 
-// if (lat && lng && radius) {
-//   const parsedRadius = tryParseInt(radius, 0);
-//   videos = videos.filter(video => {
-//     const distance = Math.sqrt(
-//       Math.pow(video.startLocation.coordinates[0] - lat, 2) +
-//       Math.pow(video.startLocation.coordinates[1] - lng, 2)
-//     );
-//     return distance <= parsedRadius;
-//   });
-// }
-
-// if (eventId) {
-//   videos = videos.filter(video => video.eventId !== null);
-// }
 
 // TODO - merge the count into the videos fetch request
 server.get('/videos-count', (req, res) => {
@@ -186,8 +174,9 @@ server.get('/videos-count', (req, res) => {
 
 
 
-
-///////// Events
+/////////////////////////////////////////////////////////////////////////////////
+// Events
+/////////////////////////////////////////////////////////////////////////////////
 server.get('/events/:id', (req, res) => {
   const db = router.db; // lowdb instance
   const { id } = req.params;
@@ -378,6 +367,25 @@ server.put('/events/:id', (req, res) => {
 });
 
 
+server.get('/header-badges', (req, res) => {
+  const db = router.db;
+  // Count of videos with status unprocessed
+  const videos = db.get('videos').filter({ status: 1 }).size().value();
+  // Count of events with priority high
+  const events = db.get('events').filter({ priority: 3 }).size().value();
+
+  res.json({ videos, events });
+});
+
+
+server.use(router)
+server.listen(3004, () => {
+  console.log('JSON Server is running')
+})
+
+
+
+
 // if (lat && lng && radius) {
 //   const parsedRadius = tryParseInt(radius, 0);
 //   events = events.filter(event => {
@@ -396,8 +404,17 @@ server.put('/events/:id', (req, res) => {
 // }
 
 
+// if (lat && lng && radius) {
+//   const parsedRadius = tryParseInt(radius, 0);
+//   videos = videos.filter(video => {
+//     const distance = Math.sqrt(
+//       Math.pow(video.startLocation.coordinates[0] - lat, 2) +
+//       Math.pow(video.startLocation.coordinates[1] - lng, 2)
+//     );
+//     return distance <= parsedRadius;
+//   });
+// }
 
-server.use(router)
-server.listen(3004, () => {
-  console.log('JSON Server is running')
-})
+// if (eventId) {
+//   videos = videos.filter(video => video.eventId !== null);
+// }
