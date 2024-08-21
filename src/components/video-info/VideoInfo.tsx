@@ -106,6 +106,7 @@ export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoIn
               isDisabled={eventsData.events.length <= 0 || eventStatus === 'pending'}
               placeholder='Event'
               width={'100%'}
+              size='small'
             />
           </div>
         }

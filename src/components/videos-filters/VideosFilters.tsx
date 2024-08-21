@@ -43,6 +43,7 @@ export default function VideosFilters({ eventsData }: IVideoFiltersProps) {
           isDisabled={eventsData.events.length <= 0}
           label='Event'
           width={'300px'}
+          size='medium'
         />
       </div>
     </>
