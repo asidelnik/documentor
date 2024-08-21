@@ -371,8 +371,8 @@ server.get('/header-badges', (req, res) => {
   const db = router.db;
   // Count of videos with status unprocessed
   const videos = db.get('videos').filter({ status: 1 }).size().value();
-  // Count of events with priority high
-  const events = db.get('events').filter({ priority: 3 }).size().value();
+  // Count of active events with high priority
+  const events = db.get('events').filter({ priority: 3, status: 1 }).size().value();
 
   res.json({ videos, events });
 });
