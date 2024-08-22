@@ -17,7 +17,7 @@ import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 
 export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoInfoProps) {
   const filters = useFilters();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
   const optimisticStatusStyles = getStatusStyles(video.status);
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${video.startLocation.coordinates}`;

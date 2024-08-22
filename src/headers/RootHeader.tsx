@@ -34,6 +34,7 @@ export default function RootHeader() {
                 color="error"
                 invisible={isFetching || isPending || error !== null}
                 title='Count of unprocessed videos'
+                sx={{ cursor: 'help' }}
               >
                 <NavLink to="/videos" className={getNavLinkClass}>
                   <SmartDisplayIcon />
@@ -46,7 +47,8 @@ export default function RootHeader() {
                 badgeContent={data?.events}
                 color="error"
                 invisible={isFetching || isPending || error !== null}
-                title='Count of active events with high priority'
+                title='Count of active high priority events'
+                sx={{ cursor: 'help' }}
               >
                 <NavLink to="/events" className={getNavLinkClass}>
                   <FolderSharedIcon />
