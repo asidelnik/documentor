@@ -6,14 +6,20 @@ import { useState } from "react";
 import { IFormSubmissionResult } from "../types/IFormSubmissionResult";
 import { Snackbar } from "@mui/material";
 import { SubmissionStatusEnum } from "../enums/SubmissionStatusEnum";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function EventsTablePage() {
   const { events, eventsCount, isLoading } = useFetchEvents();
   const { dialog, handleOpen, handleClose } = useEventsDialog();
   const [snackBar, setSnackBar] = useState<IFormSubmissionResult>({ isShow: false, submissionStatus: undefined, message: '' });
+  const queryClient = useQueryClient();
 
   function onSubmitHandler(isSuccess: boolean, message: string): void {
-    if (isSuccess) handleClose();
+    if (isSuccess) {
+      handleClose();
+      queryClient.invalidateQueries({ queryKey: ['badges'] })
+    }
+
     setSnackBar({
       isShow: true,
       submissionStatus: isSuccess ? SubmissionStatusEnum.Success : SubmissionStatusEnum.Failure,
