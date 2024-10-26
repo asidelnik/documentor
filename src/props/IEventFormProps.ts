@@ -1,8 +1,10 @@
-import { EventsAction } from '../enums/EventsAction';
 import { IEventAndDates } from '../types/IEvent';
 
-export interface IEventFormProps {
-  eventsAction: EventsAction;
+export interface IEventAddFormProps {
+  onSubmit: (isSuccess: boolean, message: string) => void;
+}
+
+export interface IEventEditFormProps {
   eventToEdit: IEventAndDates | null;
   onSubmit: (isSuccess: boolean, message: string) => void;
 }

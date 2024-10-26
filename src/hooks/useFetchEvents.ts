@@ -26,8 +26,8 @@ export const useFetchEvents = () => {
     const { signal } = fetchController;
     try {
       setIsLoading(true);
-      const eventsFetchPath = serverRoutes.events.getFilteredEvents(filters);
-      const response = await fetch(baseUrl + eventsFetchPath, { signal });
+      const path = serverRoutes.events.getFilteredEvents(filters);
+      const response = await fetch(baseUrl + path, { signal });
       if (!response.ok) {
         throw new Error(response.statusText);
       }
