@@ -16,7 +16,7 @@ import dayjs from 'dayjs';
 import { DateTimeValidationError } from '@mui/x-date-pickers/models';
 import { filtersHelperTexts } from '../../constants/filters-helper-texts';
 import { DatePickerParent } from '../../enums/DatePickerParent';
-import { DevTool } from '@hookform/devtools';
+// import { DevTool } from '@hookform/devtools';
 
 
 
@@ -30,7 +30,7 @@ const validationSchema = yup.object({
 
 export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
   const [startTimeError, setStartTimeError] = useState<DateTimeValidationError | null>(null);
-  const { control, trigger, handleSubmit, setValue, clearErrors,
+  const { control, trigger, setValue, setError, clearErrors, handleSubmit,
     formState: { errors, isValid } } = useForm<IEventAddForm>({
       defaultValues: {
         title: "",
@@ -40,10 +40,9 @@ export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
         status: EventStatus.Active,
       },
       resolver: yupResolver(validationSchema),
-      // reValidateMode: "onChange"
     });
 
-  console.log(errors)
+  // console.log(isValid, errors)
 
   async function onSubmitHandler(data: IEventAddForm) {
     try {
@@ -55,25 +54,22 @@ export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
   }
 
   function startDateHandler(value: dayjs.Dayjs | null): void {
-    console.log(value)
     if (value !== null && dayjs(value).isValid()) {
       setValue("startTime", value.toDate());
       clearErrors("startTime");
     }
-    // else {
-    //   resetField('startTime');
-    // }
-    // trigger();
+    else {
+      setError('startTime', { type: 'validate' })
+    }
   }
 
   function onErrorHandler(error: DateTimeValidationError): void {
-    console.log(isValid, error, errors.startTime, !!errors.startTime)
     setStartTimeError(error)
   }
 
   return (
     <>
-      <DevTool control={control} placement="top-right" />
+      {/* <DevTool control={control} placement="top-right" /> */}
 
       <form className={c.eventsForm} onSubmit={handleSubmit(onSubmitHandler)}>
         <Controller
@@ -187,7 +183,7 @@ export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
           color="primary"
           // autoFocus
           sx={{ textTransform: 'capitalize', width: '100px' }}
-          disabled={!isValid}
+          disabled={!isValid || Object.keys(errors).length !== 0}
         >
           Save
         </Button>
