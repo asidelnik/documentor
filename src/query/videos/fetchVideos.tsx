@@ -6,10 +6,8 @@ import { IVideosFilters } from "../../types/IVideosFilters";
 export const fetchVideos = async (queryKey: QueryKey, signal: AbortSignal): Promise<IVideo[]> => {
   const filters = queryKey[1] as IVideosFilters;
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const filteredParams = Object.fromEntries(
-    Object.entries(filters).filter(([_, value]) => value !== undefined)
-  );
-  const getFilteredVideosRequestString = serverRoutes.videos.getFilteredVideos(filteredParams);
+
+  const getFilteredVideosRequestString = serverRoutes.videos.getFilteredVideos(filters);
   const response = await fetch(baseUrl + getFilteredVideosRequestString, { signal });
   if (!response.ok) {
     throw new Error('Network error');
@@ -28,10 +26,7 @@ export const videosSelector = (videos: IVideo[]) => {
 export const fetchVideosCount = async (queryKey: QueryKey, signal: AbortSignal): Promise<number> => {
   const filters = queryKey[1] as IVideosFilters;
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const filteredParams = Object.fromEntries(
-    Object.entries(filters).filter(([_, value]) => value !== undefined)
-  );
-  const getFilteredVideosRequestString = serverRoutes.videos.getFilteredVideosCount(filteredParams);
+  const getFilteredVideosRequestString = serverRoutes.videos.getFilteredVideosCount(filters);
 
   const response = await fetch(baseUrl + getFilteredVideosRequestString, { signal });
   if (!response.ok) {
