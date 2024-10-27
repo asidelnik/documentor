@@ -3,7 +3,14 @@ import { IVideosFilters } from '../types/IVideosFilters';
 
 export function getURLSearchParams(params: IVideosFilters | IEventsFilters) {
   const urlParams = new URLSearchParams();
-  for (const [key, value] of Object.entries(params)) {
+
+  const filteredParams = Object.fromEntries(
+    Object.entries(params).filter(
+      ([, value]) => value !== undefined && value !== null
+    )
+  );
+
+  for (const [key, value] of Object.entries(filteredParams)) {
     urlParams.append(key, String(value));
   }
   return urlParams.toString();

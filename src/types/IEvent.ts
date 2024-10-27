@@ -31,16 +31,23 @@ export interface IEventsAndCount {
   eventsCount: number;
 }
 
-export interface IEventForm {
+export interface IEventAddForm {
   title: string;
   priority: number;
   startTime: Date;
-  endTime?: Date;
+  description?: string;
+  status: number;
+}
+
+export interface IEventEditForm {
+  title: string;
+  priority: number;
+  startTime: Date | null;
   description?: string;
   status: number;
 }
 
 export interface IEventAndDates extends IEvent {
-  startTimeDate: Date;
+  startTimeDate: Date | null;
   endTimeDate: Date;
 }

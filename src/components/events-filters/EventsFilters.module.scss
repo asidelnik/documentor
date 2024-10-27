@@ -1,9 +1,9 @@
 .filtersContainer {
-  height: 70px;
+  height: 80px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   column-gap: 15px;
   padding: 15px;
   border-block-end: 1px solid var(--light-gray-border);

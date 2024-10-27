@@ -1,7 +1,7 @@
 import { serverRoutes } from '../../server/server-routes';
-import { IEventForm } from '../../types/IEvent';
+import { IEventAddForm } from '../../types/IEvent';
 
-export const addEvent = async (data: IEventForm) => {
+export const addEvent = async (data: IEventAddForm) => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const requestPath = serverRoutes.events.addEvent;
   const response = await fetch(baseUrl + requestPath, {

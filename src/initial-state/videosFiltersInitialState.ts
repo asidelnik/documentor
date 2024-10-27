@@ -2,8 +2,8 @@ import { VideoStatusEnum } from '../constants/video-status';
 import { IVideosFilters } from '../types/IVideosFilters';
 
 export const videosFiltersInitialState: IVideosFilters = {
-  fromDate: new Date('2023-10-01T00:00'), // For debugging
-  toDate: new Date('2023-10-27T00:00'), // For debugging
+  fromDate: null, //new Date('2023-10-01T00:00'), // For debugging
+  toDate: null, //new Date('2023-10-27T00:00'), // For debugging
   statuses: [
     VideoStatusEnum.Unprocessed,
     VideoStatusEnum.Usable,

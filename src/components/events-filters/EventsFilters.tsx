@@ -11,8 +11,8 @@ export default function EventsFilters() {
   const filtersDispatch = useEventsFiltersDispatch();
 
   // TODO filter: location
-  const fromDateChangeHandler = (fromDate: Date) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
-  const toDateChangeHandler = (toDate: Date) => filtersDispatch({ type: 'update-to-date', payload: toDate });
+  const fromDateChangeHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
+  const toDateChangeHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
   const selectChangeHandler = (dispatchType: string, options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
   const textChangeHandler = (event: ChangeEvent<HTMLInputElement>) => filtersDispatch({ type: 'update-free-text', payload: event.target.value });
 

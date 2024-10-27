@@ -1,7 +1,9 @@
 import { DateTimeValidationError } from '@mui/x-date-pickers/models';
+import { DatePickerParent } from '../enums/DatePickerParent';
 
 export function filtersHelperTexts(
-  error: DateTimeValidationError | string | null
+  error: DateTimeValidationError | null,
+  datePickerParent: DatePickerParent
 ): string {
   switch (error) {
     case 'maxDate':
@@ -10,12 +12,11 @@ export function filtersHelperTexts(
       return 'Future date not allowed.';
     case 'invalidDate':
       return 'Please select a valid date';
+    case null:
+      return datePickerParent === DatePickerParent.Form
+        ? 'Start time is required'
+        : '';
     default:
       return '';
   }
 }
-
-// export enum RangeDatePickerField {
-//   FromDate = 1,
-//   ToDate = 2,
-// }
