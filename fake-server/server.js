@@ -104,6 +104,18 @@ server.get('/videos', (req, res) => {
       const videoDate = new Date(video.startTime);
       return videoDate >= from && videoDate <= to;
     });
+  } else if (fromDate) {
+    const from = new Date(fromDate);
+    videos = videos.filter(video => {
+      const videoDate = new Date(video.startTime);
+      return videoDate >= from;
+    });
+  } else if (toDate) {
+    const to = new Date(toDate);
+    videos = videos.filter(video => {
+      const videoDate = new Date(video.startTime);
+      return videoDate <= to;
+    });
   }
 
   if (!statuses || statuses === '') {
@@ -234,6 +246,18 @@ server.get('/events', (req, res) => {
     events = events.filter(event => {
       const eventStartTime = new Date(event.startTime);
       return eventStartTime >= from && eventStartTime <= to;
+    });
+  } else if (fromDate) {
+    const from = new Date(fromDate);
+    events = events.filter(event => {
+      const eventStartTime = new Date(event.startTime);
+      return eventStartTime >= from;
+    });
+  } else if (toDate) {
+    const to = new Date(toDate);
+    events = events.filter(event => {
+      const eventStartTime = new Date(event.startTime);
+      return eventStartTime <= to;
     });
   }
 
