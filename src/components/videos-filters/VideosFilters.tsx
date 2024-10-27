@@ -5,6 +5,7 @@ import { useFilters, useFiltersDispatch } from "../../contexts/filters-context";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import { IVideoFiltersProps } from "../../props/IVideoFiltersProps";
+import { FilterParent } from "../../enums/FilterParent";
 
 export default function VideosFilters({ eventsData }: IVideoFiltersProps) {
   const filters = useFilters();
@@ -23,6 +24,7 @@ export default function VideosFilters({ eventsData }: IVideoFiltersProps) {
           <DateTimeRangePicker
             fromDateProp={filters.fromDate}
             toDateProp={filters.toDate}
+            parent={FilterParent.Videos}
             updateFromDate={updateFromDateHandler}
             updateToDate={updateToDateHandler}
           />
@@ -33,6 +35,7 @@ export default function VideosFilters({ eventsData }: IVideoFiltersProps) {
           options={eventStatusNumOptions}
           defaultOptions={filters?.statuses ?? []}
           width={'320px'}
+          parent={FilterParent.Videos}
           updateSelectedOptions={(options: number[]) => selectHandler('update-statuses', options)}
         />
 
