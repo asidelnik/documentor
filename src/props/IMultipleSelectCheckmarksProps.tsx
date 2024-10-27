@@ -1,3 +1,4 @@
+import { FilterParent } from '../enums/FilterParent';
 import { IOptionNum } from '../types/IOptionNum';
 
 export interface IMultipleSelectCheckmarksProps {
@@ -5,5 +6,6 @@ export interface IMultipleSelectCheckmarksProps {
   options: IOptionNum[];
   defaultOptions: number[];
   width: string;
+  parent: FilterParent;
   updateSelectedOptions: (selectedOptions: number[]) => void;
 }

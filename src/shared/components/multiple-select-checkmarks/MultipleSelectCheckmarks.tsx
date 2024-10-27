@@ -8,6 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { IMultipleSelectCheckmarksProps } from '../../../props/IMultipleSelectCheckmarksProps';
 import { IOptionNum } from '../../../types/IOptionNum';
 import { useState } from 'react';
+import { FilterParent } from '../../../enums/FilterParent';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -20,7 +21,7 @@ const MenuProps = {
   },
 };
 
-export default function MultipleSelectCheckmarks({ buttonText, options, defaultOptions, width, updateSelectedOptions }: IMultipleSelectCheckmarksProps) {
+export default function MultipleSelectCheckmarks({ buttonText, options, defaultOptions, width, parent, updateSelectedOptions }: IMultipleSelectCheckmarksProps) {
   const [selectedIds, setSelectedIds] = useState<number[]>(defaultOptions);
   const selectedLabels: string[] = selectedIds.length > 0 && options.length > 0 ?
     selectedIds.map((selected) => options.find(option => option.id === selected)?.label).filter((label) => label !== undefined) : [];
@@ -46,6 +47,7 @@ export default function MultipleSelectCheckmarks({ buttonText, options, defaultO
         renderValue={() => selectedLabels.join(', ')}
         MenuProps={MenuProps}
         defaultValue={defaultOptions}
+        size={parent === FilterParent.Events ? 'small' : 'medium'}
       >
         {options.map((option: IOptionNum) => (
           <MenuItem key={option.id} value={option.id}>

@@ -5,6 +5,7 @@ import DateTimeRangePicker from "../../shared/components/date-time-range-picker/
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 import TextField from "@mui/material/TextField";
 import { ChangeEvent } from "react";
+import { FilterParent } from "../../enums/FilterParent";
 
 export default function EventsFilters() {
   const filters = useEventsFilters();
@@ -22,6 +23,7 @@ export default function EventsFilters() {
         <DateTimeRangePicker
           fromDateProp={filters.fromDate}
           toDateProp={filters.toDate}
+          parent={FilterParent.Events}
           updateFromDate={fromDateChangeHandler}
           updateToDate={toDateChangeHandler}
         />
@@ -31,6 +33,7 @@ export default function EventsFilters() {
           options={eventPriorityNumOptions}
           defaultOptions={filters?.priority ?? []}
           width={'240px'}
+          parent={FilterParent.Events}
           updateSelectedOptions={(options: number[]) => selectChangeHandler('update-priority', options)}
         />
 
@@ -40,6 +43,7 @@ export default function EventsFilters() {
           variant="outlined"
           onChange={textChangeHandler}
           sx={{ width: '300px' }}
+          size="small"
         />
 
         <MultipleSelectCheckmarks
@@ -47,6 +51,7 @@ export default function EventsFilters() {
           options={eventStatusNumOptions}
           defaultOptions={filters?.statuses ?? []}
           width={'220px'}
+          parent={FilterParent.Events}
           updateSelectedOptions={(options: number[]) => selectChangeHandler('update-status', options)}
         />
       </div>

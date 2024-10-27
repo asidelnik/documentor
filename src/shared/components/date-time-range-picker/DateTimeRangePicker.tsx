@@ -8,8 +8,9 @@ import { DateTimeValidationError } from '@mui/x-date-pickers/models';
 import { filtersHelperTexts } from '../../../constants/filters-helper-texts';
 import { IDateTimeRangeClear } from '../../../types/IDateTimeRangeClear';
 import { DatePickerParent } from '../../../enums/DatePickerParent';
+import { FilterParent } from '../../../enums/FilterParent';
 
-export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFromDate, updateToDate }: IDateTimeRangePickerProps) {
+export default function DateTimeRangePicker({ fromDateProp, toDateProp, parent, updateFromDate, updateToDate }: IDateTimeRangePickerProps) {
   const [fromDate, setFromDate] = useState<dayjs.Dayjs | null>(fromDateProp ? dayjs(fromDateProp) : null);
   const [toDate, setToDate] = useState<dayjs.Dayjs | null>(toDateProp ? dayjs(toDateProp) : null);
   const [fromError, setFromError] = useState<DateTimeValidationError | null>(null);
@@ -93,6 +94,7 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
         slotProps={{
           textField: {
             helperText: filtersHelperTexts(fromError, DatePickerParent.Filter),
+            size: parent === FilterParent.Events ? 'small' : 'medium'
           },
           field: { clearable: true, onClear: () => setCleared({ ...cleared, from: true }) },
         }}
@@ -107,6 +109,7 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, updateFr
         slotProps={{
           textField: {
             helperText: filtersHelperTexts(toError, DatePickerParent.Filter),
+            size: parent === FilterParent.Events ? 'small' : 'medium'
           },
           field: { clearable: true, onClear: () => setCleared({ ...cleared, to: true }) },
         }}
