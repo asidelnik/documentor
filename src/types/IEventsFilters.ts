@@ -1,6 +1,6 @@
 export interface IEventsFilters {
-  fromDate?: Date;
-  toDate?: Date;
+  fromDate?: Date | null;
+  toDate?: Date | null;
   priority?: number[];
   freeText?: string;
   statuses?: number[];

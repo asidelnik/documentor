@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 
 type UpdateFromDateUpdateAction = {
   type: 'update-from-date';
-  payload: Date;
+  payload: Date | null;
 };
 
 type UpdateToDateAction = {
   type: 'update-to-date';
-  payload: Date;
+  payload: Date | null;
 };
 
 type UpdatePriorityAction = {
