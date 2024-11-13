@@ -9,7 +9,7 @@ import { SubmissionStatusEnum } from "../enums/SubmissionStatusEnum";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function EventsTablePage() {
-  const { events, eventsCount, isLoading } = useFetchEvents();
+  const { events, eventsCount, isLoading, fetchData } = useFetchEvents();
   const { dialog, handleOpen, handleClose } = useEventsDialog();
   const [snackBar, setSnackBar] = useState<IFormSubmissionResult>({ isShow: false, submissionStatus: undefined, message: '' });
   const queryClient = useQueryClient();
@@ -17,7 +17,8 @@ export default function EventsTablePage() {
   function onSubmitHandler(isSuccess: boolean, message: string): void {
     if (isSuccess) {
       handleClose();
-      queryClient.invalidateQueries({ queryKey: ['badges'] })
+      queryClient.invalidateQueries({ queryKey: ['badges'] });
+      fetchData();
     }
 
     setSnackBar({
@@ -40,11 +41,13 @@ export default function EventsTablePage() {
         openDialog={handleOpen}
       />
 
-      <EventsAddEditDialog
-        dialog={dialog}
-        onClose={handleClose}
-        onSubmit={(isSuccess: boolean, message: string) => onSubmitHandler(isSuccess, message)}
-      />
+      {dialog.isOpen &&
+        <EventsAddEditDialog
+          dialog={dialog}
+          onClose={handleClose}
+          onSubmit={(isSuccess: boolean, message: string) => onSubmitHandler(isSuccess, message)}
+        />
+      }
 
       <Snackbar
         open={snackBar.isShow}

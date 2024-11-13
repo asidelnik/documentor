@@ -59,5 +59,5 @@ export const useFetchEvents = () => {
     }
   };
 
-  return { events, eventsCount, isLoading, isError, errorMessage };
+  return { events, eventsCount, isLoading, isError, errorMessage, fetchData };
 };
