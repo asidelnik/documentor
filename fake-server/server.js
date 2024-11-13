@@ -236,96 +236,99 @@ server.get('/events-autocomplete', (req, res) => {
 
 // GET Events by filters, sort & pagination (default sort latest)
 server.get('/events', (req, res) => {
-  const { fromDate, toDate, priority, freeText, statuses, page = 1, limit = 3 } = req.query;/*lat, lng, radius,*/
-  const db = router.db; // lowdb instance
-  let events = db.get('events').value();
+  try {
+    const { fromDate, toDate, priority, freeText, statuses, page = 1, limit = 3 } = req.query;/*lat, lng, radius,*/
+    const db = router.db; // lowdb instance
+    let events = db.get('events').value();
 
-  if (fromDate && toDate) {
-    const from = new Date(fromDate);
-    const to = new Date(toDate);
-    events = events.filter(event => {
-      const eventStartTime = new Date(event.startTime);
-      return eventStartTime >= from && eventStartTime <= to;
-    });
-  } else if (fromDate) {
-    const from = new Date(fromDate);
-    events = events.filter(event => {
-      const eventStartTime = new Date(event.startTime);
-      return eventStartTime >= from;
-    });
-  } else if (toDate) {
-    const to = new Date(toDate);
-    events = events.filter(event => {
-      const eventStartTime = new Date(event.startTime);
-      return eventStartTime <= to;
-    });
+    if (fromDate && toDate) {
+      const from = new Date(fromDate);
+      const to = new Date(toDate);
+      events = events.filter(event => {
+        const eventStartTime = new Date(event.startTime);
+        return eventStartTime >= from && eventStartTime <= to;
+      });
+    } else if (fromDate) {
+      const from = new Date(fromDate);
+      events = events.filter(event => {
+        const eventStartTime = new Date(event.startTime);
+        return eventStartTime >= from;
+      });
+    } else if (toDate) {
+      const to = new Date(toDate);
+      events = events.filter(event => {
+        const eventStartTime = new Date(event.startTime);
+        return eventStartTime <= to;
+      });
+    }
+
+    if (!priority || priority === '') {
+      events = [];
+    } else {
+      const priorityArray = priority.split(',').map(Number);
+      events = events.filter(event => priorityArray.includes(event.priority));
+    }
+
+    if (freeText && freeText.trim() !== '') {
+      const lowerCaseFreeText = freeText.toLowerCase();
+      events = events.filter(event =>
+        event.title.toLowerCase().includes(lowerCaseFreeText) ||
+        event.description.toLowerCase().includes(lowerCaseFreeText)
+      );
+    }
+
+    if (!statuses || statuses === '') {
+      events = [];
+    } else {
+      const statusesArray = statuses.split(',').map(Number);
+      events = events.filter(event => statusesArray.includes(event.status));
+    }
+
+    // Add property count of event videos with status 1
+    events = events
+      .sort((a, b) => b.videoIds.length - a.videoIds.length)
+      .sort((a, b) => b.startTime - a.startTime)
+      .map(event => {
+        const eventVideos = db.get('videos').filter({ eventId: event.id }).value();
+        const eventVideosUnprocessed = db.get('videos').filter({ eventId: event.id, status: 1 }).value();
+        return {
+          id: event.id,
+          title: event.title,
+          description: event.description,
+          startTime: event.startTime,
+          endTime: event.endTime,
+          duration: event.duration,
+          locationName: event.locationName,
+          tags: event.tags,
+          videoIds: event.videoIds,
+          status: event.status,
+          priority: event.priority,
+          videosUnprocessedCount: eventVideosUnprocessed.length,
+          videosCount: eventVideos.length
+        };
+      });
+
+    const eventsCount = events.length;
+    // Pagination
+    const pageParsed = tryParseIntOrUndefined(page);
+    const limitParsed = tryParseIntOrUndefined(limit);
+
+    // TODO - fix this error handling. Responds with cors error instead  of json error
+    if (pageParsed === undefined || limitParsed === undefined) {
+      res.status(400).jsonp({
+        error: "Invalid pagination values"
+      })
+      return;
+    }
+
+    const start = (pageParsed - 1) * limitParsed;
+    const end = start + limitParsed;
+    events = events.slice(start, end);
+
+    res.json({ events, eventsCount });
+  } catch (error) {
+    res.status(500).send(error.message);
   }
-
-  if (!priority || priority === '') {
-    events = [];
-  } else {
-    const priorityArray = priority.split(',').map(Number);
-    events = events.filter(event => priorityArray.includes(event.priority));
-  }
-
-  if (freeText && freeText.trim() !== '') {
-    const lowerCaseFreeText = freeText.toLowerCase();
-    events = events.filter(event =>
-      event.title.toLowerCase().includes(lowerCaseFreeText) ||
-      event.description.toLowerCase().includes(lowerCaseFreeText)
-    );
-  }
-
-  if (!statuses || statuses === '') {
-    events = [];
-  } else {
-    const statusesArray = statuses.split(',').map(Number);
-    events = events.filter(event => statusesArray.includes(event.status));
-  }
-
-  // Add property count of event videos with status 1
-  events = events
-    .sort((a, b) => b.videoIds.length - a.videoIds.length)
-    .sort((a, b) => b.startTime - a.startTime)
-    .map(event => {
-      const eventVideos = db.get('videos').filter({ eventId: event.id }).value();
-      const eventVideosUnprocessed = db.get('videos').filter({ eventId: event.id, status: 1 }).value();
-      return {
-        id: event.id,
-        title: event.title,
-        description: event.description,
-        startTime: event.startTime,
-        endTime: event.endTime,
-        duration: event.duration,
-        locationName: event.locationName,
-        tags: event.tags,
-        videoIds: event.videoIds,
-        status: event.status,
-        priority: event.priority,
-        videosUnprocessedCount: eventVideosUnprocessed.length,
-        videosCount: eventVideos.length
-      };
-    });
-
-
-  const eventsCount = events.length;
-  // Pagination
-  const pageParsed = tryParseIntOrUndefined(page);
-  const limitParsed = tryParseIntOrUndefined(limit);
-
-  // TODO - fix this error handling. Responds with cors error instead  of json error
-  if (pageParsed === undefined || limitParsed === undefined) {
-    res.status(400).jsonp({
-      error: "Invalid pagination values"
-    })
-    return;
-  }
-
-  const start = (pageParsed - 1) * limitParsed;
-  const end = start + limitParsed;
-  events = events.slice(start, end);
-
-  res.json({ events, eventsCount });
 });
 
 server.post('/events', (req, res) => {
