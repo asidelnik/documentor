@@ -1,5 +1,5 @@
 # Documentor
-Violent events video documentation dashboard.
+Videos documentation app for violent events.
 
 ## Project planning
 [Project planning link](https://github.com/users/asidelnik/projects/1) - Github Projects project
