@@ -75,18 +75,18 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
               ) : (<>
                   {rows?.length > 0 && rows.map((row: IEventAndCalcs) => (
                     <TableRow
-                      key={row.id}
+                      key={row._id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                       hover={true}
                     >
                       <TableCell></TableCell>
                       <TableCell>
-                        <IconButton aria-label="edit event" onClick={() => editEvent(row.id)}>
+                        <IconButton aria-label="edit event" onClick={() => editEvent(row._id)}>
                           <EditIcon className={c.editIcon} sx={{ fontSize: '1.1rem' }} />
                         </IconButton>
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        <Link to={`/events/${row.id}`} className={c.eventLink}>{row.title}</Link>
+                        <Link to={`/events/${row._id}`} className={c.eventLink}>{row.title}</Link>
                       </TableCell>
                       <TableCell title={eventPrioirtyLabels[row.priority]}>
                         {row.priority === EventPriority.Low ? <KeyboardArrowDownIcon sx={{ color: 'hsl(207, 100%, 50%)' }} /> :

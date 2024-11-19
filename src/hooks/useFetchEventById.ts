@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { IEvent, IEventAndDates } from '../types/IEvent';
 import { IVideo } from '../types/IVideo';
+import { serverRoutes } from '../server/server-routes';
 
 export default function useFetchEventById() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -12,7 +13,9 @@ export default function useFetchEventById() {
   const fetchEvent = async (eventId: string) => {
     try {
       setIsLoading(true);
-      const response = await fetch(baseUrl + '/events/' + eventId);
+      const response = await fetch(
+        baseUrl + serverRoutes.events.fetchEvent(eventId)
+      );
       if (!response.ok) {
         throw new Error('Network error');
       }

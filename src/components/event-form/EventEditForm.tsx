@@ -45,7 +45,7 @@ export default function EventEditForm({ eventToEdit, onSubmit }: IEventEditFormP
   async function onSubmitHandler(data: IEventEditForm) {
     try {
       if (eventToEdit) {
-        await editEvent(data, eventToEdit.id);
+        await editEvent(data, eventToEdit._id);
         onSubmit(true, 'Event updated');
       }
     } catch (error) {
