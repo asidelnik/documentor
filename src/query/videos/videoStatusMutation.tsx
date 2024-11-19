@@ -16,7 +16,7 @@ export const videoOnMutate = async (
   await queryClient.cancelQueries({ queryKey: ['videos', mutation.videoId] });
   // Snapshot the previous value
   const videosData = queryClient.getQueryData<IVideo[]>(['videos', filters]);
-  const previousVideo = videosData?.find((v) => v.id === mutation.videoId);
+  const previousVideo = videosData?.find((v) => v._id === mutation.videoId);
   if (!previousVideo) return null;
   let updatedVideo: IVideo | undefined;
   if (type === VideoMutaion.Status) {
@@ -33,7 +33,7 @@ export const videoOnMutate = async (
   // Optimistically update to the new value
   queryClient.setQueryData(['videos', filters], (previousVideos: IVideo[]) => {
     return (previousVideos || []).map((vid: IVideo) =>
-      vid.id === mutation.videoId ? updatedVideo : vid
+      vid._id === mutation.videoId ? updatedVideo : vid
     );
   });
   // Return a context with the previous and new video

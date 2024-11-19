@@ -32,7 +32,7 @@ export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoIn
       if (context) {
         queryClient.setQueryData(['videos', filters], (optimisticVideos: IVideo[]) => {
           return (optimisticVideos || []).map((vid: IVideo) =>
-            vid.id === video.id ? context.previousVideo : vid);
+            vid._id === video._id ? context.previousVideo : vid);
         });
       }
     },
@@ -51,7 +51,7 @@ export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoIn
       if (context) {
         queryClient.setQueryData(['videos', filters], (optimisticVideos: IVideo[]) => {
           return (optimisticVideos || []).map((vid: IVideo) =>
-            vid.id === video.id ? context.previousVideo : vid);
+            vid._id === video._id ? context.previousVideo : vid);
         });
       }
     },
@@ -62,9 +62,9 @@ export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoIn
   });
 
   const statusUpdateHandler = (option: number) =>
-    setVideoStatus({ videoId: video.id, status: option });
+    setVideoStatus({ videoId: video._id, status: option });
   const eventUpdateHandler = (newEventId: string | null) =>
-    setVideoEvent({ videoId: video.id, newEventId: newEventId, oldEventId: video.eventId });
+    setVideoEvent({ videoId: video._id, newEventId: newEventId, oldEventId: video.eventId });
 
   return (
     <>

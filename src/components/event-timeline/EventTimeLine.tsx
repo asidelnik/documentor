@@ -9,7 +9,7 @@ export default function EventTimeline({ data }: Props) {
   return (
     <>
       <ul>
-        {data?.map((video: IVideo) => <VideoItem key={video.id} video={video} />)}
+        {data?.map((video: IVideo) => <VideoItem key={video._id} video={video} />)}
       </ul>
     </>
   )

@@ -99,7 +99,7 @@ export default function VideosTimeline({ event }: IVideosTimelineProps) {
       <div className={c.videoTimeline}>
         {videos.map((video: IVideo, index: number) => (
           <ReactPlayer
-            key={video.id}
+            key={video._id}
             ref={playersRef.current[index]}
             url={video.url}
             // TODO - find a better solution than new Date()

@@ -3,7 +3,7 @@ import { VideoStatusEnum } from '../constants/video-status';
 import { LocationType } from './location';
 
 export interface IVideo {
-  id: string;
+  _id: string;
   title?: string;
   url: string;
   thumbnail: string;
