@@ -7,11 +7,11 @@ export const serverRoutes = {
   videos: {
     getFilteredVideos: (params: IVideosFilters) => {
       const urlParams = getURLSearchParams(params);
-      return `/videos?${urlParams}`;
+      return `/videos/videos?${urlParams}`;
     },
 
     videoSetStatus: (videoId: string, status: number) => {
-      return `/video-set-status/${videoId}?status=${status}`;
+      return `/videos/video-set-status/${videoId}?status=${status}`;
     },
 
     videoSetEvent: (
@@ -19,31 +19,32 @@ export const serverRoutes = {
       newEventId: string | null,
       oldEventId: string | null
     ) => {
-      return `/video-set-event/${videoId}?newEventId=${newEventId}&oldEventId=${oldEventId}`;
+      return `/videos/video-set-event/${videoId}?newEventId=${newEventId}&oldEventId=${oldEventId}`;
     },
     getFilteredVideosCount: (params: IVideosFilters) => {
       const urlParams = getURLSearchParams(params);
-      return `/videos-count?${urlParams}`;
+      return `/videos/videos-count?${urlParams}`;
     },
   },
   events: {
-    getEventsAutocomplete: '/events-autocomplete',
+    getEventsAutocomplete: '/events/events-autocomplete',
 
     // Events page (table)
     getFilteredEvents: (params: IEventsFilters) => {
       const urlParams = getURLSearchParams(params);
-      return `/events?${urlParams}`;
+      return `/events/events?${urlParams}`;
     },
 
     // Add/Edit event form & Event timeline
     getEventWithVideos: (eventId: number) =>
-      `/events/` + eventId + `?_embed=videos`,
+      `/events/events/` + eventId + `?_embed=videos`,
 
-    addEvent: '/events',
+    addEvent: '/events/events',
 
-    editEvent: (id: string) => `/events/${id}`,
+    fetchEvent: (id: string) => `/events/events/${id}`,
+    editEvent: (id: string) => `/events/events/${id}`,
   },
   others: {
-    getHeaderBadgeCounts: '/header-badges',
+    getHeaderBadgeCounts: '/shared/header-badges',
   },
 };
