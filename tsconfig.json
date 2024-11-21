@@ -24,12 +24,11 @@
     "types": ["@testing-library/jest-dom"],
     "declaration": true,
     "esModuleInterop": true,
+
+     /* Composite */
+    "composite": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "./vitest.setup.ts"
-  ],
+  "include": ["src"],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
