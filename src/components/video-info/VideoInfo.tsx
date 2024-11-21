@@ -28,7 +28,7 @@ export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoIn
     onMutate: (statusMutation: IVideoStatusMutationProps) =>
       videoOnMutate(statusMutation, queryClient, filters, VideoMutaion.Status),
     // If the mutation fails, use the context we returned above
-    onError: (err, _statusMutation, context) => {
+    onError: (_err, _statusMutation, context) => {
       if (context) {
         queryClient.setQueryData(['videos', filters], (optimisticVideos: IVideo[]) => {
           return (optimisticVideos || []).map((vid: IVideo) =>
@@ -47,7 +47,7 @@ export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoIn
     onMutate: (eventMutation: IVideoEventMutationProps) =>
       videoOnMutate(eventMutation, queryClient, filters, VideoMutaion.Event),
     // If the mutation fails, use the context we returned above
-    onError: (err, _eventMutation, context) => {
+    onError: (_err, _eventMutation, context) => {
       if (context) {
         queryClient.setQueryData(['videos', filters], (optimisticVideos: IVideo[]) => {
           return (optimisticVideos || []).map((vid: IVideo) =>
