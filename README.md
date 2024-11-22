@@ -1,7 +1,7 @@
 # Documentor
-Videos documentation app for violent events.
-[Demo site](https://asidelnik.github.io/documentor/)
-[Project planning](https://github.com/users/asidelnik/projects/1) - Github Projects project
+React dashboard to document violent events with videos.
+- [Demo site](https://asidelnik.github.io/documentor/)
+- [Project tasks management](https://github.com/users/asidelnik/projects/1)
 
 ## Current website UI
 **Videos - page**
