@@ -1,6 +1,5 @@
 # Documentor
-React dashboard to document violent events with videos.<br />
-Videos documentation app for violent events.
+Videos documentation app for violent events.<br />
 Technologies: React, TypeScript, Tanstack-Query, Material-UI, SCSS
 
 - [Demo site](https://asidelnik.github.io/documentor/)
