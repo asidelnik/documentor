@@ -5,10 +5,10 @@ React dashboard to document violent events with videos.
 
 ## Current website UI
 **Videos - page**
-![image](https://github.com/user-attachments/assets/ef85b0a6-ec5f-4b7f-bf61-04790b2099f5)
+![image](https://github.com/user-attachments/assets/4299eb59-ba27-4274-b9fb-659471ae0b76)
 
 **Events - page**
-<img width="1665" alt="image" src="https://github.com/user-attachments/assets/05fb5b68-ad2f-4d05-a12a-b3a1073e4b30">
+![image](https://github.com/user-attachments/assets/d1b21992-369e-4c5e-8aac-d6f058d20609)
 
 ## Logic Flowcharts
 ![image](https://github.com/user-attachments/assets/690ffc24-ee75-420b-9862-1a4817bf652c)
