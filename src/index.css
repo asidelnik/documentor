@@ -22,6 +22,7 @@
   --light-gray-bg: hsl(0, 0%, 92%);
   --button-bg-color: hsl(211, 100%, 40%);
   --primary-color: hsl(226, 100%, 50%);
+  --text-hover-color: hsl(280, 100%, 50%);
 }
 
 iframe {

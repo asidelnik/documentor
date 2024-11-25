@@ -6,10 +6,12 @@
   font-weight: bold;
   text-decoration: none;
   width: 100%;
+  color: var(--primary-color);
 }
 
 .eventLink:hover {
-  color: var(--primary-color);
+  color: var(--text-hover-color);
+
 }
 
 .eventToReview {
