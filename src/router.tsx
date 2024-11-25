@@ -12,6 +12,7 @@ import EventsTablePage from "./pages/EventsTablePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AllVideosPage from "./pages/all-videos-page/AllVideosPage";
 import MainErrorBoundary from "./error-boundaries/MainErrorBoundary";
+import EventPage from "./pages/event-page/EventPage";
 
 
 export const router = createHashRouter(
@@ -35,11 +36,11 @@ export const router = createHashRouter(
         element={<EventsTablePage />}
         errorElement={<MainErrorBoundary />}
       />
-      {/* <Route
+      <Route
         path="/events/:eventId"
-        element={<EventTimelinePage />}
+        element={<EventPage />}
         errorElement={<MainErrorBoundary />}
-      /> */}
+      />
       {/* <Route
         path="/graphs-page"
         element={<GraphsPage />}
