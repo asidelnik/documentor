@@ -11,7 +11,7 @@ export default function VideoList({ videos }: IVideoListProps) {
   return (
     <>
       <div className={c.container}>
-        <h3>Videos list</h3>
+        <h3>Videos timeline</h3>
         <div className={c.videosContainer}>
           {videos.map((video: IVideo) => (
             <div key={video._id} className={c.video}>
@@ -21,7 +21,6 @@ export default function VideoList({ videos }: IVideoListProps) {
                 width="315px"
                 height="177px"
                 style={{ position: 'relative' }}
-                light={<img src={video.thumbnail} alt={`Video ${video._id} Thumbnail`} width="100%" height="100%" />}
                 config={{
                   youtube: {
                     embedOptions: {
