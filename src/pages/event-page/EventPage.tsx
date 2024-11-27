@@ -58,10 +58,9 @@ export default function EventPage() {
 
   function scrollHandler(sectionId: string): void {
     const main = document.querySelector("main");
-    const element = document.querySelector(sectionId);
+    const element: HTMLElement | null = document.querySelector(sectionId);
     if (element && main) {
-      const elementPosition = element.getBoundingClientRect().y;
-      console.log(sectionId, element.getBoundingClientRect().y);
+      const elementPosition = element.offsetTop - main.offsetTop;
 
       main.scrollTo({
         top: elementPosition,
@@ -69,7 +68,6 @@ export default function EventPage() {
       });
       setSectionScroll(sectionId);
     }
-    // element.scrollIntoView({ behavior: 'smooth' });
   }
 
   return (
