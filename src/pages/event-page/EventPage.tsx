@@ -27,8 +27,29 @@ export default function EventPage() {
   const videos = event?.videos.map(video => ({ ...video, startTimeDate: new Date(video.startTime) })) ?? [];
 
   useEffect(() => {
+    const main = document.querySelector("main");
+    console.log('scrolling');
+    if (main) {
+      main.addEventListener('scroll', scrollHandler);
+      return () => main.removeEventListener('scroll', scrollHandler);
+    }
+  }, []);
+
+  useEffect(() => {
     if (eventId !== undefined) fetchData(eventId);
   }, [eventId]);
+
+  const scrollHandler = () => {
+    const sections = document.querySelectorAll("main > section");
+    let currentSection = sectionScroll;
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= 0 && rect.bottom >= 0) {
+        currentSection = `#${section.id}`;
+      }
+    });
+    setSectionScroll(currentSection);
+  };
 
   const fetchData = async (id: string) => {
     try {
@@ -56,7 +77,7 @@ export default function EventPage() {
     }
   };
 
-  function scrollHandler(sectionId: string): void {
+  function scrollByMenuHandler(sectionId: string): void {
     const main = document.querySelector("main");
     const element: HTMLElement | null = document.querySelector(sectionId);
     if (element && main) {
@@ -87,7 +108,7 @@ export default function EventPage() {
                   <Tooltip title="Details">
                     <IconButton aria-label="Event texts"
                       className={sectionScroll === '#texts' ? `${c.icon} ${c.active}` : c.icon}
-                      onClick={() => scrollHandler('#texts')}>
+                      onClick={() => scrollByMenuHandler('#texts')}>
                       <ArticleIcon />
                     </IconButton>
                   </Tooltip>
@@ -95,7 +116,7 @@ export default function EventPage() {
                   <Tooltip title="Timeline">
                     <IconButton aria-label="Videos timeline"
                       className={sectionScroll === '#videos-timeline' ? `${c.icon} ${c.active}` : c.icon}
-                      onClick={() => scrollHandler('#videos-timeline')}>
+                      onClick={() => scrollByMenuHandler('#videos-timeline')}>
                       <VideoLibraryIcon />
                     </IconButton>
                   </Tooltip>
@@ -103,7 +124,7 @@ export default function EventPage() {
                   <Tooltip title="Map">
                     <IconButton aria-label="Map"
                       className={sectionScroll === '#event-map' ? `${c.icon} ${c.active}` : c.icon}
-                      onClick={() => scrollHandler('#event-map')}>
+                      onClick={() => scrollByMenuHandler('#event-map')}>
                       <MapIcon />
                     </IconButton>
                   </Tooltip>
