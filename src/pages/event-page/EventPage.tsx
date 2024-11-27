@@ -114,7 +114,7 @@ export default function EventPage() {
               </nav>
 
               <main>
-                <div className={c.texts} id="texts">
+                <section className={c.texts} id="texts">
                   <h1>{event.title}</h1>
                   {event.description && <p className={c.description}>{event.description}</p>}
                   <div className={c.details}>
@@ -139,16 +139,16 @@ export default function EventPage() {
                       <p className={c.data}>{eventStatusLabels[event.status]}</p>
                     </div>
                   </div>
-                </div>
+                </section>
 
-                <div id="videos-timeline">
+                <section id="videos-timeline">
                   <VideoList videos={videos} />
-                </div>
+                </section>
 
-                <div className={c.mapContainer} id="event-map">
+                <section className={c.mapContainer} id="event-map">
                   <h3>Event map</h3>
                   <img src={mapImage} alt="Map placeholder image" style={{ width: '100%', height: '100%' }} />
-                </div>
+                </section>
               </main>
             </div>
           </>
