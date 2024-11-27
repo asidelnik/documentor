@@ -25,7 +25,7 @@ export default function RootHeader() {
   return (
     <>
       <header className={c.header}>
-        <h1>Documentor</h1>
+        <p className={c.logoType}>Documentor</p>
         <nav>
           <div className={c.links}>
             <div>
