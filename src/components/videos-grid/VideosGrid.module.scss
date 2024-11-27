@@ -8,7 +8,7 @@
   font-weight: 400;
   font-size: 0.75rem;
   margin: 0px;
-  border-block-end: 1px solid var(--light-gray-bg-border);
+  border-block-end: 1px solid var(--surface-1-border-color);
 }
 
 .container {
@@ -32,6 +32,8 @@
       width: 100%;
       background-color: white;
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border: 1px solid var(--surface-1-border-color);
+      border-radius: 5px;
     }
 
     .video:hover {

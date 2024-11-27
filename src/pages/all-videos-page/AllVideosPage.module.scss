@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: row;
   height: calc(100vh - 76px);
-  background-color: var(--light-gray-bg);
+  background-color: white;
 
   aside {
-    border-inline-end: 1px solid var(--light-gray-bg-border);
+    border-inline-end: 1px solid var(--surface-1-border-color);
 
     .asideToggle {
-      border-block-end: 1px solid var(--light-gray-bg-border);
+      border-block-end: 1px solid var(--surface-1-border-color);
       height: 52px;
       padding-inline: 10px;
       display: flex;
