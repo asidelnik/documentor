@@ -9,17 +9,15 @@ import TablePagination from '@mui/material/TablePagination';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { CircularProgress, IconButton } from '@mui/material';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Link } from 'react-router-dom';
-
 import { EventsAction } from '../../enums/EventsAction';
 import EventsFilters from '../events-filters/EventsFilters';
 import { IEventsTableProps } from '../../props/IEventsTableProps';
 import { IEventAndCalcs } from '../../types/IEvent';
-import { eventPriorityLabels, EventPriority, EventStatus } from '../../constants/event-constants';
+import { eventPriorityLabels } from '../../constants/event-constants';
 import { useEventsFilters, useEventsFiltersDispatch } from '../../contexts/events-filters-context';
+import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
+import EventStatusIcon from '../../shared/components/EventStatusIcon';
 
 
 export default function EventsTable({ rows, eventsCount, isLoading, openDialog }: IEventsTableProps) {
@@ -87,16 +85,15 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
                     <Link to={`/events/${row._id}`} className={c.eventLink}>{row.title}</Link>
                   </TableCell>
                   <TableCell title={eventPriorityLabels[row.priority]}>
-                    {row.priority === EventPriority.Low ? <KeyboardArrowDownIcon sx={{ color: 'hsl(207, 100%, 50%)' }} /> :
-                      row.priority === EventPriority.Medium ? <KeyboardArrowUpIcon sx={{ color: 'orange' }} /> :
-                        <KeyboardDoubleArrowUpIcon sx={{ color: 'red' }} />
-                    }
+                    <EventPriorityIcon priority={row.priority} />
                   </TableCell>
                   <TableCell>{row.startTimeFormatted}</TableCell>
                   <TableCell>{row.durationFormatted}</TableCell>
                   <TableCell>{row.description}</TableCell>
                   <TableCell>{row.locationName}</TableCell>
-                  <TableCell>{row.status === EventStatus.Active ? 'Active' : 'Inactive'}</TableCell>
+                  <TableCell>
+                    <EventStatusIcon status={row.status} />
+                  </TableCell>
                   <TableCell>{row.videosCount}</TableCell>
                   <TableCell>
                     <span className={row.videosUnprocessedCount > 0 ? c.eventToReview : ''}>{row.videosUnprocessedCount}</span>
