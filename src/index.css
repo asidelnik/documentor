@@ -64,3 +64,27 @@ h3 {
   font-size: 1.6rem;
   font-weight: 300;
 }
+
+.High {
+  border-color: red !important;
+}
+
+.Medium {
+  border-color: orange !important;
+}
+
+.Low {
+  border-color: hsl(207, 100%, 50%) !important;
+}
+
+.Active {
+  border-color: green !important;
+  gap: 10px !important;
+  padding: 0px 12px !important;
+}
+
+.Inactive {
+  border-color: hsl(0, 0%, 83%) !important;
+  gap: 10px !important;
+  padding: 0px 12px !important;
+}

@@ -12,6 +12,9 @@ import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import MapIcon from '@mui/icons-material/Map';
 import { IconButton, Tooltip } from '@mui/material';
 import mapImage from '../../assets/images/map.png';
+import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
+import EventStatusIcon from '../../shared/components/EventStatusIcon';
+
 
 
 export default function EventPage() {
@@ -139,7 +142,10 @@ export default function EventPage() {
                   <div className={c.details}>
                     <div>
                       <p className={c.label}>Priority</p>
-                      <p className={c.data}>{eventPriorityLabels[event.priority]}</p>
+                      <p className={`${c.data} ${c.tag} ${eventPriorityLabels[event.priority]}`}>
+                        <EventPriorityIcon priority={event.priority} />
+                        {eventPriorityLabels[event.priority]}
+                      </p>
                     </div>
                     <div>
                       <p className={c.label}>Start time</p>
@@ -155,7 +161,10 @@ export default function EventPage() {
                     </div>
                     <div>
                       <p className={c.label}>Status</p>
-                      <p className={c.data}>{eventStatusLabels[event.status]}</p>
+                      <p className={`${c.data} ${c.tag} ${eventStatusLabels[event.status]}`}>
+                        <EventStatusIcon status={event.status} />
+                        {eventStatusLabels[event.status]}
+                      </p>
                     </div>
                   </div>
                 </section>

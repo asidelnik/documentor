@@ -76,6 +76,19 @@
           font-size: 1.2rem;
           font-weight: 300;
           margin-block: 0.3rem;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: baseline;
+        }
+
+        .tag {
+          border: 2px solid hsl(0, 0%, 15%);
+          border-radius: 100px;
+          justify-content: center;
+          align-items: center;
+          padding: 0px 15px 0px 10px;
+          gap: 5px;
         }
       }
     }
