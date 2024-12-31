@@ -16,17 +16,17 @@ export function getURLSearchParams(params: IVideosFilters | IEventsFilters) {
   return urlParams.toString();
 }
 
-export function secondsToTimeString(seconds: number | undefined): string {
+export function secondsToDurationString(seconds: number | undefined): string {
   if (seconds === undefined || isNaN(seconds) || seconds === 0) return '';
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const remainingSeconds = seconds % 60;
 
-  const hoursString = hours.toString().padStart(2, '0');
-  const minutesString = minutes.toString().padStart(2, '0');
-  const secondsString = remainingSeconds.toString().padStart(2, '0');
+  const hoursString = hours > 0 ? `${hours}h ` : '';
+  const minutesString = minutes > 0 ? `${minutes}m ` : '';
+  const secondsString = remainingSeconds > 0 ? `${remainingSeconds}s` : '';
 
-  return `${hoursString}:${minutesString}:${secondsString}`;
+  return `${hoursString}${minutesString}${secondsString}`.trim();
 }
 
 export function dateToString(dateStr: Date): string {
@@ -38,7 +38,7 @@ export function dateToString(dateStr: Date): string {
       day: 'numeric',
       year: 'numeric',
     }) +
-    ' - ' +
+    '\u00A0\u00A0' +
     date.toLocaleTimeString('en-US')
   );
 }

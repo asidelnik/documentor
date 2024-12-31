@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { IEvent, IEventAndDates } from "../../types/IEvent";
 import { serverRoutes } from "../../server/server-routes";
-import { dateToString, secondsToTimeString } from "../../utils/functions";
+import { dateToString, secondsToDurationString } from "../../utils/functions";
 import { eventPriorityLabels, eventStatusLabels } from '../../constants/event-constants';
 import VideoList from '../../components/video-list/VideoList';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
@@ -23,7 +23,7 @@ export default function EventPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [sectionScroll, setSectionScroll] = useState('#texts');
   const eventStartTime = event?.startTimeDate && dateToString(event?.startTimeDate);
-  const timeString = secondsToTimeString(event?.duration);
+  const timeString = secondsToDurationString(event?.duration);
   const videos = event?.videos.map(video => ({ ...video, startTimeDate: new Date(video.startTime) })) ?? [];
 
   useEffect(() => {
