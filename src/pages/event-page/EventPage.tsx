@@ -11,7 +11,6 @@ import ArticleIcon from '@mui/icons-material/Article';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import MapIcon from '@mui/icons-material/Map';
 import { IconButton, Tooltip } from '@mui/material';
-import mapImage from '../../assets/images/map.png';
 import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
 import EventStatusIcon from '../../shared/components/EventStatusIcon';
 
@@ -182,7 +181,6 @@ export default function EventPage() {
 
                 <section className={c.mapContainer} id="event-map">
                   <h3>Event map</h3>
-                  <img src={mapImage} alt="Map placeholder image" style={{ width: '100%', height: '100%' }} />
                 </section>
               </main>
             </div>
