@@ -14,8 +14,11 @@ import { IconButton, Tooltip } from '@mui/material';
 import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
 import EventStatusIcon from '../../shared/components/EventStatusIcon';
 import { IVideo } from '../../types/IVideo';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import firstIcon from '../../assets/icons/location_on_first.svg';
+import icon from '../../assets/icons/location_on.svg';
 
 
 export default function EventPage() {
@@ -30,6 +33,20 @@ export default function EventPage() {
   const timeString = secondsToDurationString(event?.duration);
   const videos = event?.videos.map(video => ({ ...video, startTimeDate: new Date(video.startTime) })) ?? [];
   const isProgrammaticScroll = useRef<boolean>(false);
+
+  const customIconFirst = new L.Icon({
+    iconUrl: firstIcon,
+    iconSize: [34, 41],
+    iconAnchor: [14, 41],
+    popupAnchor: [1, -34],
+  });
+
+  const customIcon = new L.Icon({
+    iconUrl: icon,
+    iconSize: [34, 41],
+    iconAnchor: [14, 41],
+    popupAnchor: [1, -34],
+  });
 
   // useEffect(() => {
   //   const main = document.querySelector("main");
@@ -184,21 +201,25 @@ export default function EventPage() {
                 <section className={c.mapContainer} id="event-map">
                   <h3>Event map</h3>
                   <MapContainer
-                    // center={[event.latitude, event.longitude]} 
                     bounds={event.videos.map(video => [video.startLocation.coordinates[0], video.startLocation.coordinates[1]])}
-                    // zoom={13} 
                     style={{ width: '100%', height: '600px' }}>
                     <TileLayer
                       url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
-                    // ref='©OpenStreetMap, ©CartoDB'
                     />
-                    {event.videos.map((video: IVideo) => (
-                      <Marker key={video._id} position={[video.startLocation.coordinates[0], video.startLocation.coordinates[1]]}>
+                    {event.videos.map((video: IVideo, index: number) => (
+                      <Marker
+                        key={video._id}
+                        icon={index === 0 ? customIconFirst : customIcon}
+                        position={[video.startLocation.coordinates[0], video.startLocation.coordinates[1]]}>
                         <Popup>
                           {video.startLocation.type}
                         </Popup>
                       </Marker>
                     ))}
+                    <Polyline
+                      positions={event.videos.map(video => [video.startLocation.coordinates[0], video.startLocation.coordinates[1]])}
+                      pathOptions={{ color: 'blue', weight: 5 }}
+                    />
                   </MapContainer>
                 </section>
               </main>
