@@ -1,5 +1,5 @@
 import c from './EventPage.module.scss';
-import { useEffect, useState } from "react";
+import { useEffect, useState, MouseEvent, useRef } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { IEvent, IEventAndDates } from "../../types/IEvent";
 import { serverRoutes } from "../../server/server-routes";
@@ -28,21 +28,27 @@ export default function EventPage() {
   const eventStartTime = event?.startTimeDate && dateToString(event?.startTimeDate);
   const timeString = secondsToDurationString(event?.duration);
   const videos = event?.videos.map(video => ({ ...video, startTimeDate: new Date(video.startTime) })) ?? [];
+  const isProgrammaticScroll = useRef<boolean>(false);
 
-  useEffect(() => {
-    const main = document.querySelector("main");
-    console.log('scrolling');
-    if (main) {
-      main.addEventListener('scroll', scrollHandler);
-      return () => main.removeEventListener('scroll', scrollHandler);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const main = document.querySelector("main");
+  //   console.log('scrolling');
+  //   if (main) {
+  //     main.addEventListener('scroll', scrollHandler);
+  //     return () => main.removeEventListener('scroll', scrollHandler);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (eventId !== undefined) fetchData(eventId);
   }, [eventId]);
 
   const scrollHandler = () => {
+    if (isProgrammaticScroll.current) {
+      isProgrammaticScroll.current = false;
+      return;
+    }
+    console.log('scrolling');
     const sections = document.querySelectorAll("main > section");
     let currentSection = sectionScroll;
     sections.forEach(section => {
@@ -80,11 +86,12 @@ export default function EventPage() {
     }
   };
 
-  function scrollByMenuHandler(sectionId: string): void {
+  function scrollByMenuHandler(sectionId: string, e: MouseEvent<HTMLButtonElement>): void {
     const main = document.querySelector("main");
     const element: HTMLElement | null = document.querySelector(sectionId);
     if (element && main) {
       const elementPosition = element.offsetTop - main.offsetTop;
+      isProgrammaticScroll.current = true;
 
       main.scrollTo({
         top: elementPosition,
@@ -111,7 +118,7 @@ export default function EventPage() {
                   <Tooltip title="Details">
                     <IconButton aria-label="Event texts"
                       className={sectionScroll === '#texts' ? `${c.icon} ${c.active}` : c.icon}
-                      onClick={() => scrollByMenuHandler('#texts')}>
+                      onClick={(e: MouseEvent<HTMLButtonElement>) => scrollByMenuHandler('#texts', e)}>
                       <ArticleIcon />
                     </IconButton>
                   </Tooltip>
@@ -119,7 +126,7 @@ export default function EventPage() {
                   <Tooltip title="Timeline">
                     <IconButton aria-label="Videos timeline"
                       className={sectionScroll === '#videos-timeline' ? `${c.icon} ${c.active}` : c.icon}
-                      onClick={() => scrollByMenuHandler('#videos-timeline')}>
+                      onClick={(e: MouseEvent<HTMLButtonElement>) => scrollByMenuHandler('#videos-timeline', e)}>
                       <VideoLibraryIcon />
                     </IconButton>
                   </Tooltip>
@@ -127,7 +134,7 @@ export default function EventPage() {
                   <Tooltip title="Map">
                     <IconButton aria-label="Map"
                       className={sectionScroll === '#event-map' ? `${c.icon} ${c.active}` : c.icon}
-                      onClick={() => scrollByMenuHandler('#event-map')}>
+                      onClick={(e: MouseEvent<HTMLButtonElement>) => scrollByMenuHandler('#event-map', e)}>
                       <MapIcon />
                     </IconButton>
                   </Tooltip>
@@ -135,7 +142,7 @@ export default function EventPage() {
                 <div style={{ width: '46px', height: '46px' }}></div>
               </nav>
 
-              <main>
+              <main onScroll={scrollHandler}>
                 <section className={c.texts} id="texts">
                   <h1>{event.title}</h1>
                   {event.description && <p className={c.description}>{event.description}</p>}
@@ -180,8 +187,9 @@ export default function EventPage() {
               </main>
             </div>
           </>
-        )}
-      </div>
+        )
+        }
+      </div >
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error: {errorMessage}</p>}
       { }
