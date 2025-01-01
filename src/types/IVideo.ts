@@ -1,6 +1,6 @@
 import { OrientationEnum } from '../enums/orientation-enum';
 import { VideoStatusEnum } from '../constants/video-status';
-import { LocationType } from './location';
+import { IVideoLocation } from './IVideoLocation';
 
 export interface IVideo {
   _id: string;
@@ -14,8 +14,8 @@ export interface IVideo {
   eventId: string | null;
   status: VideoStatusEnum;
   tags?: string[];
-  startLocation: LocationType;
-  endLocation: LocationType;
+  startLocation: IVideoLocation;
+  endLocation: IVideoLocation;
   startTime: string;
   endTime: string;
   startTimeDate?: Date;

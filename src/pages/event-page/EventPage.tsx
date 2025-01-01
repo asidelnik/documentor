@@ -11,10 +11,14 @@ import ArticleIcon from '@mui/icons-material/Article';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import MapIcon from '@mui/icons-material/Map';
 import { IconButton, Tooltip } from '@mui/material';
-import mapImage from '../../assets/images/map.png';
 import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
 import EventStatusIcon from '../../shared/components/EventStatusIcon';
-
+import { IVideo } from '../../types/IVideo';
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import firstIcon from '../../assets/icons/location_on_first.svg';
+import icon from '../../assets/icons/location_on.svg';
 
 
 export default function EventPage() {
@@ -29,6 +33,20 @@ export default function EventPage() {
   const timeString = secondsToDurationString(event?.duration);
   const videos = event?.videos.map(video => ({ ...video, startTimeDate: new Date(video.startTime) })) ?? [];
   const isProgrammaticScroll = useRef<boolean>(false);
+
+  const customIconFirst = new L.Icon({
+    iconUrl: firstIcon,
+    iconSize: [34, 41],
+    iconAnchor: [14, 41],
+    popupAnchor: [1, -34],
+  });
+
+  const customIcon = new L.Icon({
+    iconUrl: icon,
+    iconSize: [34, 41],
+    iconAnchor: [14, 41],
+    popupAnchor: [1, -34],
+  });
 
   // useEffect(() => {
   //   const main = document.querySelector("main");
@@ -168,10 +186,10 @@ export default function EventPage() {
                     </div>
                     <div>
                       <p className={c.label}>Status</p>
-                      <p className={`${c.data} ${c.tag} ${eventStatusLabels[event.status]}`}>
+                      <div className={`${c.data} ${c.tag} ${eventStatusLabels[event.status]}`}>
                         <EventStatusIcon status={event.status} />
                         {eventStatusLabels[event.status]}
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -182,7 +200,27 @@ export default function EventPage() {
 
                 <section className={c.mapContainer} id="event-map">
                   <h3>Event map</h3>
-                  <img src={mapImage} alt="Map placeholder image" style={{ width: '100%', height: '100%' }} />
+                  <MapContainer
+                    bounds={event.videos.map(video => [video.startLocation.coordinates[0], video.startLocation.coordinates[1]])}
+                    style={{ width: '100%', height: '600px' }}>
+                    <TileLayer
+                      url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
+                    />
+                    {event.videos.map((video: IVideo, index: number) => (
+                      <Marker
+                        key={video._id}
+                        icon={index === 0 ? customIconFirst : customIcon}
+                        position={[video.startLocation.coordinates[0], video.startLocation.coordinates[1]]}>
+                        <Popup>
+                          {video.startLocation.type}
+                        </Popup>
+                      </Marker>
+                    ))}
+                    <Polyline
+                      positions={event.videos.map(video => [video.startLocation.coordinates[0], video.startLocation.coordinates[1]])}
+                      pathOptions={{ color: 'blue', weight: 5 }}
+                    />
+                  </MapContainer>
                 </section>
               </main>
             </div>
