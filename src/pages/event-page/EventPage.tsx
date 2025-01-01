@@ -13,7 +13,9 @@ import MapIcon from '@mui/icons-material/Map';
 import { IconButton, Tooltip } from '@mui/material';
 import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
 import EventStatusIcon from '../../shared/components/EventStatusIcon';
-
+import { IVideo } from '../../types/IVideo';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 
 export default function EventPage() {
@@ -167,10 +169,10 @@ export default function EventPage() {
                     </div>
                     <div>
                       <p className={c.label}>Status</p>
-                      <p className={`${c.data} ${c.tag} ${eventStatusLabels[event.status]}`}>
+                      <div className={`${c.data} ${c.tag} ${eventStatusLabels[event.status]}`}>
                         <EventStatusIcon status={event.status} />
                         {eventStatusLabels[event.status]}
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </section>
@@ -181,6 +183,23 @@ export default function EventPage() {
 
                 <section className={c.mapContainer} id="event-map">
                   <h3>Event map</h3>
+                  <MapContainer
+                    // center={[event.latitude, event.longitude]} 
+                    bounds={event.videos.map(video => [video.startLocation.coordinates[0], video.startLocation.coordinates[1]])}
+                    // zoom={13} 
+                    style={{ width: '100%', height: '600px' }}>
+                    <TileLayer
+                      url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
+                    // ref='©OpenStreetMap, ©CartoDB'
+                    />
+                    {event.videos.map((video: IVideo) => (
+                      <Marker key={video._id} position={[video.startLocation.coordinates[0], video.startLocation.coordinates[1]]}>
+                        <Popup>
+                          {video.startLocation.type}
+                        </Popup>
+                      </Marker>
+                    ))}
+                  </MapContainer>
                 </section>
               </main>
             </div>
