@@ -201,19 +201,17 @@ export default function EventPage() {
                     ))}
                     <Polyline
                       positions={event.videos.map(video => [video.startLocation.coordinates[0], video.startLocation.coordinates[1]])}
-                      pathOptions={{ color: 'blue', weight: 5 }}
+                      pathOptions={{ color: 'hsl(0, 0%, 30%)', weight: 5 }}
                     />
                   </MapContainer>
                 </section>
               </main>
             </div>
           </>
-        )
-        }
-      </div >
+        )}
+      </div>
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error: {errorMessage}</p>}
-      { }
     </>
-  )
+  );
 }
