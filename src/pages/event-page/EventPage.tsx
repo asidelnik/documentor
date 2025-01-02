@@ -16,10 +16,7 @@ import EventStatusIcon from '../../shared/components/EventStatusIcon';
 import { IVideo } from '../../types/IVideo';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import firstIcon from '../../assets/icons/location_on_first.svg';
-import icon from '../../assets/icons/location_on.svg';
-
+import { customMarkerIcon } from '../../utils/customMarkerIcon';
 
 export default function EventPage() {
   const { eventId } = useParams<{ eventId: string }>();
@@ -33,20 +30,6 @@ export default function EventPage() {
   const timeString = secondsToDurationString(event?.duration);
   const videos = event?.videos.map(video => ({ ...video, startTimeDate: new Date(video.startTime) })) ?? [];
   const isProgrammaticScroll = useRef<boolean>(false);
-
-  const customIconFirst = new L.Icon({
-    iconUrl: firstIcon,
-    iconSize: [34, 41],
-    iconAnchor: [14, 41],
-    popupAnchor: [1, -34],
-  });
-
-  const customIcon = new L.Icon({
-    iconUrl: icon,
-    iconSize: [34, 41],
-    iconAnchor: [14, 41],
-    popupAnchor: [1, -34],
-  });
 
   // useEffect(() => {
   //   const main = document.querySelector("main");
@@ -209,7 +192,7 @@ export default function EventPage() {
                     {event.videos.map((video: IVideo, index: number) => (
                       <Marker
                         key={video._id}
-                        icon={index === 0 ? customIconFirst : customIcon}
+                        icon={customMarkerIcon(index + 1)}
                         position={[video.startLocation.coordinates[0], video.startLocation.coordinates[1]]}>
                         <Popup>
                           {video.startLocation.type}
@@ -218,19 +201,17 @@ export default function EventPage() {
                     ))}
                     <Polyline
                       positions={event.videos.map(video => [video.startLocation.coordinates[0], video.startLocation.coordinates[1]])}
-                      pathOptions={{ color: 'blue', weight: 5 }}
+                      pathOptions={{ color: 'hsl(0, 0%, 30%)', weight: 5 }}
                     />
                   </MapContainer>
                 </section>
               </main>
             </div>
           </>
-        )
-        }
-      </div >
+        )}
+      </div>
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error: {errorMessage}</p>}
-      { }
     </>
-  )
+  );
 }
