@@ -153,6 +153,13 @@ export default function EventPage() {
                       </p>
                     </div>
                     <div>
+                      <p className={c.label}>Status</p>
+                      <div className={`${c.data} ${c.tag} ${eventStatusLabels[event.status]}`}>
+                        <EventStatusIcon status={event.status} />
+                        {eventStatusLabels[event.status]}
+                      </div>
+                    </div>
+                    <div>
                       <p className={c.label}>Start time</p>
                       <p className={c.data}>{eventStartTime}</p>
                     </div>
@@ -164,13 +171,7 @@ export default function EventPage() {
                       <p className={c.label}>Location</p>
                       <p className={c.data}>{event.locationName}</p>
                     </div>
-                    <div>
-                      <p className={c.label}>Status</p>
-                      <div className={`${c.data} ${c.tag} ${eventStatusLabels[event.status]}`}>
-                        <EventStatusIcon status={event.status} />
-                        {eventStatusLabels[event.status]}
-                      </div>
-                    </div>
+
                   </div>
                 </section>
 
