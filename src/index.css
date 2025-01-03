@@ -66,25 +66,30 @@ h3 {
 }
 
 .High {
-  border-color: red !important;
+  border-color: hsl(0, 100%, 50%) !important;
+  background-color: hsl(0, 100%, 95%) !important;
 }
 
 .Medium {
-  border-color: orange !important;
+  border-color: hsl(39, 100%, 50%) !important;
+  background-color: hsl(40, 100%, 95%) !important;
 }
 
 .Low {
   border-color: hsl(207, 100%, 50%) !important;
+  background-color: hsl(207, 100%, 95%) !important;
 }
 
 .Active {
-  border-color: green !important;
+  border-color: hsl(120, 100%, 25%) !important;
+  background-color: hsl(120, 45%, 92%) !important;
   gap: 10px !important;
   padding: 0px 12px !important;
 }
 
 .Inactive {
-  border-color: hsl(0, 0%, 83%) !important;
+  border-color: hsl(0, 0%, 24%) !important;
+  background-color: hsl(0, 0%, 95%) !important;
   gap: 10px !important;
   padding: 0px 12px !important;
 }
