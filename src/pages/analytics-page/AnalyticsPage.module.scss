@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 76px);
+  background-color: white;
+
+  aside {
+    border-inline-end: 1px solid var(--surface-1-border-color);
+
+    .asideToggle {
+      border-block-end: 1px solid var(--surface-1-border-color);
+      height: 52px;
+      padding-inline: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+
+  .asideOpen {
+    flex: 0 0 350px;
+  }
+
+  .asideClose {
+    flex: 0 0 auto;
+  }
+
+  main {
+    flex: 1;
+    padding: 30px;
+  }
+}
