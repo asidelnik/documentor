@@ -13,6 +13,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import AllVideosPage from "./pages/all-videos-page/AllVideosPage";
 import MainErrorBoundary from "./error-boundaries/MainErrorBoundary";
 import EventPage from "./pages/event-page/EventPage";
+import AnalyticsPage from "./pages/analytics-page/AnalyticsPage";
 
 
 export const router = createHashRouter(
@@ -41,10 +42,10 @@ export const router = createHashRouter(
         element={<EventPage />}
         errorElement={<MainErrorBoundary />}
       />
-      {/* <Route
-        path="/graphs-page"
-        element={<GraphsPage />}
-      /> */}
+      <Route
+        path="/analytics"
+        element={<AnalyticsPage />}
+      />
 
       <Route
         path="*"

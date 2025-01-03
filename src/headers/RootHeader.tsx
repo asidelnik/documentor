@@ -7,7 +7,7 @@ import { IClassNameProps } from '../props/IClassNameProps';
 import { fetchBadges } from '../query/header/fetchBadges';
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 import FolderSharedIcon from '@mui/icons-material/FolderShared';
-
+import AssessmentIcon from '@mui/icons-material/Assessment';
 
 export default function RootHeader() {
   const {
@@ -55,6 +55,12 @@ export default function RootHeader() {
                   Events
                 </NavLink>
               </Badge>
+            </div>
+            <div>
+              <NavLink to="/analytics" className={getNavLinkClass}>
+                <AssessmentIcon />
+                Analytics
+              </NavLink>
             </div>
           </div>
         </nav>
