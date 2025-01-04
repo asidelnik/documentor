@@ -37,9 +37,9 @@ export default function AnalyticsPage() {
               max="2100"
             />
           </div>
-          <div style={{ width: '700px' }}>
+          {/* <div style={{ width: '700px' }}> */}
             <Bar data={barData} options={barOptions} />
-          </div>
+          {/* </div> */}
           <Pie data={pieData} options={pieOptions} />
         </main>
       </div>
