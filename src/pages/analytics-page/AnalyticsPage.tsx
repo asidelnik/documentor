@@ -5,9 +5,14 @@ import { barData, barOptions, pieData, pieOptions } from '../../initial-state/an
 import { useState } from 'react';
 import { IconButton } from '@mui/material';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
+import EventIcon from '@mui/icons-material/Event'; // Example icon, replace with appropriate icons
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
-
+const recentEvents = [
+  { type: 'Assault', title: 'Assault in Downtown', date: '2023-10-01 14:30', location: 'Downtown' },
+  { type: 'Robbery', title: 'Bank Robbery', date: '2023-09-28 09:15', location: 'Main Street' },
+  { type: 'Burglary', title: 'Home Burglary', date: '2023-09-25 22:00', location: 'Suburbs' },
+];
 
 export default function AnalyticsPage() {
   const [toggleAside, setToggleAside] = useState<boolean>(true);
@@ -37,10 +42,22 @@ export default function AnalyticsPage() {
               max="2100"
             />
           </div>
-          {/* <div style={{ width: '700px' }}> */}
-            <Bar data={barData} options={barOptions} />
-          {/* </div> */}
+          <Bar data={barData} options={barOptions} />
           <Pie data={pieData} options={pieOptions} />
+
+          <div className={c.recentEvents}>
+            <h2>Recent Events</h2>
+            {recentEvents.map((event, index) => (
+              <div key={index} className={c.eventItem}>
+                <EventIcon />
+                <div>
+                  <h3>{event.title}</h3>
+                  <p>{event.date}</p>
+                  <p>{event.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </main>
       </div>
     </>

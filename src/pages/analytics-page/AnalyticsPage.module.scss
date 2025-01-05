@@ -32,3 +32,34 @@
     overflow-y: auto;
   }
 }
+
+.recentEvents {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.eventItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.eventItem h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.eventItem p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.eventItem svg {
+  margin-right: 10px;
+}
