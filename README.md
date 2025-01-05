@@ -29,20 +29,3 @@ Technologies: React, TypeScript, Tanstack-Query, Material-UI, SCSS
 
 **Event timeline**
 ![Event timeline](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/f1b8b820-67a7-4055-9377-e6b4d95c0258)
-
-
-
-## Tasks
-
-- [ ] - Connect project to Atlas DB
-- [ ] - Analytics page - graphs to show violence analytics
-- [ ] - React Flow
-- [ ] - All videos - pagination or infinite scroll with lazy loading
-- [ ] - Timeline page
-- [ ] - Cloudinary & Node.JS
-- [ ] - Implement [reactflow](https://www.npmjs.com/package/reactflow)
-
-## Visual Research
-- [Dashboards - 1](https://www.pinterest.com/pin/433682639128677413/)
-- [Dashboard - 2](https://www.pinterest.com/search/pins/?q=dashboard%20design&rs=typed)
-
