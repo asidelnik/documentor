@@ -1,5 +1,5 @@
 # Documentor
-Videos documentation app for violent events. Country based.<br />
+Videos documentation app for violent events (country based)<br />
 Technologies: React, TypeScript, Tanstack-Query, Material-UI, SCSS
 
 - [Demo site](https://asidelnik.github.io/documentor/)
