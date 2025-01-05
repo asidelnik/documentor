@@ -6,11 +6,14 @@ Technologies: React, TypeScript, Tanstack-Query, Material-UI, SCSS
 - [Project tasks management](https://github.com/users/asidelnik/projects/1)
 
 ## Current website UI
-**Videos - page**
-![image](https://github.com/user-attachments/assets/4299eb59-ba27-4274-b9fb-659471ae0b76)
+**Events page**
+<img width="1664" alt="Events" src="https://github.com/user-attachments/assets/03a856b0-c83f-4010-9929-b44ee71440ce" />
 
-**Events - page**
-![image](https://github.com/user-attachments/assets/d1b21992-369e-4c5e-8aac-d6f058d20609)
+**Event page**
+<img width="1664" alt="Event" src="https://github.com/user-attachments/assets/6bcd345e-f83a-4b10-9ed8-e8710c57b3a0" />
+
+**Videos page**
+<img width="1665" alt="Videos" src="https://github.com/user-attachments/assets/70324cbb-8e5a-47fd-a7de-dd629ee3e569" />
 
 ## Logic Flowcharts
 ![image](https://github.com/user-attachments/assets/690ffc24-ee75-420b-9862-1a4817bf652c)
