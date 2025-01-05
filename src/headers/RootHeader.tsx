@@ -30,20 +30,6 @@ export default function RootHeader() {
           <div className={c.links}>
             <div>
               <Badge
-                badgeContent={data?.videos}
-                color="error"
-                invisible={isFetching || isPending || error !== null}
-                title='Count of unprocessed videos'
-                sx={{ cursor: 'help' }}
-              >
-                <NavLink to="/videos" className={getNavLinkClass}>
-                  <SmartDisplayIcon />
-                  Videos
-                </NavLink>
-              </Badge>
-            </div>
-            <div>
-              <Badge
                 badgeContent={data?.events}
                 color="error"
                 invisible={isFetching || isPending || error !== null}
@@ -53,6 +39,20 @@ export default function RootHeader() {
                 <NavLink to="/events" className={getNavLinkClass}>
                   <FolderSharedIcon />
                   Events
+                </NavLink>
+              </Badge>
+            </div>
+            <div>
+              <Badge
+                badgeContent={data?.videos}
+                color="error"
+                invisible={isFetching || isPending || error !== null}
+                title='Count of unprocessed videos'
+                sx={{ cursor: 'help' }}
+              >
+                <NavLink to="/videos" className={getNavLinkClass}>
+                  <SmartDisplayIcon />
+                  Videos
                 </NavLink>
               </Badge>
             </div>
