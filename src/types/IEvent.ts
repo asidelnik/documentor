@@ -22,7 +22,6 @@ export interface IEvent {
   tags: string[];
   videosUnprocessedCount: number;
   videosCount: number;
-  // locationName: string;
 }
 
 export interface IEventAndCalcs extends IEvent {
