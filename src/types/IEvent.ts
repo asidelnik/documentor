@@ -1,21 +1,26 @@
+import { EventType } from './EventType';
+import { ILocation, ILocationTexts } from './ILocation';
 import { IVideo } from './IVideo';
 
-// Todo - decide if to move all proeprties into 1 event interface
 export interface IEvent {
   _id: string;
-  priority: number;
-  title: string; // convert to name by removing dashes and capitalizing
+  title: string;
   description: string;
+  types: Array<EventType>;
   duration: number;
-  locationName: string;
-  // startLocation: LocationType;
-  tags: string[];
-  videos: IVideo[];
-  videosUnprocessedCount: number;
-  videosCount: number;
+  location: ILocation;
+  locationTexts: ILocationTexts;
+  videos: Array<IVideo>;
   status: number;
+  priority: number;
+  fatalities: number;
+  injuries: number;
+  severity: number;
   startTime: string;
   endTime: string;
+  tags: string[];
+  videosUnprocessedCount: number;
+  videosCount: number;
 }
 
 export interface IEventAndCalcs extends IEvent {

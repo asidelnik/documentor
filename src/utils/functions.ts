@@ -1,3 +1,4 @@
+import { IEvent } from '../types/IEvent';
 import { IEventsFilters } from '../types/IEventsFilters';
 import { IVideosFilters } from '../types/IVideosFilters';
 
@@ -50,6 +51,16 @@ export function dateToStringShortMonthDateYear(date: Date): string {
     day: 'numeric',
   };
   return date.toLocaleDateString('en-US', options);
+}
+
+export function formatEventLocation<T extends IEvent>(
+  event: T | undefined
+): string {
+  return event
+    ? `${event.locationTexts.address || ''}${
+        event.locationTexts.address && event.locationTexts.city ? ', ' : ''
+      }${event.locationTexts.city || ''}`
+    : '';
 }
 
 function isValidDateString(dateStr: Date): boolean {
