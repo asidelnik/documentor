@@ -1,22 +1,26 @@
 import c from './AnalyticsPage.module.scss';
-import { Bar, Pie } from 'react-chartjs-2';
+import { Bar, Pie, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import { barData, barOptions, pieData, pieOptions } from '../../initial-state/analyticsInitialState';
+import { eventTypeData, eventTypeOptions, lineData, lineOptions, dangerousLocationsData, dangerousLocationsOptions, recentEvents } from '../../initial-state/analyticsInitialState';
 import { useState } from 'react';
 import { IconButton } from '@mui/material';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import EventIcon from '@mui/icons-material/Event'; // Example icon, replace with appropriate icons
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
-const recentEvents = [
-  { type: 'Assault', title: 'Assault in Downtown', date: '2023-10-01 14:30', location: 'Downtown' },
-  { type: 'Robbery', title: 'Bank Robbery', date: '2023-09-28 09:15', location: 'Main Street' },
-  { type: 'Burglary', title: 'Home Burglary', date: '2023-09-25 22:00', location: 'Suburbs' },
-];
 
 export default function AnalyticsPage() {
   const [toggleAside, setToggleAside] = useState<boolean>(true);
   const [year, setYear] = useState<number>(2023);
+  const [type, setType] = useState<string>('All');
+  const [timePeriod, setTimePeriod] = useState<string>('2023');
+
+  // useEffect(() => {
+  //   return () => {
+  //     ChartJS.instances.forEach(instance => instance.destroy());
+  //   };
+  // }, []);
 
   return (
     <>
@@ -42,8 +46,33 @@ export default function AnalyticsPage() {
               max="2100"
             />
           </div>
-          <Bar data={barData} options={barOptions} />
-          <Pie data={pieData} options={pieOptions} />
+
+          <div>
+            <label htmlFor="type">Filter by Type: </label>
+            <select id="type" value={type} onChange={(e) => setType(e.target.value)}>
+              <option value="All">All</option>
+              <option value="Assault">Assault</option>
+              <option value="Robbery">Robbery</option>
+              <option value="Burglary">Burglary</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="timePeriod">Filter by Time Period: </label>
+            <input
+              type="text"
+              id="timePeriod"
+              value={timePeriod}
+              onChange={(e) => setTimePeriod(e.target.value)}
+            />
+          </div>
+
+          {/* <Bar data={barData} options={barOptions} />
+          <Pie data={pieData} options={pieOptions} /> */}
+          {/*  */}
+          <Bar data={eventTypeData} options={eventTypeOptions} />
+          <Line data={lineData} options={lineOptions} />
+          <Pie data={dangerousLocationsData} options={dangerousLocationsOptions} />
 
           <div className={c.recentEvents}>
             <h2>Recent Events</h2>
