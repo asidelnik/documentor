@@ -18,7 +18,7 @@ export interface IEvent {
   severity: number;
   startTime: string;
   endTime: string;
-  tags: string[];
+  tags: Array<string>;
   videosUnprocessedCount: number;
   videosCount: number;
 }
@@ -32,7 +32,7 @@ export interface IEventAndCalcs extends IEvent {
 }
 
 export interface IEventsAndCount {
-  events: IEvent[];
+  events: Array<IEvent>;
   eventsCount: number;
 }
 
