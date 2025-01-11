@@ -3,7 +3,7 @@ import { useEffect, useState, MouseEvent, useRef } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { IEvent, IEventAndDates } from "../../types/IEvent";
 import { serverRoutes } from "../../server/server-routes";
-import { dateToString, secondsToDurationString } from "../../utils/functions";
+import { dateToString, secondsToDurationString, formatEventLocation } from "../../utils/functions";
 import { eventPriorityLabels, eventStatusLabels } from '../../constants/event-constants';
 import VideoList from '../../components/video-list/VideoList';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
@@ -27,6 +27,7 @@ export default function EventPage() {
   const timeString = secondsToDurationString(event?.duration);
   const videos = event?.videos.map(video => ({ ...video, startTimeDate: new Date(video.startTime) })) ?? [];
   const isProgrammaticScroll = useRef<boolean>(false);
+  const eventLocation = formatEventLocation(event);
 
   // useEffect(() => {
   //   const main = document.querySelector("main");
@@ -169,7 +170,7 @@ export default function EventPage() {
                     </div>
                     <div>
                       <p className={c.label}>Location</p>
-                      <p className={c.data}>{event.locationName}</p>
+                      <p className={c.data}>{eventLocation}</p>
                     </div>
 
                   </div>

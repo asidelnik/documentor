@@ -18,6 +18,7 @@ import { eventPriorityLabels } from '../../constants/event-constants';
 import { useEventsFilters, useEventsFiltersDispatch } from '../../contexts/events-filters-context';
 import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
 import EventStatusIcon from '../../shared/components/EventStatusIcon';
+import { formatEventLocation } from '../../utils/functions';
 
 
 export default function EventsTable({ rows, eventsCount, isLoading, openDialog }: IEventsTableProps) {
@@ -90,7 +91,7 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
                   <TableCell>{row.startTimeFormatted}</TableCell>
                   <TableCell>{row.durationFormatted}</TableCell>
                   <TableCell>{row.description}</TableCell>
-                  <TableCell>{row.locationName}</TableCell>
+                  <TableCell>{formatEventLocation(row)}</TableCell>
                   <TableCell>
                     <EventStatusIcon status={row.status} />
                   </TableCell>
