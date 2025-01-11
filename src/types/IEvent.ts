@@ -2,10 +2,9 @@ import { EventType } from './EventType';
 import { ILocation, ILocationTexts } from './ILocation';
 import { IVideo } from './IVideo';
 
-// Todo - decide if to move all proeprties into 1 event interface
 export interface IEvent {
   _id: string;
-  title: string; // convert to name by removing dashes and capitalizing
+  title: string;
   description: string;
   types: Array<EventType>;
   duration: number;
