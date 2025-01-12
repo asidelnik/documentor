@@ -1,20 +1,19 @@
 import c from './AnalyticsPage.module.scss';
-import { Bar, Pie, Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import { eventTypeData, eventTypeOptions, lineData, lineOptions, dangerousLocationsData, dangerousLocationsOptions, recentEvents } from '../../initial-state/analyticsInitialState';
 import { useState } from 'react';
 import { IconButton } from '@mui/material';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
-import EventIcon from '@mui/icons-material/Event'; // Example icon, replace with appropriate icons
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
+import EventIcon from '@mui/icons-material/Event';
+import { recentEvents } from '../../initial-state/analyticsInitialState';
+import LineChart from '../../shared/components/charts/LineChart';
+import BarChart from '../../shared/components/charts/BarChart';
+import PieChart from '../../shared/components/charts/PieChart';
 
 
 export default function AnalyticsPage() {
   const [toggleAside, setToggleAside] = useState<boolean>(true);
-  const [year, setYear] = useState<number>(2023);
-  const [type, setType] = useState<string>('All');
-  const [timePeriod, setTimePeriod] = useState<string>('2023');
+  // const [year, setYear] = useState<number>(2023);
+  // const [type, setType] = useState<string>('All');
+  // const [timePeriod, setTimePeriod] = useState<string>('2023');
 
   // useEffect(() => {
   //   return () => {
@@ -35,7 +34,7 @@ export default function AnalyticsPage() {
           <div className={toggleAside ? 'visible' : 'hidden'}></div>
         </aside>
         <main>
-          <div>
+          {/* <div>
             <label htmlFor="year">Filter by Year: </label>
             <input
               type="number"
@@ -65,27 +64,31 @@ export default function AnalyticsPage() {
               value={timePeriod}
               onChange={(e) => setTimePeriod(e.target.value)}
             />
+          </div> */}
+          <div className={c.chartBox}>
+            <LineChart />
           </div>
+          <div className={c.secondChartsRow}>
+            <div className={c.chartBox}>
+              <BarChart />
+            </div>
+            <div className={c.chartBox}>
+              <PieChart />
+            </div>
 
-          {/* <Bar data={barData} options={barOptions} />
-          <Pie data={pieData} options={pieOptions} /> */}
-          {/*  */}
-          <Bar data={eventTypeData} options={eventTypeOptions} />
-          <Line data={lineData} options={lineOptions} />
-          <Pie data={dangerousLocationsData} options={dangerousLocationsOptions} />
-
-          <div className={c.recentEvents}>
-            <h2>Recent Events</h2>
-            {recentEvents.map((event, index) => (
-              <div key={index} className={c.eventItem}>
-                <EventIcon />
-                <div>
-                  <h3>{event.title}</h3>
-                  <p>{event.date}</p>
-                  <p>{event.location}</p>
+            <div className={c.recentEvents}>
+              <h2>Recent Events</h2>
+              {recentEvents.map((event, index) => (
+                <div key={index} className={c.eventItem}>
+                  <EventIcon />
+                  <div>
+                    <h3>{event.title}</h3>
+                    <p>{event.date}</p>
+                    <p>{event.location}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </main>
       </div>
