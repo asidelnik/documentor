@@ -10,6 +10,7 @@ import {
   ChartOptions,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { titleFontOptions } from '../../../constants/charts-constants';
 
 ChartJS.register(
   CategoryScale,
@@ -30,6 +31,8 @@ const options: ChartOptions<'line'> = {
     title: {
       display: true,
       text: 'Event Frequency Over Time',
+      font: titleFontOptions,
+      color: 'hsl(0, 0%, 15%)',
     },
   },
 };
@@ -47,12 +50,6 @@ const data = {
       borderColor: 'rgba(75, 192, 192, 1)',
       tension: 0.1,
     },
-    // {
-    //   label: 'Dataset 2',
-    //   data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-    //   borderColor: 'rgb(53, 162, 235)',
-    //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    // },
   ],
 };
 

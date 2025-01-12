@@ -9,6 +9,7 @@ import {
   ChartOptions,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { titleFontOptions } from '../../../constants/charts-constants';
 
 ChartJS.register(
   CategoryScale,
@@ -24,6 +25,8 @@ const options: ChartOptions<'bar'> = {
     title: {
       display: true,
       text: 'Count of Events per Type',
+      font: titleFontOptions,
+      color: 'hsl(0, 0%, 15%)',
     },
   },
   responsive: true,
@@ -31,14 +34,8 @@ const options: ChartOptions<'bar'> = {
     mode: 'index' as const,
     intersect: false,
   },
-  scales: {
-    x: {
-      stacked: true,
-    },
-    y: {
-      stacked: true,
-    },
-  },
+  aspectRatio: 1,
+  // scales: {}
 };
 
 const labels = [
@@ -57,40 +54,10 @@ const data = {
       label: 'Count of Events per Type',
       data: [3, 2, 1, 1, 1, 1],
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      borderColor: 'rgba(75, 192, 192, 1)',
-      borderWidth: 1,
     },
   ],
 };
 
 export default function BarChart() {
-  return <Bar options={options} data={data} />;
+  return <Bar options={options} data={data} />
 }
-
-
-
-// export const eventTypeData = {
-//   datasets: [
-//     {
-//       label: 'Count of Events per Type',
-//       data: [3, 2, 1, 1, 1, 1],
-//       backgroundColor: 'rgba(75, 192, 192, 0.2)',
-//       borderColor: 'rgba(75, 192, 192, 1)',
-//       borderWidth: 1,
-//     },
-//   ],
-// };
-
-
-// export const eventTypeOptions: ChartOptions<'bar'> = {
-//   responsive: true,
-//   plugins: {
-//     legend: {
-//       position: 'top',
-//     },
-//     title: {
-//       display: true,
-//       text: 'Count of Events per Type',
-//     },
-//   },
-// };

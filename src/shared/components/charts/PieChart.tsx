@@ -1,10 +1,12 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { titleFontOptions } from '../../../constants/charts-constants';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const options: ChartOptions<'pie'> = {
   responsive: true,
+  maintainAspectRatio: true,
   plugins: {
     legend: {
       position: 'top',
@@ -12,8 +14,11 @@ const options: ChartOptions<'pie'> = {
     title: {
       display: true,
       text: 'Distribution of 10 Most Dangerous Locations',
+      font: titleFontOptions,
+      color: 'hsl(0, 0%, 15%)',
     },
   },
+  aspectRatio: 1,
 };
 
 const data = {
@@ -46,62 +51,3 @@ const data = {
 export default function PieChart() {
   return <Pie data={data} options={options} />;
 }
-
-
-// export const dangerousLocationsData = {
-//   labels: [
-//     'Location A',
-//     'Location B',
-//     'Location C',
-//     'Location D',
-//     'Location E',
-//     'Location F',
-//     'Location G',
-//     'Location H',
-//     'Location I',
-//     'Location J',
-//   ],
-//   datasets: [
-//     {
-//       label: 'Most Dangerous Locations',
-//       data: [25, 20, 15, 10, 8, 7, 6, 5, 3, 1],
-//       backgroundColor: [
-//         '#FF6384',
-//         '#36A2EB',
-//         '#FFCE56',
-//         '#FF6384',
-//         '#36A2EB',
-//         '#FFCE56',
-//         '#FF6384',
-//         '#36A2EB',
-//         '#FFCE56',
-//         '#FF6384',
-//       ],
-//       hoverBackgroundColor: [
-//         '#FF6384',
-//         '#36A2EB',
-//         '#FFCE56',
-//         '#FF6384',
-//         '#36A2EB',
-//         '#FFCE56',
-//         '#FF6384',
-//         '#36A2EB',
-//         '#FFCE56',
-//         '#FF6384',
-//       ],
-//     },
-//   ],
-// };
-
-// export const dangerousLocationsOptions: ChartOptions<'pie'> = {
-//   responsive: true,
-//   plugins: {
-//     legend: {
-//       position: 'top',
-//     },
-//     title: {
-//       display: true,
-//       text: 'Distribution of 10 Most Dangerous Locations',
-//     },
-//   },
-// };
