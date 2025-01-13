@@ -2,7 +2,9 @@ import { IEvent } from '../types/IEvent';
 import { IEventsFilters } from '../types/IEventsFilters';
 import { IVideosFilters } from '../types/IVideosFilters';
 
-export function getURLSearchParams(params: IVideosFilters | IEventsFilters) {
+export function getURLSearchParams(
+  params: IVideosFilters | IEventsFilters | IEventsFilters
+): string {
   const urlParams = new URLSearchParams();
 
   const filteredParams = Object.fromEntries(
