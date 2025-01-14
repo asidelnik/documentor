@@ -1,9 +1,11 @@
 # Documentor
-Videos documentation app for violent events (country based)<br />
-Technologies: React, TypeScript, Tanstack-Query, Material-UI, SCSS
+- Videos documentation app for violent events (country based)<br />
+- Client technologies: React, TypeScript, Vite, Tanstack-Query, Material-UI, SCSS, chart.js, Leaflet map, React Router, React Hook Form...
+- Server technolgies: Node.JS, Express.JS, MongoDB, Atlas
 
 - [Demo site](https://asidelnik.github.io/documentor/)
 - [Project tasks management](https://github.com/users/asidelnik/projects/1)
+- [Server repository](https://github.com/asidelnik/documentor-api)
 
 ## Current website UI
 **Events page**
