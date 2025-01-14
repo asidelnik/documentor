@@ -2,7 +2,7 @@
 - Videos documentation website for violent events
 - [Demo site](https://asidelnik.github.io/documentor/)
 - Client technologies: React, TypeScript, Vite, Tanstack-Query, Material-UI, SCSS, Chart.JS, Leaflet Maps, React Router, React Hook Form...
-- Server technolgies: Node.JS, Express.JS, MongoDB, Atlas
+- Server technolgies: Node.JS, Express.JS, MongoDB, Atlas Cloud
 - [Project tasks management](https://github.com/users/asidelnik/projects/1)
 - [Server repository](https://github.com/asidelnik/documentor-api)
 
