@@ -1,5 +1,5 @@
 # Documentor
-- Videos documentation app for violent events (country based)<br />
+- Videos documentation app for violent events
 - Client technologies: React, TypeScript, Vite, Tanstack-Query, Material-UI, SCSS, Chart.JS, Leaflet Maps, React Router, React Hook Form...
 - Server technolgies: Node.JS, Express.JS, MongoDB, Atlas
 
