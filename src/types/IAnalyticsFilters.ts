@@ -1,7 +1,7 @@
-import { EventType } from 'react-hook-form';
+import { EventTypeEnum } from '../constants/event-constants';
 
 export interface IAnalyticsFilters {
-  type?: EventType;
+  eventTypeId?: EventTypeEnum;
   fromDate?: Date | null;
   toDate?: Date | null;
   lat?: number;
