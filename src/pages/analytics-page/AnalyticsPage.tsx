@@ -23,13 +23,7 @@ export default function AnalyticsPage() {
 
   return (
     <>
-      <div className={c.container}>
-        <aside className={toggleAside ? c.asideOpen : c.asideClose}>
-          <div className={c.asideToggle}>
-            <IconButton onClick={() => setToggleAside(!toggleAside)} aria-label="toggle aside">
-              <FilterListRoundedIcon />
-            </IconButton>
-          </div>
+      <AnalyticsFiltersProvider>
 
           <div className={toggleAside ? 'visible' : 'hidden'}></div>
         </aside>
@@ -87,11 +81,7 @@ export default function AnalyticsPage() {
                     <p>{event.location}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </main>
-      </div>
+      </AnalyticsFiltersProvider>
     </>
   )
 }
