@@ -1,6 +1,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { titleFontOptions } from '../../../constants/charts-constants';
+import { IDangerousCity } from '../../../types/IAnalytics';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -13,7 +14,7 @@ const options: ChartOptions<'pie'> = {
     },
     title: {
       display: true,
-      text: 'Distribution of 10 Most Dangerous Locations',
+      text: '8 Most Dangerous Cities',
       font: titleFontOptions,
       color: 'hsl(0, 0%, 15%)',
     },
@@ -21,12 +22,12 @@ const options: ChartOptions<'pie'> = {
   aspectRatio: 1,
 };
 
-const data = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+const pieData = {
+  labels: [],
   datasets: [
     {
-      label: 'Most Dangerous Locations',
-      data: [12, 19, 3, 5, 2, 3],
+      label: '8 Most Dangerous Cities',
+      data: [],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -48,6 +49,11 @@ const data = {
   ],
 };
 
-export default function PieChart() {
-  return <Pie data={data} options={options} />;
+interface IPieChartProps {
+  data: Array<IDangerousCity>;
+}
+
+export default function PieChart({ data }: IPieChartProps) {
+  const pieDataUpdate = { ...pieData, labels: data.map((city) => city.cityName), datasets: [{ ...pieData.datasets[0], data: data.map((city) => city.eventsCount) }] };
+  return <Pie options={options} data={pieDataUpdate} />;
 }
