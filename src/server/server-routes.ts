@@ -48,19 +48,19 @@ export const serverRoutes = {
   analytics: {
     eventsCountPerType: (params: IAnalyticsFilters) => {
       const urlParams = getURLSearchParams(params);
-      return `analytics/events-count-per-type?${urlParams}`;
+      return `/analytics/events-count-per-type?${urlParams}`;
     },
     dangerousCities: (params: IAnalyticsFilters) => {
       const urlParams = getURLSearchParams(params);
-      return `analytics/dangerous-cities?${urlParams}`;
+      return `/analytics/dangerous-cities?${urlParams}`;
     },
     eventsFrequencyOverTime: (params: IAnalyticsFilters) => {
       const urlParams = getURLSearchParams(params);
-      return `analytics/events-frequency-over-time?${urlParams}`;
+      return `/analytics/events-frequency-over-time?${urlParams}`;
     },
     recentEvents: (params: IAnalyticsFilters) => {
       const urlParams = getURLSearchParams(params);
-      return `analytics/recent-events?${urlParams}`;
+      return `/analytics/recent-events?${urlParams}`;
     },
   },
   others: {
