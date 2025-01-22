@@ -1,23 +1,26 @@
-export const recentEvents = [
-  {
-    type: 'Assault',
-    title: 'Assault in Downtown',
-    date: '2023-10-01 14:30',
-    location: 'Downtown',
-  },
-  {
-    type: 'Robbery',
-    title: 'Bank Robbery',
-    date: '2023-09-28 09:15',
-    location: 'Main Street',
-  },
-  {
-    type: 'Burglary',
-    title: 'Home Burglary',
-    date: '2023-09-25 22:00',
-    location: 'Suburbs',
-  },
-];
+// export const recentEventsInitialState: Array<IRecentEvent> = [
+//   {
+//     title: 'Assault in Downtown',
+//     types: [EventTypeEnum.Assault],
+//     startTime: new Date('2023-10-01 14:30'),
+//     address: '',
+//     city: '',
+//   },
+//   {
+//     title: 'Bank Robbery',
+//     types: [EventTypeEnum.Bullying],
+//     startTime: new Date('2023-09-28 09:15'),
+//     address: '',
+//     city: '',
+//   },
+//   {
+//     title: 'Home Burglary',
+//     types: [EventTypeEnum.Bullying],
+//     startTime: new Date('2023-09-25 22:00'),
+//     address: '',
+//     city: '',
+//   },
+// ];
 
 /* Event Type - bar chart 
 export const eventTypeData = {
