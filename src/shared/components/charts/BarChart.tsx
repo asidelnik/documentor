@@ -10,6 +10,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { titleFontOptions } from '../../../constants/charts-constants';
+import { IEventsCountPerType } from '../../../types/IAnalytics';
 
 ChartJS.register(
   CategoryScale,
@@ -38,26 +39,24 @@ const options: ChartOptions<'bar'> = {
   // scales: {}
 };
 
-const labels = [
-  'domestic',
-  'neighbors',
-  'gang',
-  'transportation',
-  'protests',
-  'bullying',
-];
+const labels: Array<string> = [];
 
-const data = {
+const barData = {
   labels,
   datasets: [
     {
       label: 'Count of Events per Type',
-      data: [3, 2, 1, 1, 1, 1],
+      data: [],
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
     },
   ],
 };
 
-export default function BarChart() {
-  return <Bar options={options} data={data} />
+interface IBarChartProps {
+  data: Array<IEventsCountPerType>;
+}
+
+export default function BarChart({ data }: IBarChartProps) {
+  const barDataUpdated = { ...barData, labels: data.map((d) => d.type), datasets: [{ ...barData.datasets[0], data: data.map((d) => d.count) }] };
+  return <Bar options={options} data={barDataUpdated} />
 }

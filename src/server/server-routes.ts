@@ -1,3 +1,4 @@
+import { IAnalyticsFilters } from '../types/IAnalyticsFilters';
 import { IEventsFilters } from '../types/IEventsFilters';
 import { IVideosFilters } from '../types/IVideosFilters';
 import { getURLSearchParams } from '../utils/functions';
@@ -43,6 +44,24 @@ export const serverRoutes = {
 
     fetchEvent: (id: string) => `/events/events/${id}`,
     editEvent: (id: string) => `/events/events/${id}`,
+  },
+  analytics: {
+    eventsCountPerType: (params: IAnalyticsFilters) => {
+      const urlParams = getURLSearchParams(params);
+      return `/analytics/events-count-per-type?${urlParams}`;
+    },
+    dangerousCities: (params: IAnalyticsFilters) => {
+      const urlParams = getURLSearchParams(params);
+      return `/analytics/dangerous-cities?${urlParams}`;
+    },
+    eventsFrequencyOverTime: (params: IAnalyticsFilters) => {
+      const urlParams = getURLSearchParams(params);
+      return `/analytics/events-frequency-over-time?${urlParams}`;
+    },
+    recentEvents: (params: IAnalyticsFilters) => {
+      const urlParams = getURLSearchParams(params);
+      return `/analytics/recent-events?${urlParams}`;
+    },
   },
   others: {
     getHeaderBadgeCounts: '/shared/header-badges',

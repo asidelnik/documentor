@@ -1,8 +1,10 @@
-import { IEvent } from '../types/IEvent';
 import { IEventsFilters } from '../types/IEventsFilters';
+import { ILocationTexts } from '../types/ILocation';
 import { IVideosFilters } from '../types/IVideosFilters';
 
-export function getURLSearchParams(params: IVideosFilters | IEventsFilters) {
+export function getURLSearchParams(
+  params: IVideosFilters | IEventsFilters | IEventsFilters
+): string {
   const urlParams = new URLSearchParams();
 
   const filteredParams = Object.fromEntries(
@@ -53,14 +55,10 @@ export function dateToStringShortMonthDateYear(date: Date): string {
   return date.toLocaleDateString('en-US', options);
 }
 
-export function formatEventLocation<T extends IEvent>(
-  event: T | undefined
-): string {
-  return event
-    ? `${event.locationTexts.address || ''}${
-        event.locationTexts.address && event.locationTexts.city ? ', ' : ''
-      }${event.locationTexts.city || ''}`
-    : '';
+export function formatEventLocation(locationTexts: ILocationTexts): string {
+  return `${locationTexts.address || ''}${
+    locationTexts.address && locationTexts.city ? ', ' : ''
+  }${locationTexts.city || ''}`;
 }
 
 function isValidDateString(dateStr: Date): boolean {

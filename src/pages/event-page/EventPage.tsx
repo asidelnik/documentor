@@ -27,7 +27,7 @@ export default function EventPage() {
   const timeString = secondsToDurationString(event?.duration);
   const videos = event?.videos.map(video => ({ ...video, startTimeDate: new Date(video.startTime) })) ?? [];
   const isProgrammaticScroll = useRef<boolean>(false);
-  const eventLocation = formatEventLocation(event);
+  const eventLocation = event ? formatEventLocation(event.locationTexts) : '';
 
   // useEffect(() => {
   //   const main = document.querySelector("main");
@@ -116,7 +116,7 @@ export default function EventPage() {
                 <div className={c.menu}>
                   <Tooltip title="Details">
                     <IconButton aria-label="Event texts"
-                      className={sectionScroll === '#texts' ? `${c.icon} ${c.active}` : c.icon}
+                      className={c.icon}
                       onClick={(e: MouseEvent<HTMLButtonElement>) => scrollByMenuHandler('#texts', e)}>
                       <ArticleIcon />
                     </IconButton>
@@ -124,7 +124,7 @@ export default function EventPage() {
 
                   <Tooltip title="Timeline">
                     <IconButton aria-label="Videos timeline"
-                      className={sectionScroll === '#videos-timeline' ? `${c.icon} ${c.active}` : c.icon}
+                      className={c.icon}
                       onClick={(e: MouseEvent<HTMLButtonElement>) => scrollByMenuHandler('#videos-timeline', e)}>
                       <VideoLibraryIcon />
                     </IconButton>
@@ -132,7 +132,7 @@ export default function EventPage() {
 
                   <Tooltip title="Map">
                     <IconButton aria-label="Map"
-                      className={sectionScroll === '#event-map' ? `${c.icon} ${c.active}` : c.icon}
+                      className={c.icon}
                       onClick={(e: MouseEvent<HTMLButtonElement>) => scrollByMenuHandler('#event-map', e)}>
                       <MapIcon />
                     </IconButton>

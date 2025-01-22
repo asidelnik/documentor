@@ -19,12 +19,6 @@ export const eventPriorityLabels: { [key: number]: string } = {
   1: 'Low',
 };
 
-export const eventPriorityStrOptions: IOptionStr[] = [
-  { id: '3', label: 'High' },
-  { id: '2', label: 'Medium' },
-  { id: '1', label: 'Low' },
-];
-
 export enum EventStatus {
   Active = 1,
   Inactive = 2,
@@ -39,3 +33,23 @@ export const eventStatusLabels: { [key: number]: string } = {
   2: 'Inactive',
   1: 'Active',
 };
+
+export const eventTypeNumOptions: IOptionStr[] = [
+  { id: '1', label: 'Domestic' },
+  { id: '2', label: 'Neighbors' },
+  { id: '3', label: 'Gang' },
+  { id: '4', label: 'Transportation' },
+  { id: '5', label: 'Protests' },
+  { id: '6', label: 'Assault' },
+  { id: '7', label: 'Bullying' },
+];
+
+// export enum EventTypeEnum {
+//   Domestic = '1',
+//   Neighbors = '2',
+//   Gang = '3',
+//   Transportation = '4',
+//   Protests = '5',
+//   Assault = '6',
+//   Bullying = '7',
+// }

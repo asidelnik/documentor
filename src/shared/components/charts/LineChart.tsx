@@ -11,6 +11,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { titleFontOptions } from '../../../constants/charts-constants';
+import { IEventsFrequencyOverTime } from '../../../types/IAnalytics';
 
 ChartJS.register(
   CategoryScale,
@@ -37,14 +38,14 @@ const options: ChartOptions<'line'> = {
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels: Array<string> = [];
 
-const data = {
+const lineData = {
   labels,
   datasets: [
     {
       label: 'Event Frequency',
-      data: [10, 15, 8, 12, 20, 25, 18],
+      data: [],
       fill: false,
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
       borderColor: 'rgba(75, 192, 192, 1)',
@@ -53,6 +54,11 @@ const data = {
   ],
 };
 
-export default function LineChart() {
-  return <Line options={options} data={data} />;
+interface ILineChartProps {
+  data: Array<IEventsFrequencyOverTime>;
+}
+
+export default function LineChart({ data }: ILineChartProps) {
+  const lineDataUpdated = { ...lineData, labels: data.map((d) => d.monthName), datasets: [{ ...lineData.datasets[0], data: data.map((d) => d.eventsCount) }] };
+  return <Line options={options} data={lineDataUpdated} />;
 }
