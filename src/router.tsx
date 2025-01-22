@@ -19,7 +19,6 @@ import AnalyticsPage from "./pages/analytics-page/AnalyticsPage";
 export const router = createHashRouter(
   createRoutesFromElements(
     <Route
-      path="/"
       element={<RootLayout />}
     >
       <Route

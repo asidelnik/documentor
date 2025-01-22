@@ -13,7 +13,6 @@ export const useFetchAnalytics = () => {
   // let fetchController = new AbortController();
 
   useEffect(() => {
-    console.log('useFetchAnalytics useEffect');
     fetchData(serverRoutes.analytics.recentEvents(filters), 'recentEvents');
     fetchData(
       serverRoutes.analytics.eventsCountPerType(filters),
@@ -39,7 +38,6 @@ export const useFetchAnalytics = () => {
         ...analyticsData,
         [stateProperty]: { ...analyticsData[stateProperty], isLoading: true },
       });
-      console.log(baseUrl + path);
       const response = await fetch(baseUrl + path); //, { signal });
       if (!response.ok) {
         throw new Error(response.statusText);
