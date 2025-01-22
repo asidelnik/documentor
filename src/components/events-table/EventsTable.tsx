@@ -91,7 +91,7 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
                   <TableCell>{row.startTimeFormatted}</TableCell>
                   <TableCell>{row.durationFormatted}</TableCell>
                   <TableCell>{row.description}</TableCell>
-                  <TableCell>{formatEventLocation(row)}</TableCell>
+                  <TableCell>{formatEventLocation(row.locationTexts)}</TableCell>
                   <TableCell>
                     <EventStatusIcon status={row.status} />
                   </TableCell>

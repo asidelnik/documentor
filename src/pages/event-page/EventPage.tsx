@@ -27,7 +27,7 @@ export default function EventPage() {
   const timeString = secondsToDurationString(event?.duration);
   const videos = event?.videos.map(video => ({ ...video, startTimeDate: new Date(video.startTime) })) ?? [];
   const isProgrammaticScroll = useRef<boolean>(false);
-  const eventLocation = formatEventLocation(event);
+  const eventLocation = event ? formatEventLocation(event.locationTexts) : '';
 
   // useEffect(() => {
   //   const main = document.querySelector("main");
