@@ -11,7 +11,6 @@ import {
 import { Bar } from 'react-chartjs-2';
 import { titleFontOptions } from '../../../constants/charts-constants';
 import { IEventsCountPerType } from '../../../types/IAnalytics';
-import { eventTypeNumOptions } from '../../../constants/event-constants';
 
 ChartJS.register(
   CategoryScale,
@@ -58,6 +57,6 @@ interface IBarChartProps {
 }
 
 export default function BarChart({ data }: IBarChartProps) {
-  const barDataUpdated = { ...barData, labels: data.map((d) => eventTypeNumOptions[d.type]), datasets: [{ ...barData.datasets[0], data: data.map((d) => d.count) }] };
+  const barDataUpdated = { ...barData, labels: data.map((d) => d.type), datasets: [{ ...barData.datasets[0], data: data.map((d) => d.count) }] };
   return <Bar options={options} data={barDataUpdated} />
 }

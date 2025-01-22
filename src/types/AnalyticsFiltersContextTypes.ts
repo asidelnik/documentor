@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { EventTypeEnum } from '../constants/event-constants';
 
 type UpdateFromDateUpdateAction = {
   type: 'update-from-date';
@@ -13,7 +12,7 @@ type UpdateToDateAction = {
 
 type UpdateEventTypeIdAction = {
   type: 'update-event-type-id';
-  payload: EventTypeEnum | null;
+  payload: string | null;
 };
 
 type UpdateLatitudeAction = {

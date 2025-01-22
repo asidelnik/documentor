@@ -1,7 +1,5 @@
-import { EventTypeEnum } from '../constants/event-constants';
-
 export interface IAnalyticsFilters {
-  eventTypeId?: EventTypeEnum;
+  eventTypeId?: string;
   fromDate?: Date | null;
   toDate?: Date | null;
   lat?: number;

@@ -10,12 +10,7 @@ export default function AnalyticsFilters() {
 
   const updateFromDateHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const updateToDateHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
-
-  function updateTypeHandler(eventTypeId: string | number | null) {
-    if (typeof eventTypeId === 'number') {
-      filtersDispatch({ type: 'update-event-type-id', payload: eventTypeId });
-    }
-  }
+  const updateTypeHandler = (eventTypeId: string | null) => filtersDispatch({ type: 'update-event-type-id', payload: eventTypeId });
 
   return (
     <>

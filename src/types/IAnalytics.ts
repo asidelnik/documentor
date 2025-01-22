@@ -1,15 +1,15 @@
-import { EventTypeEnum } from '../constants/event-constants';
+import { ILocationTexts } from './ILocation';
 
 export interface IRecentEvent {
+  _id: string;
   title: string;
-  startTime: Date;
-  address: string;
-  city: string;
-  types: Array<EventTypeEnum>;
+  startTime: string;
+  locationTexts: ILocationTexts;
+  types: Array<string>;
 }
 
 export interface IEventsCountPerType {
-  type: EventTypeEnum;
+  type: string;
   count: number;
 }
 
