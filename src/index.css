@@ -93,3 +93,8 @@ h3 {
   gap: 10px !important;
   padding: 0px 12px !important;
 }
+
+.MuiBadge-badge {
+  right: 8px !important;
+  top: 8px !important;
+}

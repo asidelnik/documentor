@@ -35,6 +35,10 @@ export default function RootHeader() {
                 invisible={isFetching || isPending || error !== null}
                 title='Count of active high priority events'
                 sx={{ cursor: 'help' }}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
               >
                 <NavLink to="/events" className={getNavLinkClass}>
                   <FolderSharedIcon />
@@ -49,6 +53,10 @@ export default function RootHeader() {
                 invisible={isFetching || isPending || error !== null}
                 title='Count of unprocessed videos'
                 sx={{ cursor: 'help' }}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
               >
                 <NavLink to="/videos" className={getNavLinkClass}>
                   <SmartDisplayIcon />
