@@ -1,6 +1,7 @@
 import c from './AnalyticsPage.module.scss';
 import { IconButton } from '@mui/material';
-import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import AnalyticsFilters from '../../components/analytics-filters/AnalyticsFilters';
 import { useFetchAnalytics } from '../../hooks/useFetchAnalytics';
 import { useState } from 'react';
@@ -20,7 +21,7 @@ export default function AnalyticsPage() {
         <aside className={toggleAside ? c.asideOpen : c.asideClose}>
           <div className={c.asideToggle}>
             <IconButton onClick={() => setToggleAside(!toggleAside)} aria-label="toggle aside">
-              <FilterListRoundedIcon />
+              {toggleAside ? <KeyboardArrowLeftIcon /> : <FilterAltOutlinedIcon />}
               {/* Reset to default filtering */}
             </IconButton>
           </div>
