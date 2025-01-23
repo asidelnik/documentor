@@ -22,42 +22,15 @@ export default function EventPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [sectionScroll, setSectionScroll] = useState('#texts');
   const eventStartTime = event?.startTimeDate && dateToString(event?.startTimeDate);
   const timeString = secondsToDurationString(event?.duration);
   const videos = event?.videos.map(video => ({ ...video, startTimeDate: new Date(video.startTime) })) ?? [];
   const isProgrammaticScroll = useRef<boolean>(false);
   const eventLocation = event ? formatEventLocation(event.locationTexts) : '';
 
-  // useEffect(() => {
-  //   const main = document.querySelector("main");
-  //   console.log('scrolling');
-  //   if (main) {
-  //     main.addEventListener('scroll', scrollHandler);
-  //     return () => main.removeEventListener('scroll', scrollHandler);
-  //   }
-  // }, []);
-
   useEffect(() => {
     if (eventId !== undefined) fetchData(eventId);
   }, [eventId]);
-
-  const scrollHandler = () => {
-    if (isProgrammaticScroll.current) {
-      isProgrammaticScroll.current = false;
-      return;
-    }
-    console.log('scrolling');
-    const sections = document.querySelectorAll("main > section");
-    let currentSection = sectionScroll;
-    sections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top <= 0 && rect.bottom >= 0) {
-        currentSection = `#${section.id}`;
-      }
-    });
-    setSectionScroll(currentSection);
-  };
 
   const fetchData = async (id: string) => {
     try {
@@ -96,7 +69,6 @@ export default function EventPage() {
         top: elementPosition,
         behavior: 'smooth'
       });
-      setSectionScroll(sectionId);
     }
   }
 
@@ -141,7 +113,7 @@ export default function EventPage() {
                 <div style={{ width: '46px', height: '46px' }}></div>
               </nav>
 
-              <main onScroll={scrollHandler}>
+              <main>
                 <section className={c.texts} id="texts">
                   <h1>{event.title}</h1>
                   {event.description && <p className={c.description}>{event.description}</p>}
