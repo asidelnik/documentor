@@ -23,6 +23,7 @@
   --button-bg-color: hsl(211, 100%, 40%);
   --primary-color: hsl(226, 100%, 50%);
   --text-hover-color: hsl(280, 100%, 50%);
+  --text-color: hsl(0, 0%, 15%);
 }
 
 iframe {
@@ -63,6 +64,8 @@ h3 {
   margin: 0px;
   font-size: 1.6rem;
   font-weight: 300;
+  color: var(--text-color);
+  padding-block: 1rem;
 }
 
 .High {
