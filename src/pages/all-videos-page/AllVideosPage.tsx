@@ -2,7 +2,8 @@ import c from './AllVideosPage.module.scss'
 import { IconButton } from '@mui/material';
 import VideosFilters from '../../components/videos-filters/VideosFilters';
 import VideosGrid from '../../components/videos-grid/VideosGrid';
-import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useFilters } from '../../contexts/filters-context';
@@ -55,7 +56,7 @@ export default function AllVideosPage() {
         <aside className={toggleAside ? c.asideOpen : c.asideClose}>
           <div className={c.asideToggle}>
             <IconButton onClick={() => setToggleAside(!toggleAside)} aria-label="toggle aside">
-              <FilterListRoundedIcon />
+              {toggleAside ? <KeyboardArrowLeftIcon /> : <FilterAltOutlinedIcon />}
             </IconButton>
           </div>
 
