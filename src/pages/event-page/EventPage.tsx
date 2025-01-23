@@ -177,7 +177,7 @@ export default function EventPage() {
                 </section>
 
                 <section id="videos-timeline">
-                  <VideoList videos={videos} />
+                  <VideoList videos={videos} eventId={eventId} />
                 </section>
 
                 <section className={c.mapContainer} id="event-map">

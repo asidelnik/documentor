@@ -6,6 +6,10 @@ export const muiTheme = createTheme({
       main: 'hsl(226, 100%, 50%)',
       light: 'hsl(226, 100%, 60%)',
     },
+    info: {
+      main: 'hsl(0, 0%, 30%)',
+      dark: 'hsl(0, 0%, 15%)',
+    }
     // secondary: {
     //   main: purple[500],
     // },

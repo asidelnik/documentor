@@ -3,6 +3,7 @@
   flex-direction: column;
   row-gap: 15px;
   padding: 1rem 3rem 3rem 3rem;
+  background-color: #f7f7f7;
 
   .header {
     display: flex;
@@ -10,24 +11,27 @@
     align-items: center;
     gap: 10px;
 
-    .addVideos {
+    .buttons {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 6px;
-      padding: 8px 16px 8px 10px;
-      border-radius: 5px;
-      background-color: hsl(226, 100%, 50%);
-      color: white;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      text-decoration: none;
+      gap: 10px;
 
-      &:hover {
-        background-color: hsl(226, 100%, 60%);
+      .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 20px;
+        border-radius: 50px;
+        border-width: 1px;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        text-decoration: none;
+        text-transform: none;
       }
     }
   }
-  
+
   .videosContainer {
     display: flex;
     flex-direction: row;
@@ -37,7 +41,7 @@
     max-height: 260px;
     border-radius: 5px;
     overflow-x: auto;
-    
+
     .video {
       width: 315px;
       height: 243px;
