@@ -65,5 +65,6 @@ export const serverRoutes = {
   },
   others: {
     getHeaderBadgeCounts: '/shared/header-badges',
+    getEventTypes: '/shared/event-types',
   },
 };
