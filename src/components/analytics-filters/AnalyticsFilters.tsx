@@ -13,10 +13,10 @@ export default function AnalyticsFilters() {
   const [eventTypes, setEventTypes] = useState<Array<IOptionStr>>([]);
 
   useEffect(() => {
-    // const fetchController = new AbortController();
-    // const signal = fetchController.signal;
-    fetchEventTypes().then((data: Array<IOptionStr>) => setEventTypes(data));
-    // return () => fetchController.abort();
+    const fetchController = new AbortController();
+    const signal = fetchController.signal;
+    fetchEventTypes(signal).then((data: Array<IOptionStr>) => setEventTypes(data));
+    return () => fetchController.abort();
   }, []);
 
   const updateFromDateHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
