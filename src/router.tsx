@@ -1,12 +1,9 @@
-// Packages
 import {
   createHashRouter,
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-
 import RootLayout from "./layouts/RootLayout";
-// Pages
 import EventsTablePage from "./pages/EventsTablePage";
 // import EventTimelinePage from "./pages/EventTimelinePage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -54,5 +51,3 @@ export const router = createHashRouter(
     </Route>
   )
 );
-
-// https://github.com/users/asidelnik/projects/1/views/4?visibleFields=%5B%22Title%22%2C%22Assignees%22%2C123711051%2C%22Status%22%2C%22Labels%22%2C127418281%2C123703153%2C123703344%2C158375412%5D&pane=issue&itemId=92394007&issue=asidelnik%7Cdocumentor%7C115
