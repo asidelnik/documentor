@@ -1,12 +1,9 @@
-// Packages
 import {
   createHashRouter,
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-
 import RootLayout from "./layouts/RootLayout";
-// Pages
 import EventsTablePage from "./pages/EventsTablePage";
 // import EventTimelinePage from "./pages/EventTimelinePage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -44,6 +41,7 @@ export const router = createHashRouter(
       <Route
         path="/analytics"
         element={<AnalyticsPage />}
+        errorElement={<MainErrorBoundary />}
       />
 
       <Route

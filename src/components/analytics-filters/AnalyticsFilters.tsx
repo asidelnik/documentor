@@ -1,13 +1,23 @@
 import c from './AnalyticsFilters.module.scss';
 import { useAnalyticsFilters, useAnalyticsFiltersDispatch } from "../../contexts/analytics-filters-context";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
-import { eventTypeNumOptions } from '../../constants/event-constants';
 import MonthYearPicker from '../../shared/components/date-pickers/MonthYearPicker';
 import { TextField } from '@mui/material';
+import { fetchEventTypes } from '../../query/events/fetchEventTypes';
+import { IOptionStr } from '../../types/IOptionStr';
+import { useEffect, useState } from 'react';
 
 export default function AnalyticsFilters() {
   const filters = useAnalyticsFilters();
   const filtersDispatch = useAnalyticsFiltersDispatch();
+  const [eventTypes, setEventTypes] = useState<Array<IOptionStr>>([]);
+
+  useEffect(() => {
+    const fetchController = new AbortController();
+    const signal = fetchController.signal;
+    fetchEventTypes(signal).then((data: Array<IOptionStr>) => setEventTypes(data));
+    return () => fetchController.abort();
+  }, []);
 
   const updateFromDateHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const updateToDateHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
@@ -29,7 +39,7 @@ export default function AnalyticsFilters() {
         </div>
 
         <CheckboxesTags
-          options={eventTypeNumOptions}
+          options={eventTypes}
           checkedId={filters.eventTypeId ?? null}
           update={updateTypeHandler}
           isDisabled={false}

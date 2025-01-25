@@ -10,7 +10,6 @@ export const useFetchAnalytics = () => {
   const [analyticsData, setAnalyticsData] = useState<IFetchState>(
     analyticsFetchInitialState
   );
-  // let fetchController = new AbortController();
 
   useEffect(() => {
     fetchData(serverRoutes.analytics.recentEvents(filters), 'recentEvents');
@@ -26,19 +25,15 @@ export const useFetchAnalytics = () => {
       serverRoutes.analytics.eventsFrequencyOverTime(filters),
       'eventsFrequencyOverTime'
     );
-    // return () => fetchController.abort();
   }, [filters]);
 
   const fetchData = async (path: string, stateProperty: keyof IFetchState) => {
-    // fetchController.abort('Newer fetch called');
-    // fetchController = new AbortController();
-    // const { signal } = fetchController;
     try {
       setAnalyticsData({
         ...analyticsData,
         [stateProperty]: { ...analyticsData[stateProperty], isLoading: true },
       });
-      const response = await fetch(baseUrl + path); //, { signal });
+      const response = await fetch(baseUrl + path);
       if (!response.ok) {
         throw new Error(response.statusText);
       }
@@ -48,15 +43,6 @@ export const useFetchAnalytics = () => {
         ...analyticsData,
         [stateProperty]: { ...analyticsData[stateProperty], data: eventsRes },
       });
-      // if (!signal.aborted) {
-      //   setAnalyticsData({
-      //     ...analyticsData,
-      //     [stateProperty]: {
-      //       ...analyticsData[stateProperty],
-      //       isLoading: false,
-      //     },
-      //   });
-      // }
     } catch (error) {
       setAnalyticsData({
         ...analyticsData,
@@ -66,16 +52,6 @@ export const useFetchAnalytics = () => {
           isError: true,
         },
       });
-
-      // if (!signal.aborted) {
-      //   setAnalyticsData({
-      //     ...analyticsData,
-      //     [stateProperty]: {
-      //       ...analyticsData[stateProperty],
-      //       isLoading: false,
-      //     },
-      //   });
-      // }
     }
   };
 
