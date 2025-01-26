@@ -1,7 +1,7 @@
 import { IVideo } from '../../types/IVideo';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { markerIconText } from '../../utils/customMarkerIcon';
+import { markerIconText } from '../../utils/customIcons';
 
 interface IEventMap {
   videos: IVideo[];
