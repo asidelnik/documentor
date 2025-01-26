@@ -1,7 +1,7 @@
 import { IVideo } from '../../types/IVideo';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { customMarkerIcon } from '../../utils/customMarkerIcon';
+import { markerIconText } from '../../utils/customMarkerIcon';
 
 interface IEventMap {
   videos: IVideo[];
@@ -21,7 +21,7 @@ export default function EventMap({ videos }: IEventMap) {
         {videos.map((video: IVideo, index: number) => (
           <Marker
             key={video._id}
-            icon={customMarkerIcon(index + 1)}
+            icon={markerIconText(index + 1)}
             position={[video.startLocation.coordinates[0], video.startLocation.coordinates[1]]}>
             <Popup>
               {video.startLocation.type}
