@@ -1,5 +1,5 @@
 import c from './EventPage.module.scss';
-import { useEffect, useState, MouseEvent, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { IEvent, IEventAndDates } from "../../types/IEvent";
 import { serverRoutes } from "../../server/server-routes";
@@ -58,7 +58,7 @@ export default function EventPage() {
     }
   };
 
-  function scrollByMenuHandler(sectionId: string, e: MouseEvent<HTMLButtonElement>): void {
+  function scrollByMenuHandler(sectionId: string): void {
     const main = document.querySelector("main");
     const element: HTMLElement | null = document.querySelector(sectionId);
     if (element && main) {
@@ -89,7 +89,7 @@ export default function EventPage() {
                   <Tooltip title="Details">
                     <IconButton aria-label="Event texts"
                       className={c.icon}
-                      onClick={(e: MouseEvent<HTMLButtonElement>) => scrollByMenuHandler('#texts', e)}>
+                      onClick={() => scrollByMenuHandler('#texts')}>
                       <ArticleIcon />
                     </IconButton>
                   </Tooltip>
@@ -97,7 +97,7 @@ export default function EventPage() {
                   <Tooltip title="Timeline">
                     <IconButton aria-label="Videos timeline"
                       className={c.icon}
-                      onClick={(e: MouseEvent<HTMLButtonElement>) => scrollByMenuHandler('#videos-timeline', e)}>
+                      onClick={() => scrollByMenuHandler('#videos-timeline')}>
                       <VideoLibraryIcon />
                     </IconButton>
                   </Tooltip>
@@ -105,7 +105,7 @@ export default function EventPage() {
                   <Tooltip title="Map">
                     <IconButton aria-label="Map"
                       className={c.icon}
-                      onClick={(e: MouseEvent<HTMLButtonElement>) => scrollByMenuHandler('#event-map', e)}>
+                      onClick={() => scrollByMenuHandler('#event-map')}>
                       <MapIcon />
                     </IconButton>
                   </Tooltip>
