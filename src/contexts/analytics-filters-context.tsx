@@ -30,10 +30,13 @@ function analyticsFiltersReducer(filters: IAnalyticsFilters, action: AnalyticsFi
       return { ...filters, eventTypeId: action.payload } as IAnalyticsFilters;
     }
     case "update-latitude": {
-      return { ...filters, latitude: action.payload } as IAnalyticsFilters;
+      return { ...filters, lat: action.payload } as IAnalyticsFilters;
     }
     case "update-longitude": {
-      return { ...filters, longitude: action.payload } as IAnalyticsFilters;
+      return { ...filters, long: action.payload } as IAnalyticsFilters;
+    }
+    case "update-lng-lat": {
+      return { ...filters, lat: action.payload.lat, long: action.payload.lng } as IAnalyticsFilters;
     }
     case "update-radius": {
       return { ...filters, radius: action.payload } as IAnalyticsFilters;
