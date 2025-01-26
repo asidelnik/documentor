@@ -2,7 +2,7 @@ import c from './AnalyticsFilters.module.scss';
 import { useAnalyticsFilters, useAnalyticsFiltersDispatch } from "../../contexts/analytics-filters-context";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import MonthYearPicker from '../../shared/components/date-pickers/MonthYearPicker';
-import { Button, IconButton, Input, Slider, TextField } from '@mui/material';
+import { Button, IconButton, Input, Slider, TextField, Tooltip } from '@mui/material';
 import { fetchEventTypes } from '../../query/events/fetchEventTypes';
 import { IOptionStr } from '../../types/IOptionStr';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ import { IAnalyticsFiltersProps } from '../../types/IAnalyticsFiltersProps';
 import CloseIcon from '@mui/icons-material/Close';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalyticsFiltersProps) {
   const filters = useAnalyticsFilters();
@@ -78,16 +79,26 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
                   (<>Choose location<MapOutlinedIcon sx={{ marginLeft: '6px' }} /></>)}
               </Button>
 
-              {isShowLocationFields &&
-                <IconButton
-                  onClick={deleteCenterHandler}
-                  aria-label="Delete location filters"
-                  color="primary"
-                >
-                  <DeleteOutlineOutlinedIcon />
-                </IconButton>
-              }
+              <div className={c.right}>
+                {isShowLocationFields &&
+                  <IconButton
+                    onClick={deleteCenterHandler}
+                    aria-label="Delete location filters"
+                    color="primary"
+                  >
+                    <DeleteOutlineOutlinedIcon />
+                  </IconButton>
+                }
+
+                {(isShowMap || isShowLocationFields) &&
+                  <Tooltip title="Click map to set a center marker & drag to move." arrow placement="top" style={{ maxWidth: 'none', textWrap: 'nowrap' }}>
+                    <InfoOutlinedIcon />
+                  </Tooltip>
+                }
+              </div>
             </div>
+
+
             {isShowLocationFields &&
               <>
               <div>
@@ -116,19 +127,7 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
                 />
               </div>
 
-              {/* <div>
-                <TextField
-                  id="radius"
-                  label="Radius"
-                  type="text"
-                  variant="outlined"
-                  value={filters.radius}
-                  onChange={(e) => updateRadiusHandler(Number(e.target.value))}
-                  sx={{ width: "320px" }}
-                  InputLabelProps={{ shrink: true }}
-                  // disabled={!isShowLocationFields}
-                />
-              </div> */}
+              <label className={c.label}>Radius</label>
               <div className={c.radiusFields}>
                 <Slider
                   value={filters.radius}
