@@ -2,10 +2,10 @@ import c from './AnalyticsFilters.module.scss';
 import { useAnalyticsFilters, useAnalyticsFiltersDispatch } from "../../contexts/analytics-filters-context";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import MonthYearPicker from '../../shared/components/date-pickers/MonthYearPicker';
-import { Button, IconButton, TextField } from '@mui/material';
+import { Button, IconButton, Input, Slider, TextField } from '@mui/material';
 import { fetchEventTypes } from '../../query/events/fetchEventTypes';
 import { IOptionStr } from '../../types/IOptionStr';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { IAnalyticsFiltersProps } from '../../types/IAnalyticsFiltersProps';
 import CloseIcon from '@mui/icons-material/Close';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
@@ -35,11 +35,13 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
   const updateFromDateHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const updateToDateHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
   const updateTypeHandler = (eventTypeId: string | null) => filtersDispatch({ type: 'update-event-type-id', payload: eventTypeId });
-  const updateRadiusHandler = (radius?: number) => filtersDispatch({ type: 'update-radius', payload: radius });
   const deleteCenterHandler = () => {
     filtersDispatch({ type: 'update-lng-lat', payload: { lat: null, lng: null, radius: null } });
     setIsShowMap(false);
   }
+
+  const handleSliderChange = (_event: Event, newValue: number | number[]) => filtersDispatch({ type: 'update-radius', payload: newValue as number });
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => filtersDispatch({ type: 'update-radius', payload: event.target.value === '' ? 100 : Number(event.target.value) });
 
   return (
     <>
@@ -114,7 +116,7 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <TextField
                   id="radius"
                   label="Radius"
@@ -124,8 +126,39 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
                   onChange={(e) => updateRadiusHandler(Number(e.target.value))}
                   sx={{ width: "320px" }}
                   InputLabelProps={{ shrink: true }}
-                  disabled={!isShowLocationFields}
+                  // disabled={!isShowLocationFields}
                 />
+              </div> */}
+              <div>
+                <Slider
+                  value={filters.radius}
+                  onChange={handleSliderChange}
+                  disabled={!isShowMap}
+                  aria-label="Radius slider"
+                  defaultValue={500}
+                  getAriaValueText={(value) => `${value} m`}
+                  valueLabelDisplay="auto"
+                  shiftStep={30}
+                  step={200}
+                  marks
+                  min={100}
+                  max={4900}
+                />
+                <Input
+                  value={filters.radius}
+                  size="small"
+                  onChange={handleInputChange}
+                  disabled={!isShowMap}
+                  // onBlur={handleBlur}
+                  inputProps={{
+                    step: 50,
+                    min: 100,
+                    max: 4900,
+                    type: 'number',
+                    'aria-labelledby': 'input-slider',
+                  }}
+                />
+
               </div>
               </>
             }
