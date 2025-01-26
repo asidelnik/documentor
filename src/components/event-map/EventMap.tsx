@@ -24,7 +24,7 @@ export default function EventMap({ videos }: IEventMap) {
             icon={markerIconText(index + 1)}
             position={[video.startLocation.coordinates[0], video.startLocation.coordinates[1]]}>
             <Popup>
-              {video.startLocation.type}
+              {video.title}
             </Popup>
           </Marker>
         ))}

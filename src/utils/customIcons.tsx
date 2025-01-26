@@ -17,12 +17,12 @@ export const markerIconText = (index: number) => {
 export const markerIcon = () => {
   return new L.DivIcon({
     html:
-      `<svg width="24px" height="24px" viewBox="0 -960 960 960" fill="#d22314" xmlns="http://www.w3.org/2000/svg">
+      `<svg width="36px" height="36px" viewBox="0 -960 960 960" fill="#d22314" xmlns="http://www.w3.org/2000/svg">
         <path d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 400Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Z"/>
       </svg>`,
     className: '',
-    iconSize: [30, 40],
-    iconAnchor: [15, 20],
+    // iconSize: [30, 40],
+    iconAnchor: [18, 18],
     popupAnchor: [0, -41],
   });
 };

@@ -150,7 +150,6 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
                   onChange={handleInputChange}
                   disabled={!isShowMap}
                   sx={{ width: "20%" }}
-                  // onBlur={handleBlur}
                   inputProps={{
                     step: 50,
                     min: 100,
