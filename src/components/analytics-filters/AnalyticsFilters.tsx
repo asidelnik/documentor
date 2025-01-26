@@ -2,21 +2,17 @@ import c from './AnalyticsFilters.module.scss';
 import { useAnalyticsFilters, useAnalyticsFiltersDispatch } from "../../contexts/analytics-filters-context";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import MonthYearPicker from '../../shared/components/date-pickers/MonthYearPicker';
-import { Button, IconButton, Input, Slider, TextField, Tooltip } from '@mui/material';
 import { fetchEventTypes } from '../../query/events/fetchEventTypes';
 import { IOptionStr } from '../../types/IOptionStr';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { IAnalyticsFiltersProps } from '../../types/IAnalyticsFiltersProps';
-import CloseIcon from '@mui/icons-material/Close';
-import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import LocationFilter from '../../shared/components/location-filter/LocationFilter';
 
 export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalyticsFiltersProps) {
   const filters = useAnalyticsFilters();
   const filtersDispatch = useAnalyticsFiltersDispatch();
   const [eventTypes, setEventTypes] = useState<Array<IOptionStr>>([]);
-  const [isShowLocationFields, setIsShowLocationFields] = useState<boolean>(false);
+
 
   useEffect(() => {
     const fetchController = new AbortController();
@@ -25,13 +21,7 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
     return () => fetchController.abort();
   }, []);
 
-  useEffect(() => {
-    if (filters.lat && filters.long) {
-      setIsShowLocationFields(true);
-    } else {
-      setIsShowLocationFields(false);
-    }
-  }, [filters.lat, filters.long]);
+
 
   const updateFromDateHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const updateToDateHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
@@ -40,9 +30,8 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
     filtersDispatch({ type: 'update-lng-lat', payload: { lat: null, lng: null, radius: null } });
     setIsShowMap(false);
   }
-
-  const handleSliderChange = (_event: Event, newValue: number | number[]) => filtersDispatch({ type: 'update-radius', payload: newValue as number });
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => filtersDispatch({ type: 'update-radius', payload: event.target.value === '' ? 100 : Number(event.target.value) });
+  const radiusSliderChange = (_event: Event, newValue: number | number[]) => filtersDispatch({ type: 'update-radius', payload: newValue as number });
+  const radiusInputChange = (event: ChangeEvent<HTMLInputElement>) => filtersDispatch({ type: 'update-radius', payload: event.target.value === '' ? 100 : Number(event.target.value) });
 
   return (
     <>
@@ -68,112 +57,16 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
 
         <div className={c.locationContainer}>
           <h4>Location filter</h4>
-          <div className={c.main}>
-            <div className={c.buttons}>
-              <Button
-                onClick={() => setIsShowMap(!isShowMap)}
-                className={c.showMapButton}
-                variant='outlined'>
-                {isShowMap ?
-                  (<>Close map <CloseIcon sx={{ marginLeft: '6px' }} /></>) :
-                  (<>Choose location<MapOutlinedIcon sx={{ marginLeft: '6px' }} /></>)}
-              </Button>
-
-              <div className={c.right}>
-                {isShowLocationFields &&
-                  <IconButton
-                    onClick={deleteCenterHandler}
-                    aria-label="Delete location filters"
-                    color="primary"
-                  >
-                    <DeleteOutlineOutlinedIcon />
-                  </IconButton>
-                }
-
-                {(isShowMap || isShowLocationFields) &&
-                  <Tooltip title="Click map to set a center marker & drag to move." arrow placement="top" style={{ maxWidth: 'none', textWrap: 'nowrap' }}>
-                    <InfoOutlinedIcon />
-                  </Tooltip>
-                }
-              </div>
-            </div>
-
-
-            {isShowLocationFields &&
-              <>
-              <div>
-                <TextField
-                  id="latitude"
-                  label="Latitude"
-                  type="text"
-                  variant="outlined"
-                  value={filters.lat}
-                  sx={{ width: "320px" }}
-                  InputLabelProps={{ shrink: true }}
-                  disabled={true}
-                />
-              </div>
-
-              <div>
-                <TextField
-                  id="longitude"
-                  label="Longitude"
-                  type="text"
-                  variant="outlined"
-                  value={filters.long}
-                  sx={{ width: "320px" }}
-                  InputLabelProps={{ shrink: true }}
-                  disabled={true}
-                />
-              </div>
-
-              <label className={c.label}>Radius (m)</label>
-              <div className={c.radiusFields}>
-                <Slider
-                  value={filters.radius}
-                  onChange={handleSliderChange}
-                  disabled={!isShowMap}
-                  aria-label="Radius slider"
-                  defaultValue={500}
-                  getAriaValueText={(value) => `${value} m`}
-                  valueLabelDisplay="auto"
-                  step={null}
-                  min={100}
-                  max={200000}
-                  marks={[
-                    { value: 100 },
-                    { value: 500 },
-                    { value: 1000 },
-                    { value: 2500 },
-                    { value: 5000 },
-                    { value: 7500 },
-                    { value: 10000 },
-                    { value: 25000 },
-                    { value: 50000 },
-                    { value: 100000 },
-                    { value: 150000 },
-                    { value: 200000 },
-                  ]}
-                  sx={{ width: "70%" }}
-                />
-                <Input
-                  value={filters.radius}
-                  size="small"
-                  onChange={handleInputChange}
-                  disabled={!isShowMap}
-                  sx={{ width: "30%" }}
-                  inputProps={{
-                    step: 50,
-                    min: 100,
-                    max: 200000,
-                    type: 'number',
-                    'aria-labelledby': 'input-slider',
-                  }}
-                />
-              </div>
-              </>
-            }
-          </div>
+          <LocationFilter
+            isShowMap={isShowMap}
+            lat={filters.lat}
+            long={filters.long}
+            radius={filters.radius}
+            setIsShowMap={setIsShowMap}
+            deleteCenterHandler={deleteCenterHandler}
+            radiusSliderChange={radiusSliderChange}
+            radiusInputChange={radiusInputChange}
+          />
         </div>
       </div >
     </>

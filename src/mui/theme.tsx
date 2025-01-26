@@ -9,7 +9,11 @@ export const muiTheme = createTheme({
     info: {
       main: 'hsl(0, 0%, 30%)',
       dark: 'hsl(0, 0%, 15%)',
-    }
+    },
+    warning: {
+      main: 'hsl(0, 100%, 57%)',
+      dark: 'hsl(0, 100%, 40%)',
+    },
     // secondary: {
     //   main: purple[500],
     // },
