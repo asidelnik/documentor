@@ -1,0 +1,23 @@
+.eventItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.eventItem h3 {
+  margin: 0;
+  font-size: 18px;
+  padding: 0px;
+  font-weight: 600;
+}
+
+.eventItem p {
+  margin: 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.eventItem svg {
+  margin-right: 10px;
+}
