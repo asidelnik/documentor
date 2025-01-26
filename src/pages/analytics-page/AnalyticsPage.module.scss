@@ -33,6 +33,7 @@
     display: flex;
     flex-direction: column;
     row-gap: 30px;
+    position: relative;
 
     .secondChartsRow {
       display: flex;
@@ -66,27 +67,6 @@
         margin: 0;
         margin-block-end: 10px;
         color: var(--color);
-      }
-
-      .eventItem {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-      }
-
-      .eventItem h3 {
-        margin: 0;
-        font-size: 16px;
-      }
-
-      .eventItem p {
-        margin: 0;
-        font-size: 14px;
-        color: #666;
-      }
-
-      .eventItem svg {
-        margin-right: 10px;
       }
     }
   }

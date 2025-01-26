@@ -2,15 +2,17 @@ import c from './AnalyticsFilters.module.scss';
 import { useAnalyticsFilters, useAnalyticsFiltersDispatch } from "../../contexts/analytics-filters-context";
 import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import MonthYearPicker from '../../shared/components/date-pickers/MonthYearPicker';
-import { TextField } from '@mui/material';
 import { fetchEventTypes } from '../../query/events/fetchEventTypes';
 import { IOptionStr } from '../../types/IOptionStr';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { IAnalyticsFiltersProps } from '../../types/IAnalyticsFiltersProps';
+import LocationFilter from '../../shared/components/location-filter/LocationFilter';
 
-export default function AnalyticsFilters() {
+export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalyticsFiltersProps) {
   const filters = useAnalyticsFilters();
   const filtersDispatch = useAnalyticsFiltersDispatch();
   const [eventTypes, setEventTypes] = useState<Array<IOptionStr>>([]);
+
 
   useEffect(() => {
     const fetchController = new AbortController();
@@ -19,12 +21,17 @@ export default function AnalyticsFilters() {
     return () => fetchController.abort();
   }, []);
 
+
+
   const updateFromDateHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const updateToDateHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
   const updateTypeHandler = (eventTypeId: string | null) => filtersDispatch({ type: 'update-event-type-id', payload: eventTypeId });
-  const updateLatitude = (latitude?: number) => filtersDispatch({ type: 'update-latitude', payload: latitude });
-  const updateLongitude = (longitude?: number) => filtersDispatch({ type: 'update-longitude', payload: longitude });
-  const updateRadius = (radius?: number) => filtersDispatch({ type: 'update-latitude', payload: radius });
+  const deleteCenterHandler = () => {
+    filtersDispatch({ type: 'update-lng-lat', payload: { lat: null, lng: null, radius: null } });
+    setIsShowMap(false);
+  }
+  const radiusSliderChange = (_event: Event, newValue: number | number[]) => filtersDispatch({ type: 'update-radius', payload: newValue as number });
+  const radiusInputChange = (event: ChangeEvent<HTMLInputElement>) => filtersDispatch({ type: 'update-radius', payload: event.target.value === '' ? 100 : Number(event.target.value) });
 
   return (
     <>
@@ -48,39 +55,20 @@ export default function AnalyticsFilters() {
           size='medium'
         />
 
-        <div>
-          <TextField
-            id="latitude"
-            label="Latitude"
-            type="number"
-            variant="outlined"
-            onChange={(e) => updateLatitude(Number(e.target.value))}
-            sx={{ width: "320px" }}
+        <div className={c.locationContainer}>
+          <h4>Location filter</h4>
+          <LocationFilter
+            isShowMap={isShowMap}
+            lat={filters.lat}
+            long={filters.long}
+            radius={filters.radius}
+            setIsShowMap={setIsShowMap}
+            deleteCenterHandler={deleteCenterHandler}
+            radiusSliderChange={radiusSliderChange}
+            radiusInputChange={radiusInputChange}
           />
         </div>
-
-        <div>
-          <TextField
-            id="longitude"
-            label="Longitude"
-            type="number"
-            variant="outlined"
-            onChange={(e) => updateLongitude(Number(e.target.value))}
-            sx={{ width: "320px" }}
-          />
-        </div>
-
-        <div>
-          <TextField
-            id="longitude"
-            label="Radius"
-            type="number"
-            variant="outlined"
-            onChange={(e) => updateRadius(Number(e.target.value))}
-            sx={{ width: "320px" }}
-          />
-        </div>
-      </div>
+      </div >
     </>
   )
 }
