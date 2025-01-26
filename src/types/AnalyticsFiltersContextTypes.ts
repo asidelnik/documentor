@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ILatLngRadius } from './ILatLng';
+import { ILatLngRadius } from './ILatLngRadius';
 
 type UpdateFromDateUpdateAction = {
   type: 'update-from-date';
