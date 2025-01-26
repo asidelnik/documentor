@@ -2,6 +2,7 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import { IMapSelectLatLng } from '../../types/IMapSelectLatLng';
 import { LatLngLiteral, LatLngTuple } from 'leaflet';
 import { LocationMarker } from './LocationMarker';
+import MarkerIcon from '../../assets/icons/location_on.svg';
 
 export default function MapSelectLatLng({ lat, lng, radius, setCenter }: IMapSelectLatLng) {
   const center: LatLngTuple | null = lat && lng ? [lat, lng] : null;
@@ -12,7 +13,10 @@ export default function MapSelectLatLng({ lat, lng, radius, setCenter }: IMapSel
   }
 
   return (
-    <MapContainer center={[32.0853, 34.7818]} zoom={13} style={{ height: "100vh", width: "100%" }}>
+    <MapContainer
+      center={[32.0853, 34.7818]}
+      zoom={13}
+      style={{ height: "100vh", width: "100%", cursor: 'url(' + MarkerIcon + '), pointer' }}>
       <TileLayer
         url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
       />

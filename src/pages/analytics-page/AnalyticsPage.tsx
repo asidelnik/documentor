@@ -19,7 +19,6 @@ export default function AnalyticsPage() {
   const [isShowMap, setIsShowMap] = useState<boolean>(false);
   const filters = useAnalyticsFilters();
   const filtersDispatch = useAnalyticsFiltersDispatch();
-  console.log('Analytics page', filters.lat, filters.long);
 
   const updateLngLat = (center: LatLngLiteral) => filtersDispatch({ type: 'update-lng-lat', payload: { lat: center.lat, lng: center.lng, radius: filters.radius || 500 } });
 
