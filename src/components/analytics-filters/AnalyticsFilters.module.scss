@@ -14,4 +14,39 @@
     flex-direction: row;
     column-gap: 6px;
   }
+
+  .locationContainer {
+    width: 100%;
+
+    h4 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin: 0px;
+      padding: 0px;
+      padding-block: 10px 14px;
+      border-top: 1px solid var(--surface-1-border-color);
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+
+      .buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        column-gap: 10px;
+
+        .showMapButton {
+          text-transform: none;
+          width: fit-content;
+          padding-inline: 15px;
+          margin-bottom: 0px;
+          border-radius: 50px;
+        }
+      }
+    }
+  }
 }
