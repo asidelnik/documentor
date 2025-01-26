@@ -129,7 +129,7 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
                   // disabled={!isShowLocationFields}
                 />
               </div> */}
-              <div>
+              <div className={c.radiusFields}>
                 <Slider
                   value={filters.radius}
                   onChange={handleSliderChange}
@@ -143,12 +143,14 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
                   marks
                   min={100}
                   max={4900}
+                  sx={{ width: "80%" }}
                 />
                 <Input
                   value={filters.radius}
                   size="small"
                   onChange={handleInputChange}
                   disabled={!isShowMap}
+                  sx={{ width: "20%" }}
                   // onBlur={handleBlur}
                   inputProps={{
                     step: 50,
