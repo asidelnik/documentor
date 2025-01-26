@@ -50,6 +50,7 @@ export default function EventsAddEditDialog({ dialog, onClose, onSubmit }: IEven
         {dialog.eventsAction === EventsAction.Edit && !isLoading && event &&
           <EventEditForm
             eventToEdit={event}
+          eventId={dialog.eventId}
             onSubmit={(isSuccess: boolean, message: string) => onSubmit(isSuccess, message)}
           />
         }

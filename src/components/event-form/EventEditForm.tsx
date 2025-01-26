@@ -27,7 +27,7 @@ const validationSchema = yup.object({
 });
 
 
-export default function EventEditForm({ eventToEdit, onSubmit }: IEventEditFormProps) {
+export default function EventEditForm({ eventToEdit, eventId, onSubmit }: IEventEditFormProps) {
   const [startTimeError, setStartTimeError] = useState<DateTimeValidationError | null>(null);
   const { control, trigger, handleSubmit, setValue, setError, clearErrors,
     formState: { errors, isValid } } = useForm<IEventEditForm>({
@@ -175,7 +175,7 @@ export default function EventEditForm({ eventToEdit, onSubmit }: IEventEditFormP
 
         <Divider component="div" />
 
-        <VideoList videos={eventToEdit?.videos} />
+        <VideoList videos={eventToEdit?.videos} eventId={eventId} />
 
         <Button
           type="submit"

@@ -1,4 +1,3 @@
-import { EventType } from './EventType';
 import { ILocation, ILocationTexts } from './ILocation';
 import { IVideo } from './IVideo';
 
@@ -6,7 +5,7 @@ export interface IEvent {
   _id: string;
   title: string;
   description: string;
-  types: Array<EventType>;
+  types: Array<string>;
   duration: number;
   location: ILocation;
   locationTexts: ILocationTexts;
