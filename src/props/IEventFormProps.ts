@@ -6,5 +6,6 @@ export interface IEventAddFormProps {
 
 export interface IEventEditFormProps {
   eventToEdit: IEventAndDates | null;
+  eventId?: string;
   onSubmit: (isSuccess: boolean, message: string) => void;
 }
