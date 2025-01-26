@@ -36,7 +36,7 @@ function analyticsFiltersReducer(filters: IAnalyticsFilters, action: AnalyticsFi
       return { ...filters, long: action.payload } as IAnalyticsFilters;
     }
     case "update-lng-lat": {
-      return { ...filters, lat: action.payload.lat, long: action.payload.lng } as IAnalyticsFilters;
+      return { ...filters, lat: action.payload.lat, long: action.payload.lng, radius: action.payload.radius } as IAnalyticsFilters;
     }
     case "update-radius": {
       return { ...filters, radius: action.payload } as IAnalyticsFilters;

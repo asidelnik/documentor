@@ -37,7 +37,7 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
   const updateTypeHandler = (eventTypeId: string | null) => filtersDispatch({ type: 'update-event-type-id', payload: eventTypeId });
   const updateRadiusHandler = (radius?: number) => filtersDispatch({ type: 'update-radius', payload: radius });
   const deleteCenterHandler = () => {
-    filtersDispatch({ type: 'update-lng-lat', payload: { lat: null, lng: null } });
+    filtersDispatch({ type: 'update-lng-lat', payload: { lat: null, lng: null, radius: null } });
     setIsShowMap(false);
   }
 

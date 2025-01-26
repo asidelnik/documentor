@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ILatLng } from './ILatLng';
+import { ILatLngRadius } from './ILatLng';
 
 type UpdateFromDateUpdateAction = {
   type: 'update-from-date';
@@ -28,7 +28,7 @@ type UpdateLongitudeAction = {
 
 type UpdateLngLatAction = {
   type: 'update-lng-lat';
-  payload: ILatLng;
+  payload: ILatLngRadius;
 };
 
 type UpdateRadiusAction = {

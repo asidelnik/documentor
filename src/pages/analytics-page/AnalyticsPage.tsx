@@ -21,7 +21,7 @@ export default function AnalyticsPage() {
   const filtersDispatch = useAnalyticsFiltersDispatch();
   console.log('Analytics page', filters.lat, filters.long);
 
-  const updateLngLat = (center: LatLngLiteral) => filtersDispatch({ type: 'update-lng-lat', payload: center });
+  const updateLngLat = (center: LatLngLiteral) => filtersDispatch({ type: 'update-lng-lat', payload: { lat: center.lat, lng: center.lng, radius: filters.radius || 500 } });
 
   return (
     <>
@@ -59,7 +59,7 @@ export default function AnalyticsPage() {
               <MapSelectLatLng
                 lat={filters.lat}
                 lng={filters.long}
-                radius={filters.radius || 100}
+                radius={filters.radius || 500}
                 setCenter={updateLngLat} />
             </div>
           }
