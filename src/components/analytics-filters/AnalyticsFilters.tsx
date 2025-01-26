@@ -127,7 +127,7 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
                 />
               </div>
 
-              <label className={c.label}>Radius</label>
+              <label className={c.label}>Radius (m)</label>
               <div className={c.radiusFields}>
                 <Slider
                   value={filters.radius}
@@ -137,28 +137,39 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
                   defaultValue={500}
                   getAriaValueText={(value) => `${value} m`}
                   valueLabelDisplay="auto"
-                  shiftStep={30}
-                  step={200}
-                  marks
+                  step={null}
                   min={100}
-                  max={4900}
-                  sx={{ width: "80%" }}
+                  max={200000}
+                  marks={[
+                    { value: 100 },
+                    { value: 500 },
+                    { value: 1000 },
+                    { value: 2500 },
+                    { value: 5000 },
+                    { value: 7500 },
+                    { value: 10000 },
+                    { value: 25000 },
+                    { value: 50000 },
+                    { value: 100000 },
+                    { value: 150000 },
+                    { value: 200000 },
+                  ]}
+                  sx={{ width: "70%" }}
                 />
                 <Input
                   value={filters.radius}
                   size="small"
                   onChange={handleInputChange}
                   disabled={!isShowMap}
-                  sx={{ width: "20%" }}
+                  sx={{ width: "30%" }}
                   inputProps={{
                     step: 50,
                     min: 100,
-                    max: 4900,
+                    max: 200000,
                     type: 'number',
                     'aria-labelledby': 'input-slider',
                   }}
                 />
-
               </div>
               </>
             }
