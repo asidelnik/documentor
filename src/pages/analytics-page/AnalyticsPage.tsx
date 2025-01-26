@@ -9,14 +9,14 @@ import { RecentEvents } from '../../shared/components/charts/recent-events/Recen
 import LineChart from '../../shared/components/charts/LineChart';
 import BarChart from '../../shared/components/charts/BarChart';
 import PieChart from '../../shared/components/charts/PieChart';
-import MapSelectLatLng from '../../shared/components/MapSelectLatLng';
+import LocationFilterMap from '../../shared/components/location-filter-map/LocationFilterMap';
 import { useAnalyticsFilters, useAnalyticsFiltersDispatch } from '../../contexts/analytics-filters-context';
 import { LatLngLiteral } from 'leaflet';
 
 export default function AnalyticsPage() {
   const [toggleAside, setToggleAside] = useState<boolean>(true);
   const { analyticsData } = useFetchAnalytics();
-  const [isShowMap, setIsShowMap] = useState<boolean>(false);
+  const [isShowMap, setIsShowMap] = useState<boolean>(false); // perhaps should be in global state
   const filters = useAnalyticsFilters();
   const filtersDispatch = useAnalyticsFiltersDispatch();
 
@@ -54,13 +54,11 @@ export default function AnalyticsPage() {
             </div>
           </div>
           {isShowMap &&
-            <div className={c.map}>
-              <MapSelectLatLng
-                lat={filters.lat}
-                lng={filters.long}
-                radius={filters.radius || 500}
-                setCenter={updateLngLat} />
-            </div>
+            <LocationFilterMap
+              lat={filters.lat}
+              lng={filters.long}
+              radius={filters.radius || 500}
+              setCenter={updateLngLat} />
           }
         </main>
       </div>
