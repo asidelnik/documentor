@@ -8,6 +8,6 @@ export interface IVideosGridProps {
 }
 
 export type VideosGridParams = {
-  eventTitle: string;
-  eventId: string;
+  eventTitle: string | undefined;
+  eventId: string | undefined;
 };
