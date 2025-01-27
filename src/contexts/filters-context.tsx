@@ -20,16 +20,16 @@ export function FiltersProvider({ children }: FiltersContextProviderProps) {
 
 function filtersReducer(filters: IVideosFilters, action: FiltersActions): any {
   switch (action.type) {
-    case "update-statuses": {
+    case 'update-statuses': {
       return { ...filters, statuses: action.payload, } as IVideosFilters;
     }
-    case "update-from-date": {
+    case 'update-from-date': {
       return { ...filters, fromDate: action.payload, } as IVideosFilters;
     }
-    case "update-to-date": {
+    case 'update-to-date': {
       return { ...filters, toDate: action.payload, } as IVideosFilters;
     }
-    case "update-event-id": {
+    case 'update-event-id': {
       return { ...filters, eventId: action.payload, } as IVideosFilters;
     }
     default: {
