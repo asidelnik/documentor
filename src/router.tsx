@@ -20,17 +20,17 @@ export const router = createHashRouter(
     >
       <Route
         path="/"
-        element={<AllVideosPage />}
-        errorElement={<MainErrorBoundary />}
-      />
-      <Route
-        path="/videos"
-        element={<AllVideosPage />}
+        element={<EventsTablePage />}
         errorElement={<MainErrorBoundary />}
       />
       <Route
         path="/events"
         element={<EventsTablePage />}
+        errorElement={<MainErrorBoundary />}
+      />
+      <Route
+        path="/videos"
+        element={<AllVideosPage />}
         errorElement={<MainErrorBoundary />}
       />
       <Route
