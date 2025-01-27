@@ -15,14 +15,14 @@ export default function VideoList({ videos, eventId }: IVideoListProps) {
   function updateEventVideos() {
     if (eventId) {
       videosDispatch({ type: 'update-event-id', payload: eventId });
-      navigate('/videos/');
+      navigate(`/videos/update-event-videos`);
     }
   }
 
   function addEventVideos() {
     if (eventId) {
       videosDispatch({ type: 'update-event-id', payload: undefined });
-      navigate('/videos');
+      navigate('/videos/add-videos-to-event/' + eventId);
     }
   }
 
@@ -36,7 +36,7 @@ export default function VideoList({ videos, eventId }: IVideoListProps) {
               Add
             </Button>
             <Button variant="outlined" onClick={updateEventVideos} className={c.button}>
-              Modify
+              Update
             </Button>
           </div>
         </div>
