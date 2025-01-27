@@ -175,7 +175,7 @@ export default function EventEditForm({ eventToEdit, eventId, onSubmit }: IEvent
 
         <Divider component="div" />
 
-        <VideoList videos={eventToEdit?.videos} eventId={eventId} />
+        <VideoList videos={eventToEdit?.videos} eventId={eventId} eventTitle={eventToEdit?.title} />
 
         <Button
           type="submit"
