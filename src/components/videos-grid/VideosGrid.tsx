@@ -1,14 +1,26 @@
 import c from "./VideosGrid.module.scss";
 import ReactPlayer from 'react-player'
-import { IVideosGridProps } from "../../props/IVideosGridProps";
+import { IVideosGridProps, VideosGridParams } from "../../props/IVideosGridProps";
 import VideoInfo from "../video-info/VideoInfo";
 import { IVideo } from "../../types/IVideo";
 import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
+import { useParams } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useState } from "react";
 
 export default function VideosGrid({ videos, videosCount, eventsData }: IVideosGridProps) {
+  const { eventTitle, eventId } = useParams<VideosGridParams>();
+  console.log(eventId)
+  const [selectedVideos, setSelectedVideos] = useState<Array<string>>([]);
+
   return (
     <>
-      <div className={c.videoCount}>{videosCount} videos</div>
+      <div className={c.videoCount}>
+        <div>{videosCount} videos </div>
+        <div>{eventTitle}</div>
+        <Button disabled={selectedVideos.length === 0}>{selectedVideos.length} Add</Button>
+      </div>
+
       {videos && videos.length > 0 && (
         <div className={c.container}>
           <div className={c.videosGrid}>

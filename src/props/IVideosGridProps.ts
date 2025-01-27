@@ -6,3 +6,8 @@ export interface IVideosGridProps {
   videosCount: number;
   eventsData: IEventsAutoComplete;
 }
+
+export type VideosGridParams = {
+  eventTitle: string;
+  eventId: string;
+};

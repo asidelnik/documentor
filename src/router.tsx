@@ -42,7 +42,7 @@ export const router = createHashRouter(
           errorElement={<MainErrorBoundary />}
         />
         <Route
-          path="add-videos-to-event/:eventId"
+          path="add-videos-to-event/:eventTitle/:eventId"
           element={<AllVideosPage />}
           errorElement={<MainErrorBoundary />}
         />

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFiltersDispatch } from '../../contexts/filters-context';
 import { Button } from '@mui/material';
 
-export default function VideoList({ videos, eventId }: IVideoListProps) {
+export default function VideoList({ videos, eventId, eventTitle }: IVideoListProps) {
   const videosDispatch = useFiltersDispatch();
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ export default function VideoList({ videos, eventId }: IVideoListProps) {
   function addEventVideos() {
     if (eventId) {
       videosDispatch({ type: 'update-event-id', payload: undefined });
-      navigate('/videos/add-videos-to-event/' + eventId);
+      navigate(`/videos/add-videos-to-event/${eventTitle}/${eventId}`);
     }
   }
 
