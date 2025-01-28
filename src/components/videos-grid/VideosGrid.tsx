@@ -7,13 +7,16 @@ import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import GridHeader from "../grid-header/GridHeader";
+import { addVideosToEvent } from "../../query/events/addVideosToEvent";
 
 
 export default function VideosGrid({ videos, videosCount, eventsData }: IVideosGridProps) {
   const { eventTitle, eventId } = useParams<VideosGridParams>();
   const [selectedVideos, setSelectedVideos] = useState<Array<string>>([]);
 
-  const handleVideoClick = (videoId: string) => {
+
+  const handleMouseDown = (videoId: string) => {
+    if (!eventId) return;
     setSelectedVideos(prevSelectedVideos => {
       if (prevSelectedVideos.includes(videoId)) {
         return prevSelectedVideos.filter(id => id !== videoId);
@@ -23,19 +26,12 @@ export default function VideosGrid({ videos, videosCount, eventsData }: IVideosG
     });
   };
 
-  const handleMouseDown = (videoId: string) => {
+  const addSelectedVideosToEvent = async () => {
     if (!eventId) return;
-    handleVideoClick(videoId);
-  };
-
-  const addSelectedVideosToEvent = () => {
-    // TODO - server path, post request function, server endpoint
-    console.log('Add videos to event', eventId, selectedVideos);
+    await addVideosToEvent(eventId, selectedVideos);
   }
 
-  const unselectAllVideos = () => {
-    setSelectedVideos([]);
-  }
+  const unselectAllVideos = () => setSelectedVideos([])
 
   return (
     <>
