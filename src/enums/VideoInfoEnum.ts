@@ -1,4 +1,5 @@
 export enum VideoInfoEnum {
   VideosGrid = 1,
-  EventVideoList = 2,
+  VideosGrid_AddVideosToEvent = 2,
+  Event_VideoList = 3,
 }

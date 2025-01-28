@@ -14,8 +14,10 @@ import { useFilters } from "../../contexts/filters-context";
 import { videoOnMutate } from "../../query/videos/videoStatusMutation";
 import { VideoMutaion } from "../../enums/VideoMutation";
 import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
+import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 
-export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoInfoProps) {
+export default function VideoInfo({ video, eventsData, videoInfoType, isSelected }: IVideoInfoProps) {
   const filters = useFilters();
   const queryClient = useQueryClient();
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
@@ -93,6 +95,10 @@ export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoIn
                     opacity: statusStatus === 'pending' ? 0.5 : 1 //isFetchingVideos > 0 ? 0.5 : 1
                   }}></div>
               </PositionedMenu>
+            }
+            {videoInfoType === VideoInfoEnum.VideosGrid_AddVideosToEvent ?
+              (isSelected ? <CheckBoxOutlinedIcon /> : <CheckBoxOutlineBlankOutlinedIcon />)
+              : null
             }
           </div>
         </div>

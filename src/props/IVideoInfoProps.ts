@@ -6,4 +6,5 @@ export interface IVideoInfoProps {
   video: IVideo;
   eventsData?: IEventsAutoComplete;
   videoInfoType: VideoInfoEnum;
+  isSelected: boolean | null;
 }

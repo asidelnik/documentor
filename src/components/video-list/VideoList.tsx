@@ -32,10 +32,18 @@ export default function VideoList({ videos, eventId, eventTitle }: IVideoListPro
         <div className={c.header}>
           <h3>Videos timeline</h3>
           <div className={c.buttons}>
-            <Button variant="outlined" onClick={addEventVideos} color="info" className={c.button}>
+            <Button
+              variant="outlined"
+              onClick={addEventVideos}
+              className={c.button}
+            >
               Add
             </Button>
-            <Button variant="outlined" onClick={updateEventVideos} className={c.button}>
+            <Button
+              variant="outlined"
+              onClick={updateEventVideos}
+              className={c.button}
+            >
               Update
             </Button>
           </div>
@@ -60,7 +68,7 @@ export default function VideoList({ videos, eventId, eventTitle }: IVideoListPro
                     },
                   }}
                 />
-                <VideoInfo video={video} videoInfoType={VideoInfoEnum.EventVideoList} />
+                <VideoInfo video={video} videoInfoType={VideoInfoEnum.Event_VideoList} isSelected={null} />
               </div>
             ))}
           </div>

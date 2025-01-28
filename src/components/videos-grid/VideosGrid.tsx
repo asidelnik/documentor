@@ -25,15 +25,21 @@ export default function VideosGrid({ videos, videosCount, eventsData }: IVideosG
   };
 
   const handleMouseDown = (videoId: string) => {
+    if (!eventId) return;
+    console.log('Mouse Down', videoId);
     setIsSelecting(true);
     handleVideoClick(videoId);
   };
 
   const handleMouseUp = () => {
+    if (!eventId) return;
+    console.log('Mouse Up');
     setIsSelecting(false);
   };
 
   const handleMouseEnter = (videoId: string) => {
+    if (!eventId) return;
+    console.log('Mouse Enter', videoId);
     if (isSelecting) {
       handleVideoClick(videoId);
     }
@@ -93,7 +99,8 @@ export default function VideosGrid({ videos, videosCount, eventsData }: IVideosG
                 <VideoInfo
                   video={video}
                   eventsData={eventsData}
-                  videoInfoType={eventId ? VideoInfoEnum.EventVideoList : VideoInfoEnum.VideosGrid}
+                  videoInfoType={eventId ? VideoInfoEnum.VideosGrid_AddVideosToEvent : VideoInfoEnum.VideosGrid}
+                  isSelected={selectedVideos.includes(video._id)}
                 />
               </div>
             ))}
