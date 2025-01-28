@@ -12,7 +12,7 @@ import GridHeader from "../grid-header/GridHeader";
 export default function VideosGrid({ videos, videosCount, eventsData }: IVideosGridProps) {
   const { eventTitle, eventId } = useParams<VideosGridParams>();
   const [selectedVideos, setSelectedVideos] = useState<Array<string>>([]);
-  const [isSelecting, setIsSelecting] = useState(false);
+  // const [isSelecting, setIsSelecting] = useState(false);
 
   const handleVideoClick = (videoId: string) => {
     setSelectedVideos(prevSelectedVideos => {
@@ -27,25 +27,23 @@ export default function VideosGrid({ videos, videosCount, eventsData }: IVideosG
   const handleMouseDown = (videoId: string) => {
     if (!eventId) return;
     console.log('Mouse Down', videoId);
-    setIsSelecting(true);
+    // setIsSelecting(true);
     handleVideoClick(videoId);
   };
 
-  const handleMouseUp = () => {
-    if (!eventId) return;
-    console.log('Mouse Up');
-    setIsSelecting(false);
-  };
+  // const handleMouseUp = () => {
+  //   if (!eventId) return;
+  //   console.log('Mouse Up');
+  //   // setIsSelecting(false);
+  // };
 
-  const handleMouseEnter = (videoId: string) => {
-    if (!eventId) return;
-    console.log('Mouse Enter', videoId);
-    if (isSelecting) {
-      handleVideoClick(videoId);
-    }
-  };
-
-
+  // const handleMouseEnter = (videoId: string) => {
+  //   if (!eventId) return;
+  //   console.log('Mouse Enter', videoId);
+  //   if (isSelecting) {
+  //     handleVideoClick(videoId);
+  //   }
+  // };
 
   const addSelectedVideosToEvent = () => {
     // TODO - server path, post request function, server endpoint
@@ -68,15 +66,13 @@ export default function VideosGrid({ videos, videosCount, eventsData }: IVideosG
       />
 
       {videos && videos.length > 0 && (
-        <div className={c.container} onMouseUp={handleMouseUp}>
+        <div className={c.container}>
           <div className={c.videosGrid}>
-            {/* TODO - Infinite scrolling */}
+            {/* TODO - Infinite or Virtual scrolling */}
             {videos.map((video: IVideo) => (
               <div
                 key={video._id}
                 className={`${c.video} ${selectedVideos.includes(video._id) ? c.selected : ''}`}
-                onMouseDown={() => handleMouseDown(video._id)}
-                onMouseEnter={() => handleMouseEnter(video._id)}
               >
                 <ReactPlayer
                   key={video._id}
@@ -101,6 +97,8 @@ export default function VideosGrid({ videos, videosCount, eventsData }: IVideosG
                   eventsData={eventsData}
                   videoInfoType={eventId ? VideoInfoEnum.VideosGrid_AddVideosToEvent : VideoInfoEnum.VideosGrid}
                   isSelected={selectedVideos.includes(video._id)}
+                  onMouseDown={() => handleMouseDown(video._id)}
+                  // onMouseUp={handleMouseUp}
                 />
               </div>
             ))}

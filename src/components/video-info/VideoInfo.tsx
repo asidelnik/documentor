@@ -16,8 +16,9 @@ import { VideoMutaion } from "../../enums/VideoMutation";
 import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
+// import { MouseEvent as ReactMouseEvent } from "react";
 
-export default function VideoInfo({ video, eventsData, videoInfoType, isSelected }: IVideoInfoProps) {
+export default function VideoInfo({ video, eventsData, videoInfoType, isSelected, onMouseDown }: IVideoInfoProps) {
   const filters = useFilters();
   const queryClient = useQueryClient();
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
@@ -68,9 +69,19 @@ export default function VideoInfo({ video, eventsData, videoInfoType, isSelected
   const eventUpdateHandler = (newEventId: string | null) =>
     setVideoEvent({ videoId: video._id, newEventId: newEventId, oldEventId: video.eventId });
 
+  // function containerClick(e: ReactMouseEvent<HTMLDivElement, MouseEvent>): void {
+  //   console.log(e);
+  //   e.stopPropagation()
+  // }
+
   return (
     <>
-      <div className={c.videoInfoContainer}>
+      <div className={c.videoInfoContainer}
+        // onClick={containerClick} 
+        onMouseDown={onMouseDown}
+      // onMouseEnter={onMouseEnter}
+      // onMouseUp={onMouseUp}
+      >
         <div className={c.row1}>
           <p className={c.date} title={video.startTime}>{dateString}</p>
           <div className={c.icons}>

@@ -7,4 +7,5 @@ export interface IVideoInfoProps {
   eventsData?: IEventsAutoComplete;
   videoInfoType: VideoInfoEnum;
   isSelected: boolean | null;
+  onMouseDown: () => void;
 }
