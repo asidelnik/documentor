@@ -5,10 +5,8 @@ import VideoInfo from "../video-info/VideoInfo";
 import { IVideo } from "../../types/IVideo";
 import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 import { useParams } from "react-router-dom";
-import { IconButton, Tooltip } from "@mui/material";
 import { useState } from "react";
-import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import CloseIcon from '@mui/icons-material/Close';
+import GridHeader from "../grid-header/GridHeader";
 
 
 export default function VideosGrid({ videos, videosCount, eventsData }: IVideosGridProps) {
@@ -41,51 +39,27 @@ export default function VideosGrid({ videos, videosCount, eventsData }: IVideosG
     }
   };
 
-  const addVideosHandler = () => {
+
+
+  const addSelectedVideosToEvent = () => {
     // TODO - server path, post request function, server endpoint
     console.log('Add videos to event', eventId, selectedVideos);
   }
 
-  const unselectAllVideosHandler = () => {
+  const unselectAllVideos = () => {
     setSelectedVideos([]);
   }
 
   return (
     <>
-      <div className={c.gridHeader}>
-        <div className={c.headerTitles}>
-          <div>{videosCount} videos </div>
-          {eventId && <h3>{eventTitle || ''}</h3>}
-        </div>
-
-        {eventId && (
-          <div className={c.headerActions}>
-            <div>{`${selectedVideos.length} selected`}</div>
-            <IconButton
-              aria-label="Unselect all videos button"
-              disabled={selectedVideos.length === 0}
-              onClick={unselectAllVideosHandler}
-              color="info"
-              size="small"
-            >
-              <CloseIcon fontSize="small" />
-            </IconButton>
-
-            <Tooltip
-              title="Add videos to event"
-              placement="top-end">
-              <IconButton
-                aria-label="Add videos to event button"
-                disabled={selectedVideos.length === 0}
-                onClick={addVideosHandler}
-                color="primary"
-              >
-                <CreateNewFolderIcon />
-              </IconButton>
-            </Tooltip>
-          </div>
-        )}
-      </div>
+      <GridHeader
+        videosCount={videosCount}
+        eventId={eventId}
+        eventTitle={eventTitle}
+        selectedVideos={selectedVideos}
+        unselectAllVideos={unselectAllVideos}
+        addSelectedVideosToEvent={addSelectedVideosToEvent}
+      />
 
       {videos && videos.length > 0 && (
         <div className={c.container} onMouseUp={handleMouseUp}>

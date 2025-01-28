@@ -1,0 +1,33 @@
+.gridHeader {
+  height: 52px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 0px;
+  padding-inline: 10px;
+  font-weight: 400;
+  margin: 0px;
+  border-block-end: 1px solid var(--surface-1-border-color);
+  font-size: 0.8rem;
+
+  .headerTitles {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 20px;
+
+    h3 {
+      margin: 0px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+  }
+
+  .headerActions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 10px;
+  }
+}
