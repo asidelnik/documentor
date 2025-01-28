@@ -103,13 +103,13 @@ export default function VideoInfo({ video, eventsData, videoInfoType, isSelected
           </div>
         </div>
 
-        {videoInfoType === VideoInfoEnum.VideosGrid && eventsData &&
+        {(videoInfoType === VideoInfoEnum.VideosGrid || videoInfoType === VideoInfoEnum.VideosGrid_AddVideosToEvent) && eventsData &&
           <div className={c.row2}>
             <CheckboxesTags
               options={eventsData.events}
               checkedId={video.eventId}
               update={eventUpdateHandler}
-              isDisabled={eventsData.events.length <= 0 || eventStatus === 'pending'}
+              isDisabled={eventsData.events.length <= 0 || eventStatus === 'pending' || videoInfoType === VideoInfoEnum.VideosGrid_AddVideosToEvent}
               placeholder='Event'
               width={'100%'}
               size='small'
