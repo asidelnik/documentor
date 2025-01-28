@@ -36,15 +36,19 @@ export default function GridHeader({
 
             <Tooltip
               title="Add videos to event"
-              placement="top-end">
-              <IconButton
-                aria-label="Add videos to event button"
-                disabled={selectedVideos.length === 0}
-                onClick={addSelectedVideosToEvent}
-                color="primary"
-              >
-                <CreateNewFolderIcon />
-              </IconButton>
+              placement="top-end"
+              enterDelay={500}
+            >
+              <span>
+                <IconButton
+                  aria-label="Add videos to event button"
+                  disabled={selectedVideos.length === 0}
+                  onClick={addSelectedVideosToEvent}
+                  color="primary"
+                >
+                  <CreateNewFolderIcon />
+                </IconButton>
+              </span>
             </Tooltip>
           </div>
         )}
