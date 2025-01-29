@@ -11,8 +11,8 @@ import { IVideoStatusMutationProps, mutateVideoStatus } from "../../query/videos
 import { IVideoEventMutationProps, mutateVideoEvent } from "../../query/videos/mutateVideoEvent";
 import { IVideo } from "../../types/IVideo";
 import { useFilters } from "../../contexts/filters-context";
-import { videoOnMutate } from "../../query/videos/videoStatusMutation";
-import { VideoMutaion } from "../../enums/VideoMutation";
+import { videoOnMutate } from "../../query/videos/videoOnMutate";
+import { VideoMutation } from "../../enums/VideoMutation";
 import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
@@ -28,7 +28,7 @@ export default function VideoInfo({ video, eventsData, videoInfoType, isSelected
     mutationFn: mutateVideoStatus,
     // When mutate is called:
     onMutate: (statusMutation: IVideoStatusMutationProps) =>
-      videoOnMutate(statusMutation, queryClient, filters, VideoMutaion.Status),
+      videoOnMutate(statusMutation, queryClient, filters, VideoMutation.Status),
     // If the mutation fails, use the context we returned above
     onError: (_err, _statusMutation, context) => {
       if (context) {
@@ -47,7 +47,7 @@ export default function VideoInfo({ video, eventsData, videoInfoType, isSelected
   const { status: eventStatus, mutate: setVideoEvent } = useMutation({
     mutationFn: mutateVideoEvent,
     onMutate: (eventMutation: IVideoEventMutationProps) =>
-      videoOnMutate(eventMutation, queryClient, filters, VideoMutaion.Event),
+      videoOnMutate(eventMutation, queryClient, filters, VideoMutation.Event),
     // If the mutation fails, use the context we returned above
     onError: (_err, _eventMutation, context) => {
       if (context) {
