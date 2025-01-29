@@ -1,11 +1,11 @@
 import { serverRoutes } from '../../server/server-routes';
 
-export const addVideosToEvent = async (
-  eventId: string,
-  videoIds: Array<string>
-) => {
+export const mutateVideosEvent = async ({
+  eventId,
+  videoIds,
+}: IMutateVideosEventProps) => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const requestPath = serverRoutes.events.addVideosToEvent(eventId);
+  const requestPath: string = serverRoutes.events.addVideosToEvent(eventId);
   const response = await fetch(baseUrl + requestPath, {
     method: 'PUT',
     headers: {
@@ -20,3 +20,8 @@ export const addVideosToEvent = async (
   }
   return response.json();
 };
+
+export interface IMutateVideosEventProps {
+  eventId: string;
+  videoIds: Array<string>;
+}
