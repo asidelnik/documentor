@@ -47,9 +47,9 @@
       width: 450px;
       padding: 20px;
       border-radius: 20px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--card-border-color);
     }
-
+    
     .recentEvents {
       display: flex;
       flex-direction: column;
@@ -57,7 +57,7 @@
       // height: 300px;
       padding: 20px;
       border-radius: 20px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--card-border-color);
       font-family: 'Roboto', sans-serif;
 
       h2 {
