@@ -3,15 +3,15 @@ import EventsAddEditDialog from "../components/events-add-edit-dialog/EventsAddE
 import { useFetchEvents } from "../hooks/useFetchEvents";
 import { useEventsDialog } from "../hooks/useEventsDialog";
 import { useState } from "react";
-import { IFormSubmissionResult } from "../types/IFormSubmissionResult";
-import { Snackbar } from "@mui/material";
-import { SubmissionStatusEnum } from "../enums/SubmissionStatusEnum";
+import { ICustomSnackBar } from "../types/ICustomSnackBar";
+import { SnackBarStatusEnum } from "../enums/SnackBarStatusEnum";
 import { useQueryClient } from "@tanstack/react-query";
+import CustomSnackBar from "../shared/components/snackbar/CustomSnackBar";
 
 export default function EventsTablePage() {
   const { events, eventsCount, isLoading, fetchData } = useFetchEvents();
   const { dialog, handleOpen, handleClose } = useEventsDialog();
-  const [snackBar, setSnackBar] = useState<IFormSubmissionResult>({ isShow: false, submissionStatus: undefined, message: '' });
+  const [snackBar, setSnackBar] = useState<ICustomSnackBar>({ isShow: false, status: SnackBarStatusEnum.Failure, message: '' });
   const queryClient = useQueryClient();
 
   function onSubmitHandler(isSuccess: boolean, message: string): void {
@@ -23,13 +23,13 @@ export default function EventsTablePage() {
 
     setSnackBar({
       isShow: true,
-      submissionStatus: isSuccess ? SubmissionStatusEnum.Success : SubmissionStatusEnum.Failure,
+      status: isSuccess ? SnackBarStatusEnum.Success : SnackBarStatusEnum.Failure,
       message
     });
   }
 
   function closeSnackBar() {
-    setSnackBar({ ...snackBar, isShow: false });
+    setSnackBar({ ...snackBar, isShow: false, status: SnackBarStatusEnum.Failure });
   }
 
   return (
@@ -49,23 +49,7 @@ export default function EventsTablePage() {
         />
       }
 
-      <Snackbar
-        open={snackBar.isShow}
-        ContentProps={{
-          sx: {
-            backgroundColor: snackBar.submissionStatus === SubmissionStatusEnum.Success ? "hsl(115deg 100% 33%)" : "hsl(0deg 98% 40%)",
-            border: 'none',
-            fontWeight: 'bold',
-            color: 'white'
-          },
-        }}
-        message={snackBar.message}
-        onClose={closeSnackBar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        autoHideDuration={5000}
-        color={snackBar.submissionStatus === SubmissionStatusEnum.Success ? 'success' :
-          snackBar.submissionStatus === SubmissionStatusEnum.Failure ? 'failure' : ''}
-      />
+      <CustomSnackBar snackBar={snackBar} closeSnackBar={closeSnackBar} />
     </>
   );
 }

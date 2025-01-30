@@ -30,9 +30,24 @@ export const router = createHashRouter(
       />
       <Route
         path="/videos"
-        element={<AllVideosPage />}
-        errorElement={<MainErrorBoundary />}
-      />
+      >
+        <Route
+          index={true}
+          element={<AllVideosPage />}
+          errorElement={<MainErrorBoundary />}
+        />
+        <Route
+          path="update-event-videos"
+          element={<AllVideosPage />}
+          errorElement={<MainErrorBoundary />}
+        />
+        <Route
+          path="add-videos-to-event/:eventTitle/:eventId"
+          element={<AllVideosPage />}
+          errorElement={<MainErrorBoundary />}
+        />
+      </Route>
+
       <Route
         path="/events/:eventId"
         element={<EventPage />}

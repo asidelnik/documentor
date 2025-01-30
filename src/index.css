@@ -16,8 +16,11 @@
   -webkit-text-size-adjust: 100%;
 
   --max-width-500: 500px;
-  --surface-1-border-color: hsl(0, 0%, 86%);
-  --surface-2-border-color: hsl(0, 0%, 60%);
+
+  --surface-1-border-color: hsl(0, 0%, 93%);
+
+  --card-border-color: hsl(0, 0%, 86%);
+  --surface-selected: hsl(221, 100%, 75%);
 
   --light-gray-bg: hsl(0, 0%, 92%);
   --button-bg-color: hsl(211, 100%, 40%);

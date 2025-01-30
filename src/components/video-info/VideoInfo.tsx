@@ -11,11 +11,13 @@ import { IVideoStatusMutationProps, mutateVideoStatus } from "../../query/videos
 import { IVideoEventMutationProps, mutateVideoEvent } from "../../query/videos/mutateVideoEvent";
 import { IVideo } from "../../types/IVideo";
 import { useFilters } from "../../contexts/filters-context";
-import { videoOnMutate } from "../../query/videos/videoStatusMutation";
-import { VideoMutaion } from "../../enums/VideoMutation";
+import { videoOnMutate } from "../../query/videos/videoOnMutate";
+import { VideoMutation } from "../../enums/VideoMutation";
 import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
+import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 
-export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoInfoProps) {
+export default function VideoInfo({ video, eventsData, videoInfoType, isSelected, onMouseDown }: IVideoInfoProps) {
   const filters = useFilters();
   const queryClient = useQueryClient();
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
@@ -26,7 +28,7 @@ export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoIn
     mutationFn: mutateVideoStatus,
     // When mutate is called:
     onMutate: (statusMutation: IVideoStatusMutationProps) =>
-      videoOnMutate(statusMutation, queryClient, filters, VideoMutaion.Status),
+      videoOnMutate(statusMutation, queryClient, filters, VideoMutation.Status),
     // If the mutation fails, use the context we returned above
     onError: (_err, _statusMutation, context) => {
       if (context) {
@@ -45,7 +47,7 @@ export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoIn
   const { status: eventStatus, mutate: setVideoEvent } = useMutation({
     mutationFn: mutateVideoEvent,
     onMutate: (eventMutation: IVideoEventMutationProps) =>
-      videoOnMutate(eventMutation, queryClient, filters, VideoMutaion.Event),
+      videoOnMutate(eventMutation, queryClient, filters, VideoMutation.Event),
     // If the mutation fails, use the context we returned above
     onError: (_err, _eventMutation, context) => {
       if (context) {
@@ -68,7 +70,7 @@ export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoIn
 
   return (
     <>
-      <div className={c.videoInfoContainer}>
+      <div className={c.videoInfoContainer} onMouseDown={onMouseDown}>
         <div className={c.row1}>
           <p className={c.date} title={video.startTime}>{dateString}</p>
           <div className={c.icons}>
@@ -94,16 +96,20 @@ export default function VideoInfo({ video, eventsData, videoInfoType }: IVideoIn
                   }}></div>
               </PositionedMenu>
             }
+            {videoInfoType === VideoInfoEnum.VideosGrid_AddVideosToEvent ?
+              (isSelected ? <CheckBoxOutlinedIcon /> : <CheckBoxOutlineBlankOutlinedIcon />)
+              : null
+            }
           </div>
         </div>
 
-        {videoInfoType === VideoInfoEnum.VideosGrid && eventsData &&
+        {(videoInfoType === VideoInfoEnum.VideosGrid || videoInfoType === VideoInfoEnum.VideosGrid_AddVideosToEvent) && eventsData &&
           <div className={c.row2}>
             <CheckboxesTags
               options={eventsData.events}
               checkedId={video.eventId}
               update={eventUpdateHandler}
-              isDisabled={eventsData.events.length <= 0 || eventStatus === 'pending'}
+              isDisabled={eventsData.events.length <= 0 || eventStatus === 'pending' || videoInfoType === VideoInfoEnum.VideosGrid_AddVideosToEvent}
               placeholder='Event'
               width={'100%'}
               size='small'

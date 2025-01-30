@@ -44,6 +44,8 @@ export const serverRoutes = {
 
     fetchEvent: (id: string) => `/events/events/${id}`,
     editEvent: (id: string) => `/events/events/${id}`,
+    addVideosToEvent: (eventId: string) =>
+      `/events/add-videos-to-event/${eventId}`,
   },
   analytics: {
     eventsCountPerType: (params: IAnalyticsFilters) => {
