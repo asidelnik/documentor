@@ -40,7 +40,8 @@ export default function VideoInfo({ video, eventsData, videoInfoType, isSelected
     },
     // Always refetch after error or success:
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['videos'] })
+      queryClient.invalidateQueries({ queryKey: ['videos'] });
+      queryClient.invalidateQueries({ queryKey: ['videos-count'] });
     },
   });
 
@@ -59,7 +60,8 @@ export default function VideoInfo({ video, eventsData, videoInfoType, isSelected
     },
     // Always refetch after error or success:
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['videos'] })
+      queryClient.invalidateQueries({ queryKey: ['videos'] });
+      queryClient.invalidateQueries({ queryKey: ['videos-count'] });
     },
   });
 
