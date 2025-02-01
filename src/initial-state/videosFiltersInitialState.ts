@@ -11,7 +11,7 @@ export const videosFiltersInitialState: IVideosFilters = {
   ],
   eventId: undefined,
   page: 1,
-  limit: 100,
+  limit: 5,
 };
 
 //// Location filtering

@@ -32,6 +32,13 @@ function filtersReducer(filters: IVideosFilters, action: FiltersActions): any {
     case 'update-event-id': {
       return { ...filters, eventId: action.payload, } as IVideosFilters;
     }
+    case "update-limit": {
+      return { ...filters, limit: action.payload, page: 1 } as IVideosFilters;
+    }
+    case "update-page": {
+      return { ...filters, page: action.payload, } as IVideosFilters;
+    }
+
     default: {
       return filters;
     }

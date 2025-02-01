@@ -20,11 +20,23 @@ type UpdateEventIdAction = {
   payload: string | undefined;
 };
 
+type UpdatePageAction = {
+  type: 'update-page';
+  payload: number;
+};
+
+type UpdateLimitAction = {
+  type: 'update-limit';
+  payload: number;
+};
+
 export type FiltersActions =
   | UpdateStatusesAction
   | UpdateFromDateUpdateAction
   | UpdateToDateAction
-  | UpdateEventIdAction;
+  | UpdateEventIdAction
+  | UpdatePageAction
+  | UpdateLimitAction;
 
 export type FiltersContextProviderProps = {
   children: ReactNode;
