@@ -7,8 +7,8 @@ export const fetchVideos = async (queryKey: QueryKey, signal: AbortSignal): Prom
   const filters = queryKey[1] as IVideosFilters;
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
-  const getFilteredVideosRequestString = serverRoutes.videos.getFilteredVideos(filters);
-  const response = await fetch(baseUrl + getFilteredVideosRequestString, { signal });
+  const path = serverRoutes.videos.getFilteredVideos(filters);
+  const response = await fetch(baseUrl + path, { signal });
   if (!response.ok) {
     throw new Error('Network error');
   }

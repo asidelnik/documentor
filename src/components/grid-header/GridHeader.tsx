@@ -3,10 +3,12 @@ import { IconButton, Tooltip } from "@mui/material";
 import { IGridHeaderProps } from "../../props/IVideosGridProps";
 import CloseIcon from '@mui/icons-material/Close';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import SmallSpinner from "../../shared/components/SmallSpinner";
 
 
 export default function GridHeader({
   videosCount,
+  videosCountIsFetching,
   eventId,
   eventTitle,
   selectedVideos,
@@ -17,7 +19,10 @@ export default function GridHeader({
     <>
       <div className={c.gridHeader}>
         <div className={c.headerTitles}>
-          <div>{videosCount} videos </div>
+          {videosCountIsFetching ?
+            <div><SmallSpinner diameter={20} /></div> :
+            <div>{videosCount} videos</div>
+          }
           {eventId && <h3>{eventTitle || ''}</h3>}
         </div>
 

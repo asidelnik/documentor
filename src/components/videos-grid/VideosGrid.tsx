@@ -17,7 +17,7 @@ import { ICustomSnackBar } from "../../types/ICustomSnackBar";
 import CustomSnackBar from "../../shared/components/snackbar/CustomSnackBar";
 
 
-export default function VideosGrid({ videos, videosCount, eventsData }: IVideosGridProps) {
+export default function VideosGrid({ videos, videosCount, videosCountIsFetching, eventsData }: IVideosGridProps) {
   const { eventTitle, eventId } = useParams<VideosGridParams>();
   const [selectedVideos, setSelectedVideos] = useState<Array<string>>([]);
   const filters = useFilters();
@@ -77,6 +77,7 @@ export default function VideosGrid({ videos, videosCount, eventsData }: IVideosG
     <>
       <GridHeader
         videosCount={videosCount}
+        videosCountIsFetching={videosCountIsFetching}
         eventId={eventId}
         eventTitle={eventTitle}
         selectedVideos={selectedVideos}
