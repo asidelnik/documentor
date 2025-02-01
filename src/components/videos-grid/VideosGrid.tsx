@@ -66,7 +66,8 @@ export default function VideosGrid({ videos, videosCount, videosCountIsFetching,
     },
     // Always refetch after error or success:
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['videos'] })
+      queryClient.invalidateQueries({ queryKey: ['videos'] });
+      queryClient.invalidateQueries({ queryKey: ['videos-count'] });
     },
   });
 
