@@ -79,7 +79,6 @@ export default function AllVideosPage() {
               renderValue={(value) => `${value} per page`}
               aria-label='limit-select'
             >
-              <MenuItem value={5}>5</MenuItem>
               <MenuItem value={10}>10</MenuItem>
               <MenuItem value={25}>25</MenuItem>
               <MenuItem value={50}>50</MenuItem>
