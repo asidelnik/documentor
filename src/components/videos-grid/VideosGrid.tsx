@@ -5,7 +5,7 @@ import VideoInfo from "../video-info/VideoInfo";
 import { IVideo } from "../../types/IVideo";
 import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GridHeader from "../grid-header/GridHeader";
 import { mutateVideosEvent, IMutateVideosEventProps } from "../../query/videos/mutateVideosEvent";
 import { useMutation } from "@tanstack/react-query";
@@ -22,6 +22,10 @@ export default function VideosGrid({ videos, videosCount, videosCountIsFetching,
   const [selectedVideos, setSelectedVideos] = useState<Array<string>>([]);
   const filters = useFilters();
   const [snackBar, setSnackBar] = useState<ICustomSnackBar>({ isShow: false, status: SnackBarStatusEnum.Failure, message: '' });
+
+  useEffect(() => {
+    unselectAllVideos();
+  }, [filters.fromDate, filters.toDate, filters.statuses, filters.eventId]);
 
   const handleMouseDown = (videoId: string) => {
     if (!eventId) return;
