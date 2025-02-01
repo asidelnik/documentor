@@ -19,7 +19,6 @@ export default function EventPage() {
   const { eventId } = useParams<{ eventId: string }>();
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const [event, setEvent] = useState<IEventAndDates | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const eventStartTime = event?.startTimeDate && dateToString(event?.startTimeDate);
@@ -47,14 +46,12 @@ export default function EventPage() {
           endTimeDate: new Date(data.endTime),
         };
         setEvent(event);
-        setIsLoading(false);
         setIsError(false);
       }
     } catch (error: any) {
       console.log(error.message)
       setErrorMessage(error.message)
       setIsError(true);
-      setIsLoading(false);
     }
   };
 
@@ -160,7 +157,6 @@ export default function EventPage() {
           </>
         )}
       </div>
-      {isLoading && <p>Loading...</p>}
       {isError && <p>Error: {errorMessage}</p>}
     </>
   );

@@ -21,17 +21,24 @@ export function FiltersProvider({ children }: FiltersContextProviderProps) {
 function filtersReducer(filters: IVideosFilters, action: FiltersActions): any {
   switch (action.type) {
     case 'update-statuses': {
-      return { ...filters, statuses: action.payload, } as IVideosFilters;
+      return { ...filters, statuses: action.payload, page: 1 } as IVideosFilters;
     }
     case 'update-from-date': {
-      return { ...filters, fromDate: action.payload, } as IVideosFilters;
+      return { ...filters, fromDate: action.payload, page: 1 } as IVideosFilters;
     }
     case 'update-to-date': {
-      return { ...filters, toDate: action.payload, } as IVideosFilters;
+      return { ...filters, toDate: action.payload, page: 1 } as IVideosFilters;
     }
     case 'update-event-id': {
-      return { ...filters, eventId: action.payload, } as IVideosFilters;
+      return { ...filters, eventId: action.payload, page: 1 } as IVideosFilters;
     }
+    case "update-limit": {
+      return { ...filters, limit: action.payload, page: 1 } as IVideosFilters;
+    }
+    case "update-page": {
+      return { ...filters, page: action.payload, } as IVideosFilters;
+    }
+
     default: {
       return filters;
     }

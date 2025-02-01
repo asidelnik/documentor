@@ -68,7 +68,11 @@ export default function VideoList({ videos, eventId, eventTitle }: IVideoListPro
                     },
                   }}
                 />
-                <VideoInfo video={video} videoInfoType={VideoInfoEnum.Event_VideoList} isSelected={null} />
+                <VideoInfo
+                  video={video}
+                  videoInfoType={VideoInfoEnum.Event_VideoList}
+                  isSelected={null}
+                  onMouseDown={() => null} />
               </div>
             ))}
           </div>

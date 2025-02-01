@@ -5,7 +5,7 @@ import VideoInfo from "../video-info/VideoInfo";
 import { IVideo } from "../../types/IVideo";
 import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GridHeader from "../grid-header/GridHeader";
 import { mutateVideosEvent, IMutateVideosEventProps } from "../../query/videos/mutateVideosEvent";
 import { useMutation } from "@tanstack/react-query";
@@ -17,11 +17,15 @@ import { ICustomSnackBar } from "../../types/ICustomSnackBar";
 import CustomSnackBar from "../../shared/components/snackbar/CustomSnackBar";
 
 
-export default function VideosGrid({ videos, videosCount, eventsData }: IVideosGridProps) {
+export default function VideosGrid({ videos, videosCount, videosCountIsFetching, eventsData }: IVideosGridProps) {
   const { eventTitle, eventId } = useParams<VideosGridParams>();
   const [selectedVideos, setSelectedVideos] = useState<Array<string>>([]);
   const filters = useFilters();
   const [snackBar, setSnackBar] = useState<ICustomSnackBar>({ isShow: false, status: SnackBarStatusEnum.Failure, message: '' });
+
+  useEffect(() => {
+    unselectAllVideos();
+  }, [filters.fromDate, filters.toDate, filters.statuses, filters.eventId]);
 
   const handleMouseDown = (videoId: string) => {
     if (!eventId) return;
@@ -66,7 +70,8 @@ export default function VideosGrid({ videos, videosCount, eventsData }: IVideosG
     },
     // Always refetch after error or success:
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['videos'] })
+      queryClient.invalidateQueries({ queryKey: ['videos'] });
+      queryClient.invalidateQueries({ queryKey: ['videos-count'] });
     },
   });
 
@@ -77,6 +82,7 @@ export default function VideosGrid({ videos, videosCount, eventsData }: IVideosG
     <>
       <GridHeader
         videosCount={videosCount}
+        videosCountIsFetching={videosCountIsFetching}
         eventId={eventId}
         eventTitle={eventTitle}
         selectedVideos={selectedVideos}
