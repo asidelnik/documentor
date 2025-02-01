@@ -29,4 +29,20 @@
   main {
     flex: 1;
   }
+  
+  .pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 20px;
+  
+    position: fixed;
+    bottom: 0px;
+    background-color: white;
+    width: 100%;
+    padding: 10px 20px;
+    border-top: 1px solid #e0e0e0;
+  }
 }
+
