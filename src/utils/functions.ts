@@ -1,9 +1,10 @@
+import { IAnalyticsFilters } from '../types/IAnalyticsFilters';
 import { IEventsFilters } from '../types/IEventsFilters';
 import { ILocationTexts } from '../types/ILocation';
 import { IVideosFilters } from '../types/IVideosFilters';
 
 export function getURLSearchParams(
-  params: IVideosFilters | IEventsFilters | IEventsFilters
+  params: IVideosFilters | IEventsFilters | IAnalyticsFilters
 ): string {
   const urlParams = new URLSearchParams();
 
