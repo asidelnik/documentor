@@ -1,4 +1,4 @@
-import c from './AllVideosPage.module.scss'
+import c from './VideosPage.module.scss'
 import { IconButton, MenuItem, Pagination, Select } from '@mui/material';
 import VideosFilters from '../../components/videos-filters/VideosFilters';
 import VideosGrid from '../../components/videos-grid/VideosGrid';
@@ -14,7 +14,7 @@ import { IEventsAutoComplete } from '../../props/IEventsAutoComplete';
 import { IVideo } from '../../types/IVideo';
 import { useEventsFiltersDispatch } from '../../contexts/events-filters-context';
 
-export default function AllVideosPage() {
+export default function VideosPage() {
   const filters = useFilters();
   const dispatch = useFiltersDispatch();
   const [toggleAside, setToggleAside] = useState<boolean>(true);

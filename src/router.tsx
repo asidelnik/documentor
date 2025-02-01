@@ -7,7 +7,7 @@ import RootLayout from "./layouts/RootLayout";
 import EventsTablePage from "./pages/EventsTablePage";
 // import EventTimelinePage from "./pages/EventTimelinePage";
 import NotFoundPage from "./pages/NotFoundPage";
-import AllVideosPage from "./pages/all-videos-page/AllVideosPage";
+import VideosPage from "./pages/videos-page/VideosPage";
 import MainErrorBoundary from "./error-boundaries/MainErrorBoundary";
 import EventPage from "./pages/event-page/EventPage";
 import AnalyticsPage from "./pages/analytics-page/AnalyticsPage";
@@ -33,17 +33,17 @@ export const router = createHashRouter(
       >
         <Route
           index={true}
-          element={<AllVideosPage />}
+          element={<VideosPage />}
           errorElement={<MainErrorBoundary />}
         />
         <Route
           path="update-event-videos"
-          element={<AllVideosPage />}
+          element={<VideosPage />}
           errorElement={<MainErrorBoundary />}
         />
         <Route
           path="add-videos-to-event/:eventTitle/:eventId"
-          element={<AllVideosPage />}
+          element={<VideosPage />}
           errorElement={<MainErrorBoundary />}
         />
       </Route>
