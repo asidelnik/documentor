@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { ITagsProps } from "../../../props/ITagsProps";
+import { ITagsProps } from '../../../props/ITagsProps';
 
 export default function Tags({
   options,
