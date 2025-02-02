@@ -25,6 +25,11 @@ type UpdateStatusAction = {
   payload: number[];
 };
 
+type UpdateEventTypeIdsAction = {
+  type: 'update-event-type-ids';
+  payload: Array<string> | null;
+};
+
 type UpdatePageAction = {
   type: 'update-page';
   payload: number;
@@ -41,6 +46,7 @@ export type EventsFiltersActions =
   | UpdatePriorityAction
   | UpdateFreeTextAction
   | UpdateStatusAction
+  | UpdateEventTypeIdsAction
   | UpdatePageAction
   | UpdateLimitAction;
 
