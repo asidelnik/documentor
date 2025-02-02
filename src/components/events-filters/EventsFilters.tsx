@@ -4,26 +4,47 @@ import { useEventsFilters, useEventsFiltersDispatch } from "../../contexts/event
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 import TextField from "@mui/material/TextField";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FilterParent } from "../../enums/FilterParent";
+import { IOptionStr } from "../../types/IOptionStr";
+import { fetchEventTypes } from "../../query/events/fetchEventTypes";
+import MultipleSelectCheckmarksStr from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarksStr";
 
 export default function EventsFilters() {
   const filters = useEventsFilters();
   const filtersDispatch = useEventsFiltersDispatch();
+  const [eventTypes, setEventTypes] = useState<Array<IOptionStr>>([]);
+
+  useEffect(() => {
+    const fetchController = new AbortController();
+    const signal = fetchController.signal;
+    fetchEventTypes(signal).then((data: Array<IOptionStr>) => setEventTypes(data));
+    return () => fetchController.abort();
+  }, []);
 
   // TODO filter: location
   const fromDateChangeHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const toDateChangeHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
   const selectChangeHandler = (dispatchType: string, options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
   const textChangeHandler = (event: ChangeEvent<HTMLInputElement>) => filtersDispatch({ type: 'update-free-text', payload: event.target.value });
+  const updateTypesHandler = (eventTypeIds: Array<string> | null) => filtersDispatch({ type: 'update-event-type-ids', payload: eventTypeIds });
 
   return (
     <>
       <div className={c.filtersContainer}>
+        <MultipleSelectCheckmarksStr
+          options={eventTypes}
+          buttonText='Types'
+          defaultOptions={filters.eventTypeIds ?? []}
+          width={'220px'}
+          parent={FilterParent.Videos}
+          updateSelectedOptions={updateTypesHandler}
+        />
+
         <DateTimeRangePicker
           fromDateProp={filters.fromDate}
           toDateProp={filters.toDate}
-          parent={FilterParent.Events}
+          parent={FilterParent.Videos}
           updateFromDate={fromDateChangeHandler}
           updateToDate={toDateChangeHandler}
         />
@@ -33,7 +54,7 @@ export default function EventsFilters() {
           options={eventPriorityNumOptions}
           defaultOptions={filters?.priority ?? []}
           width={'240px'}
-          parent={FilterParent.Events}
+          parent={FilterParent.Videos}
           updateSelectedOptions={(options: number[]) => selectChangeHandler('update-priority', options)}
         />
 
@@ -43,7 +64,7 @@ export default function EventsFilters() {
           variant="outlined"
           onChange={textChangeHandler}
           sx={{ width: '300px' }}
-          size="small"
+          size="medium"
         />
 
         <MultipleSelectCheckmarks
@@ -51,7 +72,7 @@ export default function EventsFilters() {
           options={eventStatusNumOptions}
           defaultOptions={filters?.statuses ?? []}
           width={'220px'}
-          parent={FilterParent.Events}
+          parent={FilterParent.Videos}
           updateSelectedOptions={(options: number[]) => selectChangeHandler('update-status', options)}
         />
       </div>

@@ -4,6 +4,7 @@ export interface IEventsFilters {
   priority?: number[];
   freeText?: string;
   statuses?: number[];
+  eventTypeIds?: Array<string>;
   page: number;
   limit: number;
 }

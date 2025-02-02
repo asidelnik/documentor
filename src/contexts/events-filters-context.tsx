@@ -35,6 +35,9 @@ function filtersReducer(filters: IEventsFilters, action: EventsFiltersActions): 
     case "update-status": {
       return { ...filters, statuses: action.payload, page: 1 } as IEventsFilters;
     }
+    case "update-event-type-ids": {
+      return { ...filters, eventTypeIds: action.payload, page: 1 } as IEventsFilters;
+    }
     case "update-limit": {
       return { ...filters, limit: action.payload, page: 1 } as IEventsFilters;
     }
