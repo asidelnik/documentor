@@ -51,11 +51,12 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
               <TableCell></TableCell>
               <TableCell></TableCell>
               <TableCell>Title</TableCell>
-              <TableCell>Priority</TableCell>
+              <TableCell>Types</TableCell>
               <TableCell>Start time</TableCell>
               <TableCell>Duration</TableCell>
-              <TableCell>Description</TableCell>
               <TableCell>Location</TableCell>
+              <TableCell>Priority</TableCell>
+              <TableCell>Description</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Videos</TableCell>
               <TableCell>To Review</TableCell>
@@ -82,16 +83,21 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
                       <EditIcon className={c.editIcon} sx={{ fontSize: '1.1rem' }} />
                     </IconButton>
                   </TableCell>
-                  <TableCell component="th" scope="row">
+                  <TableCell component="th" scope="row" sx={{ maxWidth: 200, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     <Link to={`/events/${row._id}`} className={c.eventLink}>{row.title}</Link>
                   </TableCell>
-                  <TableCell title={eventPriorityLabels[row.priority]}>
-                    <EventPriorityIcon priority={row.priority} />
+                  <TableCell
+                    title={row.typesString}
+                    sx={{ maxWidth: 200, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {row.typesString}
                   </TableCell>
                   <TableCell>{row.startTimeFormatted}</TableCell>
                   <TableCell>{row.durationFormatted}</TableCell>
-                  <TableCell>{row.description}</TableCell>
                   <TableCell>{formatEventLocation(row.locationTexts)}</TableCell>
+                  <TableCell title={eventPriorityLabels[row.priority]}>
+                    <EventPriorityIcon priority={row.priority} />
+                  </TableCell>
+                  <TableCell>{row.description}</TableCell>
                   <TableCell>
                     <EventStatusIcon status={row.status} />
                   </TableCell>

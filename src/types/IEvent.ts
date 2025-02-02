@@ -6,6 +6,7 @@ export interface IEvent {
   title: string;
   description: string;
   types: Array<string>;
+  typesString: string;
   duration: number;
   location: ILocation;
   locationTexts: ILocationTexts;
