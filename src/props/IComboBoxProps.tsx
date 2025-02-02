@@ -1,7 +1,7 @@
 import { IOptionStr } from "../types/IOptionStr";
 
 
-export interface ICheckBoxesTagsProps {
+export interface IComboBoxProps {
   options: IOptionStr[];
   checkedId: string | null;
   update: (newId: string | null) => void;

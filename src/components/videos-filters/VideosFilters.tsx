@@ -3,7 +3,7 @@ import { eventStatusNumOptions } from "../../constants/video-status";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 import { useFilters, useFiltersDispatch } from "../../contexts/filters-context";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
-import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
+import ComboBox from "../../shared/components/combo-box/ComboBox";
 import { IVideoFiltersProps } from "../../props/IVideoFiltersProps";
 import { FilterParent } from "../../enums/FilterParent";
 
@@ -39,7 +39,7 @@ export default function VideosFilters({ eventsData }: IVideoFiltersProps) {
           updateSelectedOptions={(options: number[]) => selectHandler('update-statuses', options)}
         />
 
-        <CheckboxesTags
+        <ComboBox
           options={eventsData.events}
           checkedId={filters.eventId ?? null}
           update={eventFilterHandler}
