@@ -1,21 +1,20 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { ICheckBoxesTagsProps } from '../../../props/ICheckBoxesTagsProps';
+import { IComboBoxProps } from '../../../props/IComboBoxProps';
 
-export default function CheckboxesTags({ options, checkedId, update, isDisabled, placeholder, label, width, size }: ICheckBoxesTagsProps) {
+export default function ComboBox({ options, checkedId, update, isDisabled, placeholder, label, width, size }: IComboBoxProps) {
   const checkedOption = checkedId === null ? undefined : options.find(o => o.id === checkedId);
 
   return (
     <Autocomplete
-      sx={{ backgroundColor: 'white', width }}
-      disablePortal
-      id="checkboxes-tags"
-      value={checkedOption ?? null}
+      id="combo-box"
       options={options}
-      disabled={isDisabled}
+      value={checkedOption ?? null}
       getOptionLabel={(option) => option.label}
       onChange={(_event, value) => update(value?.id ?? null)}
-      // isOptionEqualToValue={(option, value) => option.id === value?.id}
+      disablePortal
+      sx={{ backgroundColor: 'white', width }}
+      disabled={isDisabled}
       renderInput={(params) => (
         <TextField {...params}
           placeholder={placeholder}
