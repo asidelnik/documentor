@@ -11,9 +11,9 @@ type UpdateToDateAction = {
   payload: Date | null;
 };
 
-type UpdateEventTypeIdAction = {
-  type: 'update-event-type-id';
-  payload: string | null;
+type UpdateEventTypeIdsAction = {
+  type: 'update-event-type-ids';
+  payload: Array<string> | null;
 };
 
 type UpdateLatitudeAction = {
@@ -39,7 +39,7 @@ type UpdateRadiusAction = {
 export type AnalyticsFiltersActions =
   | UpdateFromDateUpdateAction
   | UpdateToDateAction
-  | UpdateEventTypeIdAction
+  | UpdateEventTypeIdsAction
   | UpdateLatitudeAction
   | UpdateLongitudeAction
   | UpdateLngLatAction

@@ -26,8 +26,8 @@ function analyticsFiltersReducer(filters: IAnalyticsFilters, action: AnalyticsFi
     case "update-to-date": {
       return { ...filters, toDate: action.payload } as IAnalyticsFilters;
     }
-    case "update-event-type-id": {
-      return { ...filters, eventTypeId: action.payload } as IAnalyticsFilters;
+    case "update-event-type-ids": {
+      return { ...filters, eventTypeIds: action.payload } as IAnalyticsFilters;
     }
     case "update-latitude": {
       return { ...filters, lat: action.payload } as IAnalyticsFilters;
