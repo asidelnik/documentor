@@ -28,9 +28,7 @@ export default function EventsTablePage() {
     });
   }
 
-  function closeSnackBar() {
-    setSnackBar({ ...snackBar, isShow: false, status: SnackBarStatusEnum.Failure });
-  }
+  const closeSnackBar = () => setSnackBar({ ...snackBar, isShow: false });
 
   return (
     <>
