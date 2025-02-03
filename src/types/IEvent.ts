@@ -39,6 +39,7 @@ export interface IEventsAndCount {
 
 export interface IEventAddForm {
   title: string;
+  eventTypes?: Array<string>;
   priority: number;
   startTime: Date;
   description?: string;

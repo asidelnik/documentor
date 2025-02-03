@@ -15,6 +15,7 @@ export default function EventsFilters() {
   const filtersDispatch = useEventsFiltersDispatch();
   const [eventTypes, setEventTypes] = useState<Array<IOptionStr>>([]);
 
+  // Issue #159 - Replace with Tanstack query - useQuery({ queryKey: ['eventTypes'], queryFn: fetchEventTypes })
   useEffect(() => {
     const fetchController = new AbortController();
     const signal = fetchController.signal;

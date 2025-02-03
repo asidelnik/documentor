@@ -9,17 +9,8 @@ import Checkbox from '@mui/material/Checkbox';
 import { FilterParent } from '../../../enums/FilterParent';
 import { IOptionStr } from '../../../types/IOptionStr';
 import { IMultipleSelectCheckmarksPropsStr } from '../../../props/IMultipleSelectCheckmarksPropsStr';
+import { SelectMenuProps } from '../../../constants/event-constants';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 10 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 export default function MultipleSelectCheckmarksStr({ options, defaultOptions, updateSelectedOptions, buttonText, width, parent }: IMultipleSelectCheckmarksPropsStr) {
   const [selectedIds, setSelectedIds] = useState<Array<string>>(defaultOptions);
@@ -45,7 +36,7 @@ export default function MultipleSelectCheckmarksStr({ options, defaultOptions, u
         onChange={onChangeHandler}
         input={<OutlinedInput label={buttonText} />}
         renderValue={() => selectedLabels.join(', ')}
-        MenuProps={MenuProps}
+        MenuProps={SelectMenuProps}
         defaultValue={defaultOptions}
         size={parent === FilterParent.Events ? 'small' : 'medium'}
       >
