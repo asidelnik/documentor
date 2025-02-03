@@ -2,10 +2,10 @@ import c from './EventForm.module.scss';
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Divider, FormControl, FormControlLabel, InputLabel, MenuItem, Select, SelectChangeEvent, Switch, TextField } from "@mui/material";
+import { Button, Divider, FormControl, FormControlLabel, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, Switch, TextField } from "@mui/material";
 import { IEventAddFormProps } from "../../props/IEventFormProps";
-import { EventPriority, eventPriorityNumOptions, EventStatus } from "../../constants/event-constants";
-import { ChangeEvent, useState } from "react";
+import { EventPriority, eventPriorityNumOptions, EventStatus, SelectMenuProps } from "../../constants/event-constants";
+import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import { IOptionNum } from "../../types/IOptionNum";
 import { IEventAddForm } from "../../types/IEvent";
 import { addEvent } from '../../query/events/addEvent';
@@ -16,12 +16,16 @@ import dayjs from 'dayjs';
 import { DateTimeValidationError } from '@mui/x-date-pickers/models';
 import { filtersHelperTexts } from '../../constants/filters-helper-texts';
 import { DatePickerParent } from '../../enums/DatePickerParent';
+import { IOptionStr } from '../../types/IOptionStr';
+import { fetchEventTypes } from '../../query/events/fetchEventTypes';
+// import { FilterParent } from '../../enums/FilterParent';
 // import { DevTool } from '@hookform/devtools';
 
 
 
 const validationSchema = yup.object({
   title: yup.string().required("Title is required").max(100, 'Maximum characters (100) exceded.'),
+  eventTypes: yup.array().of(yup.string().required()).min(1, 'At least one type is required'),
   priority: yup.number().required("Priority is required"),
   startTime: yup.date().required("Start time is required"),
   description: yup.string().max(100, 'Maximum description length.'),
@@ -30,10 +34,12 @@ const validationSchema = yup.object({
 
 export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
   const [startTimeError, setStartTimeError] = useState<DateTimeValidationError | null>(null);
+  const [eventTypes, setEventTypes] = useState<Array<IOptionStr>>([]);
   const { control, trigger, setValue, setError, clearErrors, handleSubmit,
     formState: { errors, isValid } } = useForm<IEventAddForm>({
       defaultValues: {
         title: "",
+        eventTypes: undefined,
         priority: EventPriority.Low,
         startTime: undefined,
         description: '',
@@ -42,7 +48,13 @@ export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
       resolver: yupResolver(validationSchema),
     });
 
-  // console.log(isValid, errors)
+  // Issue #159 - Replace with Tanstack query - useQuery({ queryKey: ['eventTypes'], queryFn: fetchEventTypes })
+  useEffect(() => {
+    const fetchController = new AbortController();
+    const signal = fetchController.signal;
+    fetchEventTypes(signal).then((data: Array<IOptionStr>) => setEventTypes(data));
+    return () => fetchController.abort();
+  }, []);
 
   async function onSubmitHandler(data: IEventAddForm) {
     try {
@@ -67,6 +79,22 @@ export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
     setStartTimeError(error)
   }
 
+  function eventTypesOnChange(event: SelectChangeEvent<string[]>): void {
+    const { target: { value: selectedEventTypes } } = event;
+
+    if (Array.isArray(selectedEventTypes)) {
+      setValue("eventTypes", selectedEventTypes);
+    }
+  }
+
+  function getRenderValue(value: Array<string>, value2: Array<string> | undefined): ReactNode {
+    console.log('getRenderValue', value, value2);
+    // const selectedLabels: string[] = selectedIds.length > 0 && options.length > 0 ?
+    //   selectedIds.map((selected) => options.find(option => option.id === selected)?.label).filter((label) => label !== undefined) : [];
+    // return selectedLabels.join(', ')
+    return value.join(', ');
+  }
+
   return (
     <>
       {/* <DevTool control={control} placement="top-right" /> */}
@@ -88,6 +116,40 @@ export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
               sx={{ width: '630px' }}
               onBlur={() => trigger('title')}
             />
+          )}
+        />
+
+        <Controller
+          name="eventTypes"
+          control={control}
+          render={({ field }) => (
+            <FormControl>
+              <InputLabel id="eventTypes">Types</InputLabel>
+              <Select
+                id="eventTypes"
+                labelId="eventTypes"
+                multiple
+                value={field.value}
+                onChange={eventTypesOnChange}
+                label="Types"
+                sx={{ width: '320px' }}
+
+                input={<OutlinedInput label='Types' />}
+                renderValue={(value: Array<string>) => getRenderValue(value, field.value)}
+                MenuProps={SelectMenuProps}
+                size='medium'
+              >
+                {eventTypes.map((option: IOptionStr) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {/* <Checkbox checked={field.value.indexOf(option.id) > -1} /> */}
+                    <ListItemText primary={option.label} />
+                  </MenuItem>
+                ))}
+                {/* {eventTypes.map((e: IOptionStr) => {
+                  return <MenuItem key={e.id} value={e.id}>{e.label}</MenuItem>
+                })} */}
+              </Select>
+            </FormControl>
           )}
         />
 
