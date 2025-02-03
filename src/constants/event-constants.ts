@@ -32,3 +32,15 @@ export const eventStatusLabels: { [key: number]: string } = {
   2: 'Inactive',
   1: 'Active',
 };
+
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+export const SelectMenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 10 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
