@@ -1,12 +1,12 @@
+import { useEffect } from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
 import { CircularProgress, DialogContent, IconButton } from '@mui/material';
 import { IEventsAddEditDialogProps } from '../../props/IEventsAddEditDialogProps';
 import EventEditForm from '../event-form/EventEditForm';
-import useFetchEventById from '../../hooks/useFetchEventById';
-import { useEffect } from 'react';
 import EventAddForm from '../event-form/EventAddForm';
+import useFetchEventById from '../../hooks/useFetchEventById';
 import { EventsAction } from '../../enums/EventsAction';
 
 export default function EventsAddEditDialog({ dialog, onClose, onSubmit }: IEventsAddEditDialogProps) {
@@ -44,9 +44,10 @@ export default function EventsAddEditDialog({ dialog, onClose, onSubmit }: IEven
         {dialog.eventsAction === EventsAction.Edit && isLoading &&
           <div className='event-dialog-progress-container'><CircularProgress /></div>
         }
-        {dialog.eventsAction === EventsAction.Add && <EventAddForm
-          onSubmit={(isSuccess: boolean, message: string) => onSubmit(isSuccess, message)}
-        />}
+        {dialog.eventsAction === EventsAction.Add &&
+          <EventAddForm
+            onSubmit={(isSuccess: boolean, message: string) => onSubmit(isSuccess, message)}
+          />}
         {dialog.eventsAction === EventsAction.Edit && !isLoading && event &&
           <EventEditForm
             eventToEdit={event}
