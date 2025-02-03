@@ -141,6 +141,16 @@ export default function EventPage() {
                       <p className={c.label}>Location</p>
                       <p className={c.data}>{eventLocation}</p>
                     </div>
+                    {event.typesLabels && (
+                      <div>
+                        <p className={c.label}>Types</p>
+                        {event.typesLabels && event.typesLabels?.map((type, index) => (
+                          <div key={index} className={`${c.data} ${c.tag} Medium`}>
+                            {type}
+                          </div>
+                        ))}
+                      </div>
+                    )}
 
                   </div>
                 </section>
@@ -157,7 +167,14 @@ export default function EventPage() {
           </>
         )}
       </div>
-      {isError && <p>Error: {errorMessage}</p>}
+      {isError && (
+        <>
+          <div className='errorContainer'>
+            <h3>Error</h3>
+            <p>{errorMessage}</p>
+          </div>
+        </>
+      )}
     </>
   );
 }
