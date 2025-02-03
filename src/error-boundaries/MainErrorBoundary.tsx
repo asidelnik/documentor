@@ -4,7 +4,7 @@ export default function MainErrorBoundary() {
   const error = useRouteError();
   console.error(error);
   return (
-    <div className={c.container}>
+    <div className="container">
       Error page!
     </div>
   );
