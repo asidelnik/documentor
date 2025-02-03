@@ -2,7 +2,7 @@ import c from './EventForm.module.scss';
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Divider, FormControl, FormControlLabel, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, Switch, TextField } from "@mui/material";
+import { Button, Checkbox, Divider, FormControl, FormControlLabel, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, Switch, TextField } from "@mui/material";
 import { IEventAddFormProps } from "../../props/IEventFormProps";
 import { EventPriority, eventPriorityNumOptions, EventStatus, SelectMenuProps } from "../../constants/event-constants";
 import { ChangeEvent, ReactNode, useEffect, useState } from "react";
@@ -87,12 +87,11 @@ export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
     }
   }
 
-  function getRenderValue(value: Array<string>, value2: Array<string> | undefined): ReactNode {
-    console.log('getRenderValue', value, value2);
-    // const selectedLabels: string[] = selectedIds.length > 0 && options.length > 0 ?
-    //   selectedIds.map((selected) => options.find(option => option.id === selected)?.label).filter((label) => label !== undefined) : [];
-    // return selectedLabels.join(', ')
-    return value.join(', ');
+  function getRenderValue(ids: Array<string>): ReactNode {
+    const selectedLabels: string[] = ids.length > 0 && eventTypes.length > 0 ?
+      ids.map((id) => eventTypes.find(option => option.id === id)?.label).filter((label) => label !== undefined) : [];
+
+    return selectedLabels.join(', ')
   }
 
   return (
@@ -129,25 +128,21 @@ export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
                 id="eventTypes"
                 labelId="eventTypes"
                 multiple
-                value={field.value}
+                value={field.value ?? []}
                 onChange={eventTypesOnChange}
                 label="Types"
                 sx={{ width: '320px' }}
-
                 input={<OutlinedInput label='Types' />}
-                renderValue={(value: Array<string>) => getRenderValue(value, field.value)}
+                renderValue={getRenderValue}
                 MenuProps={SelectMenuProps}
                 size='medium'
               >
                 {eventTypes.map((option: IOptionStr) => (
                   <MenuItem key={option.id} value={option.id}>
-                    {/* <Checkbox checked={field.value.indexOf(option.id) > -1} /> */}
+                    <Checkbox checked={(field.value ?? []).indexOf(option.id) > -1} />
                     <ListItemText primary={option.label} />
                   </MenuItem>
                 ))}
-                {/* {eventTypes.map((e: IOptionStr) => {
-                  return <MenuItem key={e.id} value={e.id}>{e.label}</MenuItem>
-                })} */}
               </Select>
             </FormControl>
           )}
