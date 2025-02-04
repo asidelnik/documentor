@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Checkbox, Divider, FormControl, FormControlLabel, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, Switch, TextField } from "@mui/material";
 import { IEventAddFormProps } from "../../props/IEventFormProps";
 import { EventPriority, eventPriorityNumOptions, EventStatus, SelectMenuProps } from "../../constants/event-constants";
-import { ChangeEvent, ReactNode, useEffect, useState } from "react";
+import { ChangeEvent, ReactNode, useState } from "react";
 import { IOptionNum } from "../../types/IOptionNum";
 import { IEventAddForm } from "../../types/IEvent";
 import { addEvent } from '../../query/events/addEvent';
@@ -18,6 +18,7 @@ import { filtersHelperTexts } from '../../constants/filters-helper-texts';
 import { DatePickerParent } from '../../enums/DatePickerParent';
 import { IOptionStr } from '../../types/IOptionStr';
 import { fetchEventTypes } from '../../query/events/fetchEventTypes';
+import { useQuery } from '@tanstack/react-query';
 // import { FilterParent } from '../../enums/FilterParent';
 // import { DevTool } from '@hookform/devtools';
 
@@ -34,7 +35,6 @@ const validationSchema = yup.object({
 
 export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
   const [startTimeError, setStartTimeError] = useState<DateTimeValidationError | null>(null);
-  const [eventTypes, setEventTypes] = useState<Array<IOptionStr>>([]);
   const { control, trigger, setValue, setError, clearErrors, handleSubmit,
     formState: { errors, isValid } } = useForm<IEventAddForm>({
       defaultValues: {
@@ -48,13 +48,11 @@ export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
       resolver: yupResolver(validationSchema),
     });
 
-  // Issue #159 - Replace with Tanstack query - useQuery({ queryKey: ['eventTypes'], queryFn: fetchEventTypes })
-  useEffect(() => {
-    const fetchController = new AbortController();
-    const signal = fetchController.signal;
-    fetchEventTypes(signal).then((data: Array<IOptionStr>) => setEventTypes(data));
-    return () => fetchController.abort();
-  }, []);
+  const { data: eventTypes, } = useQuery<IOptionStr[]>({
+    queryKey: ['event-types'],
+    queryFn: ({ signal }) => fetchEventTypes(signal),
+    staleTime: 1000 * 60 * 60 * 2, // 2 hours
+  });
 
   async function onSubmitHandler(data: IEventAddForm) {
     try {
@@ -88,7 +86,7 @@ export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
   }
 
   function getRenderValue(ids: Array<string>): ReactNode {
-    const selectedLabels: string[] = ids.length > 0 && eventTypes.length > 0 ?
+    const selectedLabels: string[] = ids.length > 0 && eventTypes && eventTypes.length > 0 ?
       ids.map((id) => eventTypes.find(option => option.id === id)?.label).filter((label) => label !== undefined) : [];
 
     return selectedLabels.join(', ')
@@ -137,7 +135,7 @@ export default function EventAddForm({ onSubmit }: IEventAddFormProps) {
                 MenuProps={SelectMenuProps}
                 size='medium'
               >
-                {eventTypes.map((option: IOptionStr) => (
+                {(eventTypes ?? []).map((option: IOptionStr) => (
                   <MenuItem key={option.id} value={option.id}>
                     <Checkbox checked={(field.value ?? []).indexOf(option.id) > -1} />
                     <ListItemText primary={option.label} />

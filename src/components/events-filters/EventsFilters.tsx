@@ -4,24 +4,22 @@ import { useEventsFilters, useEventsFiltersDispatch } from "../../contexts/event
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 import TextField from "@mui/material/TextField";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent } from "react";
 import { FilterParent } from "../../enums/FilterParent";
 import { IOptionStr } from "../../types/IOptionStr";
 import { fetchEventTypes } from "../../query/events/fetchEventTypes";
 import MultipleSelectCheckmarksStr from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarksStr";
+import { useQuery } from "@tanstack/react-query";
 
 export default function EventsFilters() {
   const filters = useEventsFilters();
   const filtersDispatch = useEventsFiltersDispatch();
-  const [eventTypes, setEventTypes] = useState<Array<IOptionStr>>([]);
 
-  // Issue #159 - Replace with Tanstack query - useQuery({ queryKey: ['eventTypes'], queryFn: fetchEventTypes })
-  useEffect(() => {
-    const fetchController = new AbortController();
-    const signal = fetchController.signal;
-    fetchEventTypes(signal).then((data: Array<IOptionStr>) => setEventTypes(data));
-    return () => fetchController.abort();
-  }, []);
+  const { data: eventTypes, } = useQuery<IOptionStr[]>({
+    queryKey: ['event-types'],
+    queryFn: ({ signal }) => fetchEventTypes(signal),
+    staleTime: 1000 * 60 * 60 * 2, // 2 hours
+  });
 
   // TODO filter: location
   const fromDateChangeHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
@@ -34,7 +32,7 @@ export default function EventsFilters() {
     <>
       <div className={c.filtersContainer}>
         <MultipleSelectCheckmarksStr
-          options={eventTypes}
+          options={eventTypes ?? []}
           buttonText='Types'
           defaultOptions={filters.eventTypeIds ?? []}
           width={'220px'}

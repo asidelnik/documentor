@@ -3,24 +3,22 @@ import { useAnalyticsFilters, useAnalyticsFiltersDispatch } from "../../contexts
 import MonthYearPicker from '../../shared/components/date-pickers/MonthYearPicker';
 import { fetchEventTypes } from '../../query/events/fetchEventTypes';
 import { IOptionStr } from '../../types/IOptionStr';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { IAnalyticsFiltersProps } from '../../types/IAnalyticsFiltersProps';
 import LocationFilter from '../../shared/components/location-filter/LocationFilter';
 import { FilterParent } from '../../enums/FilterParent';
 import MultipleSelectCheckmarksStr from '../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarksStr';
+import { useQuery } from '@tanstack/react-query';
 
 export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalyticsFiltersProps) {
   const filters = useAnalyticsFilters();
   const filtersDispatch = useAnalyticsFiltersDispatch();
-  const [eventTypes, setEventTypes] = useState<Array<IOptionStr>>([]);
 
-  // Issue #159 - Replace with Tanstack query - useQuery({ queryKey: ['eventTypes'], queryFn: fetchEventTypes })
-  useEffect(() => {
-    const fetchController = new AbortController();
-    const signal = fetchController.signal;
-    fetchEventTypes(signal).then((data: Array<IOptionStr>) => setEventTypes(data));
-    return () => fetchController.abort();
-  }, []);
+  const { data: eventTypes, } = useQuery<IOptionStr[]>({
+    queryKey: ['event-types'],
+    queryFn: ({ signal }) => fetchEventTypes(signal),
+    staleTime: 1000 * 60 * 60 * 2, // 2 hours
+  });
 
   const updateFromDateHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const updateToDateHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
@@ -45,7 +43,7 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
         </div>
 
         <MultipleSelectCheckmarksStr
-          options={eventTypes}
+          options={eventTypes ?? []}
           buttonText='Event types'
           defaultOptions={filters.eventTypeIds ?? []}
           width={'320px'}
