@@ -27,6 +27,11 @@
   --primary-color: hsl(226, 100%, 50%);
   --text-hover-color: hsl(280, 100%, 50%);
   --text-color: hsl(0, 0%, 15%);
+
+  /* Navigation colors */
+  --events-color: 235, 82%; /* hsl(235, 82%, 66%); */
+  --videos-color: 200, 96%; /* hsl(200, 96%, 51%); */
+  --analytics-color: 160, 62%; /* hsl(160, 62%, 54%); */
 }
 
 iframe {
