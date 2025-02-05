@@ -3,11 +3,9 @@ export interface IVideosFilters {
   toDate?: Date | null;
   statuses?: number[];
   eventId?: string;
+  lat?: number;
+  long?: number;
+  radius?: number;
   page: number;
   limit: number;
 }
-// lat?: number;
-// lng?: number;
-// radius?: number;
-// id?: number;
-
