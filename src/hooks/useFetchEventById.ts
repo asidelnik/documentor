@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IEvent, IEventAndDates } from '../types/IEvent';
+import { IEventBase, IEventAndDates } from '../types/IEvent';
 import { IVideo } from '../types/IVideo';
 import { serverRoutes } from '../server/server-routes';
 
@@ -19,7 +19,7 @@ export default function useFetchEventById() {
       if (!response.ok) {
         throw new Error('Network error');
       }
-      const data: IEvent = await response.json();
+      const data: IEventBase = await response.json();
       if (data) {
         const event: IEventAndDates = {
           ...data,

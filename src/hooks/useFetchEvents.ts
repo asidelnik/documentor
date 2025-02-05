@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import { IEvent, IEventAndCalcs, IEventsAndCount } from '../types/IEvent';
+import {
+  IEventBase,
+  IEventAndCalcsForTable,
+  IEventsAndCount,
+} from '../types/IEvent';
 import { dateToString, secondsToDurationString } from '../utils/functions';
 import { serverRoutes } from '../server/server-routes';
 import { useEventsFilters } from '../contexts/events-filters-context';
@@ -7,7 +11,7 @@ import { eventPriorityLabels } from '../constants/event-constants';
 
 export const useFetchEvents = () => {
   const filters = useEventsFilters();
-  const [events, setEvents] = useState<IEventAndCalcs[]>([]);
+  const [events, setEvents] = useState<IEventAndCalcsForTable[]>([]);
   const [eventsCount, setEventsCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -32,18 +36,16 @@ export const useFetchEvents = () => {
         throw new Error(response.statusText);
       }
       const eventsRes: IEventsAndCount = await response.json();
-      let updatedEvents: IEventAndCalcs[] = [];
+      let updatedEvents: IEventAndCalcsForTable[] = [];
       if (eventsRes?.events?.length > 0) {
-        updatedEvents = eventsRes.events.map((event: IEvent) => {
+        updatedEvents = eventsRes.events.map((event: IEventBase) => {
           return {
             ...event,
-            startTimeDate: new Date(event.startTime),
-            endTimeDate: new Date(event.endTime),
             startTimeFormatted: dateToString(new Date(event.startTime)),
             durationFormatted: secondsToDurationString(event.duration),
             priorityFormatted: eventPriorityLabels[event.priority],
           };
-        }) as IEventAndCalcs[];
+        }) as IEventAndCalcsForTable[];
       }
       setEvents(updatedEvents);
       setEventsCount(eventsRes.eventsCount ?? 0);

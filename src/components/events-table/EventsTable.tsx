@@ -13,8 +13,7 @@ import { Link } from 'react-router-dom';
 import { EventsAction } from '../../enums/EventsAction';
 import EventsFilters from '../events-filters/EventsFilters';
 import { IEventsTableProps } from '../../props/IEventsTableProps';
-import { IEventAndCalcs } from '../../types/IEvent';
-import { eventPriorityLabels } from '../../constants/event-constants';
+import { IEventAndCalcsForTable } from '../../types/IEvent';
 import { useEventsFilters, useEventsFiltersDispatch } from '../../contexts/events-filters-context';
 import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
 import EventStatusIcon from '../../shared/components/EventStatusIcon';
@@ -71,7 +70,7 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
                 </TableCell>
               </TableRow>
             ) : (<>
-              {rows?.length > 0 && rows.map((row: IEventAndCalcs) => (
+                {rows?.length > 0 && rows.map((row: IEventAndCalcsForTable) => (
                 <TableRow
                   key={row._id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -94,7 +93,7 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
                   <TableCell>{row.startTimeFormatted}</TableCell>
                   <TableCell>{row.durationFormatted}</TableCell>
                   <TableCell>{formatEventLocation(row.locationTexts)}</TableCell>
-                  <TableCell title={eventPriorityLabels[row.priority]}>
+                  <TableCell title={row.priorityFormatted}>
                     <EventPriorityIcon priority={row.priority} />
                   </TableCell>
                   <TableCell>{row.description}</TableCell>
