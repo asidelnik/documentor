@@ -1,4 +1,4 @@
-import { IEvent, IEventAndDates } from '../../types/IEvent';
+import { IEventBase, IEventAndDates } from '../../types/IEvent';
 import { IVideo } from '../../types/IVideo';
 
 export default async function fetchEventById(
@@ -10,7 +10,7 @@ export default async function fetchEventById(
     if (!response.ok) {
       throw new Error('Network error');
     }
-    const data: IEvent = await response.json();
+    const data: IEventBase = await response.json();
     if (data) {
       const event: IEventAndDates = {
         ...data,

@@ -1,7 +1,7 @@
 import c from './EventPage.module.scss';
 import { useEffect, useState, useRef } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { IEvent, IEventAndDates } from "../../types/IEvent";
+import { IEventBase, IEventAndDates } from "../../types/IEvent";
 import { serverRoutes } from "../../server/server-routes";
 import { dateToString, secondsToDurationString, formatEventLocation } from "../../utils/functions";
 import { eventPriorityLabels, eventStatusLabels } from '../../constants/event-constants';
@@ -38,7 +38,7 @@ export default function EventPage() {
         throw new Error('Network error');
       }
 
-      const data: IEvent = await response.json();
+      const data: IEventBase = await response.json();
       if (data) {
         const event: IEventAndDates = {
           ...data,
