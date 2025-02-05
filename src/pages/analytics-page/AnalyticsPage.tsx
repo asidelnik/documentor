@@ -20,7 +20,8 @@ export default function AnalyticsPage() {
   const filters = useAnalyticsFilters();
   const filtersDispatch = useAnalyticsFiltersDispatch();
 
-  const updateLngLat = (center: LatLngLiteral) => filtersDispatch({ type: 'update-lng-lat', payload: { lat: center.lat, lng: center.lng, radius: filters.radius || 500 } });
+  const updateLngLat = (center: LatLngLiteral) =>
+    filtersDispatch({ type: 'update-lng-lat', payload: { lat: center.lat, lng: center.lng, radius: filters.radius || 500 } });
 
   return (
     <>
