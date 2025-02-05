@@ -17,7 +17,16 @@ export interface ILocationFilterProps {
   radiusInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function LocationFilter({ isShowMap, lat, long, radius, setIsShowMap, deleteCenterHandler, radiusSliderChange, radiusInputChange }: ILocationFilterProps) {
+export default function LocationFilter({
+  isShowMap,
+  lat,
+  long,
+  radius,
+  setIsShowMap,
+  deleteCenterHandler,
+  radiusSliderChange,
+  radiusInputChange
+}: ILocationFilterProps) {
   const [isShowLocationFields, setIsShowLocationFields] = useState<boolean>(false);
 
   useEffect(() => {
@@ -54,7 +63,11 @@ export default function LocationFilter({ isShowMap, lat, long, radius, setIsShow
             }
 
             {(isShowMap || isShowLocationFields) &&
-              <Tooltip title="Click map to set a center marker & drag to move." arrow placement="top" style={{ maxWidth: 'none', textWrap: 'nowrap' }}>
+              <Tooltip
+                title="Click the map to set a center marker. Drag the map to move."
+                arrow
+                placement="top"
+              >
                 <InfoOutlinedIcon style={{ color: 'hsl(0, 0%, 26%)' }} />
               </Tooltip>
             }
