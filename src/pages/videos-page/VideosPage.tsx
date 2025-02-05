@@ -13,12 +13,17 @@ import { fetchVideos, fetchVideosCount, videosSelector } from '../../query/video
 import { IEventsAutoComplete } from '../../props/IEventsAutoComplete';
 import { IVideo } from '../../types/IVideo';
 import { useEventsFiltersDispatch } from '../../contexts/events-filters-context';
+import LocationFilterMap from '../../shared/components/location-filter-map/LocationFilterMap';
+import { LatLngLiteral } from 'leaflet';
 
 export default function VideosPage() {
   const filters = useFilters();
   const dispatch = useFiltersDispatch();
   const [toggleAside, setToggleAside] = useState<boolean>(true);
   const eventsFiltersDispatch = useEventsFiltersDispatch();
+  const [isShowMap, setIsShowMap] = useState<boolean>(false);
+  const updateLngLat = (center: LatLngLiteral) =>
+    dispatch({ type: 'update-lng-lat', payload: { lat: center.lat, lng: center.lng, radius: filters.radius || 500 } });
 
   useEffect(() => {
     eventsFiltersDispatch({ type: 'update-page', payload: 1 });
@@ -61,7 +66,7 @@ export default function VideosPage() {
           </div>
 
           <div className={toggleAside ? 'visible' : 'hidden'}>
-            <VideosFilters eventsData={eventsDataProp} />
+            <VideosFilters eventsData={eventsDataProp} isShowMap={isShowMap} setIsShowMap={setIsShowMap} />
           </div>
         </aside>
         <main>
@@ -70,6 +75,14 @@ export default function VideosPage() {
             videosCount={videosCount ?? 0}
             videosCountIsFetching={videosCountIsFetching}
             eventsData={eventsDataProp} />
+
+          {isShowMap &&
+            <LocationFilterMap
+              lat={filters.lat}
+              lng={filters.long}
+              radius={filters.radius || 500}
+              setCenter={updateLngLat} />
+          }
 
           <footer className={c.pagination}>
             <Select

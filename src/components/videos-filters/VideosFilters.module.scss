@@ -15,4 +15,17 @@
     row-gap: 20px;
     width: 100%;
   }
+
+  .locationContainer {
+    width: 100%;
+
+    h4 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin: 0px;
+      padding: 0px;
+      padding-block: 10px 14px;
+      border-top: 1px solid var(--surface-1-border-color);
+    }
+  }
 }

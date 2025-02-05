@@ -24,7 +24,7 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
   const updateToDateHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
   const updateTypesHandler = (eventTypeIds: Array<string> | null) => filtersDispatch({ type: 'update-event-type-ids', payload: eventTypeIds });
   const deleteCenterHandler = () => {
-    filtersDispatch({ type: 'update-lng-lat', payload: { lat: null, lng: null, radius: null } });
+    filtersDispatch({ type: 'update-lng-lat', payload: { lat: undefined, lng: undefined, radius: undefined } });
     setIsShowMap(false);
   }
   const radiusSliderChange = (_event: Event, newValue: number | number[]) => filtersDispatch({ type: 'update-radius', payload: newValue as number });

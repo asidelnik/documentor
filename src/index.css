@@ -105,11 +105,6 @@ h3 {
   padding: 0px 12px !important;
 }
 
-.MuiBadge-badge {
-  right: 8px !important;
-  top: 8px !important;
-}
-
 .spinner-outer {
   display: flex;
   justify-content: center;

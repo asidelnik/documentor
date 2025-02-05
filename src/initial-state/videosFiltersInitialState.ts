@@ -10,11 +10,9 @@ export const videosFiltersInitialState: IVideosFilters = {
     VideoStatusEnum.Restricted,
   ],
   eventId: undefined,
+  lat: undefined,
+  long: undefined,
+  radius: undefined,
   page: 1,
   limit: 25,
 };
-
-//// Location filtering
-// lat: 32.0853,
-// lng: 34.7818,
-// radius: 10,
