@@ -83,7 +83,7 @@ export default function LocationFilter({
                 label="Latitude"
                 type="text"
                 variant="outlined"
-                value={lat}
+              value={lat || 0}
                 sx={{ width: "320px" }}
                 InputLabelProps={{ shrink: true }}
                 disabled={true}
@@ -96,7 +96,7 @@ export default function LocationFilter({
                 label="Longitude"
                 type="text"
                 variant="outlined"
-                value={long}
+              value={long || 0}
                 sx={{ width: "320px" }}
                 InputLabelProps={{ shrink: true }}
                 disabled={true}
@@ -106,7 +106,7 @@ export default function LocationFilter({
             <label className={c.label}>Radius (m)</label>
             <div className={c.radiusFields}>
               <Slider
-                value={radius}
+              value={radius || 0}
                 onChange={radiusSliderChange}
                 disabled={!isShowMap}
                 aria-label="Radius slider"
@@ -131,7 +131,7 @@ export default function LocationFilter({
                 sx={{ width: "70%" }}
               />
               <Input
-                value={radius}
+              value={radius || 0}
                 size="small"
                 onChange={radiusInputChange}
                 disabled={!isShowMap}

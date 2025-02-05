@@ -23,12 +23,12 @@ type UpdateEventIdAction = {
 
 type UpdateLatitudeAction = {
   type: 'update-latitude';
-  payload: number | null;
+  payload: number | undefined;
 };
 
 type UpdateLongitudeAction = {
   type: 'update-longitude';
-  payload: number | null;
+  payload: number | undefined;
 };
 
 type UpdateLngLatAction = {
@@ -38,7 +38,7 @@ type UpdateLngLatAction = {
 
 type UpdateRadiusAction = {
   type: 'update-radius';
-  payload: number | null;
+  payload: number | undefined;
 };
 
 type UpdatePageAction = {

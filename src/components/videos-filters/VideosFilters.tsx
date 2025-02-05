@@ -18,7 +18,7 @@ export default function VideosFilters({ eventsData, isShowMap, setIsShowMap }: I
   const selectHandler = (dispatchType: string, options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
   const eventFilterHandler = (newEventId: string | null) => filtersDispatch({ type: 'update-event-id', payload: newEventId });
   const deleteCenterHandler = () => {
-    filtersDispatch({ type: 'update-lng-lat', payload: { lat: null, lng: null, radius: null } });
+    filtersDispatch({ type: 'update-lng-lat', payload: { lat: undefined, lng: undefined, radius: undefined } });
     setIsShowMap(false);
   }
   const radiusSliderChange = (_event: Event, newValue: number | number[]) => filtersDispatch({ type: 'update-radius', payload: newValue as number });
