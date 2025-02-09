@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import { useEffect, useState } from 'react';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 export interface ILocationFilterProps {
   isShowMap: boolean;
@@ -15,6 +15,8 @@ export interface ILocationFilterProps {
   deleteCenterHandler: () => void;
   radiusSliderChange: (event: Event, value: number | number[]) => void;
   radiusInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  buttonText: string;
+  isVertical?: boolean;
 }
 
 export default function LocationFilter({
@@ -25,46 +27,39 @@ export default function LocationFilter({
   setIsShowMap,
   deleteCenterHandler,
   radiusSliderChange,
-  radiusInputChange
+  radiusInputChange,
+  buttonText,
+  isVertical
 }: ILocationFilterProps) {
-  const [isShowLocationFields, setIsShowLocationFields] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (lat && long) {
-      setIsShowLocationFields(true);
-    } else {
-      setIsShowLocationFields(false);
-    }
-  }, [lat, long]);
+  const isShowFilterControls = lat !== undefined && long !== undefined;
+  const isShowHorizontalValueIcon = !isVertical && lat && long;
+  const toolTipTitle = "Click the map to set a center marker. Update the radius.";
 
   return (
     <>
-      <div className={c.main}>
-        <div className={c.buttons}>
-          <Button
-            onClick={() => setIsShowMap(!isShowMap)}
-            className={c.showMapButton}
-            variant='outlined'>
-            {isShowMap ?
-              (<>Close map <CloseIcon sx={{ marginLeft: '6px' }} /></>) :
-              (<>Choose location<MapOutlinedIcon sx={{ marginLeft: '6px' }} /></>)}
-          </Button>
+      <div className={isVertical ? c.container : c.containerHorizontal}>
+        <div className={c.buttonsContainer}>
+          <div className={c.left}>
+            <Tooltip
+              title={toolTipTitle}
+              arrow
+              placement="top"
+              disableHoverListener={isVertical}
+              enterDelay={850}
+            >
+              <Button
+                onClick={() => setIsShowMap(!isShowMap)}
+                className={c.showMapButton}
+                variant='outlined'>
+                {isShowMap ?
+                  (<>Close map <CloseIcon sx={{ marginLeft: '6px' }} /></>) :
+                  (<>{buttonText}<MapOutlinedIcon sx={{ marginLeft: '6px' }} /></>)}
+              </Button>
+            </Tooltip>
 
-          <div className={c.right}>
-            {isShowLocationFields &&
-              <IconButton
-                onClick={deleteCenterHandler}
-                aria-label="Delete location filters"
-                color="warning"
-                title="Delete location filters"
-              >
-                <DeleteOutlineOutlinedIcon />
-              </IconButton>
-            }
-
-            {(isShowMap || isShowLocationFields) &&
+            {(isVertical && isShowMap) &&
               <Tooltip
-                title="Click the map to set a center marker. Drag the map to move."
+                title={toolTipTitle}
                 arrow
                 placement="top"
               >
@@ -72,18 +67,44 @@ export default function LocationFilter({
               </Tooltip>
             }
           </div>
+
+          {(isShowFilterControls || isShowHorizontalValueIcon) &&
+            <div className={c.right}>
+              {isShowHorizontalValueIcon && (
+                <Tooltip
+                  title='Location filter selected'
+                  arrow
+                  placement="top"
+                  disableHoverListener={isVertical}
+                  enterDelay={500}
+                >
+                  <TaskAltIcon sx={{ fill: 'green' }} />
+                </Tooltip>
+              )}
+
+              {isShowFilterControls &&
+                <IconButton
+                  onClick={deleteCenterHandler}
+                  aria-label="Delete location filters"
+                  color="warning"
+                  title="Delete location filters"
+                >
+                  <DeleteOutlineOutlinedIcon />
+                </IconButton>
+              }
+            </div>
+          }
         </div>
 
-
-        {isShowLocationFields &&
-          <>
+        {((isVertical && isShowFilterControls) || (!isVertical && isShowFilterControls && isShowMap)) &&
+          <div className={c.inputsContainer}>
             <div>
               <TextField
                 id="latitude"
                 label="Latitude"
                 type="text"
                 variant="outlined"
-              value={lat || 0}
+                value={lat || 0}
                 sx={{ width: "320px" }}
                 InputLabelProps={{ shrink: true }}
                 disabled={true}
@@ -96,7 +117,7 @@ export default function LocationFilter({
                 label="Longitude"
                 type="text"
                 variant="outlined"
-              value={long || 0}
+                value={long || 0}
                 sx={{ width: "320px" }}
                 InputLabelProps={{ shrink: true }}
                 disabled={true}
@@ -106,7 +127,7 @@ export default function LocationFilter({
             <label className={c.label}>Radius (m)</label>
             <div className={c.radiusFields}>
               <Slider
-              value={radius || 0}
+                value={radius || 0}
                 onChange={radiusSliderChange}
                 disabled={!isShowMap}
                 aria-label="Radius slider"
@@ -131,7 +152,7 @@ export default function LocationFilter({
                 sx={{ width: "70%" }}
               />
               <Input
-              value={radius || 0}
+                value={radius || 0}
                 size="small"
                 onChange={radiusInputChange}
                 disabled={!isShowMap}
@@ -145,7 +166,7 @@ export default function LocationFilter({
                 }}
               />
             </div>
-          </>
+          </div>
         }
       </div>
     </>
