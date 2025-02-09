@@ -52,11 +52,13 @@ export const useFetchEvents = () => {
       if (!signal.aborted) {
         setIsLoading(false);
       }
-    } catch (error) {
-      setErrorMessage('Error');
-      setIsError(true);
-      if (!signal.aborted) {
-        setIsLoading(false);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMessage('Error');
+        setIsError(true);
+        if (!signal.aborted) {
+          setIsLoading(false);
+        }
       }
     }
   };

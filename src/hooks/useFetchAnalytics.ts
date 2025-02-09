@@ -43,7 +43,7 @@ export const useFetchAnalytics = () => {
         ...analyticsData,
         [stateProperty]: { ...analyticsData[stateProperty], data: eventsRes },
       });
-    } catch (error) {
+    } catch (error: unknown) {
       setAnalyticsData({
         ...analyticsData,
         [stateProperty]: {

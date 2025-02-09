@@ -37,11 +37,12 @@ export default function useFetchEventById() {
         setIsLoading(false);
         setIsError(false);
       }
-    } catch (error: any) {
-      console.log(error.message);
-      setErrorMessage(error.message);
-      setIsError(true);
-      setIsLoading(false);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+        setIsError(true);
+        setIsLoading(false);
+      }
     }
   };
 

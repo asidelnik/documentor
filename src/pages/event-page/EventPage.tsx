@@ -48,10 +48,11 @@ export default function EventPage() {
         setEvent(event);
         setIsError(false);
       }
-    } catch (error: any) {
-      console.log(error.message)
-      setErrorMessage(error.message)
-      setIsError(true);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message)
+        setIsError(true);
+      }
     }
   };
 
