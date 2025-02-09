@@ -5,6 +5,9 @@ export interface IEventsFilters {
   freeText?: string;
   statuses?: number[];
   eventTypeIds?: Array<string>;
+  lat?: number;
+  long?: number;
+  radius?: number;
   page: number;
   limit: number;
 }

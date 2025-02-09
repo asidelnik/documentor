@@ -38,6 +38,18 @@ function filtersReducer(filters: IEventsFilters, action: EventsFiltersActions): 
     case "update-event-type-ids": {
       return { ...filters, eventTypeIds: action.payload, page: 1 } as IEventsFilters;
     }
+    case "update-latitude": {
+      return { ...filters, lat: action.payload, page: 1 } as IEventsFilters;
+    }
+    case "update-longitude": {
+      return { ...filters, long: action.payload, page: 1 } as IEventsFilters;
+    }
+    case "update-lng-lat": {
+      return { ...filters, lat: action.payload.lat, long: action.payload.lng, radius: action.payload.radius, page: 1 } as IEventsFilters;
+    }
+    case "update-radius": {
+      return { ...filters, radius: action.payload, page: 1 } as IEventsFilters;
+    }
     case "update-limit": {
       return { ...filters, limit: action.payload, page: 1 } as IEventsFilters;
     }
