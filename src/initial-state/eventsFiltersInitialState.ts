@@ -7,6 +7,9 @@ export const eventsFiltersInitialState: IEventsFilters = {
   priority: [EventPriority.High, EventPriority.Medium, EventPriority.Low],
   freeText: '',
   statuses: [EventStatus.Active, EventStatus.Inactive],
+  lat: undefined,
+  long: undefined,
+  radius: undefined,
   page: 1,
   limit: 50,
 };

@@ -67,6 +67,8 @@ export default function VideosFilters({ eventsData, isShowMap, setIsShowMap }: I
             deleteCenterHandler={deleteCenterHandler}
             radiusSliderChange={radiusSliderChange}
             radiusInputChange={radiusInputChange}
+            buttonText="Location"
+            isVertical={true}
           />
         </div>
       </div>

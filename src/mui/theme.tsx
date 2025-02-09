@@ -21,12 +21,13 @@ export const muiTheme = createTheme({
   components: {
     MuiTableCell: {
       styleOverrides: {
-        root: {
-          padding: '5px 5px 5px 0px',
-        },
         head: {
-          padding: '7px 5px 7px 0px',
-        }
+          padding: '7px 5px 7px 4px',
+          whiteSpace: 'nowrap',
+        },
+        root: {
+          padding: '5px 5px 5px 4px',
+        },
       },
     },
     // MuiIconButton: {

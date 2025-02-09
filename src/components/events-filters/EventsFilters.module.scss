@@ -1,10 +1,25 @@
-.filtersContainer {
-  height: 65px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  column-gap: 15px;
-  padding: 15px;
-  border-block-end: 1px solid var(--surface-1-border-color);
+// 2 containers solve issue with container scroll y when filtersContainer shows with position: absolute
+.relativeContainer {
+  position: relative;
+
+  .scrollContainer {
+    box-sizing: border-box;
+    overflow-x: auto;
+    border-block-end: 1px solid var(--surface-1-border-color);
+
+    .filtersContainer {
+      height: 65px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      column-gap: 15px;
+      padding: 15px 15px 30px 15px;
+      width: fit-content;
+
+      .locationContainer {
+        width: fit-content;
+      }
+    }
+  }
 }

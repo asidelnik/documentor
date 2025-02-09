@@ -10,8 +10,11 @@ import { IOptionStr } from "../../types/IOptionStr";
 import { fetchEventTypes } from "../../query/events/fetchEventTypes";
 import MultipleSelectCheckmarksStr from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarksStr";
 import { useQuery } from "@tanstack/react-query";
+import { IEventsFiltersProps } from "../../types/IEventsFiltersProps";
+import LocationFilter from "../../shared/components/location-filter/LocationFilter";
 
-export default function EventsFilters() {
+
+export default function EventsFilters({ isShowMap, setIsShowMap }: IEventsFiltersProps) {
   const filters = useEventsFilters();
   const filtersDispatch = useEventsFiltersDispatch();
 
@@ -27,53 +30,79 @@ export default function EventsFilters() {
   const selectChangeHandler = (dispatchType: string, options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
   const textChangeHandler = (event: ChangeEvent<HTMLInputElement>) => filtersDispatch({ type: 'update-free-text', payload: event.target.value });
   const updateTypesHandler = (eventTypeIds: Array<string> | null) => filtersDispatch({ type: 'update-event-type-ids', payload: eventTypeIds });
+  const deleteCenterHandler = () => {
+    filtersDispatch({ type: 'update-lng-lat', payload: { lat: undefined, lng: undefined, radius: undefined } });
+    setIsShowMap(false);
+  }
+  const radiusSliderChange = (_event: Event, newValue: number | number[]) => filtersDispatch({ type: 'update-radius', payload: newValue as number });
+  const radiusInputChange = (event: ChangeEvent<HTMLInputElement>) => filtersDispatch({ type: 'update-radius', payload: event.target.value === '' ? 100 : Number(event.target.value) });
+
 
   return (
     <>
-      <div className={c.filtersContainer}>
-        <MultipleSelectCheckmarksStr
-          options={eventTypes ?? []}
-          buttonText='Types'
-          defaultOptions={filters.eventTypeIds ?? []}
-          width={'220px'}
-          parent={FilterParent.Videos}
-          updateSelectedOptions={updateTypesHandler}
-        />
+      <div className={c.relativeContainer}>
+        <div className={c.scrollContainer}>
+          <div className={c.filtersContainer}>
+            <MultipleSelectCheckmarksStr
+              options={eventTypes ?? []}
+              buttonText='Types'
+              defaultOptions={filters.eventTypeIds ?? []}
+              width={'150px'}
+              parent={FilterParent.Videos}
+              updateSelectedOptions={updateTypesHandler}
+            />
 
-        <DateTimeRangePicker
-          fromDateProp={filters.fromDate}
-          toDateProp={filters.toDate}
-          parent={FilterParent.Videos}
-          updateFromDate={fromDateChangeHandler}
-          updateToDate={toDateChangeHandler}
-        />
+            <DateTimeRangePicker
+              fromDateProp={filters.fromDate}
+              toDateProp={filters.toDate}
+              parent={FilterParent.Videos}
+              updateFromDate={fromDateChangeHandler}
+              updateToDate={toDateChangeHandler}
+            />
 
-        <MultipleSelectCheckmarks
-          buttonText='Priority'
-          options={eventPriorityNumOptions}
-          defaultOptions={filters?.priority ?? []}
-          width={'240px'}
-          parent={FilterParent.Videos}
-          updateSelectedOptions={(options: number[]) => selectChangeHandler('update-priority', options)}
-        />
+            <div className={c.locationContainer}>
+              <LocationFilter
+                isShowMap={isShowMap}
+                lat={filters.lat}
+                long={filters.long}
+                radius={filters.radius}
+                setIsShowMap={setIsShowMap}
+                deleteCenterHandler={deleteCenterHandler}
+                radiusSliderChange={radiusSliderChange}
+                radiusInputChange={radiusInputChange}
+                buttonText="Location"
+                isVertical={false}
+              />
+            </div >
 
-        <TextField
-          id="title-desc"
-          label="Texts filter"
-          variant="outlined"
-          onChange={textChangeHandler}
-          sx={{ width: '300px' }}
-          size="medium"
-        />
+            <MultipleSelectCheckmarks
+              buttonText='Priority'
+              options={eventPriorityNumOptions}
+              defaultOptions={filters?.priority ?? []}
+              width={'150px'}
+              parent={FilterParent.Videos}
+              updateSelectedOptions={(options: number[]) => selectChangeHandler('update-priority', options)}
+            />
 
-        <MultipleSelectCheckmarks
-          buttonText='Status'
-          options={eventStatusNumOptions}
-          defaultOptions={filters?.statuses ?? []}
-          width={'220px'}
-          parent={FilterParent.Videos}
-          updateSelectedOptions={(options: number[]) => selectChangeHandler('update-status', options)}
-        />
+            <TextField
+              id="title-desc"
+              label="Texts filter"
+              variant="outlined"
+              onChange={textChangeHandler}
+              sx={{ minWidth: '250px', maxWidth: '300px' }}
+              size="medium"
+            />
+
+            <MultipleSelectCheckmarks
+              buttonText='Status'
+              options={eventStatusNumOptions}
+              defaultOptions={filters?.statuses ?? []}
+              width={'150px'}
+              parent={FilterParent.Videos}
+              updateSelectedOptions={(options: number[]) => selectChangeHandler('update-status', options)}
+            />
+          </div>
+        </div>
       </div>
     </>
   )

@@ -13,7 +13,7 @@ export default function ComboBox({ options, checkedId, update, isDisabled, place
       getOptionLabel={(option) => option.label}
       onChange={(_event, value) => update(value?.id ?? null)}
       disablePortal
-      sx={{ backgroundColor: 'white', width }}
+      sx={{ backgroundColor: 'white', minWidth: width, width }}
       disabled={isDisabled}
       renderInput={(params) => (
         <TextField {...params}

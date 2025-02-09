@@ -98,7 +98,7 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, parent, 
           },
           field: { clearable: true, onClear: () => setCleared({ ...cleared, from: true }) },
         }}
-        sx={{ width: '320px', backgroundColor: 'white' }}
+        sx={{ minWidth: '320px', width: '320px', backgroundColor: 'white' }}
       />
       <DesktopDateTimePicker
         label="To date"
@@ -113,7 +113,7 @@ export default function DateTimeRangePicker({ fromDateProp, toDateProp, parent, 
           },
           field: { clearable: true, onClear: () => setCleared({ ...cleared, to: true }) },
         }}
-        sx={{ width: '320px', backgroundColor: 'white' }}
+        sx={{ minWidth: '320px', width: '320px', backgroundColor: 'white' }}
       />
     </LocalizationProvider>
   );

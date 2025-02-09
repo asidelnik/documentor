@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { ILatLngRadius } from './ILatLngRadius';
 
 type UpdateFromDateUpdateAction = {
   type: 'update-from-date';
@@ -30,6 +31,26 @@ type UpdateEventTypeIdsAction = {
   payload: Array<string> | null;
 };
 
+type UpdateLatitudeAction = {
+  type: 'update-latitude';
+  payload: number | undefined;
+};
+
+type UpdateLongitudeAction = {
+  type: 'update-longitude';
+  payload: number | undefined;
+};
+
+type UpdateLngLatAction = {
+  type: 'update-lng-lat';
+  payload: ILatLngRadius;
+};
+
+type UpdateRadiusAction = {
+  type: 'update-radius';
+  payload: number | undefined;
+};
+
 type UpdatePageAction = {
   type: 'update-page';
   payload: number;
@@ -47,6 +68,10 @@ export type EventsFiltersActions =
   | UpdateFreeTextAction
   | UpdateStatusAction
   | UpdateEventTypeIdsAction
+  | UpdateLatitudeAction
+  | UpdateLongitudeAction
+  | UpdateLngLatAction
+  | UpdateRadiusAction
   | UpdatePageAction
   | UpdateLimitAction;
 

@@ -32,23 +32,23 @@ function filtersReducer(filters: IVideosFilters, action: FiltersActions): any {
     case 'update-event-id': {
       return { ...filters, eventId: action.payload, page: 1 } as IVideosFilters;
     }
+    case "update-latitude": {
+      return { ...filters, lat: action.payload, page: 1 } as IVideosFilters;
+    }
+    case "update-longitude": {
+      return { ...filters, long: action.payload, page: 1 } as IVideosFilters;
+    }
+    case "update-lng-lat": {
+      return { ...filters, lat: action.payload.lat, long: action.payload.lng, radius: action.payload.radius, page: 1 } as IVideosFilters;
+    }
+    case "update-radius": {
+      return { ...filters, radius: action.payload, page: 1 } as IVideosFilters;
+    }
     case "update-limit": {
       return { ...filters, limit: action.payload, page: 1 } as IVideosFilters;
     }
     case "update-page": {
       return { ...filters, page: action.payload, } as IVideosFilters;
-    }
-    case "update-latitude": {
-      return { ...filters, lat: action.payload } as IVideosFilters;
-    }
-    case "update-longitude": {
-      return { ...filters, long: action.payload } as IVideosFilters;
-    }
-    case "update-lng-lat": {
-      return { ...filters, lat: action.payload.lat, long: action.payload.lng, radius: action.payload.radius } as IVideosFilters;
-    }
-    case "update-radius": {
-      return { ...filters, radius: action.payload } as IVideosFilters;
     }
     default: {
       return filters;
