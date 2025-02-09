@@ -62,6 +62,8 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
             deleteCenterHandler={deleteCenterHandler}
             radiusSliderChange={radiusSliderChange}
             radiusInputChange={radiusInputChange}
+            buttonText="Location"
+            isVertical={true}
           />
         </div>
       </div >
