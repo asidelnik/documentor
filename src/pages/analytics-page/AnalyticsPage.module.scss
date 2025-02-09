@@ -20,6 +20,11 @@
 
   .asideOpen {
     flex: 0 0 350px;
+
+    .filtersScrollContainer {
+      overflow-y: scroll;
+      height: calc(100vh - 76px - 52px);
+    }
   }
 
   .asideClose {
@@ -49,7 +54,7 @@
       border-radius: 20px;
       border: 1px solid var(--card-border-color);
     }
-    
+
     .recentEvents {
       display: flex;
       flex-direction: column;

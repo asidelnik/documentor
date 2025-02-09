@@ -66,7 +66,7 @@ export default function VideosPage() {
             </IconButton>
           </div>
 
-          <div className={toggleAside ? 'visible' : 'hidden'}>
+          <div className={toggleAside ? c.filtersScrollContainer : 'hidden'}>
             <VideosFilters eventsData={eventsDataProp} isShowMap={isShowMap} setIsShowMap={setIsShowMap} />
           </div>
         </aside>

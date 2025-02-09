@@ -34,7 +34,7 @@ export default function AnalyticsPage() {
             </IconButton>
             {/* Button to delete or reset all filters */}
           </div>
-          <div className={toggleAside ? 'visible' : 'hidden'}>
+          <div className={toggleAside ? c.filtersScrollContainer : 'hidden'}>
             <AnalyticsFilters isShowMap={isShowMap} setIsShowMap={setIsShowMap} />
           </div>
         </aside>
