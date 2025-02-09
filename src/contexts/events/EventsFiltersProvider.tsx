@@ -1,10 +1,10 @@
-import { createContext, useContext, useReducer } from "react";
-import { IEventsFilters } from "../types/IEventsFilters";
-import { eventsFiltersInitialState } from "../initial-state/eventsFiltersInitialState";
-import { EventsFiltersActions, EventsFiltersContextProviderProps } from "../types/EventsFiltersContextTypes";
+import { createContext, useReducer } from "react";
+import { IEventsFilters } from "../../types/IEventsFilters";
+import { eventsFiltersInitialState } from "../../initial-state/eventsFiltersInitialState";
+import { EventsFiltersActions, EventsFiltersContextProviderProps } from "./EventsFiltersContextTypes";
 
-const EventsFiltersContext = createContext<IEventsFilters>(eventsFiltersInitialState);
-const EventsFiltersDispatchContext = createContext<any>(null);
+export const EventsFiltersContext = createContext<IEventsFilters>(eventsFiltersInitialState);
+export const EventsFiltersDispatchContext = createContext<any>(null);
 
 export function EventsFiltersProvider({ children }: EventsFiltersContextProviderProps) {
   const [state, dispatch] = useReducer(filtersReducer, eventsFiltersInitialState);
@@ -18,7 +18,7 @@ export function EventsFiltersProvider({ children }: EventsFiltersContextProvider
   );
 }
 
-function filtersReducer(filters: IEventsFilters, action: EventsFiltersActions): any {
+function filtersReducer(filters: IEventsFilters, action: EventsFiltersActions): IEventsFilters {
   switch (action.type) {
     case "update-from-date": {
       return { ...filters, fromDate: action.payload, page: 1 } as IEventsFilters;
@@ -62,10 +62,3 @@ function filtersReducer(filters: IEventsFilters, action: EventsFiltersActions): 
   }
 }
 
-export function useEventsFilters() {
-  return useContext(EventsFiltersContext);
-}
-
-export function useEventsFiltersDispatch() {
-  return useContext(EventsFiltersDispatchContext);
-}

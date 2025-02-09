@@ -1,24 +1,24 @@
-import { createContext, useContext, useReducer } from "react";
-import { videosFiltersInitialState } from "../initial-state/videosFiltersInitialState";
-import { IVideosFilters } from "../types/IVideosFilters";
-import { FiltersActions, FiltersContextProviderProps } from "../types/FiltersContextTypes";
+import { createContext, useReducer } from "react";
+import { videosFiltersInitialState } from "../../initial-state/videosFiltersInitialState";
+import { IVideosFilters } from "../../types/IVideosFilters";
+import { VideosFiltersActions, VideosFiltersContextProviderProps } from "./VideosFiltersContextTypes";
 
-const FiltersContext = createContext<IVideosFilters>(videosFiltersInitialState);
-const FiltersDispatchContext = createContext<any>(null);
+export const VideosFiltersContext = createContext<IVideosFilters>(videosFiltersInitialState);
+export const VideosFiltersDispatchContext = createContext<any>(null);//Dispatch<VideosFiltersActions> | null>(null);
 
-export function FiltersProvider({ children }: FiltersContextProviderProps) {
-  const [state, dispatch] = useReducer(filtersReducer, videosFiltersInitialState);
+export function VideosFiltersProvider({ children }: VideosFiltersContextProviderProps) {
+  const [state, dispatch] = useReducer(videosFiltersReducer, videosFiltersInitialState);
 
   return (
-    <FiltersContext.Provider value={state}>
-      <FiltersDispatchContext.Provider value={dispatch}>
+    <VideosFiltersContext.Provider value={state}>
+      <VideosFiltersDispatchContext.Provider value={dispatch}>
         {children}
-      </FiltersDispatchContext.Provider>
-    </FiltersContext.Provider>
+      </VideosFiltersDispatchContext.Provider>
+    </VideosFiltersContext.Provider>
   );
 }
 
-function filtersReducer(filters: IVideosFilters, action: FiltersActions): any {
+function videosFiltersReducer(filters: IVideosFilters, action: VideosFiltersActions): IVideosFilters {
   switch (action.type) {
     case 'update-statuses': {
       return { ...filters, statuses: action.payload, page: 1 } as IVideosFilters;
@@ -56,10 +56,4 @@ function filtersReducer(filters: IVideosFilters, action: FiltersActions): any {
   }
 }
 
-export function useFilters() {
-  return useContext(FiltersContext);
-}
 
-export function useFiltersDispatch() {
-  return useContext(FiltersDispatchContext);
-}
