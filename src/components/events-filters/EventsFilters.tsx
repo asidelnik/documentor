@@ -1,6 +1,7 @@
 import c from "./EventsFilters.module.scss";
 import { eventPriorityNumOptions, eventStatusNumOptions } from "../../constants/event-constants";
-import { useEventsFilters, useEventsFiltersDispatch } from "../../contexts/events-filters-context";
+import { useEventsFiltersDispatch } from "../../contexts/events/useEventsFiltersDispatch";
+import { useEventsFilters } from "../../contexts/events/useEventsFilters";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
 import TextField from "@mui/material/TextField";

@@ -2,16 +2,17 @@ import c from "./VideosFilters.module.scss";
 import { ChangeEvent } from "react";
 import { eventStatusNumOptions } from "../../constants/video-status";
 import MultipleSelectCheckmarks from "../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarks";
-import { useFilters, useFiltersDispatch } from "../../contexts/filters-context";
 import DateTimeRangePicker from "../../shared/components/date-time-range-picker/DateTimeRangePicker";
 import ComboBox from "../../shared/components/combo-box/ComboBox";
 import { IVideoFiltersProps } from "../../props/IVideoFiltersProps";
 import { FilterParent } from "../../enums/FilterParent";
 import LocationFilter from "../../shared/components/location-filter/LocationFilter";
+import { useVideosFilters } from "../../contexts/videos/useVideosFilters";
+import { useVideosFiltersDispatch } from "../../contexts/videos/useVideosFiltersDispatch";
 
 export default function VideosFilters({ eventsData, isShowMap, setIsShowMap }: IVideoFiltersProps) {
-  const filters = useFilters();
-  const filtersDispatch = useFiltersDispatch();
+  const filters = useVideosFilters();
+  const filtersDispatch = useVideosFiltersDispatch();
 
   const updateFromDateHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const updateToDateHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });

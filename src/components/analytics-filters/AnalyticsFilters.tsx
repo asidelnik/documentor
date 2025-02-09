@@ -1,5 +1,4 @@
 import c from './AnalyticsFilters.module.scss';
-import { useAnalyticsFilters, useAnalyticsFiltersDispatch } from "../../contexts/analytics-filters-context";
 import MonthYearPicker from '../../shared/components/date-pickers/MonthYearPicker';
 import { fetchEventTypes } from '../../query/events/fetchEventTypes';
 import { IOptionStr } from '../../types/IOptionStr';
@@ -9,6 +8,8 @@ import LocationFilter from '../../shared/components/location-filter/LocationFilt
 import { FilterParent } from '../../enums/FilterParent';
 import MultipleSelectCheckmarksStr from '../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarksStr';
 import { useQuery } from '@tanstack/react-query';
+import { useAnalyticsFilters } from '../../contexts/analytics/useAnalyticsFilters';
+import { useAnalyticsFiltersDispatch } from '../../contexts/analytics/useAnalyticsFiltersDispatch';
 
 export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalyticsFiltersProps) {
   const filters = useAnalyticsFilters();

@@ -6,7 +6,7 @@ import {
 } from '../types/IEvent';
 import { dateToString, secondsToDurationString } from '../utils/functions';
 import { serverRoutes } from '../server/server-routes';
-import { useEventsFilters } from '../contexts/events-filters-context';
+import { useEventsFilters } from '../contexts/events/useEventsFilters';
 import { eventPriorityLabels } from '../constants/event-constants';
 
 export const useFetchEvents = () => {

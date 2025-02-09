@@ -10,15 +10,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IVideoStatusMutationProps, mutateVideoStatus } from "../../query/videos/mutateVideoStatus";
 import { IVideoEventMutationProps, mutateVideoEvent } from "../../query/videos/mutateVideoEvent";
 import { IVideo } from "../../types/IVideo";
-import { useFilters } from "../../contexts/filters-context";
 import { videoOnMutate } from "../../query/videos/videoOnMutate";
 import { VideoMutation } from "../../enums/VideoMutation";
 import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
+import { useVideosFilters } from "../../contexts/videos/useVideosFilters";
 
 export default function VideoInfo({ video, eventsData, videoInfoType, isSelected, onMouseDown }: IVideoInfoProps) {
-  const filters = useFilters();
+  const filters = useVideosFilters();
   const queryClient = useQueryClient();
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
   const optimisticStatusStyles = getStatusStyles(video.status);

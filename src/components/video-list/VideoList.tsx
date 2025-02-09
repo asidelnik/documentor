@@ -5,11 +5,11 @@ import VideoInfo from '../video-info/VideoInfo';
 import { IVideoListProps } from '../../props/IVideoListProps';
 import { VideoInfoEnum } from '../../enums/VideoInfoEnum';
 import { useNavigate } from 'react-router-dom';
-import { useFiltersDispatch } from '../../contexts/filters-context';
 import { Button } from '@mui/material';
+import { useVideosFiltersDispatch } from '../../contexts/videos/useVideosFiltersDispatch';
 
 export default function VideoList({ videos, eventId, eventTitle }: IVideoListProps) {
-  const videosDispatch = useFiltersDispatch();
+  const videosDispatch = useVideosFiltersDispatch();
   const navigate = useNavigate();
 
   function updateEventVideos() {

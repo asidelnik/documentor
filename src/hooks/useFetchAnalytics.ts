@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { IFetchState } from '../types/IAnalytics';
-import { useAnalyticsFilters } from '../contexts/analytics-filters-context';
 import { serverRoutes } from '../server/server-routes';
 import { analyticsFetchInitialState } from '../initial-state/analyticsFetchInitialState';
+import { useAnalyticsFilters } from '../contexts/analytics/useAnalyticsFilters';
 
 export const useFetchAnalytics = () => {
   const filters = useAnalyticsFilters();
