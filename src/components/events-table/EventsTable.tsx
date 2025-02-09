@@ -53,33 +53,75 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
     <>
       <EventsFilters isShowMap={isShowMap} setIsShowMap={setIsShowMap} />
       <main style={{ overflowX: 'auto' }}>
-        <Table sx={{ minWidth: 650 }} aria-label="table" stickyHeader>
-          <TableHead>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Types</TableCell>
-              <TableCell>Start time</TableCell>
-              <TableCell>Duration</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Priority</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Videos</TableCell>
-              <TableCell>To Review</TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {isLoading ? (
+        <TableContainer className={c.tableContainer}>
+          <Table sx={{ minWidth: '1400px', tableLayout: 'fixed' }} aria-label="table" stickyHeader>
+            <TableHead>
               <TableRow>
-                <TableCell colSpan={11} align="center">
-                  <CircularProgress />
-                </TableCell>
+                <TableCell sx={{ width: '50px' }}></TableCell>
+                <TableCell sx={{ width: '240px' }}>Title</TableCell>
+                <TableCell sx={{ minWidth: '100px' }}>Types</TableCell>
+                <TableCell sx={{ width: '240px' }}>Start time</TableCell>
+                <TableCell sx={{ width: '80px' }}>Duration</TableCell>
+                <TableCell sx={{ minWidth: '100px' }}>Location</TableCell>
+                <TableCell sx={{ width: '70px' }}>Priority</TableCell>
+                <TableCell sx={{ minWidth: '100px' }}>Description</TableCell>
+                <TableCell sx={{ width: '70px' }}>Status</TableCell>
+                <TableCell sx={{ width: '70px' }}>Videos</TableCell>
+                <TableCell sx={{ width: '100px' }}>To Review</TableCell>
               </TableRow>
-            ) : (<>
+            </TableHead>
+
+            <TableBody>
+              {isLoading ? (
+                <TableRow>
+                  <TableCell colSpan={11} align="center">
+                    <CircularProgress />
+                  </TableCell>
+                </TableRow>
+              ) : (<>
                 {rows?.length > 0 && rows.map((row: IEventAndCalcsForTable) => (
+                  <TableRow
+                    key={row._id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    hover={true}
+                  >
+                    <TableCell sx={{ width: '50px' }}>
+                      <IconButton aria-label="edit event" onClick={() => editEvent(row._id)}>
+                        <EditIcon className={c.editIcon} sx={{ fontSize: '1.1rem' }} />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      title={row.title}
+                      sx={{ maxWidth: '240px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      <Link to={`/events/${row._id}`} className={c.eventLink}>{row.title}</Link>
+                    </TableCell>
+                    <TableCell
+                      title={row.typesString}
+                      sx={{ maxWidth: '200px' }}>
+                      {row.typesString}
+                    </TableCell>
+                    <TableCell sx={{ width: '240px' }} title={row.startTimeFormatted}>{row.startTimeFormatted}</TableCell>
+                    <TableCell sx={{ width: '80px' }}>{row.durationFormatted}</TableCell>
+                    <TableCell title={formatEventLocation(row.locationTexts)}>{formatEventLocation(row.locationTexts)}</TableCell>
+                    <TableCell title={row.priorityFormatted} sx={{ width: '70px' }}>
+                      <EventPriorityIcon priority={row.priority} />
+                    </TableCell>
+                    <TableCell title={row.description}>{row.description}</TableCell>
+                    <TableCell sx={{ width: '70px' }}>
+                      <EventStatusIcon status={row.status} />
+                    </TableCell>
+                    <TableCell sx={{ width: '70px' }}>{row.videosCount}</TableCell>
+                    <TableCell sx={{ width: '100px' }}>
+                      <span className={row.videosUnprocessedCount > 0 ? c.eventToReview : ''}>{row.videosUnprocessedCount}</span>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </>)}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
         {isShowMap &&
           <LocationFilterMap
