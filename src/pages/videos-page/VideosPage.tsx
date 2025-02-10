@@ -20,15 +20,15 @@ import { useVideosFiltersDispatch } from '../../contexts/videos/useVideosFilters
 export default function VideosPage() {
   const filters = useVideosFilters();
   const dispatch = useVideosFiltersDispatch();
-  const [toggleAside, setToggleAside] = useState<boolean>(true);
   const eventsFiltersDispatch = useEventsFiltersDispatch();
+  const [toggleAside, setToggleAside] = useState<boolean>(true);
   const [isShowMap, setIsShowMap] = useState<boolean>(false);
   const updateLngLat = (center: LatLngLiteral) =>
     dispatch({ type: 'update-lng-lat', payload: { lat: center.lat, lng: center.lng, radius: filters.radius || 500 } });
 
   useEffect(() => {
     eventsFiltersDispatch({ type: 'update-page', payload: 1 });
-  }, []);
+  }, [eventsFiltersDispatch]);
 
   const {
     isFetching: eventsIsFetching,

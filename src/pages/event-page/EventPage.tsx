@@ -15,9 +15,10 @@ import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
 import EventStatusIcon from '../../shared/components/EventStatusIcon';
 import EventMap from '../../components/event-map/EventMap';
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 export default function EventPage() {
   const { eventId } = useParams<{ eventId: string }>();
-  const baseUrl = import.meta.env.VITE_BASE_URL;
   const [event, setEvent] = useState<IEventAndDates | undefined>(undefined);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -29,32 +30,33 @@ export default function EventPage() {
 
   useEffect(() => {
     if (eventId !== undefined) fetchData(eventId);
-  }, [eventId]);
 
-  const fetchData = async (id: string) => {
-    try {
-      const response = await fetch(baseUrl + serverRoutes.events.fetchEvent(id));
-      if (!response.ok) {
-        throw new Error('Network error');
-      }
+    async function fetchData(id: string) {
+      try {
+        const response = await fetch(baseUrl + serverRoutes.events.fetchEvent(id));
+        if (!response.ok) {
+          throw new Error('Network error');
+        }
 
-      const data: IEventBase = await response.json();
-      if (data) {
-        const event: IEventAndDates = {
-          ...data,
-          startTimeDate: new Date(data.startTime),
-          endTimeDate: new Date(data.endTime),
-        };
-        setEvent(event);
-        setIsError(false);
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setErrorMessage(error.message)
-        setIsError(true);
+        const data: IEventBase = await response.json();
+        if (data) {
+          const event: IEventAndDates = {
+            ...data,
+            startTimeDate: new Date(data.startTime),
+            endTimeDate: new Date(data.endTime),
+          };
+          setEvent(event);
+          setIsError(false);
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setErrorMessage(error.message)
+          setIsError(true);
+        }
       }
     }
-  };
+  }, [eventId]);
+
 
   function scrollByMenuHandler(sectionId: string): void {
     const main = document.querySelector("main");
