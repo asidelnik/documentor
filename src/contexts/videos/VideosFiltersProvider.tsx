@@ -1,10 +1,10 @@
-import { createContext, useReducer } from "react";
+import { createContext, Dispatch, useReducer } from "react";
 import { videosFiltersInitialState } from "../../initial-state/videosFiltersInitialState";
 import { IVideosFilters } from "../../types/IVideosFilters";
 import { VideosFiltersActions, VideosFiltersContextProviderProps } from "./VideosFiltersContextTypes";
 
 export const VideosFiltersContext = createContext<IVideosFilters>(videosFiltersInitialState);
-export const VideosFiltersDispatchContext = createContext<any>(null);//Dispatch<VideosFiltersActions> | null>(null);
+export const VideosFiltersDispatchContext = createContext<Dispatch<VideosFiltersActions>>(() => null);
 
 export function VideosFiltersProvider({ children }: VideosFiltersContextProviderProps) {
   const [state, dispatch] = useReducer(videosFiltersReducer, videosFiltersInitialState);

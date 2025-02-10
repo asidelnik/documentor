@@ -1,10 +1,10 @@
-import { createContext, useReducer } from "react";
+import { createContext, Dispatch, useReducer } from "react";
 import { IAnalyticsFilters } from "../../types/IAnalyticsFilters";
 import { analyticsFiltersInitialState } from "../../initial-state/analyticsFiltersInitialState";
 import { AnalyticsFiltersActions, AnalyticsFiltersContextProviderProps } from "./AnalyticsFiltersContextTypes";
 
 export const AnalyticsFiltersContext = createContext<IAnalyticsFilters>(analyticsFiltersInitialState);
-export const AnalyticsFiltersDispatchContext = createContext<any>(null);//Dispatch<AnalyticsFiltersActions> | null>(null);
+export const AnalyticsFiltersDispatchContext = createContext<Dispatch<AnalyticsFiltersActions>>(() => null);//Dispatch<AnalyticsFiltersActions> | null>(null);
 
 export function AnalyticsFiltersProvider({ children }: AnalyticsFiltersContextProviderProps) {
   const [state, dispatch] = useReducer(analyticsFiltersReducer, analyticsFiltersInitialState);

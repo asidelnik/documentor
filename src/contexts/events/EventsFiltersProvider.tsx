@@ -1,10 +1,10 @@
-import { createContext, useReducer } from "react";
+import { createContext, Dispatch, useReducer } from "react";
 import { IEventsFilters } from "../../types/IEventsFilters";
 import { eventsFiltersInitialState } from "../../initial-state/eventsFiltersInitialState";
 import { EventsFiltersActions, EventsFiltersContextProviderProps } from "./EventsFiltersContextTypes";
 
 export const EventsFiltersContext = createContext<IEventsFilters>(eventsFiltersInitialState);
-export const EventsFiltersDispatchContext = createContext<any>(null);
+export const EventsFiltersDispatchContext = createContext<Dispatch<EventsFiltersActions>>(() => null);
 
 export function EventsFiltersProvider({ children }: EventsFiltersContextProviderProps) {
   const [state, dispatch] = useReducer(filtersReducer, eventsFiltersInitialState);
