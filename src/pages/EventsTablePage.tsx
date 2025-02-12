@@ -9,7 +9,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import CustomSnackBar from "../shared/components/snackbar/CustomSnackBar";
 
 export default function EventsTablePage() {
-  const { events, eventsCount, isLoading, fetchData } = useFetchEvents();
+  const [eventSubmitCount, setEventSubmitCount] = useState<number>(0);
+  const { events, eventsCount, isLoading } = useFetchEvents(eventSubmitCount);
   const { dialog, handleOpen, handleClose } = useEventsDialog();
   const [snackBar, setSnackBar] = useState<ICustomSnackBar>({ isShow: false, status: SnackBarStatusEnum.Failure, message: '' });
   const queryClient = useQueryClient();
@@ -18,7 +19,7 @@ export default function EventsTablePage() {
     if (isSuccess) {
       handleClose();
       queryClient.invalidateQueries({ queryKey: ['badges'] });
-      fetchData();
+      setEventSubmitCount(c => c + 1);
     }
 
     setSnackBar({
