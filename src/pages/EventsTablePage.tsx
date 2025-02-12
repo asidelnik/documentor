@@ -14,7 +14,7 @@ export default function EventsTablePage() {
   const [snackBar, setSnackBar] = useState<ICustomSnackBar>({ isShow: false, status: SnackBarStatusEnum.Failure, message: '' });
   const queryClient = useQueryClient();
 
-  function onSubmitHandler(isSuccess: boolean, message: string): void {
+  function onEventSubmitted(isSuccess: boolean, message: string): void {
     if (isSuccess) {
       handleClose();
       queryClient.invalidateQueries({ queryKey: ['badges'] });
@@ -43,7 +43,7 @@ export default function EventsTablePage() {
         <EventsAddEditDialog
           dialog={dialog}
           onClose={handleClose}
-          onSubmit={(isSuccess: boolean, message: string) => onSubmitHandler(isSuccess, message)}
+        onSubmit={(isSuccess: boolean, message: string) => onEventSubmitted(isSuccess, message)}
         />
       }
 
