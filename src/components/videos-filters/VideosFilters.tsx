@@ -16,7 +16,7 @@ export default function VideosFilters({ eventsData, isShowMap, setIsShowMap }: I
 
   const updateFromDateHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const updateToDateHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
-  const selectHandler = (dispatchType: string, options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
+  const selectHandler = (dispatchType: 'update-statuses', options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
   const eventFilterHandler = (newEventId: string | null) => filtersDispatch({ type: 'update-event-id', payload: newEventId });
   const deleteCenterHandler = () => {
     filtersDispatch({ type: 'update-lng-lat', payload: { lat: undefined, lng: undefined, radius: undefined } });

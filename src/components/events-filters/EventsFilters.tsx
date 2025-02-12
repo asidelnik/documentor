@@ -14,7 +14,6 @@ import { useQuery } from "@tanstack/react-query";
 import { IEventsFiltersProps } from "../../types/IEventsFiltersProps";
 import LocationFilter from "../../shared/components/location-filter/LocationFilter";
 
-
 export default function EventsFilters({ isShowMap, setIsShowMap }: IEventsFiltersProps) {
   const filters = useEventsFilters();
   const filtersDispatch = useEventsFiltersDispatch();
@@ -28,7 +27,7 @@ export default function EventsFilters({ isShowMap, setIsShowMap }: IEventsFilter
   // TODO filter: location
   const fromDateChangeHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const toDateChangeHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
-  const selectChangeHandler = (dispatchType: string, options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
+  const selectChangeHandler = (dispatchType: 'update-priority' | 'update-status', options: number[]) => filtersDispatch({ type: dispatchType, payload: options });
   const textChangeHandler = (event: ChangeEvent<HTMLInputElement>) => filtersDispatch({ type: 'update-free-text', payload: event.target.value });
   const updateTypesHandler = (eventTypeIds: Array<string> | null) => filtersDispatch({ type: 'update-event-type-ids', payload: eventTypeIds });
   const deleteCenterHandler = () => {
