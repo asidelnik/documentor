@@ -18,7 +18,7 @@ type UpdateToDateAction = {
 
 type UpdateEventIdAction = {
   type: 'update-event-id';
-  payload: string | undefined;
+  payload: string | null;
 };
 
 type UpdateLatitudeAction = {

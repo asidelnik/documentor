@@ -21,7 +21,7 @@ export default function VideoList({ videos, eventId, eventTitle }: IVideoListPro
 
   function addEventVideos() {
     if (eventId) {
-      videosDispatch({ type: 'update-event-id', payload: undefined });
+      videosDispatch({ type: 'update-event-id', payload: null });
       navigate(`/videos/add-videos-to-event/${eventTitle}/${eventId}`);
     }
   }
