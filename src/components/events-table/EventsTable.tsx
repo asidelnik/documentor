@@ -34,7 +34,7 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
   };
 
   const handleLimitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    filtersDispatch({ type: 'update-limit', payload: event.target.value })
+    filtersDispatch({ type: 'update-limit', payload: Number(event.target.value) })
   };
 
   const addEvent = () => {
