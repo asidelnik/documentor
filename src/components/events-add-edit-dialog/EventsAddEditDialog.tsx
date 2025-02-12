@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
@@ -11,13 +10,7 @@ import { EventsAction } from '../../enums/EventsAction';
 
 export default function EventsAddEditDialog({ dialog, onClose, onSubmit }: IEventsAddEditDialogProps) {
   const dialogTitle = dialog.eventsAction === EventsAction.Add ? 'Add event' : 'Edit event';
-  const { event, fetchEvent, isLoading } = useFetchEventById();
-
-  useEffect(() => {
-    if (dialog.eventId) {
-      fetchEvent(dialog.eventId);
-    }
-  }, [dialog.eventId]);
+  const { event, isLoading } = useFetchEventById(dialog.eventId);
 
   return (
     <Dialog
