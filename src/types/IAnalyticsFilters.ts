@@ -1,5 +1,5 @@
 export interface IAnalyticsFilters {
-  eventTypeId?: string;
+  eventTypeIds?: Array<string>;
   fromDate?: Date | null;
   toDate?: Date | null;
   lat?: number;

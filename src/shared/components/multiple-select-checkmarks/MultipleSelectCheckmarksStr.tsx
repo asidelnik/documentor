@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -5,28 +6,18 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
-import { IMultipleSelectCheckmarksProps } from '../../../props/IMultipleSelectCheckmarksProps';
-import { IOptionNum } from '../../../types/IOptionNum';
-import { useState } from 'react';
 import { FilterParent } from '../../../enums/FilterParent';
+import { IOptionStr } from '../../../types/IOptionStr';
+import { IMultipleSelectCheckmarksPropsStr } from '../../../props/IMultipleSelectCheckmarksPropsStr';
+import { SelectMenuProps } from '../../../constants/event-constants';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
-export default function MultipleSelectCheckmarks({ buttonText, options, defaultOptions, width, parent, updateSelectedOptions }: IMultipleSelectCheckmarksProps) {
-  const [selectedIds, setSelectedIds] = useState<number[]>(defaultOptions);
+export default function MultipleSelectCheckmarksStr({ options, defaultOptions, updateSelectedOptions, buttonText, width, parent }: IMultipleSelectCheckmarksPropsStr) {
+  const [selectedIds, setSelectedIds] = useState<Array<string>>(defaultOptions);
   const selectedLabels: string[] = selectedIds.length > 0 && options.length > 0 ?
     selectedIds.map((selected) => options.find(option => option.id === selected)?.label).filter((label) => label !== undefined) : [];
 
-  function onChangeHandler(event: SelectChangeEvent<number[]>) {
+  function onChangeHandler(event: SelectChangeEvent<Array<string>>) {
     const { target: { value: newSelectedIds } } = event;
     if (Array.isArray(newSelectedIds)) {
       setSelectedIds(newSelectedIds);
@@ -45,11 +36,11 @@ export default function MultipleSelectCheckmarks({ buttonText, options, defaultO
         onChange={onChangeHandler}
         input={<OutlinedInput label={buttonText} />}
         renderValue={() => selectedLabels.join(', ')}
-        MenuProps={MenuProps}
+        MenuProps={SelectMenuProps}
         defaultValue={defaultOptions}
         size={parent === FilterParent.Events ? 'small' : 'medium'}
       >
-        {options.map((option: IOptionNum) => (
+        {options.map((option: IOptionStr) => (
           <MenuItem key={option.id} value={option.id}>
             <Checkbox checked={selectedIds.indexOf(option.id) > -1} />
             <ListItemText primary={option.label} />

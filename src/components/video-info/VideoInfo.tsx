@@ -5,20 +5,20 @@ import { IconButton } from "@mui/material";
 import { dateToStringShortMonthDateYear } from "../../utils/functions";
 import { eventStatusNumOptions, getStatusStyles, statusLabels } from "../../constants/video-status";
 import PositionedMenu from "../../shared/components/positioned-menu/PositionedMenu";
-import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
+import ComboBox from "../../shared/components/combo-box/ComboBox";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IVideoStatusMutationProps, mutateVideoStatus } from "../../query/videos/mutateVideoStatus";
 import { IVideoEventMutationProps, mutateVideoEvent } from "../../query/videos/mutateVideoEvent";
 import { IVideo } from "../../types/IVideo";
-import { useFilters } from "../../contexts/filters-context";
 import { videoOnMutate } from "../../query/videos/videoOnMutate";
 import { VideoMutation } from "../../enums/VideoMutation";
 import { VideoInfoEnum } from "../../enums/VideoInfoEnum";
 import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
+import { useVideosFilters } from "../../contexts/videos/useVideosFilters";
 
 export default function VideoInfo({ video, eventsData, videoInfoType, isSelected, onMouseDown }: IVideoInfoProps) {
-  const filters = useFilters();
+  const filters = useVideosFilters();
   const queryClient = useQueryClient();
   const dateString = video.startTimeDate ? dateToStringShortMonthDateYear(video.startTimeDate) : '';
   const optimisticStatusStyles = getStatusStyles(video.status);
@@ -107,7 +107,7 @@ export default function VideoInfo({ video, eventsData, videoInfoType, isSelected
 
         {(videoInfoType === VideoInfoEnum.VideosGrid || videoInfoType === VideoInfoEnum.VideosGrid_AddVideosToEvent) && eventsData &&
           <div className={c.row2}>
-            <CheckboxesTags
+            <ComboBox
               options={eventsData.events}
               checkedId={video.eventId}
               update={eventUpdateHandler}

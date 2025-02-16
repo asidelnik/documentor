@@ -1,33 +1,31 @@
 import c from './AnalyticsFilters.module.scss';
-import { useAnalyticsFilters, useAnalyticsFiltersDispatch } from "../../contexts/analytics-filters-context";
-import CheckboxesTags from "../../shared/components/checkbox-tags/CheckboxTags";
 import MonthYearPicker from '../../shared/components/date-pickers/MonthYearPicker';
 import { fetchEventTypes } from '../../query/events/fetchEventTypes';
 import { IOptionStr } from '../../types/IOptionStr';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent } from 'react';
 import { IAnalyticsFiltersProps } from '../../types/IAnalyticsFiltersProps';
 import LocationFilter from '../../shared/components/location-filter/LocationFilter';
+import { FilterParent } from '../../enums/FilterParent';
+import MultipleSelectCheckmarksStr from '../../shared/components/multiple-select-checkmarks/MultipleSelectCheckmarksStr';
+import { useQuery } from '@tanstack/react-query';
+import { useAnalyticsFilters } from '../../contexts/analytics/useAnalyticsFilters';
+import { useAnalyticsFiltersDispatch } from '../../contexts/analytics/useAnalyticsFiltersDispatch';
 
 export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalyticsFiltersProps) {
   const filters = useAnalyticsFilters();
   const filtersDispatch = useAnalyticsFiltersDispatch();
-  const [eventTypes, setEventTypes] = useState<Array<IOptionStr>>([]);
 
-
-  useEffect(() => {
-    const fetchController = new AbortController();
-    const signal = fetchController.signal;
-    fetchEventTypes(signal).then((data: Array<IOptionStr>) => setEventTypes(data));
-    return () => fetchController.abort();
-  }, []);
-
-
+  const { data: eventTypes, } = useQuery<IOptionStr[]>({
+    queryKey: ['event-types'],
+    queryFn: ({ signal }) => fetchEventTypes(signal),
+    staleTime: 1000 * 60 * 60 * 2, // 2 hours
+  });
 
   const updateFromDateHandler = (fromDate: Date | null) => filtersDispatch({ type: 'update-from-date', payload: fromDate });
   const updateToDateHandler = (toDate: Date | null) => filtersDispatch({ type: 'update-to-date', payload: toDate });
-  const updateTypeHandler = (eventTypeId: string | null) => filtersDispatch({ type: 'update-event-type-id', payload: eventTypeId });
+  const updateTypesHandler = (eventTypeIds: Array<string> | null) => filtersDispatch({ type: 'update-event-type-ids', payload: eventTypeIds });
   const deleteCenterHandler = () => {
-    filtersDispatch({ type: 'update-lng-lat', payload: { lat: null, lng: null, radius: null } });
+    filtersDispatch({ type: 'update-lng-lat', payload: { lat: undefined, lng: undefined, radius: undefined } });
     setIsShowMap(false);
   }
   const radiusSliderChange = (_event: Event, newValue: number | number[]) => filtersDispatch({ type: 'update-radius', payload: newValue as number });
@@ -45,14 +43,13 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
           />
         </div>
 
-        <CheckboxesTags
-          options={eventTypes}
-          checkedId={filters.eventTypeId ?? null}
-          update={updateTypeHandler}
-          isDisabled={false}
-          label='Event type'
+        <MultipleSelectCheckmarksStr
+          options={eventTypes ?? []}
+          buttonText='Event types'
+          defaultOptions={filters.eventTypeIds ?? []}
           width={'320px'}
-          size='medium'
+          parent={FilterParent.Videos}
+          updateSelectedOptions={updateTypesHandler}
         />
 
         <div className={c.locationContainer}>
@@ -66,6 +63,8 @@ export default function AnalyticsFilters({ isShowMap, setIsShowMap }: IAnalytics
             deleteCenterHandler={deleteCenterHandler}
             radiusSliderChange={radiusSliderChange}
             radiusInputChange={radiusInputChange}
+            buttonText="Location"
+            isVertical={true}
           />
         </div>
       </div >

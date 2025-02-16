@@ -27,6 +27,11 @@
   --primary-color: hsl(226, 100%, 50%);
   --text-hover-color: hsl(280, 100%, 50%);
   --text-color: hsl(0, 0%, 15%);
+
+  /* Navigation colors */
+  --events-color: 235, 82%; /* hsl(235, 82%, 66%); */
+  --videos-color: 200, 96%; /* hsl(200, 96%, 51%); */
+  --analytics-color: 160, 62%; /* hsl(160, 62%, 54%); */
 }
 
 iframe {
@@ -100,11 +105,6 @@ h3 {
   padding: 0px 12px !important;
 }
 
-.MuiBadge-badge {
-  right: 8px !important;
-  top: 8px !important;
-}
-
 .spinner-outer {
   display: flex;
   justify-content: center;
@@ -139,4 +139,81 @@ h3 {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 3rem;
+  font-weight: 500;
+  margin-block: 0;
+  font-family: 'Roboto Serif', serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: italic;
+  font-variation-settings: 'wdth' 100, 'GRAD' 0;
+}
+
+.errorContainer h3 {
+  font-size: 3rem;
+  font-weight: 500;
+  margin-block: 0;
+}
+
+.errorContainer p {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-block: 0;
+}
+
+/* Style all scroll bars */
+*::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Firefox scrollbar styles */
+* {
+  scrollbar-width: thin; /* Sets the width of the scrollbar */
+  scrollbar-color: #888 #f1f1f1; /* Sets the color of the thumb and track */
+}
+
+/* Optional: Hover effect for Firefox */
+*::-moz-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Internet Explorer and Edge (Legacy) scrollbar styles */
+*::-ms-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+*::-ms-scrollbar-track {
+  background: #f1f1f1;
+}
+
+*::-ms-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+*::-ms-scrollbar-thumb:hover {
+  background: #555;
 }

@@ -60,6 +60,7 @@
         flex-direction: row;
         justify-content: flex-start;
         column-gap: 2rem;
+        padding-block: 0.5rem;
 
         .label {
           font-size: 1rem;
@@ -77,6 +78,18 @@
           align-items: baseline;
         }
 
+        .tagsContainer {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 10px;
+
+          .tag {
+            padding: 0px 15px;
+          }
+        }
+
         .tag {
           border: 1px solid hsl(0, 0%, 15%);
           border-radius: 100px;
@@ -85,6 +98,10 @@
           padding: 0px 15px 0px 10px;
           gap: 5px;
         }
+        
+        // .types {
+          
+        // }
       }
     }
 

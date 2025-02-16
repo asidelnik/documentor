@@ -1,10 +1,10 @@
-import { createContext, useContext, useReducer } from "react";
-import { IEventsFilters } from "../types/IEventsFilters";
-import { eventsFiltersInitialState } from "../initial-state/eventsFiltersInitialState";
-import { EventsFiltersActions, EventsFiltersContextProviderProps } from "../types/EventsFiltersContextTypes";
+import { createContext, Dispatch, useReducer } from "react";
+import { IEventsFilters } from "../../types/IEventsFilters";
+import { eventsFiltersInitialState } from "../../initial-state/eventsFiltersInitialState";
+import { EventsFiltersActions, EventsFiltersContextProviderProps } from "./EventsFiltersContextTypes";
 
-const EventsFiltersContext = createContext<IEventsFilters>(eventsFiltersInitialState);
-const EventsFiltersDispatchContext = createContext<any>(null);
+export const EventsFiltersContext = createContext<IEventsFilters>(eventsFiltersInitialState);
+export const EventsFiltersDispatchContext = createContext<Dispatch<EventsFiltersActions>>(() => null);
 
 export function EventsFiltersProvider({ children }: EventsFiltersContextProviderProps) {
   const [state, dispatch] = useReducer(filtersReducer, eventsFiltersInitialState);
@@ -18,7 +18,7 @@ export function EventsFiltersProvider({ children }: EventsFiltersContextProvider
   );
 }
 
-function filtersReducer(filters: IEventsFilters, action: EventsFiltersActions): any {
+function filtersReducer(filters: IEventsFilters, action: EventsFiltersActions): IEventsFilters {
   switch (action.type) {
     case "update-from-date": {
       return { ...filters, fromDate: action.payload, page: 1 } as IEventsFilters;
@@ -35,6 +35,21 @@ function filtersReducer(filters: IEventsFilters, action: EventsFiltersActions): 
     case "update-status": {
       return { ...filters, statuses: action.payload, page: 1 } as IEventsFilters;
     }
+    case "update-event-type-ids": {
+      return { ...filters, eventTypeIds: action.payload, page: 1 } as IEventsFilters;
+    }
+    case "update-latitude": {
+      return { ...filters, lat: action.payload, page: 1 } as IEventsFilters;
+    }
+    case "update-longitude": {
+      return { ...filters, long: action.payload, page: 1 } as IEventsFilters;
+    }
+    case "update-lng-lat": {
+      return { ...filters, lat: action.payload.lat, long: action.payload.lng, radius: action.payload.radius, page: 1 } as IEventsFilters;
+    }
+    case "update-radius": {
+      return { ...filters, radius: action.payload, page: 1 } as IEventsFilters;
+    }
     case "update-limit": {
       return { ...filters, limit: action.payload, page: 1 } as IEventsFilters;
     }
@@ -47,10 +62,3 @@ function filtersReducer(filters: IEventsFilters, action: EventsFiltersActions): 
   }
 }
 
-export function useEventsFilters() {
-  return useContext(EventsFiltersContext);
-}
-
-export function useEventsFiltersDispatch() {
-  return useContext(EventsFiltersDispatchContext);
-}

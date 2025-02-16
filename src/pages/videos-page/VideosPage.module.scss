@@ -20,6 +20,11 @@
 
   .asideOpen {
     flex: 0 0 350px;
+
+    .filtersScrollContainer {
+      overflow-y: scroll;
+      height: calc(100vh - 76px - 52px);
+    }
   }
 
   .asideClose {
@@ -28,15 +33,16 @@
 
   main {
     flex: 1;
+    position: relative;
   }
-  
+
   .pagination {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     column-gap: 20px;
-  
+
     position: fixed;
     bottom: 0px;
     background-color: white;
@@ -45,4 +51,3 @@
     border-top: 1px solid #e0e0e0;
   }
 }
-

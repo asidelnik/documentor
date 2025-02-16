@@ -1,9 +1,8 @@
 import c from './RootHeader.module.scss';
 import { Badge } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import { NavLink } from 'react-router-dom';
+import { NavLink, NavLinkRenderProps } from 'react-router-dom';
 import { IHeaderBadgeCounts } from '../types/IHeaderBadgeCounts';
-import { IClassNameProps } from '../props/IClassNameProps';
 import { fetchBadges } from '../query/header/fetchBadges';
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 import FolderSharedIcon from '@mui/icons-material/FolderShared';
@@ -19,8 +18,6 @@ export default function RootHeader() {
     queryKey: ['badges'],
     queryFn: ({ signal }) => fetchBadges(signal)
   });
-
-  const getNavLinkClass = ({ isActive }: IClassNameProps) => isActive ? c.active : "";
 
   return (
     <>
@@ -40,8 +37,10 @@ export default function RootHeader() {
                   horizontal: 'right',
                 }}
               >
-                <NavLink to="/events" className={getNavLinkClass}>
-                  <FolderSharedIcon />
+                <NavLink
+                  to="/events"
+                  className={(props: NavLinkRenderProps) => props.isActive ? c.eventsBtn + ' ' + c.active : c.eventsBtn}>
+                  <FolderSharedIcon sx={{ fill: "hsl(235, 82%, 66%)" }} />
                   Events
                 </NavLink>
               </Badge>
@@ -58,15 +57,19 @@ export default function RootHeader() {
                   horizontal: 'right',
                 }}
               >
-                <NavLink to="/videos" className={getNavLinkClass}>
-                  <SmartDisplayIcon />
+                <NavLink
+                  to="/videos"
+                  className={(props: NavLinkRenderProps) => props.isActive ? c.videosBtn + ' ' + c.active : c.videosBtn}>
+                  <SmartDisplayIcon sx={{ fill: "hsl(200, 96%, 51%)" }} />
                   Videos
                 </NavLink>
               </Badge>
             </div>
             <div>
-              <NavLink to="/analytics" className={getNavLinkClass}>
-                <AssessmentIcon />
+              <NavLink
+                to="/analytics"
+                className={(props: NavLinkRenderProps) => + props.isActive ? c.analyticsBtn + ' ' + c.active : c.analyticsBtn}>
+                <AssessmentIcon sx={{ fill: "hsl(160, 62%, 54%)" }} />
                 Analytics
               </NavLink>
             </div>

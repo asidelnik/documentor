@@ -4,6 +4,10 @@ export interface IEventsFilters {
   priority?: number[];
   freeText?: string;
   statuses?: number[];
+  eventTypeIds?: Array<string>;
+  lat?: number;
+  long?: number;
+  radius?: number;
   page: number;
   limit: number;
 }

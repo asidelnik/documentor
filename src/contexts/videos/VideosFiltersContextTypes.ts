@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { ILatLngRadius } from '../../types/ILatLngRadius';
 
 type UpdateStatusesAction = {
   type: 'update-statuses';
@@ -17,7 +18,27 @@ type UpdateToDateAction = {
 
 type UpdateEventIdAction = {
   type: 'update-event-id';
-  payload: string | undefined;
+  payload: string | null;
+};
+
+type UpdateLatitudeAction = {
+  type: 'update-latitude';
+  payload: number | undefined;
+};
+
+type UpdateLongitudeAction = {
+  type: 'update-longitude';
+  payload: number | undefined;
+};
+
+type UpdateLngLatAction = {
+  type: 'update-lng-lat';
+  payload: ILatLngRadius;
+};
+
+type UpdateRadiusAction = {
+  type: 'update-radius';
+  payload: number | undefined;
 };
 
 type UpdatePageAction = {
@@ -30,14 +51,18 @@ type UpdateLimitAction = {
   payload: number;
 };
 
-export type FiltersActions =
+export type VideosFiltersActions =
   | UpdateStatusesAction
   | UpdateFromDateUpdateAction
   | UpdateToDateAction
   | UpdateEventIdAction
+  | UpdateLatitudeAction
+  | UpdateLongitudeAction
+  | UpdateLngLatAction
+  | UpdateRadiusAction
   | UpdatePageAction
   | UpdateLimitAction;
 
-export type FiltersContextProviderProps = {
+export type VideosFiltersContextProviderProps = {
   children: ReactNode;
 };

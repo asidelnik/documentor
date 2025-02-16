@@ -1,7 +1,7 @@
 import c from './EventPage.module.scss';
 import { useEffect, useState, useRef } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { IEvent, IEventAndDates } from "../../types/IEvent";
+import { IEventBase, IEventAndDates } from "../../types/IEvent";
 import { serverRoutes } from "../../server/server-routes";
 import { dateToString, secondsToDurationString, formatEventLocation } from "../../utils/functions";
 import { eventPriorityLabels, eventStatusLabels } from '../../constants/event-constants';
@@ -15,9 +15,10 @@ import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
 import EventStatusIcon from '../../shared/components/EventStatusIcon';
 import EventMap from '../../components/event-map/EventMap';
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 export default function EventPage() {
   const { eventId } = useParams<{ eventId: string }>();
-  const baseUrl = import.meta.env.VITE_BASE_URL;
   const [event, setEvent] = useState<IEventAndDates | undefined>(undefined);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -29,31 +30,33 @@ export default function EventPage() {
 
   useEffect(() => {
     if (eventId !== undefined) fetchData(eventId);
+
+    async function fetchData(id: string) {
+      try {
+        const response = await fetch(baseUrl + serverRoutes.events.fetchEvent(id));
+        if (!response.ok) {
+          throw new Error('Network error');
+        }
+
+        const data: IEventBase = await response.json();
+        if (data) {
+          const event: IEventAndDates = {
+            ...data,
+            startTimeDate: new Date(data.startTime),
+            endTimeDate: new Date(data.endTime),
+          };
+          setEvent(event);
+          setIsError(false);
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setErrorMessage(error.message)
+          setIsError(true);
+        }
+      }
+    }
   }, [eventId]);
 
-  const fetchData = async (id: string) => {
-    try {
-      const response = await fetch(baseUrl + serverRoutes.events.fetchEvent(id));
-      if (!response.ok) {
-        throw new Error('Network error');
-      }
-
-      const data: IEvent = await response.json();
-      if (data) {
-        const event: IEventAndDates = {
-          ...data,
-          startTimeDate: new Date(data.startTime),
-          endTimeDate: new Date(data.endTime),
-        };
-        setEvent(event);
-        setIsError(false);
-      }
-    } catch (error: any) {
-      console.log(error.message)
-      setErrorMessage(error.message)
-      setIsError(true);
-    }
-  };
 
   function scrollByMenuHandler(sectionId: string): void {
     const main = document.querySelector("main");
@@ -141,7 +144,20 @@ export default function EventPage() {
                       <p className={c.label}>Location</p>
                       <p className={c.data}>{eventLocation}</p>
                     </div>
-
+                  </div>
+                  <div className={c.details}>
+                    {event.typesLabels && event.typesLabels.length > 0 && (
+                      <div>
+                        <p className={c.label}>Event types</p>
+                        <div className={c.tagsContainer}>
+                          {event.typesLabels.map((type, index) => (
+                            <div key={index} className={`${c.data} ${c.tag} Medium`}>
+                              {type}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </section>
 
@@ -157,7 +173,14 @@ export default function EventPage() {
           </>
         )}
       </div>
-      {isError && <p>Error: {errorMessage}</p>}
+      {isError && (
+        <>
+          <div className='errorContainer'>
+            <h3>Error</h3>
+            <p>{errorMessage}</p>
+          </div>
+        </>
+      )}
     </>
   );
 }

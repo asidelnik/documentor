@@ -1,8 +1,8 @@
 import { EventsAction } from '../enums/EventsAction';
-import { IEventAndCalcs } from '../types/IEvent';
+import { IEventAndCalcsForTable } from '../types/IEvent';
 
 export interface IEventsTableProps {
-  rows: IEventAndCalcs[];
+  rows: IEventAndCalcsForTable[];
   eventsCount: number;
   isLoading: boolean;
   openDialog: (eventsAction: EventsAction, eventId?: string) => void;

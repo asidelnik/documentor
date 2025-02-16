@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ILatLngRadius } from './ILatLngRadius';
+import { ILatLngRadius } from '../../types/ILatLngRadius';
 
 type UpdateFromDateUpdateAction = {
   type: 'update-from-date';
@@ -11,19 +11,19 @@ type UpdateToDateAction = {
   payload: Date | null;
 };
 
-type UpdateEventTypeIdAction = {
-  type: 'update-event-type-id';
-  payload: string | null;
+type UpdateEventTypeIdsAction = {
+  type: 'update-event-type-ids';
+  payload: Array<string> | null;
 };
 
 type UpdateLatitudeAction = {
   type: 'update-latitude';
-  payload: number | null;
+  payload: number | undefined;
 };
 
 type UpdateLongitudeAction = {
   type: 'update-longitude';
-  payload: number | null;
+  payload: number | undefined;
 };
 
 type UpdateLngLatAction = {
@@ -33,17 +33,18 @@ type UpdateLngLatAction = {
 
 type UpdateRadiusAction = {
   type: 'update-radius';
-  payload: number | null;
+  payload: number | undefined;
 };
 
 export type AnalyticsFiltersActions =
   | UpdateFromDateUpdateAction
   | UpdateToDateAction
-  | UpdateEventTypeIdAction
+  | UpdateEventTypeIdsAction
   | UpdateLatitudeAction
   | UpdateLongitudeAction
   | UpdateLngLatAction
   | UpdateRadiusAction;
+
 export type AnalyticsFiltersContextProviderProps = {
   children: ReactNode;
 };
