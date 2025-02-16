@@ -4,13 +4,13 @@ import {
   Route,
 } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
-import EventsTablePage from "./pages/EventsTablePage";
-// import EventTimelinePage from "./pages/EventTimelinePage";
-import NotFoundPage from "./pages/NotFoundPage";
+import EventsTablePage from "./pages/events-table-page/EventsTablePage";
+// import EventTimelinePage from "./pages/events-timeline-page/EventTimelinePage";
+import NotFoundPage from "./pages/not-found-page/NotFoundPage";
 import VideosPage from "./pages/videos-page/VideosPage";
-import MainErrorBoundary from "./error-boundaries/MainErrorBoundary";
 import EventPage from "./pages/event-page/EventPage";
 import AnalyticsPage from "./pages/analytics-page/AnalyticsPage";
+import MainErrorBoundary from "./error-boundaries/main-error-boundary/MainErrorBoundary";
 
 
 export const router = createHashRouter(

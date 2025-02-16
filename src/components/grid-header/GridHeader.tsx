@@ -3,7 +3,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import { IGridHeaderProps } from "../../props/IVideosGridProps";
 import CloseIcon from '@mui/icons-material/Close';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import SmallSpinner from "../../shared/components/SmallSpinner";
+import SmallSpinner from "../../shared/components/small-spinner/SmallSpinner";
 
 
 export default function GridHeader({

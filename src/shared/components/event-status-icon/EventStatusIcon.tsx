@@ -1,4 +1,4 @@
-import { EventStatus, eventStatusLabels } from "../../constants/event-constants";
+import { EventStatus, eventStatusLabels } from "../../../constants/event-constants";
 
 interface IEventStatusIcon {
   status: number;
