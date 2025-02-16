@@ -1,10 +1,10 @@
-import { createContext, useContext, useReducer } from "react";
-import { IAnalyticsFilters } from "../types/IAnalyticsFilters";
-import { analyticsFiltersInitialState } from "../initial-state/analyticsFiltersInitialState";
-import { AnalyticsFiltersActions, AnalyticsFiltersContextProviderProps } from "../types/AnalyticsFiltersContextTypes";
+import { createContext, Dispatch, useReducer } from "react";
+import { IAnalyticsFilters } from "../../types/IAnalyticsFilters";
+import { analyticsFiltersInitialState } from "../../initial-state/analyticsFiltersInitialState";
+import { AnalyticsFiltersActions, AnalyticsFiltersContextProviderProps } from "./AnalyticsFiltersContextTypes";
 
-const AnalyticsFiltersContext = createContext<IAnalyticsFilters>(analyticsFiltersInitialState);
-const AnalyticsFiltersDispatchContext = createContext<any>(null);
+export const AnalyticsFiltersContext = createContext<IAnalyticsFilters>(analyticsFiltersInitialState);
+export const AnalyticsFiltersDispatchContext = createContext<Dispatch<AnalyticsFiltersActions>>(() => null);//Dispatch<AnalyticsFiltersActions> | null>(null);
 
 export function AnalyticsFiltersProvider({ children }: AnalyticsFiltersContextProviderProps) {
   const [state, dispatch] = useReducer(analyticsFiltersReducer, analyticsFiltersInitialState);
@@ -18,7 +18,7 @@ export function AnalyticsFiltersProvider({ children }: AnalyticsFiltersContextPr
   );
 }
 
-function analyticsFiltersReducer(filters: IAnalyticsFilters, action: AnalyticsFiltersActions): any {
+function analyticsFiltersReducer(filters: IAnalyticsFilters, action: AnalyticsFiltersActions): IAnalyticsFilters {
   switch (action.type) {
     case "update-from-date": {
       return { ...filters, fromDate: action.payload } as IAnalyticsFilters;
@@ -45,12 +45,4 @@ function analyticsFiltersReducer(filters: IAnalyticsFilters, action: AnalyticsFi
       return filters;
     }
   }
-}
-
-export function useAnalyticsFilters() {
-  return useContext(AnalyticsFiltersContext);
-}
-
-export function useAnalyticsFiltersDispatch() {
-  return useContext(AnalyticsFiltersDispatchContext);
 }

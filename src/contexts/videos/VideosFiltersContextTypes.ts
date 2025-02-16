@@ -1,5 +1,10 @@
 import { ReactNode } from 'react';
-import { ILatLngRadius } from './ILatLngRadius';
+import { ILatLngRadius } from '../../types/ILatLngRadius';
+
+type UpdateStatusesAction = {
+  type: 'update-statuses';
+  payload: number[];
+};
 
 type UpdateFromDateUpdateAction = {
   type: 'update-from-date';
@@ -11,24 +16,9 @@ type UpdateToDateAction = {
   payload: Date | null;
 };
 
-type UpdatePriorityAction = {
-  type: 'update-priority';
-  payload: number[];
-};
-
-type UpdateFreeTextAction = {
-  type: 'update-free-text';
-  payload: string;
-};
-
-type UpdateStatusAction = {
-  type: 'update-status';
-  payload: number[];
-};
-
-type UpdateEventTypeIdsAction = {
-  type: 'update-event-type-ids';
-  payload: Array<string> | null;
+type UpdateEventIdAction = {
+  type: 'update-event-id';
+  payload: string | null;
 };
 
 type UpdateLatitudeAction = {
@@ -61,13 +51,11 @@ type UpdateLimitAction = {
   payload: number;
 };
 
-export type EventsFiltersActions =
+export type VideosFiltersActions =
+  | UpdateStatusesAction
   | UpdateFromDateUpdateAction
   | UpdateToDateAction
-  | UpdatePriorityAction
-  | UpdateFreeTextAction
-  | UpdateStatusAction
-  | UpdateEventTypeIdsAction
+  | UpdateEventIdAction
   | UpdateLatitudeAction
   | UpdateLongitudeAction
   | UpdateLngLatAction
@@ -75,6 +63,6 @@ export type EventsFiltersActions =
   | UpdatePageAction
   | UpdateLimitAction;
 
-export type EventsFiltersContextProviderProps = {
+export type VideosFiltersContextProviderProps = {
   children: ReactNode;
 };

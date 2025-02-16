@@ -6,28 +6,29 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { useFilters, useFiltersDispatch } from '../../contexts/filters-context';
 import { fetchEventsAutocomplete } from '../../query/events/fetchEventsAutocomplete';
 import { IOptionStr } from '../../types/IOptionStr';
 import { fetchVideos, fetchVideosCount, videosSelector } from '../../query/videos/fetchVideos';
 import { IEventsAutoComplete } from '../../props/IEventsAutoComplete';
 import { IVideo } from '../../types/IVideo';
-import { useEventsFiltersDispatch } from '../../contexts/events-filters-context';
+import { useEventsFiltersDispatch } from "../../contexts/events/useEventsFiltersDispatch";
 import LocationFilterMap from '../../shared/components/location-filter-map/LocationFilterMap';
 import { LatLngLiteral } from 'leaflet';
+import { useVideosFilters } from '../../contexts/videos/useVideosFilters';
+import { useVideosFiltersDispatch } from '../../contexts/videos/useVideosFiltersDispatch';
 
 export default function VideosPage() {
-  const filters = useFilters();
-  const dispatch = useFiltersDispatch();
-  const [toggleAside, setToggleAside] = useState<boolean>(true);
+  const filters = useVideosFilters();
+  const dispatch = useVideosFiltersDispatch();
   const eventsFiltersDispatch = useEventsFiltersDispatch();
+  const [toggleAside, setToggleAside] = useState<boolean>(true);
   const [isShowMap, setIsShowMap] = useState<boolean>(false);
   const updateLngLat = (center: LatLngLiteral) =>
     dispatch({ type: 'update-lng-lat', payload: { lat: center.lat, lng: center.lng, radius: filters.radius || 500 } });
 
   useEffect(() => {
     eventsFiltersDispatch({ type: 'update-page', payload: 1 });
-  }, []);
+  }, [eventsFiltersDispatch]);
 
   const {
     isFetching: eventsIsFetching,
@@ -65,7 +66,7 @@ export default function VideosPage() {
             </IconButton>
           </div>
 
-          <div className={toggleAside ? 'visible' : 'hidden'}>
+          <div className={toggleAside ? c.filtersScrollContainer : 'hidden'}>
             <VideosFilters eventsData={eventsDataProp} isShowMap={isShowMap} setIsShowMap={setIsShowMap} />
           </div>
         </aside>

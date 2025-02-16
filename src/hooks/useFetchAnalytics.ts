@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { IFetchState } from '../types/IAnalytics';
-import { useAnalyticsFilters } from '../contexts/analytics-filters-context';
 import { serverRoutes } from '../server/server-routes';
 import { analyticsFetchInitialState } from '../initial-state/analyticsFetchInitialState';
+import { useAnalyticsFilters } from '../contexts/analytics/useAnalyticsFilters';
+
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 export const useFetchAnalytics = () => {
   const filters = useAnalyticsFilters();
-  const baseUrl = import.meta.env.VITE_BASE_URL;
   const [analyticsData, setAnalyticsData] = useState<IFetchState>(
     analyticsFetchInitialState
   );
@@ -25,35 +26,35 @@ export const useFetchAnalytics = () => {
       serverRoutes.analytics.eventsFrequencyOverTime(filters),
       'eventsFrequencyOverTime'
     );
-  }, [filters]);
 
-  const fetchData = async (path: string, stateProperty: keyof IFetchState) => {
-    try {
-      setAnalyticsData({
-        ...analyticsData,
-        [stateProperty]: { ...analyticsData[stateProperty], isLoading: true },
-      });
-      const response = await fetch(baseUrl + path);
-      if (!response.ok) {
-        throw new Error(response.statusText);
+    async function fetchData(path: string, stateProperty: keyof IFetchState) {
+      try {
+        setAnalyticsData((a) => ({
+          ...a,
+          [stateProperty]: { ...a[stateProperty], isLoading: true },
+        }));
+        const response = await fetch(baseUrl + path);
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        const eventsRes = await response.json();
+
+        setAnalyticsData((a) => ({
+          ...a,
+          [stateProperty]: { ...a[stateProperty], data: eventsRes },
+        }));
+      } catch (error: unknown) {
+        setAnalyticsData((a) => ({
+          ...a,
+          [stateProperty]: {
+            ...a[stateProperty],
+            errorMessage: 'Error',
+            isError: true,
+          },
+        }));
       }
-      const eventsRes = await response.json();
-
-      setAnalyticsData({
-        ...analyticsData,
-        [stateProperty]: { ...analyticsData[stateProperty], data: eventsRes },
-      });
-    } catch (error) {
-      setAnalyticsData({
-        ...analyticsData,
-        [stateProperty]: {
-          ...analyticsData[stateProperty],
-          errorMessage: 'Error',
-          isError: true,
-        },
-      });
     }
-  };
+  }, [filters]);
 
   return { analyticsData };
 };

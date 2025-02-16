@@ -10,17 +10,17 @@ import GridHeader from "../grid-header/GridHeader";
 import { mutateVideosEvent, IMutateVideosEventProps } from "../../query/videos/mutateVideosEvent";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../query/queryClient";
-import { useFilters } from "../../contexts/filters-context";
 import { videosOnMutate } from "../../query/videos/videosOnMutate";
 import { SnackBarStatusEnum } from "../../enums/SnackBarStatusEnum";
 import { ICustomSnackBar } from "../../types/ICustomSnackBar";
 import CustomSnackBar from "../../shared/components/snackbar/CustomSnackBar";
+import { useVideosFilters } from "../../contexts/videos/useVideosFilters";
 
 
 export default function VideosGrid({ videos, videosCount, videosCountIsFetching, eventsData }: IVideosGridProps) {
   const { eventTitle, eventId } = useParams<VideosGridParams>();
   const [selectedVideos, setSelectedVideos] = useState<Array<string>>([]);
-  const filters = useFilters();
+  const filters = useVideosFilters();
   const [snackBar, setSnackBar] = useState<ICustomSnackBar>({ isShow: false, status: SnackBarStatusEnum.Failure, message: '' });
 
   useEffect(() => {

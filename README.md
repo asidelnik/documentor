@@ -30,3 +30,17 @@
 
 **Event timeline**
 ![Event timeline](https://github.com/asidelnik/document-violence-dashboard/assets/10272524/f1b8b820-67a7-4055-9377-e6b4d95c0258)
+
+## Forking/Cloning the project
+1. Clone the repository.
+2. Enter the project directory
+3. Install dependencies
+4. Run git configuration script to set pre-commit hooks
+5. Run the project
+```bash
+git clone
+cd documentor
+npm install
+chomd +x ./setup-hooks.sh
+npm run dev
+```

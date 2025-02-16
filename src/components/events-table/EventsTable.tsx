@@ -14,7 +14,8 @@ import { EventsAction } from '../../enums/EventsAction';
 import EventsFilters from '../events-filters/EventsFilters';
 import { IEventsTableProps } from '../../props/IEventsTableProps';
 import { IEventAndCalcsForTable } from '../../types/IEvent';
-import { useEventsFilters, useEventsFiltersDispatch } from '../../contexts/events-filters-context';
+import { useEventsFiltersDispatch } from "../../contexts/events/useEventsFiltersDispatch";
+import { useEventsFilters } from "../../contexts/events/useEventsFilters";
 import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
 import EventStatusIcon from '../../shared/components/EventStatusIcon';
 import { formatEventLocation } from '../../utils/functions';
@@ -33,7 +34,7 @@ export default function EventsTable({ rows, eventsCount, isLoading, openDialog }
   };
 
   const handleLimitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    filtersDispatch({ type: 'update-limit', payload: event.target.value })
+    filtersDispatch({ type: 'update-limit', payload: Number(event.target.value) })
   };
 
   const addEvent = () => {
