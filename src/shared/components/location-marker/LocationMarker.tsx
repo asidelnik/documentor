@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMapEvents, Marker, Circle } from 'react-leaflet';
-import { ILocationMarkerProps } from '../../types/ILocationMarkerProps';
-import { markerIcon } from '../../utils/customIcons';
+import { ILocationMarkerProps } from '../../../types/ILocationMarkerProps';
+import { markerIcon } from '../../../utils/customIcons';
 
 export function LocationMarker({ center, radius, setCenter }: ILocationMarkerProps) {
   const [innerCenter, setInnerCenter] = useState(center);
