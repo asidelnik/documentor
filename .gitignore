@@ -32,3 +32,8 @@ src/**/*.css
 !src/**/index.css
 src/**/*.css.map
 
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
