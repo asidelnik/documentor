@@ -13,7 +13,7 @@ export default function EventStatusIcon({ status }: IEventStatusIcon) {
       width: '14px',
       height: '14px',
       borderRadius: '50%',
-      backgroundColor: backgroundColor
+      backgroundColor
     }}></div>
   );
 }
