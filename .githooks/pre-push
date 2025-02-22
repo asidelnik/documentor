@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Run linting
+npm run lint
+
+# Check if linting passed
+if [ $? -ne 0 ]; then
+  echo "Linting failed. Please fix the issues before pushing."
+  exit 1
+fi
+
+# Run build
+npm run build
+
+# Check if build passed
+if [ $? -ne 0 ]; then
+  echo "Build failed. Please fix the issues before pushing."
+  exit 1
+fi
