@@ -5,7 +5,7 @@ import EventIcon from '@mui/icons-material/Event';
 import { dateToString, formatEventLocation } from '../../../../utils/functions';
 import { IRecentEventsProps } from '../../../../types/IRecentEventsProps';
 
-export const RecentEvents = memo(({ recentEvents }: IRecentEventsProps) => {
+export const RecentEvents = memo(function RecentEvents({ recentEvents }: IRecentEventsProps) {
   return (
     <>
       {recentEvents.map((event: IRecentEvent, index: number) => (
