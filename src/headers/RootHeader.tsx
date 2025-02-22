@@ -9,7 +9,6 @@ import FolderSharedIcon from '@mui/icons-material/FolderShared';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 
 export default function RootHeader() {
-  console.log('RootHeader render');
   const {
     isFetching,
     isPending,
