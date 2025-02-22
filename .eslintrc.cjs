@@ -15,6 +15,10 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'no-console': 'warn'
-  },
+  "overrides": [
+    {
+      "files": "tests/**",
+      "extends": "plugin:playwright/recommended"
+    }
+  ]
 }
