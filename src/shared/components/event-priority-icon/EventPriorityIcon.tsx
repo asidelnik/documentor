@@ -1,7 +1,7 @@
-import { EventPriority } from '../../constants/event-constants';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { EventPriority } from '../../../constants/event-constants';
 
 interface IPriorityIcon {
   priority: number;

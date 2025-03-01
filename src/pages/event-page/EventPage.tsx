@@ -11,9 +11,9 @@ import ArticleIcon from '@mui/icons-material/Article';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import MapIcon from '@mui/icons-material/Map';
 import { IconButton, Tooltip } from '@mui/material';
-import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
-import EventStatusIcon from '../../shared/components/EventStatusIcon';
+import EventStatusIcon from '../../shared/components/event-status-icon/EventStatusIcon';
 import EventMap from '../../components/event-map/EventMap';
+import EventPriorityIcon from '../../shared/components/event-priority-icon/EventPriorityIcon';
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 

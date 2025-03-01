@@ -1,12 +1,12 @@
-import EventsTable from "../components/events-table/EventsTable";
-import EventsAddEditDialog from "../components/events-add-edit-dialog/EventsAddEditDialog";
-import { useFetchEvents } from "../hooks/useFetchEvents";
-import { useEventsDialog } from "../hooks/useEventsDialog";
+import EventsTable from "../../components/events-table/EventsTable";
+import EventsAddEditDialog from "../../components/events-add-edit-dialog/EventsAddEditDialog";
+import { useFetchEvents } from "../../hooks/useFetchEvents";
+import { useEventsDialog } from "../../hooks/useEventsDialog";
 import { useState } from "react";
-import { ICustomSnackBar } from "../types/ICustomSnackBar";
-import { SnackBarStatusEnum } from "../enums/SnackBarStatusEnum";
+import { ICustomSnackBar } from "../../types/ICustomSnackBar";
+import { SnackBarStatusEnum } from "../../enums/SnackBarStatusEnum";
 import { useQueryClient } from "@tanstack/react-query";
-import CustomSnackBar from "../shared/components/snackbar/CustomSnackBar";
+import CustomSnackBar from "../../shared/components/snackbar/CustomSnackBar";
 
 export default function EventsTablePage() {
   const [eventSubmitCount, setEventSubmitCount] = useState<number>(0);

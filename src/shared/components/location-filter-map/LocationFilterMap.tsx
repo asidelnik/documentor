@@ -2,7 +2,7 @@ import c from './LocationFilterMap.module.scss';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { IMapSelectLatLng } from '../../../types/IMapSelectLatLng';
 import { LatLngLiteral, LatLngTuple } from 'leaflet';
-import { LocationMarker } from '../LocationMarker';
+import { LocationMarker } from '../location-marker/LocationMarker';
 import MarkerIconUrl from '../../../assets/icons/location_on.svg';
 
 export default function LocationFilterMap({ lat, lng, radius, setCenter }: IMapSelectLatLng) {

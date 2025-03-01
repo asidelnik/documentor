@@ -16,12 +16,12 @@ import { IEventsTableProps } from '../../props/IEventsTableProps';
 import { IEventAndCalcsForTable } from '../../types/IEvent';
 import { useEventsFiltersDispatch } from "../../contexts/events/useEventsFiltersDispatch";
 import { useEventsFilters } from "../../contexts/events/useEventsFilters";
-import EventPriorityIcon from '../../shared/components/EventPriorityIcon';
-import EventStatusIcon from '../../shared/components/EventStatusIcon';
+import EventStatusIcon from '../../shared/components/event-status-icon/EventStatusIcon';
 import { formatEventLocation } from '../../utils/functions';
 import LocationFilterMap from '../../shared/components/location-filter-map/LocationFilterMap';
 import { LatLngLiteral } from 'leaflet';
 import { useState } from 'react';
+import EventPriorityIcon from '../../shared/components/event-priority-icon/EventPriorityIcon';
 
 
 export default function EventsTable({ rows, eventsCount, isLoading, openDialog }: IEventsTableProps) {
