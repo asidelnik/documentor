@@ -1,8 +1,9 @@
-name: Check PR Source Branch
+name: Check Source Branch for PR to Main
 on:
+  push:
+    branches: [ main, master ]
   pull_request:
-    branches:
-      - main
+    branches: [ main, master ]
 jobs:
   check-branch:
     runs-on: ubuntu-latest
