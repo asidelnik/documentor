@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "coverage": "vitest run --coverage",
     "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "test:playwright": "playwright test"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

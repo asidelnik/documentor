@@ -17,3 +17,12 @@ if [ $? -ne 0 ]; then
   echo "Build failed. Please fix the issues before pushing."
   exit 1
 fi
+
+# Run Playwright tests
+npm run test:playwright
+
+# Check if Playwright tests passed
+if [ $? -ne 0 ]; then
+  echo "Playwright tests failed. Please fix the issues before pushing."
+  exit 1
+fi
