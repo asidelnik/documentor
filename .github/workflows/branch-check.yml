@@ -1,0 +1,14 @@
+name: Check PR Source Branch
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check source branch
+        if: ${{ github.event.pull_request.head.ref != 'testing' }}
+        run: |
+          echo "Error: Only the 'testing' branch can create PRs to 'main'."
+          exit 1
