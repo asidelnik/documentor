@@ -1,4 +1,4 @@
-name: Testing
+name: Test and PR to main
 
 on:
   push:
@@ -30,13 +30,6 @@ jobs:
       run: npx playwright test
       env:
         BASE_URL: https://documentor-api.onrender.com
-
-    - name: Deploy with gh-pages
-      run: |
-        git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-        npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create Pull Request to main
       uses: peter-evans/create-pull-request@v4
