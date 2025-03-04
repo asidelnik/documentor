@@ -1,4 +1,4 @@
-name: Create PR to Main on Close
+name: Create PR to Main on testing pr close
 
 on:
   pull_request:
