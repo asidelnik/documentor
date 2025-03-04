@@ -1,0 +1,25 @@
+name: Create PR to Main on Close
+
+on:
+  pull_request:
+    branches: [ testing ]
+    types: [closed]
+
+jobs:
+  create-pr:
+    if: ${{ github.event.pull_request.merged == true }} # Only run if the PR was merged
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Create Pull Request to main
+      uses: peter-evans/create-pull-request@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: testing
+        base: main
+        title: 'Automated PR from testing to main'
+        body: 'This PR is automatically created from the testing branch to the main branch after successful tests.'
+        draft: false
