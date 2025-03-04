@@ -45,5 +45,3 @@ npm install
 chomd +x ./setup-hooks.sh
 npm run dev
 ```
-
-small change
